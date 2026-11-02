@@ -51,6 +51,22 @@ input[type=text]{flex:1;min-width:150px}textarea{width:100%;min-height:90px}labe
 @keyframes pop{from{transform:scale(.93);opacity:0}to{transform:none;opacity:1}}@keyframes slide{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}@keyframes fade{from{opacity:0}to{opacity:1}}
 @keyframes bounce{40%{transform:scale(1.03)}}@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* concept map */
+.mapWrap{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:6px;margin-top:10px;overflow:hidden}
+.mapWrap svg{display:block;width:100%;height:auto}
+.mapEdge{stroke:var(--acc);stroke-opacity:.18;stroke-linecap:round}
+.mapNode{cursor:pointer;transition:opacity .15s}
+.mapNode:hover circle{stroke-width:4}
+.mapNode text{font-family:inherit;font-weight:600;fill:var(--ink);pointer-events:none}
+.mapLegend{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0;font-size:.8rem;color:var(--mute)}
+.mapDot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px;vertical-align:-1px}
+.mapLinks{display:grid;gap:6px;margin-top:10px}
+.mapLinks button{text-align:left;font-size:.88rem}
+/* notebook */
+.nbItem{border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px;background:var(--card)}
+.nbItem .out{margin:6px 0 8px;max-height:240px;overflow:auto}
+.nbItem .status{margin:0}
+.nbToolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
 </style>
 </head>
 <body>
@@ -73,15 +89,26 @@ input[type=text]{flex:1;min-width:150px}textarea{width:100%;min-height:90px}labe
 <section id="v-rep" class="hidden"><div id="rpIn"></div></section>
 <section id="v-rec" class="hidden"><div id="rcIn"></div></section>
 <section id="v-fun" class="hidden"><div id="fnIn"></div></section>
+<section id="v-note" class="hidden"><div id="nbIn"></div></section>
 </main>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
 <script>
 var $ = function(id){return document.getElementById(id)};
+var PDF_SRC = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js", pdfReady = null;
+function loadPdf(){
+  if(window.pdfjsLib) return Promise.resolve();
+  if(pdfReady) return pdfReady;
+  pdfReady = new Promise(function(res, rej){
+    var s = document.createElement("script"); s.src = PDF_SRC;
+    s.onload = function(){ try { pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"; } catch(e){} res(); };
+    s.onerror = function(){ pdfReady = null; rej(new Error("pdf-load")); };
+    document.head.appendChild(s);
+  });
+  return pdfReady;
+}
 var sample = null, EXQ = "", RETRY = null, FOCUS = "", VA = {}, examTimer = null, curView = "home", lastQ = -1, muteObs = false, homeNarrow = false, HOSTED = typeof claude !== "undefined" && !!(claude && claude.use);
 var DB = {profile: null, chapters: [], progress: {}, history: [], facts: {}, cache: {}, engine: "local", cur: null};
 var KEY = "ocm_study_v1";
-function load(){ try { var r = localStorage.getItem(KEY); if(r){ var d = JSON.parse(r); if(d && d.chapters){ DB = d; DB.history = DB.history || []; DB.facts = DB.facts || {}; DB.progress = DB.progress || {}; DB.cache = DB.cache || {}; DB.engine = DB.engine || "local"; } } } catch(e){} }
+function load(){ try { var r = localStorage.getItem(KEY); if(r){ var d = JSON.parse(r); if(d && d.chapters){ DB = d; DB.history = DB.history || []; DB.facts = DB.facts || {}; DB.progress = DB.progress || {}; DB.cache = DB.cache || {}; DB.book = DB.book || []; DB.engine = DB.engine || "local"; } } } catch(e){} }
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(DB)); } catch(e){ setMsg("Could not save on this device, so progress may be lost when you close the page.", true); } }
 function cur(){ return DB.chapters.filter(function(c){return c.id === DB.cur})[0]; }
 function prog(id){ id = id || DB.cur; return DB.progress[id] || (DB.progress[id] = {attempts: [], done: {}}); }
@@ -95,6 +122,8 @@ var METHODS = [
  {k:"exam", e:"", n:"Exam mode", d:"Timed test, real feel"},
  {k:"flash", e:"", n:"Flashcards", d:"Quick recall", sug:1},
  {k:"teach", e:"", n:"Teach it back", d:"Explain in your words", sug:1},
+ {k:"map", e:"", n:"Concept map", d:"See how ideas connect"},
+ {k:"solve", e:"", n:"Solve a problem", d:"Step-by-step help"},
  {k:"doubt", e:"", n:"Ask a doubt", d:"Ask me anything"}
 ];
 var ICON = {
@@ -114,7 +143,10 @@ var ICON = {
  teach:"<path d='M3 4h18v11H3z M12 15v5 M8 20h8'/>",
  doubt:"<circle cx='12' cy='12' r='9'/><path d='M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7 M12 17h.01'/>",
  up:"<path d='M12 19V5 M5 12l7-7 7 7'/>", down:"<path d='M12 5v14 M5 12l7 7 7-7'/>",
- upload:"<path d='M12 16V4 M7 9l5-5 5 5 M4 20h16'/>", profile:"<circle cx='12' cy='8' r='4'/><path d='M4 21c0-4 4-6 8-6s8 2 8 6'/>", video:"<rect x='3' y='5' width='14' height='14' rx='2'/><path d='M17 10l4-2v8l-4-2z'/>"
+ map:"<circle cx='12' cy='5' r='2.5'/><circle cx='5' cy='18' r='2.5'/><circle cx='19' cy='18' r='2.5'/><path d='M10.5 7.2L6.5 15.8 M13.5 7.2l4 8.6 M7.5 18h9'/>",
+solve:"<path d='M4 5h16v14H4z M8 9h8 M8 13h5 M15 16l2 2 3-4'/>",
+note:"<path d='M6 3h9l4 4v14H6z M9 12h7 M9 16h5'/>",
+upload:"<path d='M12 16V4 M7 9l5-5 5 5 M4 20h16'/>", profile:"<circle cx='12' cy='8' r='4'/><path d='M4 21c0-4 4-6 8-6s8 2 8 6'/>", video:"<rect x='3' y='5' width='14' height='14' rx='2'/><path d='M17 10l4-2v8l-4-2z'/>"
 };
 function svgIc(k){ return "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'>" + (ICON[k] || "") + "</svg>"; }
 var SEL = ".card,.q,.fact,.mth,.stat>div";
@@ -155,10 +187,15 @@ function setMsg(t, bad, retry){
 }
 function toast(t){ var d = document.createElement("div"); d.className = "toast"; d.textContent = t; document.body.appendChild(d); setTimeout(function(){ d.remove(); }, 1800); }
 function popup(html, onClose){
+  /* Only one dialog at a time, so a second ask never stacks duplicate buttons. */
+  Array.prototype.slice.call(document.querySelectorAll(".modal")).forEach(function(x){
+    if(typeof x.__close === "function") x.__close(); else x.remove();
+  });
   var o = document.createElement("div"); o.className = "modal"; o.innerHTML = "<div>" + html + "</div>";
   var close = function(){ if(o.parentNode){ o.remove(); if(onClose) onClose(); } };
   var bind = function(){ o.querySelectorAll("[data-close]").forEach(function(b){ b.onclick = close; }); };
   o.onclick = function(e){ if(e.target === o) close(); };
+  o.__close = close;
   document.body.appendChild(o); bind();
   return {el: o, close: close, set: function(h){ o.firstChild.innerHTML = h; bind(); }};
 }
@@ -499,17 +536,17 @@ function aiErr0(e){
   else setMsg("Something went wrong. Please try again.", true);
 }
 async function run(prompt, outEl, btn, opt){
-  opt = opt || {}; if(DB.engine !== "ai" && opt.local){ var lt = opt.local(); outEl.innerHTML = md(lt); if(opt.next !== false){ outEl.insertAdjacentHTML("beforeend", nextBar(opt.ctx || "")); bindNext(outEl); } return lt; }
+  opt = opt || {}; if(DB.engine !== "ai" && opt.local){ var lt = opt.local(); outEl.innerHTML = md(lt); addSaveBtn(outEl, opt, lt); if(opt.next !== false){ outEl.insertAdjacentHTML("beforeend", nextBar(opt.ctx || "")); bindNext(outEl); } return lt; }
   var c0 = cur(), ck = (opt.key && c0 && !opt.general) ? "out|" + c0.id + "|" + opt.key : null;
-  if(ck && DB.cache[ck] && !opt.fresh){ outEl.innerHTML = md(DB.cache[ck]) + "<div class='row'><button id='rgBtn'>Regenerate</button></div>"; document.getElementById("rgBtn").onclick = function(){ run(prompt, outEl, btn, Object.assign({}, opt, {fresh: true})); }; outEl.insertAdjacentHTML("beforeend", nextBar(opt.ctx || "")); bindNext(outEl); return DB.cache[ck]; }
+  if(ck && DB.cache[ck] && !opt.fresh){ outEl.innerHTML = md(DB.cache[ck]) + "<div class='row'><button id='rgBtn'>Regenerate</button></div>"; document.getElementById("rgBtn").onclick = function(){ run(prompt, outEl, btn, Object.assign({}, opt, {fresh: true})); }; addSaveBtn(outEl, opt, DB.cache[ck]); outEl.insertAdjacentHTML("beforeend", nextBar(opt.ctx || "")); bindNext(outEl); return DB.cache[ck]; }
   RETRY = function(){ btn.click(); }; var s = await getSample(); if(!s) return;
   setMsg(""); btn.disabled = true; var old = btn.textContent; btn.textContent = "Working…";
   outEl.innerHTML = "<p class='status'>Thinking… </p>";
   try {
     var r = await s((opt.general ? persona() + "\n\n" : base(opt.q)) + prompt, {cache: false, modelTier: "default", onText: function(x){ outEl.innerHTML = md(x.text); }});
-    outEl.innerHTML = md(r.text); if(ck){ DB.cache[ck] = r.text; save(); } if(opt.next !== false){ outEl.insertAdjacentHTML("beforeend", nextBar(opt.ctx || "")); bindNext(outEl); } return r.text;
+    outEl.innerHTML = md(r.text); if(ck){ DB.cache[ck] = r.text; save(); } addSaveBtn(outEl, opt, r.text); if(opt.next !== false){ outEl.insertAdjacentHTML("beforeend", nextBar(opt.ctx || "")); bindNext(outEl); } return r.text;
   } catch(e){
-    if(opt.local){ var lf = opt.local(); if(lf){ outEl.innerHTML = md(lf); if(ck){ DB.cache[ck] = lf; save(); } if(opt.next !== false){ outEl.insertAdjacentHTML("beforeend", nextBar(opt.ctx || "")); bindNext(outEl); } toast("AI was not available, so this was made on your device"); return lf; } }
+    if(opt.local){ var lf = opt.local(); if(lf){ outEl.innerHTML = md(lf); if(ck){ DB.cache[ck] = lf; save(); } addSaveBtn(outEl, opt, lf); if(opt.next !== false){ outEl.insertAdjacentHTML("beforeend", nextBar(opt.ctx || "")); bindNext(outEl); } toast("AI was not available, so this was made on your device"); return lf; } }
     aiErr(e, RETRY); if(!(e && e.text)) outEl.innerHTML = "";
   }
   finally { btn.disabled = false; btn.textContent = old; }
@@ -527,12 +564,12 @@ function newQuote(){
 }
 
 /* ---------- navigation ---------- */
-var VIEWS = ["onb","home","study","progress","perf","hist","rep","rec","fun"], RENDER = {};
+var VIEWS = ["onb","home","study","progress","perf","hist","rep","rec","fun","note"], RENDER = {};
 function show(v){
   clearInterval(examTimer); curView = v;
   VIEWS.forEach(function(x){ $("v-" + x).classList.toggle("hidden", x !== v); });
   $("bHome").classList.toggle("hidden", v === "onb"); $("bProf").classList.toggle("hidden", v === "onb"); $("bKey").classList.toggle("hidden", HOSTED);
-  muteObs = true; if(RENDER[v]) RENDER[v](); if(["progress","perf","hist","rep","rec","fun"].indexOf(v) >= 0) addCta(v); newQuote(); window.scrollTo(0, 0); replay($("v-" + v)); setTimeout(function(){ muteObs = false; }, 0);
+  muteObs = true; if(RENDER[v]) RENDER[v](); if(["progress","perf","hist","rep","rec","fun","note"].indexOf(v) >= 0) addCta(v); newQuote(); window.scrollTo(0, 0); replay($("v-" + v)); setTimeout(function(){ muteObs = false; }, 0);
 }
 $("bHome").onclick = function(){ show("home"); };
 $("bProf").onclick = function(){ show("onb"); };
@@ -547,7 +584,7 @@ $("oGo").onclick = function(){
 };
 
 /* ---------- Gurukul (home) ---------- */
-var SECS = [{k:"study",e:"",n:"Study"},{k:"progress",e:"",n:"Progress"},{k:"perf",e:"",n:"Performance"},{k:"hist",e:"",n:"History"},{k:"rep",e:"",n:"Reports"},{k:"rec",e:"",n:"Recommendations"},{k:"fun",e:"",n:"Fun Facts"}];
+var SECS = [{k:"study",e:"",n:"Study"},{k:"progress",e:"",n:"Progress"},{k:"perf",e:"",n:"Performance"},{k:"hist",e:"",n:"History"},{k:"rep",e:"",n:"Reports"},{k:"rec",e:"",n:"Recommendations"},{k:"fun",e:"",n:"Fun Facts"},{k:"note",e:"",n:"Notebook"}];
 function gurukulSvg(){
   var cx = 360, cy = 250, cp = !!arguments[0], h = "<svg viewBox='" + (cp ? "225 160 270 215" : "0 0 720 520") + "' style='width:100%;" + (cp ? "height:200px" : "height:auto") + "' role='img' aria-label='Gurukul'>";
   h += "<circle cx='60' cy='50' r='26' fill='var(--acc2)' opacity='.8'/><ellipse cx='360' cy='330' rx='120' ry='14' fill='var(--accbg)'/>";
@@ -730,43 +767,103 @@ $("chDel").onclick = function(){
     DB.cur = DB.chapters.length ? DB.chapters[0].id : null; save(); fillSel(); clearOut();
   });
 };
+function loadTess(){ return new Promise(function(res, rej){ if(window.Tesseract) return res(); var s = document.createElement("script"); s.src = "https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/5.1.1/tesseract.min.js"; s.onload = res; s.onerror = rej; document.head.appendChild(s); }); }
+async function ocrPages(pdf){
+  await loadTess(); var wk = await Tesseract.createWorker("eng"), out = [], n = Math.min(pdf.numPages, 150);
+  try {
+    for(var p = 1; p <= n; p++){
+      $("info").textContent = "This PDF is scanned, so I am reading the page images. Page " + p + " of " + n + " (keep this screen open)…";
+      var pg = await pdf.getPage(p), vp = pg.getViewport({scale: 2}), cv = document.createElement("canvas"); cv.width = vp.width; cv.height = vp.height;
+      await pg.render({canvasContext: cv.getContext("2d"), viewport: vp}).promise;
+      var r = await wk.recognize(cv); out.push(String(r.data.text || "").replace(/[ \t]+/g, " ").trim()); cv.width = cv.height = 0;
+    }
+  } finally { await wk.terminate(); }
+  return out;
+}
+/* Joins the text pieces of one PDF page without breaking words apart. */
+function pdfPageText(items){
+  var lines = [], buf = "", lastY = null, prevEnd = null, prevH = 10;
+  (items || []).forEach(function(it){
+    if(typeof it.str !== "string") return;
+    var tr = it.transform || [], y = tr.length ? Math.round(tr[5]) : lastY;
+    if(lastY !== null && y !== null && Math.abs(y - lastY) > 2){
+      if(buf.trim()) lines.push(buf.trim());
+      buf = ""; prevEnd = null;
+    }
+    var s = it.str, x = tr.length ? tr[4] : null, h = it.height || prevH;
+    if(buf && s){
+      /* Insert a space only when the actual gap is a word space. A PDF often
+         splits one word into several pieces, and a blind space would turn
+         “sunlight” into “su nlight”. */
+      var gap = (x !== null && prevEnd !== null) ? x - prevEnd : null;
+      if(!/\s$/.test(buf) && !/^\s/.test(s) && (gap === null || gap > Math.max(0.6, h * 0.16))) buf += " ";
+    }
+    buf += s;
+    if(x !== null) prevEnd = x + (typeof it.width === "number" ? it.width : 0);
+    prevH = h;
+    if(it.hasEOL){
+      if(buf.trim()) lines.push(buf.trim());
+      buf = ""; prevEnd = null;
+    }
+    lastY = y;
+  });
+  if(buf.trim()) lines.push(buf.trim());
+  return lines.join("\n").replace(/[ \t]+/g, " ").trim();
+}
+/* Repairs words that a PDF wrapped in the middle. A fragment is joined to the
+   next line only when it is not a real standalone word in this document:
+   “su” + “nlight” becomes “sunlight”, while “leaf” + “is” stays as it is. */
+function fixSplitWords(pages){
+  var vocab = {};
+  /* Only words seen in the middle of a line are trusted as whole words; a
+     fragment at the start or end of a line may be half a word. */
+  (pages || []).forEach(function(p){
+    String(p).split("\n").forEach(function(line){
+      var toks = line.match(/[a-z]+/gi) || [];
+      toks.forEach(function(w, i){ if(i > 0 && i < toks.length - 1) vocab[w.toLowerCase()] = 1; });
+    });
+  });
+  ("the of to in is are was were and or but for with from by as at on it its this that these those be been being has have had not no so if then than when while which what who how all any each other into over also can could may might will would shall should more most some such only very use used using new one two three four five six seven eight nine ten first second next last per day days year years part parts type types form forms etc").split(" ").forEach(function(w){ vocab[w] = 1; });
+  return (pages || []).map(function(t){
+    var lines = String(t).split("\n");
+    for(var i = 0; i < lines.length - 1; i++){
+      var a = lines[i].match(/([a-z]{1,4})$/), b = lines[i + 1].match(/^([a-z][a-z]{0,23})/);
+      if(!a || !b || vocab[a[1]] || vocab[b[1]]) continue;
+      var frag = a[1], nxt = b[1];
+      var rest = lines[i + 1].slice(nxt.length).replace(/^\s+/, "");
+      lines[i] = lines[i].slice(0, lines[i].length - frag.length) + frag + nxt + (rest ? (/^[.,;:!?)\]]/.test(rest) ? rest : " " + rest) : "");
+      lines.splice(i + 1, 1); i--;
+    }
+    return lines.join("\n");
+  });
+}
 var pend = null, LIM = 60000;
 $("file").onchange = async function(){
   var f = this.files[0]; this.value = ""; if(!f) return;
   $("split").classList.add("hidden"); setMsg("");
   try {
-    pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+    $("info").textContent = "Opening the PDF…";
+    await loadPdf();
     var pdf = await pdfjsLib.getDocument({data: await f.arrayBuffer()}).promise, pages = [], total = 0;
     for(var p = 1; p <= pdf.numPages; p++){
       $("info").textContent = "Reading page " + p + " of " + pdf.numPages + "…";
       var pg = await pdf.getPage(p), c = await pg.getTextContent();
-      var lines = [], buf = "", lastY = null;
-      c.items.forEach(function(it){
-        if(typeof it.str !== "string") return;
-        var y = it.transform ? Math.round(it.transform[5]) : lastY;
-        if(lastY !== null && y !== null && Math.abs(y - lastY) > 2){
-          if(buf.trim()) lines.push(buf.trim());
-          buf = "";
-        }
-        var s = it.str;
-        if(buf && s && !/\s$/.test(buf) && !/^\s/.test(s)) buf += " ";
-        buf += s;
-        if(it.hasEOL){
-          if(buf.trim()) lines.push(buf.trim());
-          buf = "";
-        }
-        lastY = y;
-      });
-      if(buf.trim()) lines.push(buf.trim());
-      var t = lines.join("\n").replace(/[ \t]+/g, " ").trim();
+      var t = pdfPageText(c.items);
       pages.push(t); total += t.length;
     }
-    if(total < 200){ $("info").innerHTML = "<span class='err'>This PDF looks scanned (images only), so no text could be read.</span>"; return; }
+    if(total < 200){
+      try { pages = await ocrPages(pdf); } catch(e){ pages = []; }
+      total = pages.join("").length;
+      if(total < 200){ $("info").innerHTML = "<span class='err'>This PDF looks scanned and I could not read the page images. Check your internet connection and try again, or use a PDF with selectable text.</span>"; return; }
+    }
+    pages = fixSplitWords(pages);
     var book = f.name.replace(/\.pdf$/i,""), rows = await outlineRows(pdf, pages.length);
     if(rows.length < 2) rows = headingRows(pages);
     if(!rows.length) rows = [{name: book, start: 1}];
     pend = {book: book, pages: pages, rows: rows}; fillSel(); showSplit();
-  } catch(e){ $("info").innerHTML = "<span class='err'>Could not read this PDF. Try another file.</span>"; }
+  } catch(e){
+    $("info").innerHTML = "<span class='err'>" + (/pdf-load|fetch|network/i.test(String(e && e.message)) ? "The PDF reader could not be loaded. Connect to the internet once, then try again. The rest of the app works offline." : "Could not read this PDF. Try another file with selectable text.") + "</span>";
+  }
 };
 async function outlineRows(pdf, n){
   var rows = [];
@@ -784,8 +881,20 @@ async function outlineRows(pdf, n){
 function headingRows(pages){
   var rows = [], exp = 1;
   pages.forEach(function(t, i){
-    var h = t.slice(0, 160), m = h.match(/^\s*(?:chapter|unit|lesson|ch\.?)\s*[-–:.]?\s*(\d{1,2})\b/i) || h.match(/^\s*(\d{1,2})\s*[.\-–]\s+[A-Z][A-Za-z ,&'’-]{3,60}/);
-    if(m && +m[1] === exp){ rows.push({name: h.slice(0, 70).trim(), start: i + 1}); exp++; }
+    var h = t.slice(0, 220), m = h.match(/^\s*(?:chapter|unit|lesson|ch\.?)\s*[-–:.]?\s*(\d{1,2})(?!\d)/i) || h.match(/^\s*(\d{1,2})\s*[.\-–]\s+[A-Z][A-Za-z ,&'’-]{3,60}/);
+    if(m && +m[1] === exp){
+      var lines = h.split("\n").map(function(x){ return x.replace(/\s+/g," ").trim(); }).filter(Boolean);
+      var first = lines[0] || "", cm = first.match(/^((?:chapter|unit|lesson|ch\.?)\s*[-–:.]?\s*\d{1,2})\s*[-–:.]?\s*(.*)$/i), name;
+      if(cm){
+        var lead = cm[1].replace(/\s+/g, " ").trim(), rest = cm[2].replace(/^[\s\-–:.]+/, "").trim();
+        if(normQ(rest) === normQ(lead)) rest = "";
+        name = lead + (rest ? " — " + rest : "");
+        if(!rest && lines[1] && !/^(introduction|contents|index|preface|chapter overview)$/i.test(lines[1])) name += " — " + lines[1];
+      } else name = lines.slice(0, 2).join(" — ");
+      /* Some PDFs repeat the heading (“Chapter 1Chapter 1”) when columns join. */
+      name = name.replace(/^(.{3,60}?)\1/, "$1").replace(/\s+/g," ").trim();
+      rows.push({name: name.slice(0, 80), start: i + 1}); exp++;
+    }
   });
   return rows;
 }
@@ -850,14 +959,23 @@ async function vids(){ RETRY = vids;
 }
 
 /* ---------- Study: methods ---------- */
-var GROUPS = [["Learn the chapter", ["explain","notes","doubt"]], ["Practise and test", ["qa","mcq","exam"]], ["Mitra suggests", ["flash","teach"]]];
+var GROUPS = [["Learn the chapter", ["explain","notes","map","doubt"]], ["Practise and test", ["solve","qa","mcq","exam"]], ["Mitra suggests", ["flash","teach"]]];
 function renderMethods(){ var nc = cur(), nsx = nc ? nextStep(nc.id) : null, nsK = nsx && !nsx.done ? nsx.k : "";
   $("methods").innerHTML = GROUPS.map(function(g){ return "<h3 class='gh'>" + g[0] + "</h3><div class='grid'>" + g[1].map(function(k){ var m = METHODS.filter(function(x){return x.k === k})[0]; return "<button class='mth tile' data-m='" + k + "'>" + (nsK === k ? "<span class='badge'>Next</span>" : "") + "<span class='ic'>" + svgIc(k) + "</span><b>" + m.n + "</b><small>" + m.d + "</small></button>"; }).join("") + "</div>"; }).join("");
   $("methods").querySelectorAll(".mth").forEach(function(b){ b.onclick = function(){ document.querySelectorAll("#methods .mth").forEach(function(x){ x.classList.toggle("on", x === b); }); openMethod(b.dataset.m); }; });
 }
 var lastDoubtQ = "";
 function openMethod(k){
-  clearInterval(examTimer); var mp = $("mp"); setMsg(""); var c = cur(); if(c){ var mm = METHODS.filter(function(x){return x.k === k})[0]; DB.last = {cid: c.id, method: k, text: "Started " + (mm ? mm.n : k), t: Date.now()}; save(); }
+  clearInterval(examTimer); var mp = $("mp"); setMsg(""); var c = cur();
+  /* A paused Q&A or test belongs to its own method. Switching to another
+     method must not make “Resume” reopen the wrong thing. */
+  if(DB.sess && DB.sess.kind !== k) DB.sess = null;
+  if(!c && ["explain","notes","doubt","qa","teach","flash","mcq","exam","map"].indexOf(k) >= 0){
+    mp.innerHTML = "<div class='card hero' style='text-align:center'><p>Add your book or a chapter first. Then I can prepare this for you.</p><button class='primary' id='noChBtn'>＋ Add a book (PDF)</button></div>";
+    var nb = $("noChBtn"); if(nb) nb.onclick = function(){ $("file").click(); };
+    return;
+  }
+  if(c){ var mm = METHODS.filter(function(x){return x.k === k})[0]; DB.last = {cid: c.id, method: k, text: "Started " + (mm ? mm.n : k), t: Date.now()}; save(); }
   if(k === "explain"){
     mp.innerHTML = "<div class='row'><select id='exMode'><option value='all'>Whole chapter, concept by concept</option><option value='topic'>One topic</option></select><input type='text' id='exTopic' placeholder='Which topic?' class='hidden'><select id='exLevel'><option value='very simple, like explaining to a friend, with everyday examples'>Very simple</option><option value='clear with practical examples'>With examples</option><option value='exam-oriented, with definitions and key points that fetch marks'>Exam style</option></select></div><button class='primary' id='exGo'>Explain </button><div class='out' id='exOut'></div>";
     $("exMode").onchange = function(){ $("exTopic").classList.toggle("hidden", this.value !== "topic"); };
@@ -867,7 +985,7 @@ function openMethod(k){
   } else if(k === "notes"){
     mp.innerHTML = "<div class='row'><select id='ntType'><option value='short bullet-point notes with bold key terms'>Short bullet notes</option><option value='detailed notes with headings, definitions, features, merits and demerits where applicable'>Detailed notes</option><option value='a quick revision sheet: key terms, definitions, classifications, and a comparison table where useful'>Quick revision sheet</option></select></div><button class='primary' id='ntGo'>Make my notes </button> <button id='ntSave' class='hidden'> Save notes</button><div class='out' id='ntOut'></div>";
     var last = "";
-    $("ntGo").onclick = async function(){ var t = await run("Prepare " + $("ntType").value + " for the entire chapter, organised by topic with clear headings. Short lines, key terms in bold, and a final list titled “Most important points for exams”.", $("ntOut"), $("ntGo"), {ctx: "notes", key: "nt|" + $("ntType").value, local: function(){ return localNotes($("ntType").selectedIndex); }}); if(t){ last = t; $("ntSave").classList.remove("hidden"); logEv("notes", "Made notes"); markDone("notes"); } };
+    $("ntGo").onclick = async function(){ var t = await run("Prepare " + $("ntType").value + " for the entire chapter, organised by topic with clear headings. Short lines, key terms in bold, and a final list titled “Most important points for exams”.", $("ntOut"), $("ntGo"), {ctx: "notes", key: "nt|" + $("ntType").value, local: function(){ return localNotes($("ntType").selectedIndex); }}); if(t){ last = t; if($("ntSave")) $("ntSave").classList.remove("hidden"); logEv("notes", "Made notes"); markDone("notes"); } };
     $("ntSave").onclick = function(){ saveFile(c.name.replace(/[^\w\- ]+/g, "") + "-notes.md", last); };
   } else if(k === "doubt"){
     mp.innerHTML = "<div class='row'><input type='text' id='askQ' placeholder='Type your doubt here…'><button class='primary' id='askGo'>Ask </button></div><div class='out' id='askOut'></div>";
@@ -881,13 +999,369 @@ function openMethod(k){
       if(r){ logEv("doubt", "Doubt: " + q.slice(0, 80)); markDone("doubt"); }
     };
     $("askQ").onkeydown = function(e){ if(e.key === "Enter") $("askGo").click(); };
-  } else if(k === "qa" || k === "teach"){ qaStart(k); }
+  } else if(k === "map"){ mapStart(); }
+  else if(k === "solve"){ solveStart(); }
+  else if(k === "qa" || k === "teach"){ qaStart(k); }
   else if(k === "flash"){ flashStart(); }
   else if(k === "mcq" || k === "exam"){
     var ex = k === "exam";
     mp.innerHTML = "<h3 style='margin-top:0'>" + (ex ? " Exam mode" : " MCQ practice") + "</h3><p class='status'>" + (ex ? "Timed test, one minute per question. Answers are shown only after you submit, just like the real exam." : "You get feedback after every answer. A wrong answer opens a small window explaining it.") + "</p><div class='row'><select id='qzN'><option value='5'>5 questions</option><option value='10' selected>10 questions</option><option value='15'>15 questions</option>" + (ex ? "<option value='20'>20 questions</option>" : "") + "</select><select id='qzD'><option value='a mix of easy, medium and tricky'>Mixed</option><option value='easy, to build basics'>Easy</option><option value='hard, application-based and exam-tricky'>Hard</option></select></div><button class='primary' id='qzGo'>" + (ex ? "Start exam " : "Start practice ") + "</button><div id='qzScore' class='status' style='margin-top:10px'></div><div id='qzOut'></div><div id='qzRes'></div>";
-    $("qzGo").onclick = function(){ startTest(k); };
+    $("qzGo").onclick = function(){ startTest(k); }; paperUi();
   }
+}
+
+/* ---------- concept map: see the shape of the chapter ---------- */
+var MAP_COLORS = ["#5265da","#24a99a","#d9822b","#b45fb0","#3f8fd8","#c25b5b","#6f8f3a"];
+function termRe(t){ return new RegExp("\\b" + String(t).replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b", "i"); }
+/* Ideas that are used inside one section, with the sentence where each first appears. */
+function sectionTerms(P, si, max){
+  var S = P.secs[si]; if(!S) return [];
+  var cnt = {}, first = {}, order = [];
+  (S.idx || []).forEach(function(sentI){
+    (P.sentTerms[sentI] || []).forEach(function(ti){
+      var t = P.terms[ti]; if(!t) return;
+      if(t.t.length <= 3 || BROAD[termKey(t.t)]) return;
+      if(cnt[ti] === undefined){ cnt[ti] = 0; first[ti] = sentI; order.push(ti); }
+      cnt[ti]++;
+    });
+  });
+  return order.sort(function(a, b){
+    var A = P.terms[a], B = P.terms[b];
+    return (cnt[b] * 3 + B.score) - (cnt[a] * 3 + A.score);
+  }).slice(0, max).map(function(ti){
+    var t = P.terms[ti];
+    return {t: t.t, score: t.score, sentIdx: [first[ti]]};
+  });
+}
+/* How many map-worthy ideas a section can actually offer. Used to keep
+   title-only or very thin sections out of the scope picker. */
+function secNodeCount(P, si){
+  var seen = {}, n = 0;
+  function add(t){
+    var k = termKey(t) || String(t).toLowerCase();
+    if(!k || seen[k]) return; seen[k] = 1; n++;
+  }
+  (P.defs || []).forEach(function(d){
+    if(d.si != null && P.secOf[d.si] === si) add(d.term);
+  });
+  sectionTerms(P, si, 20).forEach(function(t){
+    var at = t.sentIdx && t.sentIdx[0];
+    if(at != null && P.secOf[at] === si) add(t.t);
+  });
+  return Math.min(n, 12);
+}
+function explainTopic(t){
+  openMethod("explain");
+  var m = $("exMode"); if(m){ m.value = "topic"; m.dispatchEvent(new Event("change")); }
+  var it = $("exTopic"); if(it) it.value = t;
+  var g = $("exGo"); if(g) g.click();
+}
+function mapStart(){
+  var c = cur(), mp = $("mp");
+  if(!c){
+    mp.innerHTML = "<div class='card hero' style='text-align:center'><p>Add your book or a chapter first, then I can draw its concept map.</p><button class='primary' id='mapNoCh'>＋ Add a book (PDF)</button></div>";
+    var b = $("mapNoCh"); if(b) b.onclick = function(){ $("file").click(); };
+    return;
+  }
+  var P = prep(c), secs = (P.secs || []).map(function(s, i){ return {i: i, label: s.label}; }).filter(function(x){ return x.label && x.label.length < 40 && secNodeCount(P, x.i) >= 3; });
+  mp.innerHTML = "<h3 style='margin-top:0'>Concept map</h3><p class='status'>A picture of the important ideas in this chapter and how they are used together. Tap any idea to read its explanation.</p><div class='row'><select id='mapScope' style='flex:1;min-width:180px'><option value='all'>Whole chapter</option>" + secs.map(function(x){ return "<option value='" + x.i + "'>" + esc(x.label) + "</option>"; }).join("") + "</select><button class='primary' id='mapGo'>Draw my map</button></div><div id='mapOut'></div>";
+  $("mapGo").onclick = function(){ drawMap($("mapScope").value); };
+  drawMap("all");
+}
+function drawMap(scope){
+  var c0 = cur(), P = prep(c0), out = $("mapOut"); if(!out || !c0) return;
+  var all = scope === "all", si = all ? null : +scope, nodes = [], seen = {};
+  function add(t, d, at, sc){
+    t = String(t || "").replace(/\s+/g, " ").trim(); if(!t) return;
+    var k = termKey(t) || t.toLowerCase(); if(seen[k]) return;
+    seen[k] = 1; nodes.push({t: t, d: d || "", si: at, sec: sc, score: 0, re: termRe(t)});
+  }
+  P.defs.forEach(function(d){
+    var at = d.si, sc = at != null ? (P.secs[P.secOf[at]] || {}).label : "";
+    if(!all && P.secOf[at] !== si) return;
+    add(d.term, defText(d), at, sc || "Chapter");
+  });
+  if(nodes.length < 7){
+    /* A single section has only a few sentences, so look at the ideas that
+       actually appear in that section rather than the chapter-wide top terms. */
+    var pool = all ? keyTerms(P, 16, 2) : sectionTerms(P, si, 20);
+    pool.forEach(function(t){
+      var at = t.sentIdx && t.sentIdx[0], sc = at != null ? (P.secs[P.secOf[at]] || {}).label : "";
+      if(!all && P.secOf[at] !== si) return;
+      if(/^(chapter|introduction|summary|exercise|example)$/i.test(t.t)) return;
+      add(t.t, termIdeal(P, t, 2) || "", at, sc || "Chapter");
+    });
+  }
+  nodes = nodes.slice(0, 12);
+  if(nodes.length < 3){
+    if(all){
+      out.innerHTML = "<p class='status'>This chapter is too short to draw a concept map yet. Add more of its text, or choose another chapter.</p>";
+      return;
+    }
+    out.innerHTML = "<p class='status'>This section is too short on its own to make a useful map. The whole chapter gives a better picture.</p><button class='primary' id='mapAll'>Draw the whole chapter</button>";
+    var mb = $("mapAll");
+    if(mb) mb.onclick = function(){ var s = $("mapScope"); if(s) s.value = "all"; drawMap("all"); };
+    return;
+  }
+  var idx = {}; nodes.forEach(function(n, i){ idx[i] = n; });
+  var edges = [], em = {};
+  (P.sents || []).forEach(function(sent, i){
+    if(!all && P.secOf[i] !== si) return;
+    var hit = [];
+    nodes.forEach(function(n, j){ if(n.re.test(sent)) hit.push(j); });
+    for(var a = 0; a < hit.length; a++) for(var b = a + 1; b < hit.length; b++){
+      var k = hit[a] + "-" + hit[b]; if(em[k]) { em[k].w++; continue; }
+      em[k] = {a: hit[a], b: hit[b], w: 1}; edges.push(em[k]);
+    }
+  });
+  var deg = {}; edges.forEach(function(e){ deg[e.a] = (deg[e.a] || 0) + 1; deg[e.b] = (deg[e.b] || 0) + 1; });
+  edges = edges.sort(function(a, b){ return b.w - a.w; }).slice(0, 34);
+  var secs = {}, order = [];
+  nodes.forEach(function(n){ var s = n.sec || "Chapter"; if(!secs[s]){ secs[s] = []; order.push(s); } secs[s].push(n); });
+  var W = 760, H = 500, cx = W / 2, cy = H / 2 - 8, N = Math.max(1, nodes.length);
+  var ai = 0;
+  nodes.forEach(function(nd){
+    var a = -Math.PI / 2 + (ai * 2 * Math.PI / N), rx = 285, ry = 195;
+    nd.x = cx + rx * Math.cos(a); nd.y = cy + ry * Math.sin(a); nd.color = MAP_COLORS[Math.max(0, order.indexOf(nd.sec)) % MAP_COLORS.length];
+    ai++;
+  });
+  var h = "<div class='mapWrap'><svg viewBox='0 0 " + W + " " + H + "' role='img' aria-label='Concept map for " + esc(cur().name) + "'>";
+  edges.forEach(function(e){
+    var A = nodes[e.a], B = nodes[e.b];
+    h += "<line class='mapEdge' x1='" + A.x.toFixed(1) + "' y1='" + A.y.toFixed(1) + "' x2='" + B.x.toFixed(1) + "' y2='" + B.y.toFixed(1) + "' stroke-width='" + Math.min(4, 1 + e.w * .45) + "'/>";
+  });
+  nodes.forEach(function(n, ni){
+    var r = 16 + Math.min(9, (deg[ni] || 0) * 2);
+    var label = trunc(n.t, 22);
+    var ini = String(n.t).split(/\s+/).filter(function(w){ return /^[A-Za-z0-9]/.test(w); }).slice(0, 2).map(function(w){ return w.charAt(0).toUpperCase(); }).join("");
+    h += "<g class='mapNode' data-t='" + esc(n.t).replace(/'/g, "&#39;") + "' tabindex='0' role='button' aria-label='Explain " + esc(n.t) + "'>" +
+      "<title>" + esc(n.t) + (n.d ? ": " + esc(trunc(n.d, 180)) : "") + "</title>" +
+      "<circle cx='" + n.x.toFixed(1) + "' cy='" + n.y.toFixed(1) + "' r='" + r + "' fill='" + n.color + "' fill-opacity='.14' stroke='" + n.color + "' stroke-width='3'/>" +
+      "<text x='" + n.x.toFixed(1) + "' y='" + (n.y + 4).toFixed(1) + "' text-anchor='middle' font-size='11'>" + esc(ini || "•") + "</text>" +
+      "<text x='" + n.x.toFixed(1) + "' y='" + (n.y + r + 17).toFixed(1) + "' text-anchor='middle' font-size='12'>" + esc(label) + "</text></g>";
+  });
+  h += "</svg></div><div class='mapLegend'>" + order.map(function(s, i){ return "<span><i class='mapDot' style='background:" + MAP_COLORS[i % MAP_COLORS.length] + "'></i>" + esc(s) + "</span>"; }).join("") + "</div>";
+  if(edges.length) h += "<div class='mapLinks'>" + edges.slice(0, 5).map(function(e){ var A = nodes[e.a], B = nodes[e.b]; return "<button data-t='" + esc(A.t).replace(/'/g, "&#39;") + "'>" + esc(A.t) + " ↔ " + esc(B.t) + " <span class='status'>· used together " + e.w + " time" + (e.w > 1 ? "s" : "") + "</span></button>"; }).join("") + "</div>";
+  else h += "<p class='status'>These ideas appear in different parts of the chapter, so there are few direct links. Tap one to read it.</p>";
+  out.innerHTML = h;
+  out.querySelectorAll("[data-t]").forEach(function(el){ el.onclick = function(){ explainTopic(el.dataset.t); }; el.onkeydown = function(ev){ if(ev.key === "Enter" || ev.key === " "){ ev.preventDefault(); explainTopic(el.dataset.t); } }; });
+}
+
+/* ---------- solve a problem: worked method from the chapter ---------- */
+function solveStart(){
+  var mp = $("mp");
+  mp.innerHTML = "<h3 style='margin-top:0'>Solve a problem</h3><p class='status'>Paste a question from your book, homework or a test. I will show the method and the steps at your class level.</p><textarea id='svQ' placeholder='For example: Find the value of x in 2x + 3 = 11.' style='margin-top:8px'></textarea><div class='row'><select id='svMode'><option value='steps'>Step-by-step solution</option><option value='answer'>Short answer</option></select><button class='primary' id='svGo'>Solve it</button></div><div id='svOut' class='out'></div>";
+  $("svGo").onclick = async function(){
+    var q = $("svQ").value.trim(); if(q.length < 4){ toast("Write the problem first"); return; }
+    var mode = $("svMode").value, b = this;
+    var prompt = "The student wants help solving this problem:\n\n" + q + "\n\nSolve it " + (mode === "answer" ? "briefly, with the key working" : "step by step") + " at the level of " + DB.profile.cls + ". Rules: use the method taught in this chapter; write each step on its own line with a short reason; show the working, not only the answer; if a value is missing, say what is missing instead of guessing; end with a line starting 'Final answer:'. Keep it short enough to copy into a notebook.";
+    var r = await run(prompt, $("svOut"), b, {ctx: "solve", q: q, key: "sv|" + mode + "|" + normQ(q).slice(0, 80), local: function(){ return localSolve(q, mode); }});
+    if(r) logEv("solve", "Solved: " + q.slice(0, 70));
+  };
+}
+/* ---------- offline equation solver: exact steps, no internet ---------- */
+function fmtLinear(a, b, v){
+  var t = [];
+  if(a !== 1) t.push(a === -1 ? "-" : simpNum(a));
+  if(a !== 0) t.push(v);
+  if(b !== 0 || a === 0){
+    var s = b < 0 ? " - " : (t.length ? " + " : "");
+    t.push(s + simpNum(Math.abs(b)));
+  }
+  return t.join("");
+}
+function simpNum(x){
+  if(!isFinite(x)) return String(x);
+  return String(Math.round(x * 10000) / 10000);
+}
+function gcdNum(a, b){ a = Math.abs(a); b = Math.abs(b); while(b){ var t = a % b; a = b; b = t; } return a || 1; }
+function decPlaces(x){ var s = String(x), i = s.indexOf("."); return i < 0 ? 0 : s.length - i - 1; }
+function fracStr(num, den){
+  if(!den) return simpNum(num);
+  if(num === 0) return "0";
+  var s = (num < 0) !== (den < 0) ? "-" : "";
+  num = Math.abs(Math.round(num * 1e6) / 1e6); den = Math.abs(Math.round(den * 1e6) / 1e6);
+  var p = Math.pow(10, Math.max(decPlaces(num), decPlaces(den)));
+  num = Math.round(num * p); den = Math.round(den * p);
+  if(Number.isInteger(num) && Number.isInteger(den)){
+    var g = gcdNum(num, den); num /= g; den /= g;
+  }
+  if(den === 1) return s + simpNum(num);
+  return s + simpNum(num) + "/" + simpNum(den);
+}
+/* A token that can belong to an equation, e.g. 2x, -3, +, (x+1), 11. */
+function mathTok(t){
+  if(!t || t.length > 24 || !/^[+\-*/().0-9a-z]+$/i.test(t)) return false;
+  return (t.match(/[a-z]/gi) || []).length <= 1;
+}
+/* Parses one side of a linear expression into a·v + b. Throws if it is not
+   linear, so “x·x”, “1/x” and stray words are rejected instead of guessed. */
+function linParse(str, v){
+  str = String(str).replace(/\s+/g, "").replace(/[×·]/g, "*").replace(/[−–—]/g, "-").replace(/\.$/, "");
+  var i = 0;
+  function factor(){
+    var c = str.charAt(i);
+    if(c === "+"){ i++; return factor(); }
+    if(c === "-"){ i++; var f = factor(); return {a: -f.a, b: -f.b}; }
+    if(c === "("){ i++; var e = expr(); if(str.charAt(i) !== ")") throw new Error("paren"); i++; return e; }
+    if(c && c.toLowerCase() === v){ i++; return {a: 1, b: 0}; }
+    var m = /^\d*\.?\d+/.exec(str.slice(i));
+    if(!m) throw new Error("term");
+    i += m[0].length;
+    return {a: 0, b: parseFloat(m[0])};
+  }
+  function term(){
+    var x = factor(), c;
+    for(;;){
+      c = str.charAt(i);
+      if(c === "*"){
+        i++; var y = factor();
+        if(x.a && y.a) throw new Error("not linear");
+        x = {a: x.a * y.b + y.a * x.b, b: x.b * y.b};
+      } else if(c === "/"){
+        i++; var d = factor();
+        if(d.a || !d.b) throw new Error("not linear");
+        x = {a: x.a / d.b, b: x.b / d.b};
+      } else if(c && (c === "(" || /[a-z]/i.test(c))){
+        /* Implicit multiplication: 2x and 3(x + 1). */
+        var z = factor();
+        if(x.a && z.a) throw new Error("not linear");
+        x = {a: x.a * z.b + z.a * x.b, b: x.b * z.b};
+      } else return x;
+    }
+  }
+  function expr(){
+    var x = term(), c;
+    for(;;){
+      c = str.charAt(i);
+      if(c === "+"){ i++; var y = term(); x = {a: x.a + y.a, b: x.b + y.b}; }
+      else if(c === "-"){ i++; var z = term(); x = {a: x.a - z.a, b: x.b - z.b}; }
+      else return x;
+    }
+  }
+  var out = expr();
+  if(i !== str.length) throw new Error("tail");
+  return out;
+}
+function prettyEq(s){
+  return String(s).replace(/([+\-*/])/g, " $1 ").replace(/\(\s+/g, "(").replace(/\s+\)/g, ")").replace(/\s+/g, " ").replace(/\.$/, "").replace(/^([+\-*/])\s+/, "$1").trim();
+}
+/* Solves a one-variable linear equation, fully offline. */
+function linearSolve(q, mode){
+  var s = String(q).replace(/[−–—]/g, "-").replace(/[×·]/g, "*").replace(/\s+/g, " ").trim();
+  var toks = s.split(" "), ki = -1;
+  for(var i = 0; i < toks.length; i++){ if(toks[i].indexOf("=") >= 0){ ki = i; break; } }
+  if(ki < 0) return null;
+  var parts = toks[ki].split("=");
+  if(parts.length !== 2) return null;
+  var leftToks = [], rightToks = [];
+  for(var a = ki - 1; a >= 0 && mathTok(toks[a]); a--) leftToks.unshift(toks[a]);
+  for(var b = ki + 1; b < toks.length && mathTok(toks[b]); b++) rightToks.push(toks[b]);
+  if(parts[0]) leftToks.push(parts[0]);
+  if(parts[1]) rightToks.unshift(parts[1]);
+  leftToks = leftToks.filter(Boolean); rightToks = rightToks.filter(Boolean);
+  if(!leftToks.length || !rightToks.length) return null;
+  var letters = (leftToks.join("") + rightToks.join("")).toLowerCase().match(/[a-z]/g) || [];
+  var eqLetters = String(parts[0] + parts[1]).toLowerCase().match(/[a-z]/g) || [];
+  var src = eqLetters.length ? eqLetters : letters;
+  var uniq = src.filter(function(x, i){ return src.indexOf(x) === i; });
+  if(uniq.length !== 1) return null;
+  var v = uniq[0], lc = leftToks.slice(), rc = rightToks.slice(), Ls = null, Rs = null, guard = 0;
+  while(guard++ < 4){
+    try { Ls = linParse(lc.join(""), v); Rs = linParse(rc.join(""), v); break; }
+    catch(e){
+      Ls = null; Rs = null;
+      /* A stray “x” from the sentence (“Find x if …”) can be dropped, but a
+         real term is never thrown away just to make the parse succeed. */
+      if(lc.length > 1 && /^[a-z]$/i.test(lc[0])) lc.shift();
+      else if(rc.length > 1 && /^[a-z]$/i.test(rc[rc.length - 1])) rc.pop();
+      else break;
+    }
+  }
+  if(!Ls || !Rs) return null;
+  var A = Ls.a - Rs.a, B = Rs.b - Ls.b;
+  var left = prettyEq(lc.join(" ")), right = prettyEq(rc.join(" "));
+  var given = "**Your equation:** " + left + " = " + right;
+  if(Ls.a === Rs.a && Ls.b === Rs.b) return ["## Let's solve it together", given, "Both sides are the same, so **every value of " + v + " works**. This is an identity, not an equation to solve."].join("\n\n");
+  if(A === 0) return ["## Let's solve it together", given, "The " + v + "-terms cancel out, leaving " + simpNum(Ls.b) + " = " + simpNum(Rs.b) + ". That is never true, so this equation has **no solution**."].join("\n\n");
+  var x = B / A;
+  if(mode === "answer") return ["## Answer", given, "**Final answer:** " + v + " = " + (Number.isInteger(x) ? simpNum(x) : fracStr(B, A) + " ≈ " + simpNum(x))].join("\n\n");
+  var out = ["## Let's solve it together", given, "**Step 1 — Collect the " + v + "-terms on one side and the numbers on the other.**"];
+  out.push((Rs.a !== 0 || Ls.b !== 0) ? "Move each term to the other side by changing its sign:" : "This is the simplified equation:");
+  out.push("> " + fmtLinear(A, 0, v) + " = " + simpNum(B));
+  if(A === 1){
+    out.push("**Step 2 — The " + v + " is already alone.** So " + v + " = " + (Number.isInteger(x) ? simpNum(x) : fracStr(B, A) + " ≈ " + simpNum(x)) + ".");
+  } else {
+    out.push("**Step 2 — Divide both sides by " + simpNum(A) + ".**");
+    out.push("> " + v + " = " + fracStr(B, A) + (Number.isInteger(x) ? "" : " ≈ " + simpNum(x)));
+  }
+  var lhs = Ls.a * x + Ls.b, rhs = Rs.a * x + Rs.b;
+  out.push("**Check by substitution.** Put " + v + " = " + simpNum(x) + " back into the equation:");
+  out.push("> LHS = " + simpNum(lhs) + ", RHS = " + simpNum(rhs) + (Math.abs(lhs - rhs) < 1e-6 ? " ✓" : ""));
+  out.push("**Final answer:** " + v + " = " + (Number.isInteger(x) ? simpNum(x) : fracStr(B, A) + " ≈ " + simpNum(x)));
+  return out.join("\n\n");
+}
+/* Handles the simple quadratic forms a school chapter asks for:
+   x² = 9, 2x² = 8, x² + 4 = 13. */
+function quadraticSolve(q, mode){
+  var s = String(q).replace(/[−–—]/g, "-").replace(/[×·]/g, "*").replace(/\s+/g, "");
+  var m = /^([+-]?(?:\d*\.?\d*)?)([a-z])\^2([+-]\d*\.?\d+)?=([+-]?\d*\.?\d+)$/i.exec(s);
+  if(!m) return null;
+  var coef = m[1], v = m[2], b = m[3] ? parseFloat(m[3]) : 0, rhs = parseFloat(m[4]);
+  var a = (coef === "" || coef === "+") ? 1 : (coef === "-") ? -1 : parseFloat(coef);
+  if(!a || !isFinite(rhs)) return null;
+  var k = (rhs - b) / a;
+  var given = "**Your equation:** " + prettyEq((m[1] || "") + v + "^2" + (m[3] || "")) + " = " + simpNum(rhs);
+  if(k < 0) return ["## Let's solve it together", given, "The squared term would have to equal " + simpNum(k) + ". A square cannot be negative, so this equation has **no real solution**."].join("\n\n");
+  var out = ["## Let's solve it together", given, "**Step 1 — Get the squared term alone.**", "> " + v + "^2 = " + simpNum(k)];
+  if(k === 0){
+    out.push("**Final answer:** " + v + " = 0. (Zero is the only number whose square is zero.)");
+    return out.join("\n\n");
+  }
+  var r = Math.sqrt(k), exact = Math.abs(r - Math.round(r)) < 1e-9;
+  out.push("**Step 2 — Take the square root of both sides.** Remember both signs.");
+  var pos = exact ? simpNum(r) : "√" + simpNum(k), neg = exact ? "-" + simpNum(r) : "-√" + simpNum(k);
+  out.push("> " + v + " = ±" + (exact ? simpNum(r) : "√" + simpNum(k)) + (exact ? "" : " ≈ ±" + simpNum(r)));
+  out.push("**Final answer:** " + v + " = " + pos + (exact ? "" : " ≈ " + simpNum(r)) + " or " + v + " = " + neg + (exact ? "" : " ≈ -" + simpNum(r)));
+  return out.join("\n\n");
+}
+function localSolve(q, mode){
+  var lin = linearSolve(q, mode);
+  if(lin) return lin;
+  var quad = quadraticSolve(q, mode);
+  if(quad) return quad;
+  var c = cur(), P = prep(c); if(!P.sents.length && !P.pack) return noText();
+  var out = ["## Let's solve it together", "**Your problem:** " + q];
+  var pc = packMatch(P, q)[0];
+  if(pc) out.push("**Key idea from your smart pack:** " + sentenceCap(pc.d) + (pc.ex ? " _Example:_ " + sentenceCap(pc.ex) : ""));
+  var defs = findDefs(P, q);
+  if(defs.length) out.push("**Meaning:** " + sentenceCap(defText(defs[0])));
+  var ids = retrieveBest(q, 8, 0.52).filter(function(i){ return goodSentence(P, i) && secOK(P, i) && selfContained(P.sents[i]); });
+  var defS = {}; defs.forEach(function(d){ defS[d.si] = 1; }); ids = ids.filter(function(i){ return !defS[i]; });
+  if(ids.length){ out.push("**What your chapter says:**"); ids.slice(0, 3).forEach(function(i){ out.push("- " + bs(P, i)); }); }
+  /* A “solve” question that is really a concept question should be answered,
+     not pushed through a calculation checklist. */
+  var looksMath = /[=^]|(?:\d\s*[+\-×÷*/]\s*\d)/.test(q) || /\b(solve|calculate|find the value|evaluate|simplify|equation|area|perimeter|volume|speed|distance|cost|price|profit|loss|ratio|percentage|average|mean)\b/i.test(q);
+  if(!looksMath && (pc || defs.length || ids.length)){
+    if(ids.length) out.push("**In one line:** " + sentenceCap(bs(P, ids[0])));
+    out.push("**How to write it in an exam:** " + (pc || defs.length ? "Start with the meaning, then add one example or use from the chapter." : "State the idea in one line, then support it with an example from the chapter."));
+    return out.join("\n");
+  }
+  var ex = [];
+  (P.sents || []).forEach(function(x, i){
+    if(ex.length >= 2 || !goodSentence(P, i) || !secOK(P, i)) return;
+    if(/^(for example|example|suppose|consider|let us|step\s*\d|solution)\b/i.test(x) || (P.mathy && /[=+\-×÷]/.test(x) && /\d/.test(x))) ex.push(x);
+  });
+  if(ex.length){ out.push("**Worked example from the chapter:**"); ex.forEach(function(x){ out.push("> " + trunc(x, 260)); }); }
+  out.push("**Method — follow these steps:**");
+  out.push("1. **Write what is given.** Note the values, units and what the question asks for.");
+  out.push("2. **Choose the idea or formula.** Use the definition or rule from the lines above.");
+  out.push("3. **Substitute one value at a time.** Keep each line neat so a mistake is easy to spot.");
+  out.push("4. **Solve and check.** Compare your answer with the worked example, then write the final answer with units.");
+  if(mode !== "answer") out.push("**Now you try:** Copy the steps above and fill in your own numbers. Say each reason aloud — that is how you remember the method in the exam.");
+  else out.push("**Now you try:** Write only the final line, then check it against the method above.");
+  if(DB.engine !== "ai") out.push("_This offline guide gives you the method and the chapter's example. Connect AI in the Study screen if you want the exact numbers worked out for you._");
+  return out.join("\n");
 }
 
 /* ---------- Q&A coach and teach-back ---------- */
@@ -910,14 +1384,15 @@ function qaShow(){
     DB.sess = null; var gr = recordPrac(s.kind, avg * 10); mp.innerHTML = "<div class='hero card' style='text-align:center'><div class='big'>" + avg + " / 10</div><p>" + (avg >= 8 ? "Shabash! You really know this " : avg >= 5 ? "Good going! A little more practice and you’ll shine " : "Nice try! Read the notes once more and try again, you’ll get there ") + "</p>" + growthHtml(gr) + "<button class='primary' id='qaAgain'>Practise again</button></div>" + nextBar(s.kind);
     $("qaAgain").onclick = function(){ qaStart(s.kind); }; bindNext(mp); logEv(s.kind, (s.kind === "teach" ? "Teach-it-back" : "Q&A coach") + ": average " + avg + "/10 over " + s.scores.length + " answers"); markDone(s.kind); return;
   }
-  mp.innerHTML = "<div class='q'><div class='status'>" + (s.kind === "teach" ? "Teach it back" : "Question") + " " + (s.i + 1) + " of " + s.items.length + " · " + esc(it.topic || "") + "</div><p><strong>" + inline(String(it.q)) + "</strong></p><textarea id='qaA' placeholder='Write in your own words…'></textarea><div class='row'><button class='primary' id='qaChk'>Check my answer</button></div><div id='qaFb'></div></div>";
+  var mk = s.kind === "teach" ? "" : "<div class='row'><label style='margin:0'>Answer as a</label><select id='qaM'>" + [2, 3, 4].map(function(m){ return "<option value='" + m + "'" + (m === (DB.qaMarks || 3) ? " selected" : "") + ">" + m + "-mark answer</option>"; }).join("") + "</select><span class='status'>One clear point for each mark.</span></div>";
+  mp.innerHTML = "<div class='q'><div class='status'>" + (s.kind === "teach" ? "Teach it back" : "Question") + " " + (s.i + 1) + " of " + s.items.length + " · " + esc(it.topic || "") + "</div><p><strong>" + inline(String(it.q)) + "</strong></p>" + mk + "<textarea id='qaA' placeholder='Write in your own words…'></textarea><div class='row'><button class='primary' id='qaChk'>Check my answer</button></div><div id='qaFb'></div></div>";
   $("qaChk").onclick = async function(){
     var a = $("qaA").value.trim(); if(a.length < 3){ toast("Write something first "); return; }
-    var b = this; b.disabled = true; b.textContent = "Checking…";
-    var r = await evalAnswer(it, a, "Question: " + it.q + "\nStudent’s answer: " + a + "\nEvaluate kindly and honestly. Return ONLY JSON {\"score\": number 0-10, \"good\": what they got right, \"missing\": what to add or fix, \"model\": a model answer in 3-5 simple lines}.");
+    var b = this, M = $("qaM") ? +$("qaM").value : 0; if(M) DB.qaMarks = M; b.disabled = true; b.textContent = "Checking…";
+    var r = await evalAnswer(it, a, "Question: " + it.q + "\nStudent’s answer: " + a + (M ? "\nThis is a " + M + "-mark board-exam question. A full-mark answer has exactly " + M + " clear points (about " + (M * 2) + " lines). Judge the answer the way a board examiner would, one mark per correct point, then convert to a score out of 10. In the missing field name the exact points to add. Write the model answer as a full-mark board answer with " + M + " short numbered points." : "") + "\nEvaluate kindly and honestly. Return ONLY JSON {\"score\": number 0-10, \"good\": what they got right, \"missing\": what to add or fix, \"model\": a model answer in 3-5 simple lines}.");
     if(!r){ b.disabled = false; b.textContent = "Check my answer"; return; }
     var sc = Math.max(0, Math.min(10, +r.score || 0)); s.scores.push(sc);
-    $("qaFb").innerHTML = "<div class='fact'><strong>" + (sc >= 8 ? " Excellent! " : sc >= 5 ? " Good effort! " : " Let’s improve this. ") + sc + "/10</strong><p> " + inline(String(r.good || "")) + "</p><p> " + inline(String(r.missing || "")) + "</p><p class='exp'> Model answer: " + inline(String(r.model || "")) + "</p></div><button class='primary' id='qaNext'>" + (s.i + 1 < s.items.length ? "Next →" : "Finish ") + "</button>";
+    $("qaFb").innerHTML = "<div class='fact'><strong>" + (sc >= 8 ? " Excellent! " : sc >= 5 ? " Good effort! " : " Let’s improve this. ") + (M ? (Math.round(sc * M / 10 * 2) / 2) + " / " + M + " marks" : sc + "/10") + "</strong><p> " + inline(String(r.good || "")) + "</p><p> " + inline(String(r.missing || "")) + "</p><p class='exp'> Model answer: " + inline(String(r.model || "")) + "</p></div><button class='primary' id='qaNext'>" + (s.i + 1 < s.items.length ? "Next →" : "Finish ") + "</button>";
     b.classList.add("hidden"); $("qaNext").onclick = function(){ s.i++; qaPersist(); qaShow(); };
   };
 }
@@ -953,7 +1428,7 @@ function plantSvg(st, size){
 }
 function pracOf(id){ return (DB.progress[id] || {}).prac || []; }
 function chScore(id){ var P = pracOf(id); if(!P.length) return null; var l = P.slice(-5); return Math.round(l.reduce(function(a, x){return a + x.pct}, 0) / l.length); }
-function chStage(id){ var P = pracOf(id), sc = chScore(id); if(sc === null) return 0; var st = sc < 40 ? 1 : sc < 60 ? 2 : sc < 80 ? 3 : 4; return Math.min(st, P.length >= 3 ? 4 : 3); }
+function chStage(id){ var P = pracOf(id), sc = chScore(id); if(sc === null || sc <= 0) return 0; var st = sc < 40 ? 1 : sc < 60 ? 2 : sc < 80 ? 3 : 4; return Math.min(st, P.length >= 3 ? 4 : 3); }
 function xpOf(id){ var P = pracOf(id), d = (DB.progress[id] || {done: {}}).done; return P.reduce(function(a, x){ return a + Math.round(x.pct / 5); }, 0) + 2 * ((d.notes || 0) + (d.explain || 0) + (d.doubt || 0)); }
 function totalXp(){ var t = 0; DB.chapters.forEach(function(c){ t += xpOf(c.id); }); return t; }
 function ovStage(xp){ var s = 0; TH.forEach(function(t, i){ if(xp >= t) s = i; }); return s; }
@@ -1195,8 +1670,22 @@ function tableRunAt(lines, i){
 }
 /* A one-word line is only a heading when real prose follows it; otherwise it
    is a table column or a stray label from a diagram. */
-function headingSupported(lines, i){
+/* Sentence-case headings such as “Transport of food” or “Nutrition in
+   plants”. Only trusted when the following line starts a real sentence. */
+function sentenceCaseHead(l){
+  l = String(l || "").trim();
+  if(!/^[A-Z][A-Za-z'’\-]+(?:\s+(?:of|in|for|and|the|to|on|with|at|by)\s+[A-Za-z'’\-]+){1,4}$/.test(l)) return false;
+  if(l.split(/\s+/).length > 8) return false;
+  return !/^(The|A|An|This|That|These|Those|It|There|Their|Its|Such|Each|Every|Some|Many|Most|Both|All|In|On|At|For|With|When|While|If|Because|Since|Although|However|Also|Thus|Therefore)\b/i.test(l);
+}
+function nextStartsSentence(lines, i){
   for(var j = i + 1; j < Math.min(lines.length, i + 4); j++){
+    var l = String(lines[j] || "").trim(); if(!l) continue;
+    return /^[A-Z0-9"“'(]/.test(l) && l.split(/\s+/).length >= 3;
+  }
+  return false;
+}
+function headingSupported(lines, i){  for(var j = i + 1; j < Math.min(lines.length, i + 4); j++){
     var l = String(lines[j] || "").trim();
     if(!l) continue;
     if(isArtefactLine(l)) continue;
@@ -1319,7 +1808,7 @@ function buildSentences(c){
       exBlock = {label: "Exercise", qs: []}; curSec.skip = true; curSec.qs = exBlock.qs;
       return;
     }
-    if(isHeadingLine(l) && wc0 <= 12 && !looksMathy(l) && !/^\(?[ivx]+\)/i.test(l) && !/^[a-z]/.test(l) && (wc0 > 2 || headingSupported(lines, li2))){
+    if((isHeadingLine(l) || (sentenceCaseHead(l) && nextStartsSentence(lines, li2))) && wc0 <= 12 && !looksMathy(l) && !/^\(?[ivx]+\)/i.test(l) && !/^[a-z]/.test(l) && (wc0 > 2 || headingSupported(lines, li2))){
       if(exBlock !== null){ flushEx(); exBlock = null; }
       flushBlock();
       var h = cleanHeading(l), skip = isSkipHead(h) || instructionHead(l);
@@ -1678,6 +2167,7 @@ function analyse(c){
   return P;
 }
 function prep(c){
+  if(!c) c = {id: "__none", name: "", text: ""};
   var old = PREP[c.id], at = (c.pack && c.pack.at) || 0;
   if(old && old.v === LVER && old.len === c.text.length && old.packAt === at) return old;
   var P = analyse(c); P.pack = c.pack || null; P.packAt = at; PREP[c.id] = P; return P;
@@ -1833,6 +2323,8 @@ function subjectish(P, t, si){
 }
 function termCentred(P, t, si){  var s = P.sents[si]; if(!s) return false;
   if(subjectish(P, t, si)) return true;
+  var m0 = exactMatch(P, t, s);
+  if(m0 && /\b(process of|called|known as|termed|defined as|name of)\s*$/i.test(s.slice(0, m0.index))) return true;
   var m = exactMatch(P, t, s); if(!m) return false;
   if(m.index > s.length * 0.5) return false;          // mentioned only in passing
   if(/\b(1[5-9]\d{2}|20\d{2})\b/.test(s)) return false; // dates belong to history, not definitions
@@ -1853,6 +2345,15 @@ function termIdeal(P, t, max, wide){
   var all = termSentences(P, t).filter(function(i){ return secOK(P, i) && selfContained(P.sents[i]) && goodSentence(P, i); }), out = [], used = {};
   var d = P.defs.filter(function(x){ return x.ti === t.id; })[0];
   if(d && d.sent){ out.push(d.sent); used[normQ(d.sent)] = 1; }
+  /* When there is no formal definition line, the sentence that is really
+     about the term beats a later passing mention. */
+  if(!d){
+    var bi = bestSentenceFor(P, t);
+    if(bi != null && P.sents[bi]){
+      var btxt = P.sents[bi];
+      if(!used[normQ(btxt)]){ out.push(btxt); used[normQ(btxt)] = 1; }
+    }
+  }
   var ids = all.filter(function(i){ return !(d && i === d.si) && termCentred(P, t, i); });
   if(d && wide){
     // For “why/role” questions the rest of the term's own section can help, but only
@@ -2782,7 +3283,7 @@ function localExplain(topic, lvl){
     ids = lead.concat(ids.filter(function(i){ return lead.indexOf(i) < 0; }));
     ids = ids.slice(0, k === 4 ? 4 : 3);
     if(!ids.length && !defs.length && !pc && !exact) return "I couldn’t find “" + topic + "” in this chapter. Try a word or phrase used in the chapter, build the **smart pack** when online, or switch to **With AI** in the Study screen.";
-    out.push("## " + topic);
+    out.push("## " + sentenceCap(topic));
     var meaning = "";
     if(pc){
       out.push("**Meaning:** " + sentenceCap(pc.d)); meaning = pc.d;
@@ -2793,7 +3294,7 @@ function localExplain(topic, lvl){
         if(m && !meaning){ out.push("**Meaning:** " + m); meaning = m; }
       });
     } else if(exact){
-      var ideal = termIdeal(P, exact, 2);
+      var ideal = termIdeal(P, exact, 1);
       /* An example sentence (“The average score … is 72”) is not a meaning. */
       if(ideal && !/\d/.test(ideal) && !/\b(for example|for instance|suppose|consider)\b/i.test(ideal)){
         out.push("**Meaning:** " + sentenceCap(ideal)); meaning = ideal;
@@ -2821,8 +3322,9 @@ function localExplain(topic, lvl){
     if(!ids.length) return;
     out.push("## " + sec.label);
     var d = sec.defs && sec.defs[0];
-    if(d && defQuality(d.body) >= 0) out.push("**Meaning:** " + sentenceCap(defText(d)));
-    ids.forEach(function(i){ out.push("- " + bs(P, i)); });
+    var shownDef = !!(d && defQuality(d.body) >= 0);
+    if(shownDef) out.push("**Meaning:** " + sentenceCap(defText(d)));
+    ids.forEach(function(i){ if(shownDef && d.si === i) return; out.push("- " + bs(P, i)); });
     if(k === 4) out.push("> **Remember:** " + P.sents[ids.slice().sort(function(a, b){ return P.score[b] - P.score[a]; })[0]]);
   });
   var terms = keyTerms(P, 10);
@@ -2853,21 +3355,28 @@ function localNotes(idx){
     var tt = keyTerms(P, 16, 2); if(tt.length){ out.push("## Key terms"); out.push(tt.map(function(t){ return "**" + t.t + "**"; }).join(" · ")); }
     return out.join("\n");
   }
-  var per = idx === 1 ? 4 : 2;
+  var per = idx === 1 ? 4 : 2, shown = {};
   P.secs.forEach(function(sec){
     if(!sec.idx.length || sec.skip) return;
-    var ids = topIn(P, sec.idx, per, idx === 1 ? 0 : 180); if(!ids.length) ids = topIn(P, sec.idx, per); if(!ids.length) return;
+    var ids = topIn(P, sec.idx, per, idx === 1 ? 0 : 180); if(!ids.length) ids = topIn(P, sec.idx, per);
     ids = ids.filter(function(i){ return goodSentence(P, i) && selfContained(P.sents[i]); });
     if(!ids.length) return;
     out.push("## " + sec.label);
-    if(idx === 1 && sec.defs && sec.defs.length){
-      sec.defs.slice(0, 2).forEach(function(d){ out.push("**" + d.term + ":** " + trunc(defText(d), 180)); });
-    }
-    ids.forEach(function(i){ out.push("- " + bs(P, i)); });
+    var def = sec.defs && sec.defs[0];
+    if(def && def.si != null && goodSentence(P, def.si) && ids.indexOf(def.si) < 0) ids.unshift(def.si);
+    var seenSec = {};
+    ids.slice().sort(function(a, b){ return a - b; }).forEach(function(i){
+      var k = txtKey(P.sents[i]); if(!k || seenSec[k] || shown[k]) return;
+      seenSec[k] = 1; shown[k] = 1; out.push("- " + bs(P, i));
+    });
   });
   if(idx === 1 && P.defs.length){ out.push("## Key definitions"); P.defs.slice(0, 12).forEach(function(d){ out.push("- **" + d.term + ":** " + trunc(defText(d), 170)); }); }
   var caps = keyTerms(P, 14, 2); if(caps.length){ out.push("## Key terms"); out.push(caps.map(function(t){ return "**" + t.t + "**"; }).join(" · ")); }
-  out.push("## Most important points for exams"); topIn(P, allIdx(P), 7).forEach(function(i){ out.push("- " + bs(P, i)); });
+  var extra = [];
+  topIn(P, allIdx(P), 10).forEach(function(i){
+    var k = txtKey(P.sents[i]); if(!k || shown[k]) return; shown[k] = 1; extra.push("- " + bs(P, i));
+  });
+  if(extra.length){ out.push("## Most important points for exams"); extra.slice(0, 5).forEach(function(x){ out.push(x); }); }
   return out.join("\n");
 }
 /* ---------- online knowledge pack: stored with the chapter ---------- */
@@ -3107,6 +3616,7 @@ function bindNext(root){
   root.querySelectorAll("[data-go]").forEach(function(b){ b.onclick = function(){ var k = b.dataset.go, ch = b.dataset.chap; if(k === "path"){ if(ch){ DB.cur = ch; save(); } show("study"); } else goMethod(k, b.dataset.focus, ch); }; });
   root.querySelectorAll("[data-view]").forEach(function(b){ b.onclick = function(){ show(b.dataset.view); }; });
   root.querySelectorAll("[data-resume]").forEach(function(b){ b.onclick = resumeLast; });
+  root.querySelectorAll("[data-review]").forEach(function(b){ b.onclick = function(){ reviewChapter(b.dataset.review); }; });
 }
 function addCta(v){
   var sec = $("v-" + v), old = sec.querySelector(".cta"); if(old) old.remove();
@@ -3120,26 +3630,62 @@ function renderPath(){
   var c = cur(), el = $("path"); if(!c || !el) return;
   var d = prog().done, ns = nextStep(c.id), nc = ns.done ? nextChapterAfter(c.id) : null, others = DB.chapters.map(chInfo).filter(function(x){ return x.c.id !== c.id && x.la && !x.complete; });
   var h = "<div class='card'><strong>Your path for this chapter</strong><div class='path'>" + LOOP.map(function(x, i){ return "<div class='step " + (d[x[0]] ? "ok" : (!ns.done && ns.k === x[0] ? "now" : "")) + "'><span>" + (d[x[0]] ? "✓" : i + 1) + "</span><small>" + x[1] + "</small></div>"; }).join("") + "</div>";
-  h += "<p style='margin:8px 0 4px'><strong>" + (ns.done ? "Chapter complete!" : "Next: " + esc(ns.label)) + "</strong><br><span class='status'>" + esc(ns.why) + "</span></p><div class='row'>" + (ns.done ? (nc ? "<button class='primary' id='pathGo'>Go to next chapter: " + esc(nc.name.slice(0, 36)) + "</button>" : "<button class='primary' id='pathGo'>Revise with a mock exam</button>") : "<button class='primary' id='pathGo'>Do this now</button>") + "</div>";
+  h += "<p style='margin:8px 0 4px'><strong>" + (ns.done ? "Chapter complete!" : "Next: " + esc(ns.label)) + "</strong><br><span class='status'>" + esc(ns.why) + "</span></p><div class='row'>" + (ns.done ? (nc ? "<button class='primary' id='pathGo'>Go to next chapter: " + esc(nc.name.slice(0, 36)) + "</button>" : "<button class='primary' id='pathGo'>Revise with a mock exam</button>") : "<button class='primary' id='pathGo'>Do this now</button>") + "<button id='pathAudio'>🎧 Listen to an overview</button></div>";
   if(others.length) h += "<div class='status' style='margin-top:6px'>Also waiting for you:</div><div class='row'>" + others.slice(0, 3).map(function(x){ return "<button " + goAttr(x) + ">" + esc(x.c.name.slice(0, 28)) + " (" + x.n + "/6)</button>"; }).join("") + "</div>";
-  el.innerHTML = h + "</div>"; $("pathGo").onclick = function(){ goStep(ns, c.id); }; bindNext(el);
+  el.innerHTML = h + "</div>"; $("pathGo").onclick = function(){ goStep(ns, c.id); }; if($("pathAudio")) $("pathAudio").onclick = audioOverview; bindNext(el);
+}
+function reviewInfo(id){
+  var A = allAttempts(id), P = pracOf(id), last = 0;
+  A.forEach(function(a){ if(a.d > last) last = a.d; });
+  P.forEach(function(x){ if(x.d > last) last = x.d; });
+  if(!last) return null;
+  var sc = chScore(id), gap = sc === null ? 1 : sc < 60 ? 1 : sc < 80 ? 3 : 7;
+  var at = last + gap * 864e5;
+  return {last: last, gap: gap, at: at, due: Date.now() >= at, days: Math.floor((Date.now() - last) / 864e5), wait: Math.max(0, Math.ceil((at - Date.now()) / 864e5))};
+}
+function dueReviews(){
+  var out = [];
+  DB.chapters.forEach(function(c){ var r = reviewInfo(c.id); if(r && r.due) out.push({c: c, last: r.last, gap: r.gap, days: r.days}); });
+  return out.sort(function(a, b){ return b.days - a.days; });
+}
+function reviewChapter(cid){
+  if(!DB.chapters.some(function(c){ return c.id === cid; })) return;
+  DB.cur = cid; save();
+  goMethod("mcq", weakTopics(cid).join(", "), cid);
+  var b = $("qzGo"); if(b) setTimeout(function(){ if($("qzGo")) $("qzGo").click(); }, 80);
+}
+function todayCard(){
+  var c = cur(), ns = c ? nextStep(c.id) : null, due = dueReviews(), h = "<div class='card hero' style='text-align:left'><div class='status'>Today · " + fmtD(Date.now()) + "</div><h2 style='margin:4px 0'>A small plan for today</h2>";
+  var tasks = [];
+  if(!DB.chapters.length) tasks.push("<button class='primary' data-view='study'>Upload my first book</button>");
+  else if(c && ns && !ns.done) tasks.push("<button class='primary' data-go='" + ns.k + "' data-chap='" + c.id + "' data-focus='" + esc(ns.focus || "").replace(/'/g, "&#39;") + "'>Continue: " + esc(ns.label) + "</button>");
+  else if(c && ns && ns.done){
+    var nc = nextChapterAfter(c.id);
+    tasks.push(nc ? "<button class='primary' data-go='path' data-chap='" + nc.id + "'>Start " + esc(nc.name.slice(0, 30)) + "</button>" : "<button class='primary' data-go='exam' data-chap='" + c.id + "'>Revise with a mock exam</button>");
+  }
+  if(due.length) tasks.push("<button data-review='" + due[0].c.id + "'>Revise “" + esc(due[0].c.name.slice(0, 28)) + "”</button>");
+  if(c) tasks.push("<button data-go='flash' data-chap='" + c.id + "'>5-minute recall</button>");
+  h += "<div class='row' style='margin:8px 0'>" + tasks.join("") + "</div>";
+  h += "<p class='status' style='margin:0'>" + (due.length ? due.length + " chapter" + (due.length > 1 ? "s" : "") + " due for revision. " : "Nothing overdue — a short practice today keeps it that way. ") + "Streak: " + streak() + " day" + (streak() === 1 ? "" : "s") + " · " + totalXp() + " growth points.</p></div>";
+  return h;
 }
 function homeFlow(){
-  var h = "", L1 = DB.last, lc = L1 && DB.chapters.filter(function(c){ return c.id === L1.cid; })[0];
+  var h = todayCard(), L1 = DB.last, lc = L1 && DB.chapters.filter(function(c){ return c.id === L1.cid; })[0];
   if(lc) h += "<div class='card hero'><div class='status'>Where you stopped</div><h2 style='margin:2px 0'>" + esc(lc.name) + "</h2><p>" + esc(L1.text) + " · " + ago(L1.t) + "</p><div class='row'><button class='primary' data-resume='1'>Resume from here</button></div></div>";
   var info = DB.chapters.map(chInfo), started = info.filter(function(x){ return x.la; });
-  var due = started.filter(function(x){ return x.complete ? x.days >= 3 : x.days >= 2; }).sort(function(a, b){ return b.days - a.days; });
-  if(due.length){ var dd = due[0]; h += "<div class='card' style='border-color:var(--acc2);background:var(--acc2bg)'><strong>Reminder</strong><p style='margin:4px 0'>" + (dd.complete ? "Time to revise “" : "“") + esc(dd.c.name) + (dd.complete ? "”. " : "” is waiting for you. ") + "You last practised " + ago(dd.la) + (due.length > 1 ? ". " + (due.length - 1) + " more chapter(s) need attention too." : ".") + "</p><button class='primary' " + goAttr(dd) + ">" + (dd.complete ? "Revise now" : "Go there now") + "</button></div>"; }
+  var due = started.filter(function(x){ return x.complete ? x.days >= revGap(x.c.id) : x.days >= 2; }).sort(function(a, b){ return b.days - a.days; });
   if(started.length){
     started.sort(function(a, b){ return (a.complete - b.complete) || (b.days - a.days); });
     h += "<h2>Your chapters</h2><div class='grid2'>" + started.slice(0, 6).map(function(x){
-      var tag = x.complete ? (x.days >= 3 ? "<span class='tag a'>Revision due</span>" : "<span class='tag s'>Complete</span>") : (x.days >= 2 ? "<span class='tag w'>Not practised for " + x.days + " days</span>" : "<span class='tag s'>" + ago(x.la) + "</span>");
+      var tag = x.complete ? (x.days >= revGap(x.c.id) ? "<span class='tag a'>Revision due</span>" : "<span class='tag s'>Complete</span>") : (x.days >= 2 ? "<span class='tag w'>Not practised for " + x.days + " days</span>" : "<span class='tag s'>" + ago(x.la) + "</span>");
       return "<div class='card' style='margin:0'><strong>" + esc(x.c.name) + "</strong> " + tag + "<div class='bar'><i style='width:" + Math.round(x.n * 100 / 6) + "%'></i></div><div class='status'>" + x.n + " of 6 steps done · " + (x.complete ? "Chapter complete" : "Next: " + esc(x.ns.label)) + "</div><div class='row' style='margin:8px 0 0'><button class='primary' " + goAttr(x) + ">" + (x.complete ? "Revise" : "Continue") + "</button></div></div>";
     }).join("") + "</div>";
   }
   var fresh = info.filter(function(x){ return !x.la; })[0];
   if(fresh) h += "<div class='card'><strong>Ready to begin</strong><p class='status' style='margin:2px 0 8px'>" + esc(fresh.c.name) + "</p><button class='primary' data-go='path' data-chap='" + fresh.c.id + "'>Start this chapter</button></div>";
   if(!DB.chapters.length) h += "<div class='card'><strong>Upload your first book</strong><p class='status'>I will split it into chapters and guide you step by step.</p><button class='primary' data-view='study'>Upload my book</button></div>";
+  var needBk = DB.history.length > 5 && (!DB.lastBackup || Date.now() - DB.lastBackup > 7 * 864e5);
+  h += "<div class='card'><strong>More tools</strong><div class='row' style='margin:8px 0 0'><button data-act='mist'>Practise my mistakes</button><button data-act='pr'>Print report</button><button data-act='bk'>Back up my data</button><button data-act='rs'>Restore backup</button><button data-act='cls'>Class view (teacher)</button></div>" + (needBk ? "<p class='status'>It has been a while since your last backup. Back up now so nothing is lost.</p>" : "") + "<input type='file' id='fRs' accept='.json' class='hidden'><input type='file' id='fCls' accept='.json' multiple class='hidden'></div>";
   return h;
 }
 
@@ -3180,12 +3726,57 @@ function leastUsed(bank, n){
 var BANKSPEC = {
   mcq: "You are writing practice questions for a school student who has just read this chapter. Return ONLY a JSON array of 30 multiple-choice questions that test real understanding of THIS chapter (not general knowledge). Cover the whole chapter evenly and mix easy, medium and hard. Each item: {\"q\": string, \"options\": [exactly 4 different strings, no A/B/C/D prefixes, all plausible and of similar length], \"answer\": index 0-3 of the one correct option, \"why\": 1-2 sentences that explain the reasoning and teach the idea, not just restate the answer, \"topic\": the section name (2-4 words, reuse the same name for the same section), \"lvl\": \"easy\" or \"medium\" or \"hard\"}. Rules: every question must be answerable from the chapter text; ask about the concepts the chapter explains, not about names of people in examples, figure numbers, page numbers, the author or isolated working steps; the wrong options must be wrong for a clear reason (do not use 'all of the above' or 'none of the above'); options should be complete, grammatical statements of similar length, not fragments. Spread correct answers randomly.",
   flash: "You are making revision flashcards for a school student. Return ONLY a JSON array of 24 cards on the most important terms, definitions, processes and facts of THIS chapter, in the chapter's own wording where possible. Each item: {\"front\": a clear question that can be answered in 1-2 sentences (e.g. 'What is photosynthesis?' or 'Why is the cell membrane called selectively permeable?'), \"back\": the answer, correct and complete, at the student's grade level, \"topic\": the section name (2-4 words)}. Rules: the front must name the exact term or idea from the chapter; never write vague fronts like 'Tell me about this'; the back must answer exactly what the front asks in 1-2 sentences; do not ask about page numbers, figure numbers or the author; do not repeat the same card with different wording.",
-  qa: "You are a patient teacher preparing short-answer questions for a school student. Return ONLY a JSON array of 12 questions about THIS chapter, mixing understanding, why/how and application. Each item: {\"q\": a complete question that names the topic clearly, \"topic\": the section name (2-4 words)}. Rules: every question must be answerable from the chapter in 1-3 sentences; prefer 'why', 'how' and 'explain' questions that make the student think; do not ask for long lists, page numbers, figure numbers or the author; do not ask 'what does the chapter say about...' for every item.",
+  qa: "You are a patient teacher preparing short-answer questions for a school student. Return ONLY a JSON array of 12 questions about THIS chapter, written like Maharashtra board paper questions: some short 2-mark ones (define, state, name), some 3-mark ones (explain briefly, differentiate, give reasons) and some 4-mark ones (explain in detail, discuss, with examples). Each item: {\"q\": a complete question that names the topic clearly, \"topic\": the section name (2-4 words)}. Rules: every question must be answerable from the chapter in 1-3 sentences; prefer 'why', 'how' and 'explain' questions that make the student think; do not ask for long lists, page numbers, figure numbers or the author; do not ask 'what does the chapter say about...' for every item.",
   teach: "Pick 6 important concepts from THIS chapter that a student should be able to explain aloud. Return ONLY a JSON array of {\"q\": \"Explain <concept> in your own words, as if you are teaching a classmate who missed this lesson\", \"topic\": the section name (2-4 words)}. Choose concepts that carry real meaning in the chapter, not names, dates, labels or figure captions."
 };
+async function ideasFor(){
+  var k = "ideas|" + DB.cur, c = DB.cache[k]; if(c) return c;
+  var d = await runJ('List the 15 most important ideas, terms and processes a student must understand from THIS chapter, in order. Return ONLY a JSON array of short strings (3-8 words each).', false, true);
+  if(Array.isArray(d) && d.length){ d = d.map(String).slice(0, 20); DB.cache[k] = d; save(); return d; } return [];
+}
+async function verifyMcq(items){
+  if(!items.length) return items;
+  var list = items.map(function(x, i){ return {i: i, q: x.q, options: x.options, answer: x.answer}; });
+  var d = await runJ('Check these practice questions against the chapter text. For each one decide whether it can be answered from the chapter and whether exactly one option is correct. Return ONLY a JSON array of {"i": number, "ok": true or false, "answer": index 0-3 of the truly correct option}. Questions: ' + JSON.stringify(list), false, true);
+  if(!Array.isArray(d)) return items;
+  var res = {}; d.forEach(function(r){ if(r && typeof r.i === "number") res[r.i] = r; });
+  var out = items.filter(function(x, i){ var r = res[i]; return !r || (r.ok !== false && +r.answer === x.answer); });
+  return out.length >= Math.ceil(items.length / 2) ? out : items;
+}
+async function paperText(f){
+  if(/\.txt$/i.test(f.name)) return await f.text();
+  await loadPdf();
+  var pdf = await pdfjsLib.getDocument({data: await f.arrayBuffer()}).promise, t = "";
+  for(var p = 1; p <= Math.min(pdf.numPages, 6); p++){ var c = await (await pdf.getPage(p)).getTextContent(); t += c.items.map(function(i){ return i.str; }).join(" ") + "\n"; }
+  return t;
+}
+function paperUi(){
+  var go = $("qzGo"); if(!go || DB.engine !== "ai") return;
+  var w = document.createElement("div"); w.className = "row";
+  w.innerHTML = "<button id='ppBtn'>" + (DB.paper ? "Board paper added ✓ (change)" : "Match my board paper") + "</button>" + (DB.paper ? "<button id='ppDel'>Remove</button>" : "") + "<input type='file' id='ppFile' accept='application/pdf,.pdf,.txt' class='hidden'><span class='status'>Upload an old question paper so new questions follow your exam pattern.</span>";
+  go.parentNode.insertBefore(w, go);
+  $("ppBtn").onclick = function(){ $("ppFile").click(); };
+  if($("ppDel")) $("ppDel").onclick = function(){ DB.paper = ""; save(); w.remove(); paperUi(); };
+  $("ppFile").onchange = async function(){
+    var f = this.files[0]; if(!f) return;
+    try {
+      var t = (await paperText(f)).replace(/\s+/g, " ").trim();
+      if(t.length < 200){ setMsg("I could not read enough text from that file. Try a PDF with selectable text.", true); return; }
+      DB.paper = t.slice(0, 4000);
+      var b = DB.cache[bankKey("mcq")]; if(b) b.forEach(function(x){ x.u = (x.u || 0) + 1; });
+      save(); toast("Board paper added. Fresh questions will follow its pattern."); w.remove(); paperUi();
+    } catch(e){ setMsg("Could not read that file.", true); }
+  };
+}
 async function fillBank(kind, quiet){
-  var key = bankKey(kind), have = DB.cache[key] || [], avoid = have.slice(-40).map(function(x){ return x.q || x.front; });
-  var d = await runJ(BANKSPEC[kind] + (avoid.length ? " Do NOT repeat these: " + JSON.stringify(avoid) : ""), false, quiet);
+  var key = bankKey(kind), have = DB.cache[key] || [], avoid = have.slice(-40).map(function(x){ return x.q || x.front; }), extra = "";
+  if(kind === "mcq"){
+    var ideas = await ideasFor(), wk = weakTopics(DB.cur);
+    if(ideas.length) extra += " Make sure the questions cover these key ideas: " + JSON.stringify(ideas) + ".";
+    if(wk.length) extra += " Include extra questions on these weak topics: " + wk.join(", ") + ".";
+    if(DB.paper) extra += " Match the style, wording, difficulty and format of these real board-exam sample questions, but write NEW questions about this chapter and never copy them: " + DB.paper;
+  }
+  var d = await runJ(BANKSPEC[kind] + extra + (avoid.length ? " Do NOT repeat these: " + JSON.stringify(avoid) : ""), false, quiet);
   if(!Array.isArray(d)){ if(!quiet && d !== null) setMsg("Couldn’t prepare the questions.", true, RETRY); return null; }
   var seen = {}, clean = function(s, n){ return String(s == null ? "" : s).replace(/\s+/g, " ").replace(/^\s*[A-Da-d][).]\s+/, "").trim().slice(0, n || 400); };
   var items = d.filter(function(x){
@@ -3210,6 +3801,7 @@ async function fillBank(kind, quiet){
     seen[k] = 1;
     return !avoid.some(function(a){ return normQ(a) === k; });
   });
+  if(kind === "mcq" && items.length) items = await verifyMcq(items);
   if(!items.length) return null;
   DB.cache[key] = have.concat(items); save(); return DB.cache[key];
 }
@@ -3280,8 +3872,8 @@ function finishTest(defer){
   var items = T.items, n = items.length, right = items.filter(function(i){return i.pick === i.answer}).length, p = Math.round(right * 100 / n), g = gradeOf(p), topics = {};
   items.forEach(function(it){ var t = topics[it.topic] || (topics[it.topic] = {c: 0, t: 0}); t.t++; if(it.pick === it.answer) t.c++; });
   var pa = prog().attempts, same = pa.filter(function(a){return a.kind === T.kind}), prev = same.length ? Math.round(same[same.length - 1].score * 100 / same[same.length - 1].total) : null;
-  pa.push({d: Date.now(), kind: T.kind, score: right, total: n, topics: topics, qs: items.map(function(it){ return {q: it.q, ok: it.pick === it.answer, topic: it.topic, ans: it.options[it.answer], mine: it.pick === null ? "(not answered)" : it.options[it.pick], why: it.why}; })});
-  if(pa.length > 30) pa.shift(); markDone(T.kind); var gr = recordPrac(T.kind, p);
+  pa.push({d: Date.now(), kind: T.kind, score: right, total: n, topics: topics, qs: items.map(function(it){ return {q: it.q, ok: it.pick === it.answer, topic: it.topic, ans: it.options[it.answer], mine: it.pick === null ? "(not answered)" : it.options[it.pick], why: it.why, o: it.options, a: it.answer}; })});
+  DB.mist = DB.mist || {}; items.forEach(function(it){ if(it.m){ var h = hash(it.q); DB.mist[h] = it.pick === it.answer ? (DB.mist[h] || 0) + 1 : 0; } }); if(pa.length > 30) pa.shift(); markDone(T.kind); var gr = recordPrac(T.kind, p);
   logEv(T.kind, (T.kind === "exam" ? "Exam" : "MCQ practice") + ": " + right + "/" + n + " (" + p + "%), grade " + g[0]);
   var wk = Object.keys(topics).filter(function(k){return topics[k].c < topics[k].t}), cmp = prev === null ? "This is your first " + (T.kind === "exam" ? "exam" : "practice") + " on this chapter. Take more to see your improvement." : p > prev ? "Up by " + (p - prev) + " points from last time (" + prev + "%). Great work!" : p < prev ? "Down by " + (prev - p) + " points from last time (" + prev + "%). Revise the weak topics and try again." : "Same as last time (" + prev + "%).";
   var rev = T.kind === "exam" ? "<h3>Review of your mistakes</h3>" + items.filter(function(i){return i.pick !== i.answer}).map(function(i){ return "<div class='q'><div>" + inline(i.q) + "</div><div class='exp'>Your answer: " + esc(i.pick === null ? "(not answered)" : i.options[i.pick]) + "<br>Correct: " + esc(i.options[i.answer]) + "<br>" + inline(i.why) + "</div></div>"; }).join("") : "";
@@ -3293,6 +3885,147 @@ function finishTest(defer){
   if(T.sb) T.sb.classList.add("hidden"); $("qzScore").textContent = "Finished";
   if(!defer) showCard();
 }
+
+
+/* ---------- extra tools: mistakes, backup, report, class view, read aloud ---------- */
+function revGap(id){ var s = chScore(id); return s === null ? 1 : s < 60 ? 1 : s < 80 ? 3 : 7; }
+function mistakeItems(){
+  var seen = {}, out = []; DB.mist = DB.mist || {};
+  allAttempts(DB.cur).slice().reverse().forEach(function(a){ a.qs.forEach(function(x){ var h = hash(x.q); if(seen[h]) return; seen[h] = 1; if(x.ok || !x.o || (DB.mist[h] || 0) >= 2) return; out.push({q: x.q, options: x.o, answer: x.a, why: x.why, topic: x.topic, pick: null, m: 1}); }); });
+  return out;
+}
+function mistakePractice(){
+  if(!cur()){ toast("Add a chapter first"); return; }
+  var it = mistakeItems().slice(0, 10); if(!it.length){ toast("No saved mistakes to retry. Take an MCQ practice first."); return; }
+  goMethod("mcq"); buildTest("mcq", it, null);
+}
+function backupData(){
+  var n = (DB.profile ? DB.profile.name : "student").replace(/\W+/g, "_"), c = Object.assign({}, DB, {ai: null, key: "", sess: null});
+  saveFile("StudyBuddy_" + n + "_" + new Date().toISOString().slice(0, 10) + ".json", JSON.stringify(c)); DB.lastBackup = Date.now(); save(); toast("Backup saved");
+}
+function restoreData(f){
+  f.text().then(function(t){ var d = JSON.parse(t); if(!d || !d.chapters) throw 0;
+    askYes("Replace everything on this device with this backup?", function(){
+      d.ai = DB.ai; d.history = d.history || []; d.facts = d.facts || {}; d.progress = d.progress || {}; d.cache = d.cache || {}; d.book = d.book || [];
+      d.engine = d.ai ? (d.engine || "local") : "local";
+      if(!d.cur || !d.chapters.some(function(c){ return c.id === d.cur; })) d.cur = d.chapters[0] ? d.chapters[0].id : null;
+      DB = d; save(); location.reload();
+    });
+  }).catch(function(){ toast("That is not a Study Buddy backup file"); });
+}
+/* ---------- notebook: keep the explanations that matter ---------- */
+function saveNote(text, label){
+  text = String(text || "").trim();
+  if(!text) return false;
+  DB.book = DB.book || [];
+  var key = normQ(text).slice(0, 140), c = cur();
+  if(DB.book.some(function(x){ return normQ(x.text).slice(0, 140) === key; })){ toast("Already in your notebook"); return false; }
+  DB.book.unshift({t: Date.now(), cid: c ? c.id : null, ch: c ? c.name : "", text: text.slice(0, 8000), label: String(label || "").slice(0, 160)});
+  if(DB.book.length > 200) DB.book.length = 200;
+  save(); toast("Saved to your notebook"); return true;
+}
+function addSaveBtn(outEl, opt, text){
+  if(!outEl || outEl.querySelector(".saveNb")) return;
+  var row = document.createElement("div"); row.className = "row saveNb"; row.style.marginTop = "10px";
+  row.innerHTML = "<button type='button'>☆ Save to notebook</button>";
+  row.querySelector("button").onclick = function(){ saveNote(text, (opt && (opt.q || opt.ctx)) || ""); };
+  outEl.appendChild(row);
+}
+RENDER.note = function(){
+  var el = $("nbIn"), list = (DB.book || []).slice();
+  var h = "<h1>Notebook</h1><p class='sub'>Save the explanations, answers and notes you want to revisit. Everything stays on this device.</p>";
+  h += "<div class='card'><strong>Write your own note</strong><textarea id='nbText' placeholder='A definition, a doubt, a formula, or something you want to remember…' style='margin-top:8px'></textarea><div class='row' style='margin-top:8px'><button class='primary' id='nbAdd'>Save note</button>" + (list.length ? "<button id='nbExport'>Export all</button>" : "") + "</div></div>";
+  if(!list.length){
+    h += "<div class='card hero' style='text-align:center'><p>Your notebook is empty. When an explanation is useful, press <b>☆ Save to notebook</b> under it.</p><button class='primary' id='nbGo'>Go to Study</button></div>";
+    el.innerHTML = h; $("nbAdd").onclick = function(){ if(saveNote($("nbText").value, "My note")) RENDER.note(); }; $("nbGo").onclick = function(){ show("study"); }; return;
+  }
+  var chs = {}; list.forEach(function(x){ if(x.ch) chs[x.ch] = 1; });
+  h += "<div class='nbToolbar'><input id='nbFind' placeholder='Search my notebook…' style='flex:1;min-width:180px'><select id='nbCh'><option value=''>All chapters</option>" + Object.keys(chs).map(function(c){ return "<option value='" + esc(c) + "'>" + esc(c) + "</option>"; }).join("") + "</select></div><div id='nbList'></div>";
+  el.innerHTML = h;
+  function draw(){
+    var q = normQ($("nbFind").value), ch = $("nbCh").value;
+    var rows = list.filter(function(x){ return (!ch || x.ch === ch) && (!q || normQ(x.text + " " + (x.label || "") + " " + (x.ch || "")).indexOf(q) >= 0); });
+    $("nbList").innerHTML = rows.length ? rows.map(function(x, i){
+      var idx = list.indexOf(x);
+      return "<div class='nbItem'><div class='status'>" + (x.ch ? esc(x.ch) + " · " : "") + fmtD(x.t) + " · " + fmtT(x.t) + (x.label ? " · " + esc(x.label) : "") + "</div><div class='out'>" + md(x.text) + "</div><div class='row'><button data-copy='" + idx + "'>Copy</button><button data-del='" + idx + "'>Delete</button></div></div>";
+    }).join("") : "<p class='status'>Nothing matches that search.</p>";
+    $("nbList").querySelectorAll("[data-copy]").forEach(function(b){ b.onclick = function(){ var x = list[+b.dataset.copy]; try { navigator.clipboard.writeText(x.text); toast("Copied"); } catch(e){ toast("Select the text and copy it"); } }; });
+    $("nbList").querySelectorAll("[data-del]").forEach(function(b){ b.onclick = function(){ var x = list[+b.dataset.del]; askYes("Delete this saved note?", function(){ DB.book = (DB.book || []).filter(function(y){ return y !== x; }); save(); RENDER.note(); toast("Deleted"); }); }; });
+  }
+  $("nbFind").oninput = draw; $("nbCh").onchange = draw; draw();
+  $("nbAdd").onclick = function(){ if(saveNote($("nbText").value, "My note")) RENDER.note(); };
+  if($("nbExport")) $("nbExport").onclick = function(){
+    var t = "# My Study Buddy notebook\n\n" + list.map(function(x){ return "## " + (x.ch || "General") + " · " + fmtD(x.t) + "\n\n" + x.text; }).join("\n\n---\n\n");
+    saveFile("StudyBuddy-notebook.md", t);
+  };
+};
+/* ---------- read a one-minute overview aloud ---------- */
+function speakText(t, lang){
+  var s = window.speechSynthesis; if(!s){ toast("Read aloud is not available on this device"); return; }
+  s.cancel();
+  var u = new SpeechSynthesisUtterance(String(t).slice(0, 4000));
+  u.lang = VL[(lang || (DB.profile ? DB.profile.lang : "") || "English").split(" ")[0]] || "en-IN"; u.rate = 0.95; s.speak(u);
+}
+/* Turns note markdown into clean speech: no pipes, bullets or headings. */
+function plainOverview(t){
+  return String(t || "")
+    .replace(/^\s*#.*$/gm, "")
+    .replace(/^\s*\|?[\s:|-]+\|?\s*$/gm, "")
+    .replace(/^\s*\|.*\|\s*$/gm, function(row){
+      if(/^\s*\|\s*term\s*\|\s*meaning/i.test(row)) return "";
+      var c = row.replace(/^\s*\||\|\s*$/g, "").split("|").map(function(x){ return x.replace(/[*_`]/g, "").trim(); }).filter(Boolean);
+      return c.length > 1 ? c[0] + ": " + c.slice(1).join(", ") : c.join(", ");
+    })
+    .replace(/^\s*[-*]\s+/gm, "")
+    .replace(/[*_`>#]/g, "")
+    .replace(/\s*\n\s*/g, ". ")
+    .replace(/\.(\s*\.)+/g, ".")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+function audioOverview(){
+  var c = cur(); if(!c) return;
+  var t = plainOverview(localNotes(2));
+  if(t.length < 40){ toast("Make your notes once, then I can read them aloud"); return; }
+  toast("Playing a short overview…");
+  speakText("Quick overview of " + c.name + ". " + t.slice(0, 2400));
+}
+function printReport(){
+  var p = DB.profile || {name: "Student", cls: "", school: ""}, w = window.open("", "_blank"); if(!w){ toast("Please allow pop-ups, then try again"); return; }
+  var rows = DB.chapters.map(function(c){ var sc = chScore(c.id), wk = weakTopics(c.id); return "<tr><td>" + esc(c.name) + "</td><td>" + (sc === null ? "–" : sc + "%") + "</td><td>" + allAttempts(c.id).length + "</td><td>" + (wk.length ? esc(wk.join(", ")) : "–") + "</td></tr>"; }).join("");
+  w.document.write("<title>Study Buddy report</title><style>body{font:15px/1.5 system-ui,sans-serif;padding:24px;color:#222}table{border-collapse:collapse;width:100%}td,th{border:1px solid #bbb;padding:6px 9px;text-align:left}</style><h1>Progress report</h1><p><b>" + esc(p.name) + "</b> · " + esc(p.cls) + " · " + esc(p.school || "") + "<br>Date: " + fmtD(Date.now()) + " · Growth points: " + totalXp() + "</p><table><tr><th>Chapter</th><th>Recent score</th><th>Tests taken</th><th>Topics to revise</th></tr>" + rows + "</table><p style='color:#666'>Choose Save as PDF in the print window to keep a copy.</p>");
+  w.document.close(); w.focus(); setTimeout(function(){ w.print(); }, 300);
+}
+function classView(files){
+  Promise.all([].map.call(files, function(f){ return f.text().then(JSON.parse).catch(function(){ return null; }); })).then(function(L){
+    L = L.filter(function(d){ return d && d.chapters && d.profile; }); if(!L.length){ toast("No valid backup files chosen"); return; }
+    var common = {}, rows = L.map(function(d){
+      var sc = [], wk = [], last = 0, pr = d.progress || {};
+      d.chapters.forEach(function(c){
+        var q = pr[c.id] || {}, l = (q.prac || []).slice(-5), TP = {}; if(l.length) sc.push(l.reduce(function(a, x){ return a + x.pct; }, 0) / l.length);
+        (q.attempts || []).slice(-3).forEach(function(a){ Object.keys(a.topics).forEach(function(k){ var t = TP[k] || (TP[k] = {c: 0, t: 0}); t.c += a.topics[k].c; t.t += a.topics[k].t; }); });
+        Object.keys(TP).forEach(function(k){ if(TP[k].c / TP[k].t < 0.6){ wk.push(k); common[k] = (common[k] || 0) + 1; } });
+      });
+      (d.history || []).forEach(function(e){ if(e.t > last) last = e.t; });
+      return "<tr><td>" + esc(d.profile.name) + "</td><td>" + esc(d.profile.cls) + "</td><td>" + (sc.length ? Math.round(sc.reduce(function(a, b){ return a + b; }, 0) / sc.length) + "%" : "–") + "</td><td>" + esc(wk.slice(0, 4).join(", ") || "–") + "</td><td>" + (last ? ago(last) : "never") + "</td></tr>";
+    }), hard = Object.keys(common).filter(function(k){ return common[k] > 1; });
+    popup("<h3 style='margin-top:0'>Class view (" + L.length + " students)</h3><div style='overflow-x:auto'><table style='border-collapse:collapse;width:100%'><tr><th>Student</th><th>Class</th><th>Avg score</th><th>Weak topics</th><th>Last active</th></tr>" + rows.join("") + "</table></div>" + (hard.length ? "<p><strong>Hard for several students:</strong> " + hard.map(esc).join(", ") + "</p>" : "") + "<p class='status'>Files are read on this device only and are not uploaded.</p><button class='primary' data-close>Close</button>");
+  });
+}
+var VL = {Hindi: "hi-IN", Marathi: "mr-IN", Malayalam: "ml-IN", Tamil: "ta-IN", Telugu: "te-IN", Kannada: "kn-IN", Gujarati: "gu-IN"};
+function readAloud(){
+  var s = window.speechSynthesis; if(!s){ toast("Read aloud is not available on this device"); return; }
+  if(s.speaking){ s.cancel(); return; }
+  var modal = document.querySelector(".modal"), sel = String(window.getSelection()).trim();
+  var el = $(curView === "study" ? "mp" : "v-" + curView);
+  var t = sel || (modal ? modal.innerText : (el ? el.innerText : "")); if(!t.trim()) return;
+  speakText(t);
+}
+(function(){
+  var rb = document.createElement("button"); rb.textContent = "🔊 Read aloud"; rb.title = "Reads the selected text, or the whole page"; rb.style.cssText = "position:fixed;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:6;box-shadow:var(--shadow-sm)"; rb.onclick = readAloud; document.body.appendChild(rb);
+  document.addEventListener("click", function(e){ var b = e.target.closest && e.target.closest("[data-act]"); if(!b) return; var a = b.getAttribute("data-act"); if(a === "mist") mistakePractice(); else if(a === "bk") backupData(); else if(a === "rs") $("fRs").click(); else if(a === "pr") printReport(); else if(a === "cls") $("fCls").click(); });
+  document.addEventListener("change", function(e){ var t = e.target; if(t.id === "fRs" && t.files[0]) restoreData(t.files[0]); if(t.id === "fCls" && t.files.length) classView(t.files); });
+})();
 
 /* ---------- chapter picker for report pages ---------- */
 function pickHtml(id){ return DB.chapters.length ? "<div class='row'><select id='" + id + "' style='flex:1'>" + DB.chapters.map(function(c){ return "<option value='" + c.id + "'" + (c.id === DB.cur ? " selected" : "") + ">" + esc(c.name) + "</option>"; }).join("") + "</select></div>" : ""; }
@@ -3309,10 +4042,10 @@ RENDER.progress = function(){
   h += "<div class='card hero'><div class='row' style='flex-wrap:nowrap;gap:16px;margin:0'>" + plantSvg(st, 110) + "<div style='flex:1;min-width:0'><div class='status'>Your growth level</div><div class='big'>" + STAGES[st] + "</div><div class='bar'><i style='width:" + pr + "%'></i></div><div class='status'>" + xp + " growth points" + (nx ? " · " + (nx - xp) + " more to become a " + STAGES[st + 1] : " · top level reached") + "</div><p style='margin:6px 0 0'>" + (wk ? "<span class='tag s'><span class='mi'>" + svgIc("up") + "</span> +" + wk + " points this week</span>" : "Practise today to start growing!") + "</p></div></div></div>";
   h += "<div class='stat'><div><div class='big'>" + touched + "/" + DB.chapters.length + "</div>Chapters practised</div><div><div class='big'>" + cnt + "</div>Practices done</div><div><div class='big'>" + xp + "</div>Growth points</div><div><div class='big'>" + streak() + "</div>Day streak</div></div>";
   h += "<div class='grid2'>" + DB.chapters.map(function(c){
-    var P = pracOf(c.id), sc = chScore(c.id), tr = trendOf(c.id), sg = chStage(c.id), d = (DB.progress[c.id] || {done: {}}).done;
+    var P = pracOf(c.id), sc = chScore(c.id), tr = trendOf(c.id), sg = chStage(c.id), d = (DB.progress[c.id] || {done: {}}).done, rv = reviewInfo(c.id);
     var tg = tr === null ? "" : tr > 0 ? "<span class='tag s'><span class='mi'>" + svgIc("up") + "</span> +" + tr + "</span>" : tr < 0 ? "<span class='tag w'><span class='mi'>" + svgIc("down") + "</span> " + tr + "</span>" : "<span class='tag a'>steady</span>";
     var chips = ["mcq","exam","qa","teach","flash"].map(function(k){ var L = P.filter(function(x){return x.kind === k}); if(!L.length) return ""; var a = Math.round(L.reduce(function(s, x){return s + x.pct}, 0) / L.length); return "<span class='chip on'>" + mEmoji(k) + " " + k + " ×" + L.length + " · avg " + a + "%</span>"; }).join("") + ["explain","notes","doubt"].map(function(k){ return d[k] ? "<span class='chip on'>" + mEmoji(k) + " " + k + " ×" + d[k] + "</span>" : ""; }).join("");
-    return "<div class='card' style='margin:0'><div class='row' style='flex-wrap:nowrap;gap:12px;margin-bottom:6px'>" + plantSvg(sg, 64) + "<div style='flex:1;min-width:0'><strong>" + esc(c.name) + "</strong><div class='status'>" + STAGES[sg] + " · " + P.length + " practices</div></div><div style='text-align:right'><div class='big' style='font-size:1.5rem'>" + (sc === null ? "–" : sc + "%") + "</div>" + tg + "</div></div>" + spark(P) + "<div>" + (chips || "<span class='status'>No practice yet</span>") + "</div><div class='row' style='margin:8px 0 0'><button data-open='" + c.id + "'>Continue this chapter</button></div></div>";
+    return "<div class='card' style='margin:0'><div class='row' style='flex-wrap:nowrap;gap:12px;margin-bottom:6px'>" + plantSvg(sg, 64) + "<div style='flex:1;min-width:0'><strong>" + esc(c.name) + "</strong><div class='status'>" + STAGES[sg] + " · " + P.length + " practices</div></div><div style='text-align:right'><div class='big' style='font-size:1.5rem'>" + (sc === null ? "–" : sc + "%") + "</div>" + tg + "</div></div>" + (rv ? "<div class='status' style='margin:4px 0 0'>" + (rv.due ? "<span class='tag w'>Revision due</span>" : "Next review in " + rv.wait + " day" + (rv.wait === 1 ? "" : "s")) + "</div>" : "") + spark(P) + "<div>" + (chips || "<span class='status'>No practice yet</span>") + "</div><div class='row' style='margin:8px 0 0'><button data-open='" + c.id + "'>Continue this chapter</button></div></div>";
   }).join("") + "</div>";
   el.innerHTML = h; el.querySelectorAll("[data-open]").forEach(function(b){ b.onclick = function(){ goStep(nextStep(b.dataset.open), b.dataset.open); }; });
 };
@@ -3354,7 +4087,7 @@ RENDER.rep = function(){
   el.innerHTML = h + pickHtml("rpSel") + "<div class='card' id='rpBody'></div>";
   var go = function(){
     DB.cur = $("rpSel").value; save(); var c = cur(), A = allAttempts(c.id), d = prog().done, p = DB.profile;
-    var x = "<h2 style='margin-top:0'>" + esc(c.name) + "</h2><p class='status'>" + esc(p.name) + " · " + esc(p.cls) + " · " + esc(p.school) + "</p><h3>Activities done</h3><div>" + METHODS.map(function(m){ return "<span class='chip" + (d[m.k] ? " on" : "") + "'>" + mEmoji(m.k) + " " + m.n + " ×" + (d[m.k] || 0) + "</span>"; }).join("") + "</div>";
+    var x = "<h2 style='margin-top:0'>" + esc(c.name) + "</h2><p class='status'>" + esc(p.name) + " · " + esc(p.cls) + (p.school ? " · " + esc(p.school) : "") + "</p><h3>Activities done</h3><div>" + METHODS.map(function(m){ return "<span class='chip" + (d[m.k] ? " on" : "") + "'>" + mEmoji(m.k) + " " + m.n + " ×" + (d[m.k] || 0) + "</span>"; }).join("") + "</div>";
     if(A.length){ x += "<h3>All tests</h3><div style='overflow-x:auto'><table style='border-collapse:collapse;width:100%'><tr><th>Date</th><th>Type</th><th>Score</th><th>Grade</th></tr>" + A.map(function(a){ var q = Math.round(a.score * 100 / a.total); return "<tr><td>" + fmtD(a.d) + "</td><td>" + a.kind + "</td><td>" + a.score + "/" + a.total + " (" + q + "%)</td><td>" + gradeOf(q)[0] + "</td></tr>"; }).join("") + "</table></div>";
       var miss = [], seen = {}; A.slice().reverse().forEach(function(a){ (a.qs || []).forEach(function(q){ if(!q.ok && !seen[q.q] && miss.length < 12){ seen[q.q] = 1; miss.push(q); } }); });
       if(miss.length) x += "<h3>Questions to revise</h3>" + miss.map(function(q){ return "<div class='q'><div class='status'>" + esc(q.topic) + "</div><div>" + inline(q.q) + "</div><div class='exp'> " + esc(q.mine || "-") + "<br> " + esc(q.ans) + "<br>" + inline(q.why) + "</div></div>"; }).join("");
