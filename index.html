@@ -67,13 +67,53 @@ input[type=text]{flex:1;min-width:150px}textarea{width:100%;min-height:90px}labe
 .nbItem .out{margin:6px 0 8px;max-height:240px;overflow:auto}
 .nbItem .status{margin:0}
 .nbToolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
+/* focus + read aloud */
+#mp{scroll-margin-top:92px}
+#mp:focus,.out:focus{outline:none}
+#mp.focus-flash,.out.focus-flash{animation:focusRing .95s ease}
+@keyframes focusRing{0%{box-shadow:0 0 0 0 var(--acc)}35%{box-shadow:0 0 0 4px var(--accbg)}100%{box-shadow:var(--shadow)}}
+input[type=range]{width:100%;accent-color:var(--acc);margin:8px 0 2px}
+.speechWrap{position:fixed;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:6;display:flex;gap:6px;align-items:center}
+.speechWrap button{box-shadow:var(--shadow-sm)}
+.speechWrap .cfg{padding:9px 11px;font-size:1.02rem;line-height:1}
+.linkish{background:none;border:0;box-shadow:none;color:var(--acc);padding:0;font:inherit;text-decoration:underline;cursor:pointer}
+.authWho{display:flex;align-items:center;gap:10px;margin:4px 0 12px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--accbg)}
+.authWho b{display:block;color:var(--ink)}
+.authWho span{color:var(--mute);font-size:.9rem}
+.authAvatar{flex:0 0 38px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--acc);color:var(--onacc);font-weight:700}
+#loginCard select,#loginCard input{width:100%}
 </style>
 </head>
 <body>
 <header id="top"><div class="bar1"><span class="brand">Study Buddy</span><button id="bHome" class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 10l9-6 9 6z M5 10v8 M9 10v8 M15 10v8 M19 10v8 M3 20h18"/></svg><span>Gurukul</span></button><button id="bProf" class="avatar" title="My details" aria-label="My details"><svg viewBox="0 0 40 40"><rect width="40" height="40" fill="var(--accbg)"/><path d="M5 40c0-10 6-14 15-14s15 4 15 14z" fill="var(--acc)"/><circle cx="20" cy="21" r="7" fill="#f2c9a0"/><path d="M7 14l13-6 13 6-13 6z" fill="#2b3550"/><path d="M13 17v4c0 2 14 2 14 0v-4" fill="#2b3550"/><path d="M32 15v7" stroke="#24a99a" stroke-width="1.6"/></svg></button><button id="bKey" class="hidden">✦ Connect AI</button></div><div id="quote"></div></header>
 <main id="main">
-<section id="v-onb" class="hidden"><div class="center"><div class="card hero"><h1> Namaste! I am Mitrādhyāyin</h1><p>Your study companion. I will help you study better and score well in your classes and exams, one chapter at a time. First, tell me a little about you.</p></div>
-<div class="card form"><label>Your name</label><input type="text" id="oName"><label>Class</label><select id="oCls"></select><label>Language you prefer</label><select id="oLang"></select><label>School / College</label><input type="text" id="oSch"><label>Where are you from?</label><input type="text" id="oFrom" placeholder="Town / district / state"><div class="row" style="margin-top:14px"><button class="primary" id="oGo">Let’s begin </button></div><div id="oMsg" class="status"></div></div></div></section>
+<section id="v-onb" class="hidden"><div class="center">
+<div class="card hero"><h1 id="authTitle"> Namaste! I am Mitrādhyāyin</h1><p id="authSub">Your study companion. Create your account so your books, notes and progress stay yours.</p></div>
+<div class="card" id="loginCard">
+<h2 style="margin-top:0">Welcome back</h2>
+<p class="status">Choose your name and enter your PIN. Only your own books, notes and progress will open.</p>
+<label for="liWho">Student</label><select id="liWho"></select>
+<div id="liPinWrap"><label for="liPin">PIN</label><input type="password" id="liPin" inputmode="numeric" autocomplete="current-password" maxlength="8" placeholder="4–8 digits"></div>
+<div class="row" style="margin-top:14px"><button class="primary" id="liGo">Log in</button></div>
+<div id="liMsg" class="status"></div>
+<p class="status" style="margin-bottom:0">New student on this device? <button type="button" class="linkish" id="toCreate">Create an account</button></p>
+</div>
+<div class="card form" id="createCard">
+<div id="authWho" class="authWho hidden"><span class="authAvatar" id="authInitial">S</span><div><b id="authWhoName">Student</b><span id="authWhoMeta">Class</span></div></div>
+<h2 id="createTitle" style="margin-top:0">Create your account</h2>
+<p id="createSub" class="status">One account per student on this device. Your chapters, notes and progress stay separate.</p>
+<label for="oName">Your name</label><input type="text" id="oName" autocomplete="name">
+<label for="oCls">Class</label><select id="oCls"></select>
+<label for="oLang">Language you prefer</label><select id="oLang"></select>
+<label for="oSch">School / College</label><input type="text" id="oSch" autocomplete="organization">
+<label for="oFrom">Where are you from?</label><input type="text" id="oFrom" placeholder="Town / district / state" autocomplete="address-level2">
+<label id="pinLabel" for="oPin">Create a PIN</label><input type="password" id="oPin" inputmode="numeric" autocomplete="new-password" maxlength="8" placeholder="4–8 digits">
+<label for="oPin2">Confirm PIN</label><input type="password" id="oPin2" inputmode="numeric" autocomplete="new-password" maxlength="8" placeholder="Type the same PIN again">
+<p id="pinHint" class="status">4 to 8 digits. You will use this PIN to log in.</p>
+<div class="row" style="margin-top:14px;justify-content:center"><button class="primary" id="oGo">Create my account</button><button id="oBack" class="hidden">Back to log in</button><button id="oLogout" class="hidden">Log out</button></div>
+<div id="oMsg" class="status"></div>
+</div>
+</div></section>
 
 <section id="v-home" class="hidden"><div id="homeIn"></div></section>
 
@@ -106,10 +146,112 @@ function loadPdf(){
   return pdfReady;
 }
 var sample = null, EXQ = "", RETRY = null, FOCUS = "", VA = {}, examTimer = null, curView = "home", lastQ = -1, muteObs = false, homeNarrow = false, HOSTED = typeof claude !== "undefined" && !!(claude && claude.use);
-var DB = {profile: null, chapters: [], progress: {}, history: [], facts: {}, cache: {}, engine: "local", cur: null};
-var KEY = "ocm_study_v1";
-function load(){ try { var r = localStorage.getItem(KEY); if(r){ var d = JSON.parse(r); if(d && d.chapters){ DB = d; DB.history = DB.history || []; DB.facts = DB.facts || {}; DB.progress = DB.progress || {}; DB.cache = DB.cache || {}; DB.book = DB.book || []; DB.engine = DB.engine || "local"; } } } catch(e){} }
-function save(){ try { localStorage.setItem(KEY, JSON.stringify(DB)); } catch(e){ setMsg("Could not save on this device, so progress may be lost when you close the page.", true); } }
+var DB = {profile: null, chapters: [], progress: {}, history: [], facts: {}, cache: {}, book: [], engine: "local", cur: null, speech: {uri: "", name: "", rate: 0.95, pitch: 1}};
+var KEY = "ocm_study_v1";              /* old single-student store, read once for migration */
+var AUTH_KEY = "ocm_study_auth_v1";    /* student list, device AI connection, current session */
+var DATA_KEY = "ocm_study_user_";      /* one private study blob per student id */
+var AUTH = {v: 1, users: [], session: null, last: null, ai: null, migrated: false};
+var authMode = "login", AUTH_MIGRATED = "";
+function blankDB(){
+  return {profile: null, chapters: [], progress: {}, history: [], facts: {}, cache: {}, book: [], engine: "local", cur: null, speech: {uri: "", name: "", rate: 0.95, pitch: 1}};
+}
+function studyFields(){
+  return ["profile", "chapters", "progress", "history", "facts", "cache", "book", "cur", "last", "sess", "speech", "qaMarks", "paper", "mist", "lastBackup"];
+}
+function normalizeStudy(d){
+  d = d && typeof d === "object" ? d : {};
+  d.chapters = Array.isArray(d.chapters) ? d.chapters : [];
+  d.progress = d.progress || {}; d.history = d.history || []; d.facts = d.facts || {};
+  d.cache = d.cache || {}; d.book = d.book || []; d.speech = d.speech || {};
+  d.engine = d.engine || "local";
+  if(!d.cur || !d.chapters.some(function(c){ return c.id === d.cur; })) d.cur = d.chapters[0] ? d.chapters[0].id : null;
+  return d;
+}
+function studySnapshot(src){
+  var d = {}, F = studyFields();
+  F.forEach(function(k){ if(src && src[k] !== undefined) d[k] = src[k]; });
+  return normalizeStudy(d);
+}
+function loadUsers(){
+  try {
+    var r = localStorage.getItem(AUTH_KEY); if(!r) return;
+    var a = JSON.parse(r); if(!a || !Array.isArray(a.users)) return;
+    AUTH.users = a.users.filter(function(u){ return u && u.id && u.name; });
+    AUTH.session = a.session || null; AUTH.last = a.last || null;
+    AUTH.ai = a.ai || null; AUTH.migrated = !!a.migrated;
+  } catch(e){}
+}
+function saveUsers(){
+  try {
+    localStorage.setItem(AUTH_KEY, JSON.stringify({v: 1, users: AUTH.users, session: AUTH.session, last: AUTH.last, ai: AUTH.ai, migrated: AUTH.migrated}));
+  } catch(e){ setMsg("Could not save the student list on this device.", true); }
+}
+function findUser(id){ return AUTH.users.filter(function(u){ return u.id === id; })[0] || null; }
+function uid(){ return "u" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+function newSalt(){ return Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4); }
+function pinHash(pin, salt){
+  var s = String(salt || "") + ":" + String(pin), h = 2166136261, g = 5381, i;
+  for(i = 0; i < s.length; i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+  for(i = s.length - 1; i >= 0; i--){ g = ((g << 5) + g) ^ s.charCodeAt(i); }
+  return (h >>> 0).toString(36) + "-" + (g >>> 0).toString(36);
+}
+function pinOK(pin, user){ return !!user && !!user.pin && pinHash(pin, user.salt) === user.pin; }
+/* Move the old single-student save into its own account, once. The student then
+   sees the login page and can continue with their name; they can add a PIN from
+   "My details". */
+function migrateLegacy(){
+  var raw = null; try { raw = localStorage.getItem(KEY); } catch(e){} if(!raw) return false;
+  var d = null; try { d = JSON.parse(raw); } catch(e){ return false; }
+  if(!d || !d.profile || !d.profile.name) return false;
+  var id = uid(), snap = studySnapshot(d);
+  try { localStorage.setItem(DATA_KEY + id, JSON.stringify(snap)); }
+  catch(e){ return false; }
+  AUTH.users.push({id: id, name: d.profile.name, cls: d.profile.cls || "", pin: "", salt: "", at: Date.now()});
+  AUTH.ai = d.ai || AUTH.ai;
+  if(!AUTH.ai && d.key) AUTH.ai = {provider: "anthropic", key: d.key, email: "", model: d.model || AI_PROVIDERS.anthropic.model};
+  AUTH.last = id; AUTH.migrated = true;
+  try { localStorage.removeItem(KEY); } catch(e){}
+  saveUsers(); AUTH_MIGRATED = d.profile.name;
+  return true;
+}
+function load(){
+  AUTH = {v: 1, users: [], session: null, last: null, ai: null, migrated: false};
+  loadUsers();
+  if(!AUTH.users.length) migrateLegacy();
+  DB = blankDB();
+  if(AUTH.session){
+    var u = findUser(AUTH.session);
+    if(u){
+      var d = null; try { var raw = localStorage.getItem(DATA_KEY + u.id); if(raw) d = JSON.parse(raw); } catch(e){}
+      DB = normalizeStudy(d);
+      if(!DB.profile) DB.profile = {name: u.name, cls: u.cls || "Class 9", lang: "English", school: "", from: ""};
+      AUTH.last = u.id;
+    } else AUTH.session = null;
+  }
+  DB.ai = AUTH.ai || null;
+  if(AUTH.session) saveUsers();
+}
+function save(){
+  try {
+    if(AUTH.session && DB.profile) AUTH.ai = DB.ai || null;
+    else if(DB.ai) AUTH.ai = DB.ai;
+    if(AUTH.session && DB.profile){
+      var u = findUser(AUTH.session);
+      if(u){ u.name = DB.profile.name; u.cls = DB.profile.cls; }
+      localStorage.setItem(DATA_KEY + AUTH.session, JSON.stringify(studySnapshot(DB)));
+    }
+    saveUsers();
+  } catch(e){ setMsg("Could not save on this device, so progress may be lost when you close the page.", true); }
+}
+/* Drop per-student runtime state when switching accounts. */
+function resetRuntime(){
+  clearInterval(examTimer); examTimer = null;
+  PREP = {}; QA = null; T = null; pend = null; VA = {}; sample = null;
+  RETRY = null; FOCUS = ""; EXQ = ""; lastDoubtQ = "";
+  Array.prototype.slice.call(document.querySelectorAll(".modal")).forEach(function(x){
+    if(typeof x.__close === "function") x.__close(); else x.remove();
+  });
+}
 function cur(){ return DB.chapters.filter(function(c){return c.id === DB.cur})[0]; }
 function prog(id){ id = id || DB.cur; return DB.progress[id] || (DB.progress[id] = {attempts: [], done: {}}); }
 function fmtD(t){ return new Date(t).toLocaleDateString("en-GB", {day: "2-digit", month: "short", year: "2-digit"}).replace(/ /g, "-"); }
@@ -225,7 +367,7 @@ function aiCfg(){
   return null;
 }
 function aiName(c){ var P = c && AI_PROVIDERS[c.provider]; return P ? P.name : "AI"; }
-function refreshKeyBtn(){ var b = $("bKey"); if(!b) return; var c = aiCfg(); b.classList.toggle("hidden", HOSTED); b.textContent = c ? "✦ " + aiName(c) + " connected ✓" : "✦ Connect AI"; }
+function refreshKeyBtn(){ var b = $("bKey"); if(!b) return; var c = aiCfg(); b.classList.toggle("hidden", HOSTED || !DB.profile); b.textContent = c ? "✦ " + aiName(c) + " connected ✓" : "✦ Connect AI"; }
 function useAI(cfg){ DB.ai = cfg; DB.key = ""; DB.model = ""; DB.engine = "ai"; sample = wrapSample(mkApi(cfg)); save(); refreshKeyBtn(); if($("engSel")) $("engSel").value = "ai"; }
 function dropAI(){ DB.ai = null; DB.key = ""; DB.model = ""; sample = null; if(DB.engine === "ai") DB.engine = "local"; save(); refreshKeyBtn(); if($("engSel")) $("engSel").value = DB.engine; }
 function aiErrText(code){
@@ -536,17 +678,17 @@ function aiErr0(e){
   else setMsg("Something went wrong. Please try again.", true);
 }
 async function run(prompt, outEl, btn, opt){
-  opt = opt || {}; if(DB.engine !== "ai" && opt.local){ var lt = opt.local(); outEl.innerHTML = md(lt); addSaveBtn(outEl, opt, lt); if(opt.next !== false){ outEl.insertAdjacentHTML("beforeend", nextBar(opt.ctx || "")); bindNext(outEl); } return lt; }
+  opt = opt || {}; if(DB.engine !== "ai" && opt.local){ var lt = opt.local(); outEl.innerHTML = md(lt); addSaveBtn(outEl, opt, lt); if(opt.next !== false){ outEl.insertAdjacentHTML("beforeend", nextBar(opt.ctx || "")); bindNext(outEl); } revealResult(outEl); return lt; }
   var c0 = cur(), ck = (opt.key && c0 && !opt.general) ? "out|" + c0.id + "|" + opt.key : null;
-  if(ck && DB.cache[ck] && !opt.fresh){ outEl.innerHTML = md(DB.cache[ck]) + "<div class='row'><button id='rgBtn'>Regenerate</button></div>"; document.getElementById("rgBtn").onclick = function(){ run(prompt, outEl, btn, Object.assign({}, opt, {fresh: true})); }; addSaveBtn(outEl, opt, DB.cache[ck]); outEl.insertAdjacentHTML("beforeend", nextBar(opt.ctx || "")); bindNext(outEl); return DB.cache[ck]; }
+  if(ck && DB.cache[ck] && !opt.fresh){ outEl.innerHTML = md(DB.cache[ck]) + "<div class='row'><button id='rgBtn'>Regenerate</button></div>"; document.getElementById("rgBtn").onclick = function(){ run(prompt, outEl, btn, Object.assign({}, opt, {fresh: true})); }; addSaveBtn(outEl, opt, DB.cache[ck]); outEl.insertAdjacentHTML("beforeend", nextBar(opt.ctx || "")); bindNext(outEl); revealResult(outEl); return DB.cache[ck]; }
   RETRY = function(){ btn.click(); }; var s = await getSample(); if(!s) return;
   setMsg(""); btn.disabled = true; var old = btn.textContent; btn.textContent = "Working…";
   outEl.innerHTML = "<p class='status'>Thinking… </p>";
   try {
     var r = await s((opt.general ? persona() + "\n\n" : base(opt.q)) + prompt, {cache: false, modelTier: "default", onText: function(x){ outEl.innerHTML = md(x.text); }});
-    outEl.innerHTML = md(r.text); if(ck){ DB.cache[ck] = r.text; save(); } addSaveBtn(outEl, opt, r.text); if(opt.next !== false){ outEl.insertAdjacentHTML("beforeend", nextBar(opt.ctx || "")); bindNext(outEl); } return r.text;
+    outEl.innerHTML = md(r.text); if(ck){ DB.cache[ck] = r.text; save(); } addSaveBtn(outEl, opt, r.text); if(opt.next !== false){ outEl.insertAdjacentHTML("beforeend", nextBar(opt.ctx || "")); bindNext(outEl); } revealResult(outEl); return r.text;
   } catch(e){
-    if(opt.local){ var lf = opt.local(); if(lf){ outEl.innerHTML = md(lf); if(ck){ DB.cache[ck] = lf; save(); } addSaveBtn(outEl, opt, lf); if(opt.next !== false){ outEl.insertAdjacentHTML("beforeend", nextBar(opt.ctx || "")); bindNext(outEl); } toast("AI was not available, so this was made on your device"); return lf; } }
+    if(opt.local){ var lf = opt.local(); if(lf){ outEl.innerHTML = md(lf); if(ck){ DB.cache[ck] = lf; save(); } addSaveBtn(outEl, opt, lf); if(opt.next !== false){ outEl.insertAdjacentHTML("beforeend", nextBar(opt.ctx || "")); bindNext(outEl); } revealResult(outEl); toast("AI was not available, so this was made on your device"); return lf; } }
     aiErr(e, RETRY); if(!(e && e.text)) outEl.innerHTML = "";
   }
   finally { btn.disabled = false; btn.textContent = old; }
@@ -564,23 +706,192 @@ function newQuote(){
 }
 
 /* ---------- navigation ---------- */
+/* Move the cursor and the page to the panel the student just opened, then
+   flash it briefly so the eye can follow. */
+function focusRegion(el, block){
+  if(!el || (el.isConnected === false)) return;
+  el.setAttribute("tabindex", "-1");
+  try { el.focus({preventScroll: true}); } catch(e){ try { el.focus(); } catch(_e){} }
+  var rect = el.getBoundingClientRect(), vh = window.innerHeight || 0, target = null;
+  if(block === "nearest"){
+    if(!(rect.top >= 76 && rect.bottom <= vh - 12)) target = (window.pageYOffset || window.scrollY || 0) + rect.top - 80;
+  } else {
+    target = (window.pageYOffset || window.scrollY || 0) + rect.top - 84;
+  }
+  if(target !== null){
+    var max = Math.max(0, (document.documentElement.scrollHeight || document.body.scrollHeight) - vh);
+    target = Math.max(0, Math.min(target, max));
+    var y0 = window.pageYOffset || window.scrollY || 0;
+    try { window.scrollTo({top: target, behavior: "smooth"}); }
+    catch(e){ window.scrollTo(0, target); }
+    /* Some embedded browsers ignore smooth scrolling; make sure the move happens. */
+    setTimeout(function(){
+      var y = window.pageYOffset || window.scrollY || 0;
+      if(Math.abs(y - y0) < 4 && Math.abs(y - target) > 8) window.scrollTo(0, target);
+    }, 320);
+  }
+  el.classList.remove("focus-flash"); void el.offsetWidth; el.classList.add("focus-flash");
+  clearTimeout(el.__flashT); el.__flashT = setTimeout(function(){ el.classList.remove("focus-flash"); }, 1000);
+}
+function revealResult(el){ if(el) focusRegion(el, "nearest"); }
 var VIEWS = ["onb","home","study","progress","perf","hist","rep","rec","fun","note"], RENDER = {};
 function show(v){
+  if(v !== "onb" && !(DB.profile && AUTH.session)) v = "onb";
   clearInterval(examTimer); curView = v;
   VIEWS.forEach(function(x){ $("v-" + x).classList.toggle("hidden", x !== v); });
-  $("bHome").classList.toggle("hidden", v === "onb"); $("bProf").classList.toggle("hidden", v === "onb"); $("bKey").classList.toggle("hidden", HOSTED);
+  var authed = !!(DB.profile && AUTH.session);
+  $("bHome").classList.toggle("hidden", v === "onb" && !authed);
+  $("bProf").classList.toggle("hidden", v === "onb" && !authed);
+  $("bKey").classList.toggle("hidden", HOSTED || !authed);
   muteObs = true; if(RENDER[v]) RENDER[v](); if(["progress","perf","hist","rep","rec","fun","note"].indexOf(v) >= 0) addCta(v); newQuote(); window.scrollTo(0, 0); replay($("v-" + v)); setTimeout(function(){ muteObs = false; }, 0);
 }
 $("bHome").onclick = function(){ show("home"); };
-$("bProf").onclick = function(){ show("onb"); };
+$("bProf").onclick = function(){ if(DB.profile) show("onb"); };
 $("bKey").onclick = function(){ connectModal(); };
 $("oCls").innerHTML = CLASSES.map(function(c){return "<option>" + c + "</option>"}).join("");
 $("oLang").innerHTML = LANGS.map(function(c){return "<option>" + c + "</option>"}).join("");
-RENDER.onb = function(){ var p = DB.profile; if(p){ $("oName").value = p.name; $("oCls").value = p.cls; $("oLang").value = p.lang; $("oSch").value = p.school; $("oFrom").value = p.from; $("oGo").textContent = "Save my details "; } };
-$("oGo").onclick = function(){
+
+/* ---------- student accounts: log in, log out, switch student ---------- */
+function refreshWhoBtn(){
+  var b = $("bProf"); if(!b) return;
+  b.title = DB.profile ? DB.profile.name + " · My details" : "My details";
+}
+function authError(id, msg){
+  var e = $(id); if(!e) return;
+  e.innerHTML = msg ? "<span class='err'>" + esc(msg) + "</span>" : "";
+}
+function digitsOnly(e){ e.target.value = String(e.target.value || "").replace(/\D/g, "").slice(0, 8); }
+function renderLoginList(){
+  var sel = $("liWho"); if(!sel) return;
+  sel.innerHTML = AUTH.users.map(function(u){
+    return "<option value='" + u.id + "'>" + esc(u.name) + (u.cls ? " — " + esc(u.cls) : "") + "</option>";
+  }).join("");
+  var pick = AUTH.last || AUTH.session;
+  if(pick && findUser(pick)) sel.value = pick;
+  sel.onchange = updateLoginPin;
+  updateLoginPin();
+}
+function updateLoginPin(){
+  var sel = $("liWho"), u = sel ? findUser(sel.value) : null;
+  $("liPinWrap").classList.toggle("hidden", !(u && u.pin));
+  $("liGo").textContent = (u && u.pin) ? "Log in" : (u ? "Continue as " + u.name.split(" ")[0] : "Log in");
+  $("liPin").value = "";
+  authError("liMsg", "");
+}
+function startSession(u){
+  if(!u) return;
+  var d = null; try { var raw = localStorage.getItem(DATA_KEY + u.id); if(raw) d = JSON.parse(raw); } catch(e){}
+  resetRuntime();
+  DB = normalizeStudy(d);
+  if(!DB.profile) DB.profile = {name: u.name, cls: u.cls || "Class 9", lang: "English", school: "", from: ""};
+  DB.ai = AUTH.ai || null;
+  AUTH.session = u.id; AUTH.last = u.id; AUTH.migrated = false; AUTH_MIGRATED = "";
+  if(DB.profile){ u.name = DB.profile.name; u.cls = DB.profile.cls; }
+  save();
+  refreshWhoBtn(); refreshKeyBtn();
+  show("home");
+  toast(u.pin ? "Welcome, " + DB.profile.name : "Welcome, " + DB.profile.name + ". Add a PIN in My details.");
+}
+function logOut(){
+  if(DB.profile && AUTH.session) save();
+  stopSpeech();
+  resetRuntime();
+  AUTH.last = AUTH.session || AUTH.last;
+  AUTH.session = null;
+  saveUsers();
+  DB = blankDB();
+  authMode = AUTH.users.length ? "login" : "create";
+  refreshWhoBtn();
+  show("onb");
+  toast("Logged out. Another student can log in now.");
+}
+function onLogin(){
+  var sel = $("liWho"), u = sel ? findUser(sel.value) : null;
+  if(!u){ authError("liMsg", "Choose a student first."); return; }
+  if(u.pin){
+    var pin = String($("liPin").value || "").replace(/\D/g, "");
+    if(!pinOK(pin, u)){ authError("liMsg", "That PIN is not right. Please try again."); $("liPin").value = ""; $("liPin").focus(); return; }
+  }
+  startSession(u);
+}
+function onProfileGo(){
+  var editing = !!(DB.profile && AUTH.session);
   var v = {name: $("oName").value.trim(), cls: $("oCls").value, lang: $("oLang").value, school: $("oSch").value.trim(), from: $("oFrom").value.trim()};
-  if(!v.name || !v.school || !v.from){ $("oMsg").innerHTML = "<span class='err'>Please fill in all the boxes so I can help you better </span>"; return; }
-  var first = !DB.profile; DB.profile = v; save(); if(first) logEv("profile", "Joined Study Buddy as " + v.cls); show("home");
+  if(!v.name || !v.school || !v.from){ authError("oMsg", "Please fill in your name, school and place."); return; }
+  var p1 = String($("oPin").value || "").replace(/\D/g, ""), p2 = String($("oPin2").value || "").replace(/\D/g, "");
+  var clash = AUTH.users.filter(function(u){ return u.id !== AUTH.session && u.name.toLowerCase() === v.name.toLowerCase(); })[0];
+  if(clash){ authError("oMsg", "Another student on this device already uses that name. Add a surname or initial."); return; }
+  if(editing){
+    var me = findUser(AUTH.session);
+    if(p1 || p2){
+      if(p1.length < 4){ authError("oMsg", "Choose a PIN of 4 to 8 digits."); return; }
+      if(p1 !== p2){ authError("oMsg", "The two PINs do not match."); return; }
+      me.salt = newSalt(); me.pin = pinHash(p1, me.salt);
+    }
+    DB.profile = v; save(); refreshWhoBtn(); toast("Details saved"); show("home"); return;
+  }
+  if(p1.length < 4){ authError("oMsg", "Choose a PIN of 4 to 8 digits."); return; }
+  if(p1 !== p2){ authError("oMsg", "The two PINs do not match."); return; }
+  var u = {id: uid(), name: v.name, cls: v.cls, pin: "", salt: "", at: Date.now()};
+  u.salt = newSalt(); u.pin = pinHash(p1, u.salt);
+  resetRuntime();
+  DB = blankDB(); DB.profile = v; DB.ai = AUTH.ai || null;
+  AUTH.users.push(u); AUTH.session = u.id; AUTH.last = u.id; AUTH.migrated = false; AUTH_MIGRATED = "";
+  save(); refreshWhoBtn(); refreshKeyBtn(); logEv("profile", "Joined Study Buddy as " + v.cls);
+  show("home"); toast("Welcome, " + v.name);
+}
+RENDER.onb = function(){
+  var editing = !!(DB.profile && AUTH.session), has = AUTH.users.length > 0;
+  var creating = !editing && (!has || authMode === "create");
+  if(editing){
+    authMode = "edit";
+    $("authTitle").textContent = "My details";
+    $("authSub").textContent = "You are logged in as " + DB.profile.name + ". Your books, notes and progress are private to this account on this device.";
+    $("loginCard").classList.add("hidden"); $("createCard").classList.remove("hidden");
+    $("authWho").classList.remove("hidden");
+    $("authInitial").textContent = (DB.profile.name || "S").trim().charAt(0).toUpperCase();
+    $("authWhoName").textContent = DB.profile.name;
+    $("authWhoMeta").textContent = DB.profile.cls + (DB.profile.school ? " · " + DB.profile.school : "");
+    $("createTitle").textContent = "My account";
+    $("createSub").textContent = "Change your details here. Leave both PIN boxes empty to keep your current PIN.";
+    $("oName").value = DB.profile.name; $("oCls").value = DB.profile.cls; $("oLang").value = DB.profile.lang;
+    $("oSch").value = DB.profile.school; $("oFrom").value = DB.profile.from;
+    $("oPin").value = ""; $("oPin2").value = "";
+    $("oGo").textContent = "Save my details";
+    $("oBack").classList.add("hidden"); $("oLogout").classList.remove("hidden");
+    $("pinLabel").textContent = "New PIN (optional)";
+    $("pinHint").textContent = (findUser(AUTH.session) && findUser(AUTH.session).pin) ? "4 to 8 digits. Leave blank to keep the current PIN." : "This account has no PIN yet. Add 4 to 8 digits so only you can open it.";
+  } else {
+    $("authWho").classList.add("hidden");
+    $("authTitle").textContent = has ? "Welcome back" : " Namaste! I am Mitrādhyāyin";
+    $("authSub").textContent = has ? "Choose your name to open only your own books, notes and progress." : "Your study companion. Create your account so your books, notes and progress stay yours.";
+    $("loginCard").classList.toggle("hidden", !has || creating);
+    $("createCard").classList.toggle("hidden", has && !creating);
+    $("createTitle").textContent = "Create your account";
+    $("createSub").textContent = "One account per student on this device. Your chapters, notes and progress stay separate.";
+    $("oName").value = ""; $("oSch").value = ""; $("oFrom").value = ""; $("oPin").value = ""; $("oPin2").value = "";
+    $("oCls").selectedIndex = 0; $("oLang").selectedIndex = 0;
+    $("oGo").textContent = "Create my account";
+    $("oBack").classList.toggle("hidden", !has || !creating);
+    $("oLogout").classList.add("hidden");
+    $("pinLabel").textContent = "Create a PIN";
+    $("pinHint").textContent = "4 to 8 digits. You will use this PIN to log in.";
+    if(has){
+      renderLoginList();
+      if(AUTH_MIGRATED) authError("liMsg", "Your earlier study data is ready under " + AUTH_MIGRATED + ". Choose the name to continue.");
+    }
+  }
+  refreshWhoBtn(); authError("oMsg", "");
+};
+$("liGo").onclick = onLogin;
+$("liPin").onkeydown = function(e){ if(e.key === "Enter") onLogin(); };
+$("liPin").oninput = digitsOnly;
+$("oPin").oninput = digitsOnly; $("oPin2").oninput = digitsOnly;
+$("toCreate").onclick = function(){ authMode = "create"; RENDER.onb(); };
+$("oBack").onclick = function(){ authMode = "login"; RENDER.onb(); };
+$("oGo").onclick = onProfileGo;
+$("oLogout").onclick = function(){
+  askYes("Log out of " + (DB.profile ? DB.profile.name + "’s" : "this") + " account? Another student can then log in on this device.", logOut);
 };
 
 /* ---------- Gurukul (home) ---------- */
@@ -973,6 +1284,7 @@ function openMethod(k){
   if(!c && ["explain","notes","doubt","qa","teach","flash","mcq","exam","map"].indexOf(k) >= 0){
     mp.innerHTML = "<div class='card hero' style='text-align:center'><p>Add your book or a chapter first. Then I can prepare this for you.</p><button class='primary' id='noChBtn'>＋ Add a book (PDF)</button></div>";
     var nb = $("noChBtn"); if(nb) nb.onclick = function(){ $("file").click(); };
+    focusRegion(mp, "start");
     return;
   }
   if(c){ var mm = METHODS.filter(function(x){return x.k === k})[0]; DB.last = {cid: c.id, method: k, text: "Started " + (mm ? mm.n : k), t: Date.now()}; save(); }
@@ -1008,6 +1320,7 @@ function openMethod(k){
     mp.innerHTML = "<h3 style='margin-top:0'>" + (ex ? " Exam mode" : " MCQ practice") + "</h3><p class='status'>" + (ex ? "Timed test, one minute per question. Answers are shown only after you submit, just like the real exam." : "You get feedback after every answer. A wrong answer opens a small window explaining it.") + "</p><div class='row'><select id='qzN'><option value='5'>5 questions</option><option value='10' selected>10 questions</option><option value='15'>15 questions</option>" + (ex ? "<option value='20'>20 questions</option>" : "") + "</select><select id='qzD'><option value='a mix of easy, medium and tricky'>Mixed</option><option value='easy, to build basics'>Easy</option><option value='hard, application-based and exam-tricky'>Hard</option></select></div><button class='primary' id='qzGo'>" + (ex ? "Start exam " : "Start practice ") + "</button><div id='qzScore' class='status' style='margin-top:10px'></div><div id='qzOut'></div><div id='qzRes'></div>";
     $("qzGo").onclick = function(){ startTest(k); }; paperUi();
   }
+  focusRegion(mp, "start");
 }
 
 /* ---------- concept map: see the shape of the chapter ---------- */
@@ -1382,7 +1695,7 @@ function qaShow(){
   if(!it){
     var avg = s.scores.length ? Math.round(s.scores.reduce(function(a, b){return a + b}, 0) / s.scores.length * 10) / 10 : 0;
     DB.sess = null; var gr = recordPrac(s.kind, avg * 10); mp.innerHTML = "<div class='hero card' style='text-align:center'><div class='big'>" + avg + " / 10</div><p>" + (avg >= 8 ? "Shabash! You really know this " : avg >= 5 ? "Good going! A little more practice and you’ll shine " : "Nice try! Read the notes once more and try again, you’ll get there ") + "</p>" + growthHtml(gr) + "<button class='primary' id='qaAgain'>Practise again</button></div>" + nextBar(s.kind);
-    $("qaAgain").onclick = function(){ qaStart(s.kind); }; bindNext(mp); logEv(s.kind, (s.kind === "teach" ? "Teach-it-back" : "Q&A coach") + ": average " + avg + "/10 over " + s.scores.length + " answers"); markDone(s.kind); return;
+    $("qaAgain").onclick = function(){ qaStart(s.kind); }; bindNext(mp); logEv(s.kind, (s.kind === "teach" ? "Teach-it-back" : "Q&A coach") + ": average " + avg + "/10 over " + s.scores.length + " answers"); markDone(s.kind); focusRegion(mp, "start"); return;
   }
   var mk = s.kind === "teach" ? "" : "<div class='row'><label style='margin:0'>Answer as a</label><select id='qaM'>" + [2, 3, 4].map(function(m){ return "<option value='" + m + "'" + (m === (DB.qaMarks || 3) ? " selected" : "") + ">" + m + "-mark answer</option>"; }).join("") + "</select><span class='status'>One clear point for each mark.</span></div>";
   mp.innerHTML = "<div class='q'><div class='status'>" + (s.kind === "teach" ? "Teach it back" : "Question") + " " + (s.i + 1) + " of " + s.items.length + " · " + esc(it.topic || "") + "</div><p><strong>" + inline(String(it.q)) + "</strong></p>" + mk + "<textarea id='qaA' placeholder='Write in your own words…'></textarea><div class='row'><button class='primary' id='qaChk'>Check my answer</button></div><div id='qaFb'></div></div>";
@@ -1395,6 +1708,7 @@ function qaShow(){
     $("qaFb").innerHTML = "<div class='fact'><strong>" + (sc >= 8 ? " Excellent! " : sc >= 5 ? " Good effort! " : " Let’s improve this. ") + (M ? (Math.round(sc * M / 10 * 2) / 2) + " / " + M + " marks" : sc + "/10") + "</strong><p> " + inline(String(r.good || "")) + "</p><p> " + inline(String(r.missing || "")) + "</p><p class='exp'> Model answer: " + inline(String(r.model || "")) + "</p></div><button class='primary' id='qaNext'>" + (s.i + 1 < s.items.length ? "Next →" : "Finish ") + "</button>";
     b.classList.add("hidden"); $("qaNext").onclick = function(){ s.i++; qaPersist(); qaShow(); };
   };
+  focusRegion(mp, "start");
 }
 
 /* ---------- Flashcards ---------- */
@@ -1406,11 +1720,12 @@ async function flashStart(){
   if(!bank.length){ mp.innerHTML = "<p class='status'>Couldn’t make flashcards.</p><button class='primary' id='rtBtn'>Try again</button>"; $("rtBtn").onclick = flashStart; return; }
   var d = leastUsed(bank, 10); save();
   var F = {i: 0, knew: 0}; (function draw(){
-    if(F.i >= d.length){ var gr = recordPrac("flash", Math.round(F.knew * 100 / d.length)); mp.innerHTML = "<div class='hero card' style='text-align:center'><div class='big'>" + F.knew + " / " + d.length + "</div><p>cards you knew. " + (F.knew >= d.length * 0.7 ? "Super recall!" : "Revise once more and try again") + "</p>" + growthHtml(gr) + "<button class='primary' id='flAgain'>Again</button></div>" + nextBar("flash"); $("flAgain").onclick = flashStart; bindNext(mp); logEv("flash", "Flashcards: knew " + F.knew + " of " + d.length); markDone("flash"); return; }
+    if(F.i >= d.length){ var gr = recordPrac("flash", Math.round(F.knew * 100 / d.length)); mp.innerHTML = "<div class='hero card' style='text-align:center'><div class='big'>" + F.knew + " / " + d.length + "</div><p>cards you knew. " + (F.knew >= d.length * 0.7 ? "Super recall!" : "Revise once more and try again") + "</p>" + growthHtml(gr) + "<button class='primary' id='flAgain'>Again</button></div>" + nextBar("flash"); $("flAgain").onclick = flashStart; bindNext(mp); logEv("flash", "Flashcards: knew " + F.knew + " of " + d.length); markDone("flash"); focusRegion(mp, "start"); return; }
     var x = d[F.i], flipped = false;
     mp.innerHTML = "<div class='status'>Card " + (F.i + 1) + " of " + d.length + " · tap the card to flip</div><div class='flip' id='fl'>" + inline(String(x.front)) + "</div><div class='row' style='margin-top:10px'><button id='fNo'>Revise again</button><button class='primary' id='fYes'>I knew it</button></div>";
     $("fl").onclick = function(){ flipped = !flipped; this.innerHTML = inline(String(flipped ? x.back : x.front)); this.style.background = flipped ? "var(--acc2bg)" : ""; };
     $("fYes").onclick = function(){ F.knew++; F.i++; draw(); }; $("fNo").onclick = function(){ F.i++; draw(); };
+    focusRegion(mp, "start");
   })();
 }
 
@@ -3866,6 +4181,7 @@ function buildTest(kind, items, left){
   });
   if(kind === "exam"){ var sb = document.createElement("button"); sb.className = "primary"; sb.textContent = "Submit exam"; sb.onclick = function(){ var un = items.length - answered(); askYes(un ? un + " question(s) are still unanswered. Submit now?" : "Submit your answers now?", function(){ finishTest(); }); }; box.appendChild(sb); T.sb = sb; }
   persist();
+  focusRegion($("mp") || box, "start");
 }
 function finishTest(defer){
   clearInterval(examTimer); if(T.over) return; T.over = true; DB.sess = null;
@@ -3905,8 +4221,8 @@ function backupData(){
 }
 function restoreData(f){
   f.text().then(function(t){ var d = JSON.parse(t); if(!d || !d.chapters) throw 0;
-    askYes("Replace everything on this device with this backup?", function(){
-      d.ai = DB.ai; d.history = d.history || []; d.facts = d.facts || {}; d.progress = d.progress || {}; d.cache = d.cache || {}; d.book = d.book || [];
+    askYes("Replace this student’s study data with this backup?", function(){
+      d.ai = DB.ai; d.history = d.history || []; d.facts = d.facts || {}; d.progress = d.progress || {}; d.cache = d.cache || {}; d.book = d.book || []; d.speech = d.speech || {};
       d.engine = d.ai ? (d.engine || "local") : "local";
       if(!d.cur || !d.chapters.some(function(c){ return c.id === d.cur; })) d.cur = d.chapters[0] ? d.chapters[0].id : null;
       DB = d; save(); location.reload();
@@ -3959,36 +4275,141 @@ RENDER.note = function(){
     saveFile("StudyBuddy-notebook.md", t);
   };
 };
-/* ---------- read a one-minute overview aloud ---------- */
-function speakText(t, lang){
-  var s = window.speechSynthesis; if(!s){ toast("Read aloud is not available on this device"); return; }
-  s.cancel();
-  var u = new SpeechSynthesisUtterance(String(t).slice(0, 4000));
-  u.lang = VL[(lang || (DB.profile ? DB.profile.lang : "") || "English").split(" ")[0]] || "en-IN"; u.rate = 0.95; s.speak(u);
+/* ---------- read aloud: voice, speed, punctuation ---------- */
+var SPK = {id: 0, on: false};
+function speechPrefs(){
+  var p = (DB && DB.speech) || {}, rate = +p.rate, pitch = +p.pitch;
+  if(!(rate >= 0.5 && rate <= 2)) rate = 0.95;
+  if(!(pitch >= 0.5 && pitch <= 1.5)) pitch = 1;
+  return {uri: p.uri || "", name: p.name || "", rate: rate, pitch: pitch};
 }
-/* Turns note markdown into clean speech: no pipes, bullets or headings. */
-function plainOverview(t){
-  return String(t || "")
-    .replace(/^\s*#.*$/gm, "")
-    .replace(/^\s*\|?[\s:|-]+\|?\s*$/gm, "")
-    .replace(/^\s*\|.*\|\s*$/gm, function(row){
-      if(/^\s*\|\s*term\s*\|\s*meaning/i.test(row)) return "";
-      var c = row.replace(/^\s*\||\|\s*$/g, "").split("|").map(function(x){ return x.replace(/[*_`]/g, "").trim(); }).filter(Boolean);
-      return c.length > 1 ? c[0] + ": " + c.slice(1).join(", ") : c.join(", ");
-    })
-    .replace(/^\s*[-*]\s+/gm, "")
-    .replace(/[*_`>#]/g, "")
-    .replace(/\s*\n\s*/g, ". ")
-    .replace(/\.(\s*\.)+/g, ".")
+function speechLang(){
+  var key = String((DB.profile && DB.profile.lang) || "English").split(" ")[0];
+  return VL[key] || "en-IN";
+}
+function allVoices(){
+  try { return (window.speechSynthesis && window.speechSynthesis.getVoices()) || []; }
+  catch(e){ return []; }
+}
+function pickVoice(pref, lang){
+  var vs = allVoices(); if(!vs.length) return null;
+  if(pref && (pref.uri || pref.name)){
+    var exact = vs.filter(function(v){ return (pref.uri && v.voiceURI === pref.uri) || (pref.name && v.name === pref.name); })[0];
+    if(exact) return exact;
+  }
+  var base = String(lang || "en-IN").toLowerCase(), stem = base.split("-")[0];
+  var m = vs.filter(function(v){ return v.lang && v.lang.toLowerCase() === base; });
+  if(!m.length) m = vs.filter(function(v){ return v.lang && v.lang.toLowerCase().indexOf(stem) === 0; });
+  if(!m.length) return null;
+  return m.filter(function(v){ return v.default; })[0] || m.filter(function(v){ return v.localService; })[0] || m[0];
+}
+function setSpeechState(on){
+  SPK.on = !!on;
+  var b = $("readBtn");
+  if(b){ b.textContent = on ? "⏹ Stop" : "🔊 Read aloud"; b.title = on ? "Stop reading" : "Reads the selected text, or the whole page"; }
+}
+function stopSpeech(){
+  SPK.id++; SPK.on = false;
+  try { if(window.speechSynthesis) window.speechSynthesis.cancel(); } catch(e){}
+  setSpeechState(false);
+}
+function speechClean(s){
+  return String(s || "")
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+    .replace(/(\d)\s*[*×]\s*(\d)/g, "$1 times $2")
+    .replace(/[*_`~]/g, "")
+    .replace(/^\s*>\s?/, "")
     .replace(/\s+/g, " ")
     .trim();
 }
+function speechEnds(s){ return /[.!?]["')\]]?$/.test(String(s || "").trim()); }
+/* Markdown → speakable text. Headings and paragraphs stay separate so the
+   voice pauses in the right places; commas and full stops are never removed. */
+function plainOverview(t){
+  var lines = String(t || "").replace(/\r/g, "").split("\n"), out = [], para = [];
+  function flush(){ if(para.length){ out.push(para.join(" ")); para = []; } }
+  lines.forEach(function(raw){
+    var l = raw.trim();
+    if(!l){ flush(); return; }
+    if(/^\|?[\s:|-]+\|?$/.test(l) && l.length > 2) return;
+    if(/^#{1,6}\s+/.test(l)){
+      flush();
+      var h = speechClean(l.replace(/^#{1,6}\s+/, ""));
+      if(h) out.push(speechEnds(h) ? h : h + ".");
+      return;
+    }
+    if(/^\|.*\|\s*$/.test(l)){
+      flush();
+      if(/^\|\s*(term|concept|word|meaning)\s*\|/i.test(l)) return;
+      var c = l.replace(/^\s*\|/, "").replace(/\|\s*$/, "").split("|").map(speechClean).filter(Boolean);
+      if(c.length){
+        var row = c[0] + (c.length > 1 ? ": " + c.slice(1).join(", ") : "");
+        out.push(speechEnds(row) ? row : row + ".");
+      }
+      return;
+    }
+    var b = l.match(/^[-*•]\s+(.*)$/);
+    if(b){ var x = speechClean(b[1]); if(x) para.push(speechEnds(x) ? x : x + "."); return; }
+    l = speechClean(l); if(!l) return;
+    para.push(l);
+  });
+  flush();
+  return out.join("\n\n").replace(/\.{2,}/g, ".").replace(/\s+([,.;:!?])/g, "$1").trim();
+}
+/* Split into small utterances so long chapters are not cut off by the browser.
+   Sentence punctuation is kept; paragraph ends get a longer pause. */
+function speechChunks(text, opts){
+  var paras = String(text || "").replace(/\r/g, "").split(/\n{2,}/).map(function(x){ return x.trim(); }).filter(Boolean);
+  var out = [], max = (opts && opts.max) || 240;
+  paras.forEach(function(p, pi){
+    var parts = sentSplit(p), buf = "";
+    parts.forEach(function(s){
+      s = String(s || "").trim(); if(!s) return;
+      if(buf && (buf.length + s.length + 1) > max){ out.push({t: buf, pause: 120}); buf = s; }
+      else buf = buf ? buf + " " + s : s;
+    });
+    if(buf) out.push({t: buf, pause: pi < paras.length - 1 ? 480 : 0});
+  });
+  return out;
+}
+function speechTrim(t, n){
+  t = String(t || ""); if(t.length <= n) return t;
+  var cut = t.slice(0, n), i = Math.max(cut.lastIndexOf(". "), cut.lastIndexOf("! "), cut.lastIndexOf("? "), cut.lastIndexOf("\n\n"));
+  if(i < 40) i = Math.max(cut.lastIndexOf("."), cut.lastIndexOf("!"), cut.lastIndexOf("?"));
+  return i > 40 ? cut.slice(0, i + 1) : cut;
+}
+function speakText(t, opts){
+  opts = opts || {};
+  var s = window.speechSynthesis, U = window.SpeechSynthesisUtterance;
+  if(!s || !U){ toast("Read aloud is not available on this device"); return false; }
+  var text = String(opts.markdown ? plainOverview(t) : (t || "")).trim();
+  if(text.length < 2){ toast("Nothing to read here"); return false; }
+  stopSpeech();
+  var id = SPK.id, prefs = speechPrefs(), lang = opts.lang || speechLang(), voice = pickVoice(prefs, lang), chunks = speechChunks(text, opts);
+  if(!chunks.length) return false;
+  setSpeechState(true);
+  var i = 0;
+  function next(){
+    if(id !== SPK.id) return;
+    if(i >= chunks.length){ setSpeechState(false); return; }
+    var ch = chunks[i++], u = new U(ch.t);
+    if(voice){ u.voice = voice; u.lang = voice.lang; }
+    else u.lang = lang;
+    u.rate = prefs.rate; u.pitch = prefs.pitch; u.volume = 1;
+    u.onend = function(){ if(id !== SPK.id) return; setTimeout(function(){ if(id === SPK.id) next(); }, ch.pause || 0); };
+    u.onerror = function(){ if(id !== SPK.id) return; setTimeout(function(){ if(id === SPK.id) next(); }, 60); };
+    try { s.speak(u); } catch(e){ setSpeechState(false); }
+  }
+  next();
+  return true;
+}
 function audioOverview(){
   var c = cur(); if(!c) return;
-  var t = plainOverview(localNotes(2));
+  var t = speechTrim(plainOverview(localNotes(2)), 3000);
   if(t.length < 40){ toast("Make your notes once, then I can read them aloud"); return; }
   toast("Playing a short overview…");
-  speakText("Quick overview of " + c.name + ". " + t.slice(0, 2400));
+  speakText("Quick overview of " + c.name + ".\n\n" + t, {max: 260});
 }
 function printReport(){
   var p = DB.profile || {name: "Student", cls: "", school: ""}, w = window.open("", "_blank"); if(!w){ toast("Please allow pop-ups, then try again"); return; }
@@ -4013,16 +4434,113 @@ function classView(files){
   });
 }
 var VL = {Hindi: "hi-IN", Marathi: "mr-IN", Malayalam: "ml-IN", Tamil: "ta-IN", Telugu: "te-IN", Kannada: "kn-IN", Gujarati: "gu-IN"};
+function visibleEl(el){ return !!el && (el.offsetWidth > 0 || el.offsetHeight > 0 || el.getClientRects().length > 0); }
+/* Readable text from a piece of the page: buttons, menus and inputs are left
+   out, and each heading, paragraph or list line becomes its own block so the
+   voice pauses between ideas rather than running them together. */
+function speechBlocks(el){
+  if(!el) return "";
+  var c = el.cloneNode(true);
+  c.querySelectorAll("button,select,input,textarea,script,style,svg,canvas,nav").forEach(function(x){ x.remove(); });
+  var sel = "h1,h2,h3,h4,h5,h6,p,li,tr,blockquote,pre";
+  var all = [].slice.call(c.querySelectorAll(sel)).filter(function(b){
+    return !(b.parentElement && b.parentElement.closest(sel));
+  });
+  var parts = [];
+  all.forEach(function(b){
+    var t = String(b.innerText || b.textContent || "").replace(/\s+/g, " ").trim();
+    if(!t) return;
+    if(/^(H\d|TR)$/.test(b.tagName) && !/[.!?:]$/.test(t)) t += ".";
+    parts.push(t);
+  });
+  if(!parts.length){
+    var raw = String(c.innerText || c.textContent || "").replace(/[ \t]+/g, " ").trim();
+    raw.split(/\n+/).forEach(function(l){ l = l.trim(); if(l) parts.push(/[.!?:]$/.test(l) ? l : l + "."); });
+  }
+  return parts.join("\n\n").trim();
+}
+function readSource(){
+  var sel = String(window.getSelection ? window.getSelection() : "").trim();
+  if(sel.length > 1) return {text: sel, where: "your selection"};
+  var modal = document.querySelector(".modal");
+  if(modal && visibleEl(modal)){ var mt = speechBlocks(modal); if(mt.length > 20) return {text: mt, where: "this window"}; }
+  var host = $(curView === "study" ? "mp" : "v-" + curView);
+  var act = document.activeElement;
+  if(act && act !== document.body && act !== document.documentElement && act !== host && visibleEl(act)){
+    var at = speechBlocks(act);
+    if(at.length > 40) return {text: at, where: "this section"};
+  }
+  if(host && visibleEl(host)){
+    var res = [].slice.call(host.querySelectorAll(".out, .mapWrap")).filter(function(e){ return visibleEl(e) && speechBlocks(e).length > 40; });
+    if(res.length){
+      var txt = res.map(speechBlocks).join("\n\n");
+      if(txt.length > 40) return {text: txt, where: "the result"};
+    }
+    var qs = [].slice.call(host.querySelectorAll(".q")).filter(function(e){ return visibleEl(e) && speechBlocks(e).length > 20; });
+    if(qs.length) return {text: qs.map(speechBlocks).join("\n\n"), where: "the questions"};
+    var ht = speechBlocks(host);
+    if(ht.length > 20) return {text: ht, where: "this page"};
+  }
+  return null;
+}
 function readAloud(){
   var s = window.speechSynthesis; if(!s){ toast("Read aloud is not available on this device"); return; }
-  if(s.speaking){ s.cancel(); return; }
-  var modal = document.querySelector(".modal"), sel = String(window.getSelection()).trim();
-  var el = $(curView === "study" ? "mp" : "v-" + curView);
-  var t = sel || (modal ? modal.innerText : (el ? el.innerText : "")); if(!t.trim()) return;
-  speakText(t);
+  if(SPK.on){ stopSpeech(); return; }
+  var src = readSource();
+  if(!src || src.text.trim().length < 2){ toast("Nothing to read yet. Open a result, or select some text first."); return; }
+  speakText(src.text, {max: 240});
+}
+function populateVoiceSelect(sel, uri, name){
+  if(!sel) return;
+  var vs = allVoices().slice().sort(function(a, b){
+    var A = ((a.lang || "") + " " + (a.name || "")).toLowerCase(), B = ((b.lang || "") + " " + (b.name || "")).toLowerCase();
+    return A < B ? -1 : A > B ? 1 : 0;
+  });
+  sel.innerHTML = "";
+  var auto = document.createElement("option");
+  auto.value = ""; auto.textContent = "Automatic — best voice for " + ((DB.profile && DB.profile.lang) || "English");
+  sel.appendChild(auto);
+  vs.forEach(function(v){
+    var o = document.createElement("option");
+    o.value = v.voiceURI || v.name;
+    o.textContent = v.name + " — " + v.lang + (v.default ? " (default)" : "");
+    o.setAttribute("data-name", v.name || "");
+    if((uri && o.value === uri) || (!uri && name && v.name === name)) o.selected = true;
+    sel.appendChild(o);
+  });
+  if(!uri && !name) auto.selected = true;
+}
+function speechSettings(){
+  var prefs = speechPrefs();
+  var m = popup("<h3 style='margin-top:0'>Read aloud settings</h3><p class='status'>Choose a voice and speed. Your choice is saved on this device.</p><label>Voice</label><select id='spVoice' style='width:100%'></select><label style='margin-top:12px'>Speed <span id='spRateVal'>" + prefs.rate.toFixed(2) + "×</span></label><input type='range' id='spRate' min='0.6' max='1.6' step='0.05' value='" + prefs.rate + "'><div class='row' style='margin-top:12px'><button id='spTry'>Preview</button><button id='spStop'>Stop</button><button class='primary' data-close>Done</button></div><p class='status' style='margin-bottom:0'>Tip: select any text, then press Read aloud to hear just that part. Commas, full stops, headings and paragraphs are read with natural pauses.</p>");
+  var sel = m.el.querySelector("#spVoice"), rate = m.el.querySelector("#spRate"), lab = m.el.querySelector("#spRateVal");
+  populateVoiceSelect(sel, prefs.uri, prefs.name);
+  function savePrefs(){
+    var o = sel.options[sel.selectedIndex] || {};
+    DB.speech = {uri: sel.value, name: o.getAttribute ? (o.getAttribute("data-name") || "") : prefs.name, rate: +rate.value, pitch: prefs.pitch};
+    save();
+  }
+  sel.onchange = savePrefs;
+  rate.oninput = function(){ lab.textContent = (+rate.value).toFixed(2) + "×"; savePrefs(); };
+  m.el.querySelector("#spTry").onclick = function(){
+    speakText("This is how I will read your notes. Short sentences stay together. Commas give a small pause, and full stops close each thought.\n\nHeadings are read as their own line. New paragraphs get a longer pause, so the ideas stay separate.", {max: 220});
+  };
+  m.el.querySelector("#spStop").onclick = stopSpeech;
 }
 (function(){
-  var rb = document.createElement("button"); rb.textContent = "🔊 Read aloud"; rb.title = "Reads the selected text, or the whole page"; rb.style.cssText = "position:fixed;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:6;box-shadow:var(--shadow-sm)"; rb.onclick = readAloud; document.body.appendChild(rb);
+  var wrap = document.createElement("div"); wrap.className = "speechWrap";
+  var rb = document.createElement("button"); rb.id = "readBtn"; rb.textContent = "🔊 Read aloud"; rb.title = "Reads the selected text, or the whole page"; rb.onclick = readAloud;
+  var gb = document.createElement("button"); gb.id = "readCfg"; gb.className = "cfg"; gb.textContent = "⚙"; gb.title = "Read aloud settings — voice and speed"; gb.setAttribute("aria-label", "Read aloud settings"); gb.onclick = speechSettings;
+  wrap.appendChild(rb); wrap.appendChild(gb); document.body.appendChild(wrap);
+  if(window.speechSynthesis && "onvoiceschanged" in window.speechSynthesis){
+    window.speechSynthesis.onvoiceschanged = function(){
+      var sel = $("spVoice");
+      if(sel && document.body.contains(sel)){
+        var o = sel.options[sel.selectedIndex], nm = o ? (o.getAttribute("data-name") || "") : "";
+        populateVoiceSelect(sel, sel.value, nm);
+      }
+    };
+  }
   document.addEventListener("click", function(e){ var b = e.target.closest && e.target.closest("[data-act]"); if(!b) return; var a = b.getAttribute("data-act"); if(a === "mist") mistakePractice(); else if(a === "bk") backupData(); else if(a === "rs") $("fRs").click(); else if(a === "pr") printReport(); else if(a === "cls") $("fCls").click(); });
   document.addEventListener("change", function(e){ var t = e.target; if(t.id === "fRs" && t.files[0]) restoreData(t.files[0]); if(t.id === "fCls" && t.files.length) classView(t.files); });
 })();
@@ -4140,7 +4658,8 @@ RENDER.fun = function(){
 
 window.addEventListener("resize", function(){ if(curView === "home" && (window.innerWidth < 620) !== homeNarrow) RENDER.home(); });
 load(); if(aiCfg()) save(); if(DB.engine === "ai" && !aiCfg()){ DB.engine = "local"; save(); } refreshKeyBtn();
-if(DB.profile) show("home"); else show("onb");
+authMode = AUTH.users.length ? "login" : "create";
+if(DB.profile && AUTH.session) show("home"); else show("onb");
 </script>
 </body>
 </html>
