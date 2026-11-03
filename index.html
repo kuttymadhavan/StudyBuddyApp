@@ -82,6 +82,75 @@ input[type=range]{width:100%;accent-color:var(--acc);margin:8px 0 2px}
 .authWho span{color:var(--mute);font-size:.9rem}
 .authAvatar{flex:0 0 38px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--acc);color:var(--onacc);font-weight:700}
 #loginCard select,#loginCard input{width:100%}
+/* maths workbench */
+.mwGrid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:12px;align-items:start}
+.mwGrid>*{min-width:0}
+.mwLeft,.mwSide{min-width:0}
+.mwTools{margin-bottom:6px}
+.mwSteps{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.mwStep{position:relative;border:1px solid var(--line);border-radius:14px;padding:11px 13px 11px 42px;background:var(--card);cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.mwStep:hover{border-color:var(--acc)}
+.mwStep.now{border-color:var(--acc);box-shadow:0 0 0 3px var(--accbg)}
+.mwStep.final{border-color:var(--acc2);background:var(--acc2bg)}
+.mwNo{position:absolute;left:10px;top:11px;width:23px;height:23px;border-radius:50%;background:var(--accbg);color:var(--acc);display:grid;place-items:center;font-size:.78rem;font-weight:700}
+.mwStep.final .mwNo{background:var(--acc2);color:var(--onacc2)}
+.mwLb{font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mute);margin-bottom:3px}
+.mwEq{font-size:1.14rem;font-weight:650;line-height:1.5;overflow-x:auto;white-space:nowrap;padding-bottom:2px}
+.mwOp{font-size:.85rem;color:var(--acc2ink);background:var(--acc2bg);border-radius:8px;padding:2px 8px;display:inline-block;margin-top:5px}
+.mwWhy{display:none;margin-top:9px;padding-top:9px;border-top:1px dashed var(--line);font-size:.92rem;color:var(--ink)}
+.mwStep.open .mwWhy{display:block}
+.mwTap{font-size:.75rem;color:var(--mute);margin-top:6px}
+.mwStep.open .mwTap{display:none}
+.mwTok{cursor:pointer;border-bottom:1px dotted var(--acc);padding:0 1px;border-radius:3px;transition:background .15s,color .15s}
+.mwTok:hover,.mwTok.on{background:var(--acc);color:var(--onacc);border-bottom-color:transparent}
+.mwTokWhy{margin-top:8px;padding:8px 10px;border-radius:10px;background:var(--accbg);font-size:.9rem;color:var(--ink)}
+.mwCard{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:10px;margin-top:10px}
+.mwCard h4{margin:0 0 4px;font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mute);font-weight:700}
+.mwCard svg{display:block;width:100%;height:auto}
+.mwLegend{display:flex;gap:10px;flex-wrap:wrap;font-size:.78rem;color:var(--mute);margin-top:4px}
+.mwLegend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px}
+.mwBal{display:flex;align-items:center;gap:6px;margin:8px 0 2px}
+.mwPan{flex:1;min-width:0;border:1px solid var(--line);border-radius:12px;background:var(--accbg);padding:8px;text-align:center}
+.mwPan small{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mute)}
+.mwPan b{display:block;font-size:.98rem;overflow-wrap:anywhere;margin-top:2px}
+.mwBeam{flex:0 0 54px;height:4px;background:var(--acc2);border-radius:4px;position:relative}
+.mwBeam:before{content:"";position:absolute;left:50%;top:-4px;width:2px;height:12px;background:var(--acc2);transform:translateX(-50%)}
+.mwBeam:after{content:"";position:absolute;left:50%;top:8px;width:18px;height:18px;border:2px solid var(--acc2);border-radius:50%;transform:translateX(-50%);background:var(--card)}
+.mwPct{height:26px;border-radius:99px;background:var(--line);overflow:hidden;margin:8px 0 4px}
+.mwPct i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:99px}
+.mwPctLbl{display:flex;justify-content:space-between;gap:8px;font-size:.78rem;color:var(--mute)}
+.mwBodmas{display:flex;gap:5px;flex-wrap:wrap;margin:6px 0}
+.mwBodmas span{flex:1;min-width:42px;text-align:center;font-size:.72rem;color:var(--mute);border:1px solid var(--line);border-radius:9px;padding:5px 3px}
+.mwBodmas span b{display:block;font-size:.95rem;color:var(--ink)}
+.mwBodmas span.on{background:var(--acc2bg);border-color:var(--acc2);color:var(--acc2ink)}
+.mwBodmas span.on b{color:var(--acc2ink)}
+.mwEqChips{display:flex;gap:6px;flex-wrap:wrap;margin:2px 0 8px}
+.mwEqChips button{font-size:.8rem;padding:5px 10px;border-radius:99px}
+/* interactive solve */
+.svHead{min-width:0}
+.svHead h3{margin-bottom:2px}
+.svParts{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 8px}
+.svPart{text-align:left;padding:6px 10px;border-radius:11px;line-height:1.25;font-size:.8rem}
+.svPart b{display:block;font-size:.86rem}
+.svPart small{display:block;color:var(--mute);font-size:.72rem;margin-top:1px}
+.svPart.on{border-color:var(--acc);background:var(--accbg);box-shadow:0 0 0 2px var(--accbg)}
+.svMethod{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:8px 11px;margin:8px 0 10px;font-size:.9rem}
+.svMethod summary{cursor:pointer;font-weight:700;color:var(--acc);font-size:.86rem}
+.svMethod ol{margin:8px 0 2px 18px;padding:0}
+.svMethod li{margin:4px 0}
+.svVerdict{margin-top:10px;padding:9px 12px;border-radius:12px;background:var(--okbg);border:1px solid var(--ok);color:var(--ok);font-weight:700;line-height:1.4}
+.svFoot .saveNb{margin-top:10px}
+@media (max-width:760px){.svParts{max-height:148px;overflow:auto}.svPart{flex:1 1 45%}}
+/* NCERT library */
+.ncChapters{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:6px;max-height:250px;overflow:auto;padding:4px 2px;margin:6px 0 10px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.ncChapters a.ncCh{display:block;border:1px solid var(--line);border-radius:11px;padding:7px 9px;text-decoration:none;color:var(--ink);background:var(--card);font-size:.84rem;transition:border-color .15s,background .15s}
+.ncChapters a.ncCh:hover{border-color:var(--acc);background:var(--accbg)}
+.ncChapters a.ncCh.on{border-color:var(--acc);background:var(--accbg);box-shadow:0 0 0 2px var(--accbg)}
+.ncChapters a.ncCh b{display:block;font-size:.8rem}
+.ncChapters a.ncCh small{display:block;color:var(--mute);font-size:.72rem;line-height:1.3;margin-top:2px}
+.ncLink{display:inline-block;border:1px solid var(--line);border-radius:11px;padding:7px 11px;text-decoration:none;color:var(--ink);font-size:.88rem;background:var(--card)}
+.ncLink:hover{border-color:var(--acc);background:var(--accbg)}
+@media (max-width:760px){.mwGrid{grid-template-columns:1fr}.mwSide{order:2}.mwEq{white-space:normal;overflow-wrap:anywhere}.mwTools button{flex:1 1 auto}.ncChapters{max-height:200px}}
 </style>
 </head>
 <body>
@@ -118,9 +187,9 @@ input[type=range]{width:100%;accent-color:var(--acc);margin:8px 0 2px}
 <section id="v-home" class="hidden"><div id="homeIn"></div></section>
 
 <section id="v-study" class="hidden"><h1> Study</h1>
-<div class="card"><div class="row"><select id="chSel" style="flex:1;min-width:180px"></select><button id="chAdd" class="primary">＋ Add book or chapter (PDF)</button><button id="chPack" class="hidden" title="Uses the internet and your AI. Press only when online.">⚡ Smart pack (online)</button><button id="chDel" class="hidden"> Delete</button></div><input type="file" id="file" accept="application/pdf" class="hidden"><div class="row" style="margin:8px 0 0"><span class="status">Prepare questions:</span><select id="engSel"><option value="local">On this device (instant, no limits)</option><option value="ai">With AI (smarter, needs internet)</option></select></div><div id="packInfo" class="status"></div><div id="info" class="status"></div></div>
+<div class="card"><div class="row"><select id="chSel" style="flex:1;min-width:180px"></select><button id="chAdd" class="primary">＋ Add book or chapter (PDF)</button><button id="chNcert" title="Official NCERT chapter PDFs, Classes 1–12">⬇ NCERT library</button><button id="chPack" class="hidden" title="Uses the internet and your AI. Press only when online.">⚡ Smart pack (online)</button><button id="chDel" class="hidden"> Delete</button></div><input type="file" id="file" accept="application/pdf" class="hidden"><div class="row" style="margin:8px 0 0"><span class="status">Prepare questions:</span><select id="engSel"><option value="local">On this device (instant, no limits)</option><option value="ai">With AI (smarter, needs internet)</option></select></div><div id="packInfo" class="status"></div><div id="info" class="status"></div></div>
 <div id="split" class="card hidden"></div>
-<div id="upl" class="card hero" style="text-align:center;padding:28px 16px"><div class="ic" style="width:64px;height:64px;margin:0 auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg></div><h2>Bring your book, I’ll do the rest!</h2><p>Upload your textbook (whole book or one chapter). I will split it into chapters and turn it into notes, questions, flashcards and tests. Let’s begin </p><button id="uplBtn" class="primary" style="font-size:1.05rem;padding:12px 22px">Choose my book (PDF)</button><p class="status">or drop the PDF anywhere on this card</p></div>
+<div id="upl" class="card hero" style="text-align:center;padding:28px 16px"><div class="ic" style="width:64px;height:64px;margin:0 auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg></div><h2>Bring your book, I’ll do the rest!</h2><p>Upload your textbook (whole book or one chapter). I will split it into chapters and turn it into notes, questions, flashcards and tests. Let’s begin </p><button id="uplBtn" class="primary" style="font-size:1.05rem;padding:12px 22px">Choose my book (PDF)</button><button id="uplNcert" style="display:block;margin:8px auto 0">⬇ Download from NCERT (Classes 1–12)</button><button id="uplMaths" style="display:block;margin:8px auto 0">🧮 Open maths workbench</button><p class="status">or drop the PDF anywhere on this card</p></div>
 <div id="stBody" class="hidden"><div id="path"></div><div id="vidAsk" class="card hero"></div><h3>How do you want to study today?</h3><div id="methods"></div><div class="card" id="mp" style="margin-top:14px"><p class="status">Pick a method above to start </p></div></div><div id="msg" class="status"></div></section>
 
 <section id="v-progress" class="hidden"><div id="pgIn"></div></section>
@@ -247,7 +316,7 @@ function save(){
 function resetRuntime(){
   clearInterval(examTimer); examTimer = null;
   PREP = {}; QA = null; T = null; pend = null; VA = {}; sample = null;
-  RETRY = null; FOCUS = ""; EXQ = ""; lastDoubtQ = "";
+  RETRY = null; FOCUS = ""; EXQ = ""; lastDoubtQ = ""; MWB = null; SVS = null; NCERT_PICK = null;
   Array.prototype.slice.call(document.querySelectorAll(".modal")).forEach(function(x){
     if(typeof x.__close === "function") x.__close(); else x.remove();
   });
@@ -265,6 +334,7 @@ var METHODS = [
  {k:"flash", e:"", n:"Flashcards", d:"Quick recall", sug:1},
  {k:"teach", e:"", n:"Teach it back", d:"Explain in your words", sug:1},
  {k:"map", e:"", n:"Concept map", d:"See how ideas connect"},
+ {k:"maths", e:"", n:"Maths workbench", d:"See every step, tap to ask why"},
  {k:"solve", e:"", n:"Solve a problem", d:"Step-by-step help"},
  {k:"doubt", e:"", n:"Ask a doubt", d:"Ask me anything"}
 ];
@@ -286,6 +356,7 @@ var ICON = {
  doubt:"<circle cx='12' cy='12' r='9'/><path d='M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7 M12 17h.01'/>",
  up:"<path d='M12 19V5 M5 12l7-7 7 7'/>", down:"<path d='M12 5v14 M5 12l7 7 7-7'/>",
  map:"<circle cx='12' cy='5' r='2.5'/><circle cx='5' cy='18' r='2.5'/><circle cx='19' cy='18' r='2.5'/><path d='M10.5 7.2L6.5 15.8 M13.5 7.2l4 8.6 M7.5 18h9'/>",
+maths:"<rect x='4' y='3' width='16' height='18' rx='2'/><path d='M8 7h8 M8 12h2 M12 12h2 M16 12h.01 M8 16h2 M12 16h2 M16 16h.01'/>",
 solve:"<path d='M4 5h16v14H4z M8 9h8 M8 13h5 M15 16l2 2 3-4'/>",
 note:"<path d='M6 3h9l4 4v14H6z M9 12h7 M9 16h5'/>",
 upload:"<path d='M12 16V4 M7 9l5-5 5 5 M4 20h16'/>", profile:"<circle cx='12' cy='8' r='4'/><path d='M4 21c0-4 4-6 8-6s8 2 8 6'/>", video:"<rect x='3' y='5' width='14' height='14' rx='2'/><path d='M17 10l4-2v8l-4-2z'/>"
@@ -459,6 +530,10 @@ function mkAnthropic(ai){
 }
 var puterP = null;
 function loadPuter(){
+  /* Puter can only sign in from a real web origin. Loading its script from a
+     file:// page makes Puter show its own "Unsupported Origin" popup, so refuse
+     early and let the app explain the options instead. */
+  if(location.protocol === "file:") return Promise.reject(aierr("origin"));
   if(window.puter) return Promise.resolve(window.puter);
   if(puterP) return puterP;
   puterP = new Promise(function(res, rej){
@@ -536,11 +611,18 @@ function bestPuterModel(list){
 function connectModal(){
   return new Promise(function(res){
     var o = document.createElement("div"); o.className = "modal";
-    var old = aiCfg(), pick = old ? old.provider : "puter";
+    var old = aiCfg(), filePage = location.protocol === "file:", pick = old ? old.provider : "puter";
+    if(pick === "puter" && filePage) pick = "gemini";
     var done = function(){ o.remove(); res(); };
     var msg = function(t){ var e = o.querySelector("#kMsg"); if(e) e.textContent = t || ""; };
-    if(location.protocol !== "file:") loadPuter().catch(function(){});
-    o.innerHTML = "<div><h3 style='margin-top:0'>Connect AI</h3><p class='status' style='margin-top:4px'>AI makes questions, flashcards, tests and fun facts sharper. The free options work with just your email. Everything still works offline.</p><div class='row' id='pvTabs' style='margin-top:12px'></div><div id='pvBody'></div><div id='kMsg' class='status err' style='min-height:18px'></div><div class='row' style='margin-top:8px'><button class='primary' id='kOk'>Connect</button><button id='kNo'>Not now</button>" + (old ? "<button id='kOff'>Disconnect</button>" : "") + "</div><p class='status' style='font-size:.76rem;margin:10px 0 0'>Your key and sign-in stay only in this browser. Text goes only to the AI provider you choose.</p></div>";
+    if(!filePage) loadPuter().catch(function(){});
+    var intro = filePage
+      ? "AI makes questions, flashcards, tests and fun facts sharper. Everything still works offline."
+      : "AI makes questions, flashcards, tests and fun facts sharper. The free options work with just your email. Everything still works offline.";
+    var fileNote = filePage
+      ? "<p class='status' style='font-size:.8rem;margin:0 0 8px'><b>Opened from a file.</b> Free AI email sign-in needs the app served from a local web address, so use a Gemini, Groq or OpenRouter key below. To enable Free AI, run <code>python3 -m http.server</code> in the app folder and open the local address.</p>"
+      : "";
+    o.innerHTML = "<div><h3 style='margin-top:0'>Connect AI</h3><p class='status' style='margin-top:4px'>" + intro + "</p>" + fileNote + "<div class='row' id='pvTabs' style='margin-top:12px'></div><div id='pvBody'></div><div id='kMsg' class='status err' style='min-height:18px'></div><div class='row' style='margin-top:8px'><button class='primary' id='kOk'>Connect</button><button id='kNo'>Not now</button>" + (old ? "<button id='kOff'>Disconnect</button>" : "") + "</div><p class='status' style='font-size:.76rem;margin:10px 0 0'>Your key and sign-in stay only in this browser. Text goes only to the AI provider you choose.</p></div>";
     document.body.appendChild(o);
     o.onclick = function(e){ if(e.target === o) done(); };
     o.querySelector("#kNo").onclick = done;
@@ -560,8 +642,8 @@ function connectModal(){
     };
     var drawTabs = function(){
       o.querySelector("#pvTabs").innerHTML = Object.keys(AI_PROVIDERS).map(function(id){
-        var P = AI_PROVIDERS[id];
-        return "<button data-p='" + id + "' style='flex:1 1 46%;min-width:140px;text-align:left;padding:8px 10px;font-size:.86rem' class='" + (pick === id ? "primary" : "") + "'>" + esc(P.name) + "<br><span style='font-size:.7rem;opacity:.8'>" + esc(P.tag) + "</span></button>";
+        var P = AI_PROVIDERS[id], blocked = (id === "puter" && filePage);
+        return "<button data-p='" + id + "'" + (blocked ? " disabled title='Needs the app served from a local web address'" : "") + " style='flex:1 1 46%;min-width:140px;text-align:left;padding:8px 10px;font-size:.86rem' class='" + (pick === id ? "primary" : "") + "'>" + esc(P.name) + "<br><span style='font-size:.7rem;opacity:.8'>" + esc(blocked ? "Needs http:// · use a key" : P.tag) + "</span></button>";
       }).join("");
       o.querySelectorAll("[data-p]").forEach(function(b){ b.onclick = function(){ pick = b.getAttribute("data-p"); drawTabs(); drawPanel(); }; });
     };
@@ -621,6 +703,10 @@ function connectModal(){
     drawTabs(); drawPanel();
     o.querySelector("#kOk").onclick = async function(){
       var P = AI_PROVIDERS[pick], ok = this, btnOld = ok.textContent, cfg = null;
+      if(pick === "puter" && filePage){
+        msg("Free AI email sign-in needs the app served from http://, not opened as a file. Use Gemini or Groq below, or run the local server.");
+        return;
+      }
       ok.disabled = true; ok.textContent = "Checking…"; msg("");
       try {
         if(pick === "puter"){
@@ -958,6 +1044,15 @@ $("engSel").onchange = function(){
 };
 $("chSel").onchange = function(){ DB.cur = this.value; save(); fillSel(); clearOut(); };
 $("chAdd").onclick = $("uplBtn").onclick = function(){ $("file").click(); };
+$("chNcert").onclick = ncertOpen; $("uplNcert").onclick = ncertOpen;
+$("uplMaths").onclick = function(){
+  $("stBody").classList.remove("hidden");
+  renderMethods();
+  openMethod("maths");
+  var b = document.querySelector("#methods [data-m='maths']");
+  document.querySelectorAll("#methods .mth").forEach(function(x){ x.classList.toggle("on", x === b); });
+  setTimeout(function(){ var m = $("mp"); if(m) m.scrollIntoView({behavior: "smooth", block: "start"}); }, 60);
+};
 
 /* ---------- smart pack: build once online, then use it offline ---------- */
 function cleanPack(d){
@@ -1168,10 +1263,23 @@ $("file").onchange = async function(){
       if(total < 200){ $("info").innerHTML = "<span class='err'>This PDF looks scanned and I could not read the page images. Check your internet connection and try again, or use a PDF with selectable text.</span>"; return; }
     }
     pages = fixSplitWords(pages);
-    var book = f.name.replace(/\.pdf$/i,""), rows = await outlineRows(pdf, pages.length);
-    if(rows.length < 2) rows = headingRows(pages);
-    if(!rows.length) rows = [{name: book, start: 1}];
-    pend = {book: book, pages: pages, rows: rows}; fillSel(); showSplit();
+    var pick = NCERT_PICK; NCERT_PICK = null;
+    var fresh = pick && pick.at && (Date.now() - pick.at < 20 * 60 * 1000);
+    if(fresh && pick.single){
+      /* An NCERT chapter PDF contains exactly one chapter. Trust the link the
+         student tapped instead of guessing from page headings. */
+      var label = "Chapter " + pick.ch + (pick.title ? " — " + pick.title : "");
+      pend = {book: "NCERT Class " + pick.cls + " — " + pick.name, pages: pages, rows: [{name: label, start: 1}]};
+    } else {
+      var book = f.name.replace(/\.pdf$/i, "");
+      if(fresh && pick.full) book = "NCERT Class " + pick.cls + " — " + pick.name;
+      var rows = await outlineRows(pdf, pages.length);
+      if(rows.length < 2) rows = headingRows(pages);
+      if(!rows.length) rows = [{name: book, start: 1}];
+      pend = {book: book, pages: pages, rows: rows};
+    }
+    fillSel(); showSplit();
+    if(fresh) setMsg(pick.single ? "NCERT chapter ready. Check the name, then save it." : "NCERT book ready. Check the chapters found, then save them.");
   } catch(e){
     $("info").innerHTML = "<span class='err'>" + (/pdf-load|fetch|network/i.test(String(e && e.message)) ? "The PDF reader could not be loaded. Connect to the internet once, then try again. The rest of the app works offline." : "Could not read this PDF. Try another file with selectable text.") + "</span>";
   }
@@ -1252,6 +1360,179 @@ function saveSplit(){
 }
 
 
+/* ---------- NCERT library: official PDFs for Classes 1–12 ---------- */
+/* Tuples are [class, subject, book name, book code, chapter count]. The code is
+   the one NCERT uses in its own PDF URLs. */
+var NCERT_BOOKS = [
+  [1,"Maths","Joyful Mathematics","aejm1",13],
+  [1,"English","Mridang","aemr1",9],
+  [1,"Hindi","Sarangi","ahsr1",19],
+  [2,"Maths","Joyful Mathematics","bejm1",11],
+  [2,"English","Mridang","bemr1",13],
+  [2,"Hindi","Sarangi","bhsr1",26],
+  [3,"Maths","Maths Mela","cemm1",14],
+  [3,"EVS","Looking Around","ceev1",12],
+  [3,"English","Santoor","cesa1",12],
+  [3,"Hindi","Veena","chve1",18],
+  [4,"Maths","Math-Mela","demm1",14],
+  [4,"EVS","Looking Around","deap1",27],
+  [4,"English","Santoor","desa1",12],
+  [4,"Hindi","Veena","dhve1",13],
+  [5,"Maths","Math-Magic","eemh1",14],
+  [5,"EVS","Looking Around","eeap1",22],
+  [5,"English","Santoor","eesa1",10],
+  [5,"Hindi","Veena","ehve1",12],
+  [6,"Maths","Ganita Prakash","fegp1",10],
+  [6,"Science","Curiosity","fecu1",12],
+  [6,"English","Poorvi","fepr1",5],
+  [6,"Hindi","Malhar","fhml1",13],
+  [6,"Social Science","Exploring Society","fees1",14],
+  [7,"Maths","Ganita Prakash I","gegp1",8],
+  [7,"Maths","Ganita Prakash II","gegp2",7],
+  [7,"Science","Curiosity","gecu1",12],
+  [7,"English","Poorvi","gepr1",5],
+  [7,"Hindi","Malhar","ghml1",10],
+  [7,"Social Science","Exploring Society I","gees1",12],
+  [7,"Social Science","Exploring Society II","gees2",8],
+  [8,"Maths","Mathematics","hemh1",13],
+  [8,"Science","Science","hesc1",13],
+  [8,"English","Honeydew","hehd1",8],
+  [8,"English","It So Happened","heih1",8],
+  [8,"Hindi","Vasant","hhvs1",13],
+  [8,"Social Science","History","hess2",8],
+  [8,"Social Science","Geography","hess4",5],
+  [8,"Social Science","Civics","hess3",8],
+  [9,"Maths","Ganita Manjari I","iemh1",8],
+  [9,"Maths","Ganita Manjari II","iemh2",6],
+  [9,"Science","Exploration","iesc1",13],
+  [9,"English","Kaveri","iebe1",8],
+  [9,"Hindi","Ganga","ihga1",12],
+  [9,"Social Science","History","iest1",9],
+  [9,"Social Science","Geography","iest2",6],
+  [10,"Maths","Mathematics","jemh1",14],
+  [10,"Science","Science","jesc1",13],
+  [10,"English","First Flight","jeff1",9],
+  [10,"English","Footprints Without Feet","jefp1",9],
+  [10,"Hindi","Kshitij","jhks1",12],
+  [10,"Social Science","History","jess3",5],
+  [10,"Social Science","Geography","jess1",7],
+  [10,"Social Science","Economics","jess2",5],
+  [10,"Social Science","Civics","jess4",5],
+  [11,"Maths","Mathematics","kemh1",14],
+  [11,"Physics","Physics I","keph1",7],
+  [11,"Physics","Physics II","keph2",7],
+  [11,"Chemistry","Chemistry I","kech1",6],
+  [11,"Chemistry","Chemistry II","kech2",3],
+  [11,"Biology","Biology","kebo1",19],
+  [11,"English","Hornbill","kehb1",14],
+  [11,"Economics","Indian Economic Development","keec1",8],
+  [11,"Economics","Statistics for Economics","kest1",8],
+  [11,"Accountancy","Accountancy I","keac1",7],
+  [11,"Business Studies","Business Studies","kebs1",11],
+  [11,"Hindi","Aroh","khar1",16],
+  [12,"Maths","Mathematics I","lemh1",6],
+  [12,"Maths","Mathematics II","lemh2",7],
+  [12,"Physics","Physics I","leph1",8],
+  [12,"Physics","Physics II","leph2",6],
+  [12,"Chemistry","Chemistry I","lech1",5],
+  [12,"Chemistry","Chemistry II","lech2",5],
+  [12,"Biology","Biology","lebo1",13],
+  [12,"English","Flamingo","lefl1",13],
+  [12,"English","Vistas","levt1",6],
+  [12,"Economics","Macroeconomics","leec1",6],
+  [12,"Economics","Microeconomics","leec2",5],
+  [12,"Accountancy","Accountancy I","leac1",4],
+  [12,"Accountancy","Accountancy II","leac2",6],
+  [12,"Business Studies","Business Studies I","lebs1",8],
+  [12,"Business Studies","Business Studies II","lebs2",3],
+  [12,"Hindi","Aroh","lhar1",15]
+];
+/* Chapter names are included only where they are stable and verified. Other
+   books still work; their chapters are shown as “Chapter 1”, “Chapter 2”… */
+var NCERT_TITLES = {
+  fegp1: ["Patterns in Mathematics","Lines and Angles","Number Play","Data Handling and Presentation","Prime Time","Perimeter and Area","Fractions","Playing with Constructions","Symmetry","The Other Side of Zero"],
+  hemh1: ["Rational Numbers","Linear Equations in One Variable","Understanding Quadrilaterals","Data Handling","Squares and Square Roots","Cubes and Cube Roots","Comparing Quantities","Algebraic Expressions and Identities","Mensuration","Exponents and Powers","Direct and Inverse Proportions","Factorisation","Introduction to Graphs"],
+  jemh1: ["Real Numbers","Polynomials","Pair of Linear Equations in Two Variables","Quadratic Equations","Arithmetic Progressions","Triangles","Coordinate Geometry","Introduction to Trigonometry","Some Applications of Trigonometry","Circles","Areas Related to Circles","Surface Areas and Volumes","Statistics","Probability"],
+  kemh1: ["Sets","Relations and Functions","Trigonometric Functions","Principle of Mathematical Induction","Complex Numbers and Quadratic Equations","Linear Inequalities","Permutations and Combinations","Binomial Theorem","Sequences and Series","Straight Lines","Conic Sections","Introduction to Three Dimensional Geometry","Limits and Derivatives","Mathematical Reasoning"],
+  lemh1: ["Relations and Functions","Inverse Trigonometric Functions","Matrices","Determinants","Continuity and Differentiability","Application of Derivatives"],
+  lemh2: ["Integrals","Application of Integrals","Differential Equations","Vector Algebra","Three Dimensional Geometry","Linear Programming","Probability"]
+};
+var NCERT_PICK = null;
+
+function ncertChapterTitle(code, ch){
+  var a = NCERT_TITLES[code];
+  return a && a[ch - 1] ? a[ch - 1] : "";
+}
+function ncertChapterUrl(code, ch){
+  return "https://ncert.nic.in/textbook/pdf/" + code + (ch < 10 ? "0" : "") + ch + ".pdf";
+}
+function ncertOpen(){
+  var cls = mwClassNum(), bookIdx = 0;
+  function books(){ return NCERT_BOOKS.filter(function(b){ return b[0] === cls; }); }
+  function currentBook(){ var bs = books(); if(bookIdx >= bs.length) bookIdx = 0; return bs[bookIdx] || bs[0]; }
+  var m = popup("<div id='ncWrap'></div>");
+  function fullHtml(){
+    var bs = books(), bk = currentBook(), h = "";
+    var clsSel = "";
+    for(var i = 1; i <= 12; i++) clsSel += "<option value='" + i + "'" + (i === cls ? " selected" : "") + ">Class " + i + "</option>";
+    var subs = [], bySub = {};
+    bs.forEach(function(b, k){
+      if(!bySub[b[1]]){ bySub[b[1]] = []; subs.push(b[1]); }
+      bySub[b[1]].push({b: b, k: k});
+    });
+    var bookSel = subs.map(function(s){
+      return "<optgroup label='" + esc(s) + "'>" + bySub[s].map(function(x){
+        return "<option value='" + x.k + "'" + (x.k === bookIdx ? " selected" : "") + ">" + esc(x.b[2]) + "</option>";
+      }).join("") + "</optgroup>";
+    }).join("");
+    var chs = "";
+    for(var c = 1; c <= bk[4]; c++){
+      var title = ncertChapterTitle(bk[3], c);
+      chs += "<a class='ncCh' href='" + ncertChapterUrl(bk[3], c) + "' target='_blank' rel='noopener' data-ch='" + c + "'><b>Chapter " + c + "</b>" + (title ? "<small>" + esc(title) + "</small>" : "") + "</a>";
+    }
+    h += "<h3 style='margin-top:0'>📚 NCERT library</h3>";
+    h += "<p class='status'>Official, free PDFs from ncert.nic.in. Choose a chapter, let it open, save it on your device, then use <b>Choose downloaded PDF</b>. Your books, notes and progress stay on this device.</p>";
+    h += "<div class='row'><div style='flex:1;min-width:120px'><label for='ncCls'>Class</label><select id='ncCls'>" + clsSel + "</select></div><div style='flex:2;min-width:160px'><label for='ncBook'>Book</label><select id='ncBook'>" + bookSel + "</select></div></div>";
+    h += "<p class='status' style='margin:0 0 4px'>" + esc(bk[1]) + " · " + bk[4] + " chapters · code " + esc(bk[3]) + "</p>";
+    h += "<div class='ncChapters'>" + chs + "</div>";
+    h += "<div class='row'><a class='ncLink' id='ncFull' href='https://ncert.nic.in/textbook/pdf/" + bk[3] + "dd.zip' target='_blank' rel='noopener'>Full book (ZIP)</a><a class='ncLink' href='https://ncert.nic.in/textbook.php?" + bk[3] + "=0-" + bk[4] + "' target='_blank' rel='noopener'>Official NCERT page</a></div>";
+    h += "<p class='status' id='ncSel'>Tap a chapter link above, then choose the PDF you saved.</p>";
+    h += "<div class='row'><button class='primary' id='ncPick'>Choose downloaded PDF</button><button data-close>Close</button></div>";
+    h += "<p class='status' style='font-size:.82rem'>The full book is a large ZIP. Unzip it first, then choose the PDF inside. NCERT does not let a web page read its files directly, so this one save step is needed.</p>";
+    return h;
+  }
+  function selectChapter(a){
+    var bk = currentBook(), ch = parseInt(a.getAttribute("data-ch"), 10), title = ncertChapterTitle(bk[3], ch);
+    NCERT_PICK = {cls: cls, name: bk[2], code: bk[3], ch: ch, title: title, single: true, at: Date.now()};
+    m.el.querySelectorAll(".ncCh").forEach(function(x){ x.classList.toggle("on", x === a); });
+    var s = m.el.querySelector("#ncSel");
+    if(s) s.innerHTML = "<b>Selected:</b> Class " + cls + " " + esc(bk[2]) + ", Chapter " + ch + (title ? " — " + esc(title) : "") + ". Save the PDF, then choose it here.";
+  }
+  function bind(){
+    var r = m.el;
+    var cs = r.querySelector("#ncCls");
+    if(cs) cs.onchange = function(){ cls = parseInt(this.value, 10); bookIdx = 0; redraw(); };
+    var bs = r.querySelector("#ncBook");
+    if(bs) bs.onchange = function(){ bookIdx = parseInt(this.value, 10) || 0; redraw(); };
+    r.querySelectorAll(".ncCh").forEach(function(a){ a.onclick = function(){ selectChapter(a); }; });
+    var f = r.querySelector("#ncFull");
+    if(f) f.onclick = function(){
+      var bk = currentBook();
+      NCERT_PICK = {cls: cls, name: bk[2], code: bk[3], full: true, at: Date.now()};
+      toast("Unzip the download, then choose the PDF inside.");
+    };
+    var p = r.querySelector("#ncPick");
+    if(p) p.onclick = function(){
+      if(!NCERT_PICK){ toast("Tap a chapter first so I know which chapter it is."); return; }
+      NCERT_PICK.at = Date.now(); m.close();
+      setTimeout(function(){ $("file").click(); }, 60);
+    };
+  }
+  function redraw(){ m.set(fullHtml()); bind(); }
+  redraw();
+}
+
+
 /* ---------- videos ---------- */
 function askVideo(){
   var c = cur(); if(!c) return;
@@ -1270,7 +1551,7 @@ async function vids(){ RETRY = vids;
 }
 
 /* ---------- Study: methods ---------- */
-var GROUPS = [["Learn the chapter", ["explain","notes","map","doubt"]], ["Practise and test", ["solve","qa","mcq","exam"]], ["Mitra suggests", ["flash","teach"]]];
+var GROUPS = [["Learn the chapter", ["explain","notes","map","maths","doubt"]], ["Practise and test", ["solve","qa","mcq","exam"]], ["Mitra suggests", ["flash","teach"]]];
 function renderMethods(){ var nc = cur(), nsx = nc ? nextStep(nc.id) : null, nsK = nsx && !nsx.done ? nsx.k : "";
   $("methods").innerHTML = GROUPS.map(function(g){ return "<h3 class='gh'>" + g[0] + "</h3><div class='grid'>" + g[1].map(function(k){ var m = METHODS.filter(function(x){return x.k === k})[0]; return "<button class='mth tile' data-m='" + k + "'>" + (nsK === k ? "<span class='badge'>Next</span>" : "") + "<span class='ic'>" + svgIc(k) + "</span><b>" + m.n + "</b><small>" + m.d + "</small></button>"; }).join("") + "</div>"; }).join("");
   $("methods").querySelectorAll(".mth").forEach(function(b){ b.onclick = function(){ document.querySelectorAll("#methods .mth").forEach(function(x){ x.classList.toggle("on", x === b); }); openMethod(b.dataset.m); }; });
@@ -1312,6 +1593,7 @@ function openMethod(k){
     };
     $("askQ").onkeydown = function(e){ if(e.key === "Enter") $("askGo").click(); };
   } else if(k === "map"){ mapStart(); }
+  else if(k === "maths"){ mathsStart(); }
   else if(k === "solve"){ solveStart(); }
   else if(k === "qa" || k === "teach"){ qaStart(k); }
   else if(k === "flash"){ flashStart(); }
@@ -1460,18 +1742,1419 @@ function drawMap(scope){
   out.querySelectorAll("[data-t]").forEach(function(el){ el.onclick = function(){ explainTopic(el.dataset.t); }; el.onkeydown = function(ev){ if(ev.key === "Enter" || ev.key === " "){ ev.preventDefault(); explainTopic(el.dataset.t); } }; });
 }
 
+/* ---------- function problems: one-one, onto, interactive working ---------- */
+/* A small, offline reasoner for the function-property questions that appear
+   in Classes 11–12. It understands power rules (x, x², x³ and a·xⁿ) and
+   straight lines (ax + b) over N, W, Z, Q and R. Every verdict comes with a
+   proof or a counterexample, so the Solve screen can actually solve the
+   problem instead of only suggesting a method. */
+
+var FN_SETS = {
+  N: {name: "N", full: "the natural numbers", neg: false, zero: true, frac: false, rank: 0},
+  W: {name: "W", full: "the whole numbers", neg: false, zero: true, frac: false, rank: 0},
+  Z: {name: "Z", full: "the integers", neg: true, zero: true, frac: false, rank: 1},
+  Q: {name: "Q", full: "the rational numbers", neg: true, zero: true, frac: true, rank: 2},
+  R: {name: "R", full: "the real numbers", neg: true, zero: true, frac: true, rank: 3}
+};
+function fnSet(t){
+  return FN_SETS[String(t || "").toUpperCase()] || null;
+}
+function fnLabel(t){
+  var s = fnSet(t);
+  return s ? t + " (" + s.full + ")" : t;
+}
+function fnNorm(s){
+  return String(s == null ? "" : s)
+    .replace(/[−–—]/g, "-")
+    .replace(/[→⟶➝➞➔⇒]/g, function(c){ return c === "⇒" ? "⇒" : "→"; })
+    .replace(/[×·⋅]/g, "×")
+    .replace(/²/g, "^2").replace(/³/g, "^3")
+    .replace(/[“”]/g, '"')
+    .replace(/\u00a0/g, " ")
+    .replace(/\r/g, "");
+}
+function fnCoef(t){
+  t = String(t == null ? "" : t);
+  if(t === "" || t === "+") return 1;
+  if(t === "-") return -1;
+  var v = parseFloat(t);
+  return isFinite(v) ? v : null;
+}
+function fnSup(n){
+  return n === 2 ? "²" : n === 3 ? "³" : "^" + n;
+}
+function fnPowerText(a, n){
+  if(Math.abs(a - 1) < 1e-12) return "x" + fnSup(n);
+  if(Math.abs(a + 1) < 1e-12) return "−x" + fnSup(n);
+  return (a < 0 ? "−" : "") + mNum(Math.abs(a)) + "x" + fnSup(n);
+}
+function fnLinText(a, b){
+  if(Math.abs(a) < 1e-12) return mNum(b);
+  var head = Math.abs(a - 1) < 1e-12 ? "" : Math.abs(a + 1) < 1e-12 ? "−" : mNum(a);
+  var s = head + "x";
+  if(Math.abs(b) > 1e-12) s += (b < 0 ? " − " : " + ") + mNum(Math.abs(b));
+  return s;
+}
+function fnRule(expr){
+  var s = fnNorm(expr).toLowerCase()
+    .replace(/\b(injective|surjective|bijective|one[\s-]?one|onto|is|are|for|where|and|or)\b[\s\S]*$/, "")
+    .replace(/\s+/g, "")
+    .replace(/(\d*)x([23])\b/g, "$1x^$2")
+    .replace(/[.,;]+$/, "");
+  var p = /^([+-]?\d*\.?\d*)\*?x\^([23])$/.exec(s);
+  if(p){
+    var a = fnCoef(p[1]), n = +p[2];
+    if(a === null) return null;
+    if(Math.abs(a) < 1e-12) return {type: "constant", a: 0, b: 0, text: "0", expr: s};
+    return {type: "power", n: n, a: a, text: fnPowerText(a, n), expr: s};
+  }
+  var l = /^([+-]?\d*\.?\d*)\*?x([+-]\d*\.?\d+)?$/.exec(s);
+  if(l){
+    var aa = fnCoef(l[1]), bb = l[2] ? parseFloat(l[2]) : 0;
+    if(aa === null || !isFinite(bb)) return null;
+    if(Math.abs(aa) < 1e-12) return {type: "constant", a: 0, b: bb, text: mNum(bb), expr: s};
+    return {type: "linear", a: aa, b: bb, text: fnLinText(aa, bb), expr: s};
+  }
+  return null;
+}
+function fnPartSegments(s){
+  var re = /(?:^|\n)\s*(\([ivxlcdm]+\)|\([a-z]\)|\([0-9]+\)|[0-9]+[.)])\s*/gi, marks = [], m;
+  while((m = re.exec(s))){
+    var idx = m.index + (m[0].charAt(0) === "\n" ? 1 : 0);
+    marks.push({start: idx, body: re.lastIndex, label: m[1]});
+  }
+  if(!marks.length) return null;
+  var out = [];
+  marks.forEach(function(mk, i){
+    var end = i + 1 < marks.length ? marks[i + 1].start : s.length;
+    var body = s.slice(mk.body, end).trim();
+    if(body) out.push({label: mk.label, body: body});
+  });
+  return out;
+}
+function fnParsePart(body, label){
+  var clean = fnNorm(body).replace(/\s+/g, " ").trim();
+  var dm = /f\s*:\s*([A-Za-z])\s*(?:→|->|\bto\b)\s*([A-Za-z])/i.exec(clean);
+  if(!dm) return null;
+  var d = fnSet(dm[1]), c = fnSet(dm[2]);
+  if(!d || !c) return null;
+  var em = /f\s*\(\s*x\s*\)\s*=\s*([^,;\n]+)/i.exec(clean);
+  if(!em) em = /given\s+by\s+([^,;\n]+)/i.exec(clean);
+  if(!em) return null;
+  var rule = fnRule(em[1]);
+  if(!rule) return null;
+  return fnAnalyzePart(d.name, c.name, rule, label || "", body);
+}
+function fnProblem(q){
+  var raw = fnNorm(q);
+  if(!/inject|surject|subjectiv|one[\s-]?one|onto|biject/i.test(raw)) return null;
+  var segs = fnPartSegments(raw);
+  if(!segs){
+    var one = fnParsePart(raw, "");
+    return one ? {kind: "fnprops", query: q, parts: [one]} : null;
+  }
+  var parts = [];
+  segs.forEach(function(seg){
+    var p = fnParsePart(seg.body, seg.label);
+    if(p) parts.push(p);
+  });
+  return parts.length ? {kind: "fnprops", query: q, parts: parts} : null;
+}
+function fnAnalyzePart(d, c, rule, label, raw){
+  var D = fnSet(d), C = fnSet(c);
+  if(!D || !C) return null;
+  var inj, sur, injEq, surEq;
+  if(rule.type === "constant"){
+    inj = {ok: false, eq: "f(1) = f(2) = " + rule.text, why: "Every input gives the same output " + rule.text + ", so two different inputs share one output. The function is not one-one."};
+    sur = {ok: false, eq: "y = " + rule.text + " only", why: "The range is just {" + rule.text + "}. It does not cover all of " + fnLabel(c) + "."};
+  } else if(rule.type === "linear"){
+    /* Values outside N, or between different infinite sets, need care. Keep
+       the reasoner to the cases it can prove cleanly; other questions fall
+       through to the chapter/AI helper. */
+    if(D.name === "N"){
+      if(C.name !== "N") return null;
+      if(!(rule.a > 0 && rule.b >= 0 && Math.abs(rule.a - Math.round(rule.a)) < 1e-12 && Math.abs(rule.b - Math.round(rule.b)) < 1e-12)) return null;
+    } else if(D.name === "W"){
+      return null;
+    } else if(D.name === "Z"){
+      if(C.name !== "Z") return null;
+    } else if(D.name === "R"){
+      if(C.name !== "R") return null;
+    } else if(D.name === "Q"){
+      if(C.name !== "Q") return null;
+    } else return null;
+
+    inj = {
+      ok: true,
+      eq: "f(a) = f(b) ⇒ " + fnLinText(rule.a, rule.b).replace(/x/g, "a") + " = " + fnLinText(rule.a, rule.b).replace(/x/g, "b") + " ⇒ a = b",
+      why: "The coefficient of x is " + mNum(rule.a) + ", which is not zero. A straight line with a non-zero slope always gives different outputs for different inputs."
+    };
+    if(C.name === "R" || C.name === "Q"){
+      sur = {
+        ok: true,
+        eq: "x = (y − " + mNum(rule.b) + ") / " + mNum(rule.a),
+        why: "For every y in " + fnLabel(c) + ", this x is in " + fnLabel(d) + " and gives f(x) = y. So every codomain value is reached."
+      };
+    } else if(C.name === "Z" && D.name === "Z"){
+      if(Math.abs(rule.a) === 1){
+        sur = {ok: true, eq: "x = " + (rule.a === 1 ? "" : "−") + "(y " + (rule.b < 0 ? "+ " + mNum(-rule.b) : "− " + mNum(rule.b)) + ")", why: "The coefficient is 1 or −1, so every integer y gives an integer x. The function is onto Z."};
+      } else {
+        var miss = rule.b + 1;
+        sur = {ok: false, eq: "y = " + mNum(miss) + " has no integer preimage", why: "Solving " + mNum(miss) + " = " + rule.text + " gives x = 1/" + mNum(rule.a) + ", which is not an integer. Values of the form " + mNum(rule.a) + "x + " + mNum(rule.b) + " skip this integer, so the function is not onto."};
+      }
+    } else if(C.name === "N" && D.name === "N"){
+      if(Math.abs(rule.a - 1) < 1e-12 && Math.abs(rule.b) < 1e-12){
+        sur = {ok: true, eq: "f(x) = x", why: "Every natural number is its own image, so the function is onto N. It is also one-one, so it is bijective."};
+      } else {
+        sur = {ok: false, eq: "y = 1 has no preimage", why: "The smallest output is " + mNum(rule.a + rule.b) + ", and the outputs jump in steps of " + mNum(rule.a) + ". The value 1 is skipped, so the function is not onto N."};
+      }
+    }
+  } else if(rule.type === "power"){
+    var n = rule.n, a = rule.a;
+    if(n === 2){
+      if(D.neg){
+        inj = {ok: false, eq: "f(−1) = f(1) = " + mNum(a), why: "Both −1 and 1 belong to " + fnLabel(d) + ", and both give the same output " + mNum(a) + ". Two different inputs with one output means the function is not one-one."};
+      } else {
+        inj = {ok: true, eq: "f(a) = f(b) ⇒ a² = b² ⇒ a = b", why: "If two squares are equal, then a = b or a = −b. In " + fnLabel(d) + " there are no negative values, so a = −b would force a = b = 0. Hence a = b, and the function is one-one."};
+      }
+      if(C.name === "N" || C.name === "W"){
+        var tN = Math.abs(a) === 1 ? 2 : 1;
+        sur = {ok: false, eq: "y = " + mNum(tN) + " has no preimage", why: "The outputs are " + (Math.abs(a) === 1 ? "squares: 1, 4, 9, 16, …" : "values of the form " + mNum(a) + " × a square") + ". The value " + mNum(tN) + " is not one of them, so the function is not onto " + fnLabel(c) + "."};
+      } else {
+        var t = a > 0 ? -1 : 1;
+        sur = {ok: false, eq: "y = " + mNum(t) + " has no preimage", why: "x² is never negative" + (a < 0 ? " and " + fnPowerText(a, 2) + " is never positive" : "") + ". So " + mNum(t) + " cannot be an output, and the function is not onto " + fnLabel(c) + "."};
+      }
+    } else if(n === 3){
+      inj = {ok: true, eq: "f(a) = f(b) ⇒ a³ = b³ ⇒ a = b", why: "Cubing is strictly increasing: if a < b then a³ < b³. Different inputs therefore always give different outputs, so the function is one-one."};
+      if(D.name === "R" && C.name === "R"){
+        sur = {ok: true, eq: "x = ∛(y / " + mNum(a) + ")", why: "Every real number has exactly one real cube root. For every y in R, this x is real and gives f(x) = y. So the function is onto R."};
+      } else if(C.rank >= D.rank){
+        var t3 = Math.abs(a) === 1 ? 2 : 1;
+        sur = {ok: false, eq: "y = " + mNum(t3) + " has no preimage", why: "The outputs are cubes (possibly multiplied by " + mNum(a) + "). The value " + mNum(t3) + " is not of that form, so no input in " + fnLabel(d) + " reaches it. The function is not onto " + fnLabel(c) + "."};
+      } else return null;
+    } else return null;
+  } else return null;
+  if(!inj || !sur) return null;
+  var steps = [];
+  steps.push({
+    label: "Read the function",
+    eq: "f : " + d + " → " + c + ",   f(x) = " + rule.text,
+    why: "The first set, " + fnLabel(d) + ", is the domain: the only inputs allowed. The second set, " + fnLabel(c) + ", is the codomain: the set the outputs must belong to. Read them before testing anything."
+  });
+  steps.push({
+    label: "Test one-one (injective)",
+    eq: inj.eq,
+    why: inj.why
+  });
+  steps.push({
+    label: "Test onto (surjective)",
+    eq: sur.eq,
+    why: sur.why
+  });
+  var verdict = inj.ok && sur.ok ? "Bijective (one-one and onto)" : inj.ok ? "One-one, but not onto" : sur.ok ? "Onto, but not one-one" : "Neither one-one nor onto";
+  steps.push({
+    label: "Conclusion",
+    eq: "Injective: " + (inj.ok ? "yes" : "no") + "   ·   Surjective: " + (sur.ok ? "yes" : "no"),
+    why: verdict + ". " + (inj.ok ? "Every input has its own output." : "Some two inputs share an output.") + " " + (sur.ok ? "Every codomain value is reached." : "At least one codomain value is never reached."),
+    final: true
+  });
+  return {
+    kind: "fnprops", label: label, raw: raw, d: d, c: c, rule: rule,
+    inj: inj, sur: sur, steps: steps, verdict: verdict
+  };
+}
+function fnTarget(part){
+  if(!part || !part.sur) return null;
+  var m = /y\s*=\s*(-?\d+(?:\.\d+)?)/i.exec(part.sur.eq || "");
+  return m ? parseFloat(m[1]) : null;
+}
+function fnGraphHTML(part){
+  var r = part.rule, D = FN_SETS[part.d];
+  if(!r || r.type === "constant") return "<p class='status'>A constant function is a horizontal line: every input gives the same output.</p>";
+  var xlo, xhi, i, x, y, pts = [], ylo = 0, yhi = 0;
+  if(D && D.neg){ xlo = -3; xhi = 3; }
+  else { xlo = 0; xhi = 4; }
+  function f(t){
+    if(r.type === "power") return r.a * Math.pow(t, r.n);
+    return r.a * t + r.b;
+  }
+  for(i = 0; i <= 96; i++){
+    x = xlo + (xhi - xlo) * i / 96;
+    y = f(x);
+    pts.push([x, y]);
+    if(y < ylo) ylo = y;
+    if(y > yhi) yhi = y;
+  }
+  var target = fnTarget(part);
+  if(target !== null){
+    ylo = Math.min(ylo, target);
+    yhi = Math.max(yhi, target);
+  }
+  if(yhi - ylo < 1){ ylo -= 1; yhi += 1; }
+  var pad = (yhi - ylo) * 0.12 || 1;
+  ylo -= pad; yhi += pad;
+  var c = mwChart(320, 220, xlo, xhi, ylo, yhi);
+  var h = mwAxes(c);
+  var discrete = part.d === "N" || part.d === "W" || part.d === "Z";
+  if(discrete){
+    var ks = [], k;
+    if(part.d === "Z"){ for(k = -3; k <= 3; k++) ks.push(k); }
+    else { for(k = 0; k <= 4; k++) ks.push(k); }
+    ks.forEach(function(k){
+      var yy = f(k);
+      if(yy >= ylo && yy <= yhi) h += "<circle cx='" + c.X(k) + "' cy='" + c.Y(yy) + "' r='4' fill='#5265da' stroke='var(--card)' stroke-width='1.5'/>";
+    });
+  } else {
+    h += "<path d='" + mwPath(c, pts) + "' fill='none' stroke='#5265da' stroke-width='2.5' stroke-linecap='round'/>";
+  }
+  var labelled = false;
+  if(part.inj && !part.inj.ok && r.type === "power" && r.n === 2 && D && D.neg){
+    var y0 = f(-1);
+    h += "<line x1='" + c.X(-1) + "' y1='" + c.Y(y0) + "' x2='" + c.X(1) + "' y2='" + c.Y(y0) + "' stroke='#d9822b' stroke-width='1.5' stroke-dasharray='5 4'/>";
+    h += "<circle cx='" + c.X(-1) + "' cy='" + c.Y(y0) + "' r='5' fill='#d9822b' stroke='var(--card)' stroke-width='2'/>";
+    h += "<circle cx='" + c.X(1) + "' cy='" + c.Y(y0) + "' r='5' fill='#d9822b' stroke='var(--card)' stroke-width='2'/>";
+    h += "<text x='" + (c.X(0)) + "' y='" + (c.Y(y0) - 8) + "' text-anchor='middle' font-size='10' font-weight='700' fill='#d9822b'>same output</text>";
+    labelled = true;
+  }
+  if(target !== null && part.sur && !part.sur.ok){
+    h += "<line x1='" + c.p.l + "' y1='" + c.Y(target) + "' x2='" + (c.w - c.p.r) + "' y2='" + c.Y(target) + "' stroke='#a8424f' stroke-width='1.4' stroke-dasharray='4 4'/>";
+    var tx = c.w - c.p.r - 4;
+    h += "<text x='" + tx + "' y='" + Math.max(12, c.Y(target) - 6) + "' text-anchor='end' font-size='9.5' font-weight='700' fill='#a8424f'>y = " + mNum(target) + " is missed</text>";
+    labelled = true;
+  }
+  if(part.sur && part.sur.ok){
+    var ys = 1;
+    if(ys < ylo || ys > yhi) ys = (ylo + yhi) / 2;
+    h += "<line x1='" + c.p.l + "' y1='" + c.Y(ys) + "' x2='" + (c.w - c.p.r) + "' y2='" + c.Y(ys) + "' stroke='#24a99a' stroke-width='1.2' stroke-dasharray='3 4' opacity='.8'/>";
+    h += "<text x='" + (c.p.l + 4) + "' y='" + Math.max(12, c.Y(ys) - 5) + "' font-size='9' fill='#14776c'>every height is reached</text>";
+    labelled = true;
+  }
+  var legend = "<div class='mwLegend'><span><i style='background:#5265da'></i>" + (discrete ? "Function values" : "f(x)") + "</span>" +
+    (part.inj && !part.inj.ok && r.type === "power" && r.n === 2 && D && D.neg ? "<span><i style='background:#d9822b'></i>Two inputs, one output</span>" : "") +
+    (target !== null && part.sur && !part.sur.ok ? "<span><i style='background:#a8424f'></i>Missing output</span>" : "") +
+    (part.sur && part.sur.ok ? "<span><i style='background:#24a99a'></i>Every height hit</span>" : "") + "</div>";
+  return mwSvg(c, h, "Graph of " + r.text + " on " + part.d) + legend;
+}
+function fnSideHTML(part){
+  var h = mwCard("What the words mean",
+    "<p style='margin:3px 0'><b>One-one (injective):</b> different inputs always give different outputs.</p>" +
+    "<p style='margin:3px 0'><b>Onto (surjective):</b> every value in the codomain is used.</p>" +
+    "<p style='margin:3px 0'><b>Bijective:</b> one-one and onto together.</p>");
+  h += mwCard("See it on the graph", fnGraphHTML(part), "A horizontal line is one output. Two meetings mean two inputs share it (not one-one). A height with no meeting is a missed codomain value (not onto).");
+  return h;
+}
+
+var SVS = null;
+function svSpeech(s){
+  return mathsSpeech(String(s || ""))
+    .replace(/→/g, " to ").replace(/∈/g, " in ")
+    .replace(/∛/g, " cube root of ").replace(/·/g, " and ")
+    .replace(/N \(the natural numbers\)/g, "N, the natural numbers")
+    .replace(/Z \(the integers\)/g, "Z, the integers")
+    .replace(/R \(the real numbers\)/g, "R, the real numbers")
+    .replace(/\s+/g, " ").trim();
+}
+function svPlain(){
+  if(!SVS) return "";
+  var out = ["Solved step by step", ""];
+  SVS.parts.forEach(function(P, pi){
+    if(SVS.parts.length > 1) out.push((P.label ? P.label + " " : "Part " + (pi + 1) + ": ") + (P.title || ""));
+    P.steps.forEach(function(s){
+      out.push(s.label + ": " + s.eq);
+      if(s.why) out.push(s.why);
+      out.push("");
+    });
+  });
+  return out.join("\n").trim();
+}
+function svStart(problem, q, outEl, mode){
+  var parts;
+  if(problem.kind === "fnprops"){
+    parts = problem.parts.map(function(p){
+      return {steps: p.steps, side: function(){ return fnSideHTML(p); }, final: p.verdict,
+        d: p.d, c: p.c, rule: p.rule, label: p.label};
+    });
+  } else {
+    parts = [{steps: problem.steps, side: function(step){ return mathsSideHTML(problem, step); },
+      label: "", title: "Maths: " + problem.kind, tokens: true, res: problem}];
+  }
+  SVS = {kind: problem.kind === "fnprops" ? "fn" : "maths", q: q, mode: mode, pi: 0,
+    at: parts.map(function(){ return 0; }), parts: parts};
+  outEl.innerHTML = "<div class='svDynamic'></div><div class='svFoot'></div>";
+  svRender(outEl.querySelector(".svDynamic"));
+  var foot = outEl.querySelector(".svFoot");
+  if(foot){
+    addSaveBtn(foot, {q: q, ctx: "solve"}, svPlain());
+    if(typeof nextBar === "function"){
+      foot.insertAdjacentHTML("afterbegin", nextBar("solve") || "");
+      bindNext(foot);
+    }
+  }
+  revealResult(outEl);
+}
+function svRender(host){
+  if(!host || !SVS) return;
+  var S = SVS, P = S.parts[S.pi], steps = P.steps, at = Math.max(0, Math.min(S.at[S.pi], steps.length - 1)), step = steps[at];
+  var multi = S.parts.length > 1;
+  var h = "<div class='svHead'><span class='tag'>Solved on this device</span><h3 style='margin:4px 0 2px'>" +
+    (S.kind === "fn" ? "Functions: one-one and onto" : "Solved step by step") + "</h3><p class='status' style='margin:0'>" +
+    (S.kind === "fn" ? "Every part is tested with a proof or a counterexample. Tap any step to see why it is true." : "Each line follows from the one before it. Tap a step or a number to ask why.") +
+    "</p></div>";
+  if(multi){
+    h += "<div class='svParts'>" + S.parts.map(function(x, i){
+      return "<button class='svPart" + (i === S.pi ? " on" : "") + "' data-sv-part='" + i + "'><b>" + esc(x.label || ("Part " + (i + 1))) + "</b><small>" + esc(x.d + " → " + x.c + " · " + x.rule.text) + "</small></button>";
+    }).join("") + "</div>";
+  }
+  h += "<details class='svMethod' open><summary>" + (S.kind === "fn" ? "Method: how to test a function" : "How to read this working") + "</summary>";
+  if(S.kind === "fn"){
+    h += "<ol><li><b>Read the domain and codomain.</b> They decide which inputs are allowed and which outputs must be reached.</li><li><b>Test one-one.</b> Assume f(a) = f(b), then prove a = b. If two different inputs share an output, it is not one-one.</li><li><b>Test onto.</b> Take any y in the codomain and solve f(x) = y. If one y has no solution, it is not onto.</li><li><b>Conclude.</b> One-one and onto together means bijective.</li></ol>";
+  } else {
+    h += "<p style='margin:4px 0'>Work top to bottom. Each line is one legal move: expand, collect, divide, substitute or simplify. The reason under each step says why that move is allowed.</p>";
+  }
+  h += "</details>";
+  h += "<div class='mwGrid'><div class='mwLeft'><div class='row mwTools'>" +
+    "<button class='primary' data-sv-next" + (at >= steps.length - 1 ? " disabled" : "") + ">Show next step</button>" +
+    "<button data-sv-all" + (at >= steps.length - 1 ? " disabled" : "") + ">Show all steps</button>" +
+    "<button data-sv-again>Start again</button>" +
+    "<button data-sv-read>🔊 Read this step</button>" +
+    "<span class='status'>" + (multi ? "Part " + (S.pi + 1) + " of " + S.parts.length + " · " : "") + "Step " + (at + 1) + " of " + steps.length + "</span></div>" +
+    "<div class='svSteps mwSteps'>";
+  for(var i = 0; i <= at; i++){
+    var s = steps[i];
+    h += "<div class='mwStep" + (s.final ? " final" : "") + (i === at ? " now open" : "") + "' data-sv-i='" + i + "' tabindex='0' role='button'>" +
+      "<span class='mwNo'>" + (i + 1) + "</span>" +
+      "<div class='mwLb'>" + esc(s.label || "Step") + "</div>" +
+      "<div class='mwEq'>" + (P.tokens ? mwTokenize(s.eq, P.res, s) : esc(s.eq)) + "</div>" +
+      (s.op ? "<div class='mwOp'>" + esc(s.op) + "</div>" : "") +
+      "<div class='mwWhy'>" + esc(s.why || "") + "</div>" +
+      "<div class='mwTap'>" + (i === at ? "Tap to hide the reason" : "Tap the step to see why") + "</div></div>";
+  }
+  h += "</div><p class='status' style='margin:6px 0 0'>" +
+    (at === steps.length - 1 ? (multi && S.pi < S.parts.length - 1 ? "This part is finished. Choose the next part above." : "That is the whole solution. Replay it, or tap any step to reread the reason.") : "Press <b>Show next step</b> when you are ready.") +
+    "</p>";
+  if(at === steps.length - 1){
+    if(S.kind === "fn"){
+      h += "<div class='svVerdict'><span class='" + (P.j ? "" : "") + "'>" + esc(P.final || "") + "</span></div>";
+    }
+    if(multi && S.pi < S.parts.length - 1) h += "<button class='primary' data-sv-nextpart>Next part →</button>";
+  }
+  h += "</div><div class='mwSide'>" + (P.side ? P.side(step) : "") + "</div></div>";
+  host.innerHTML = h;
+  svBind(host);
+}
+function svBind(host){
+  var S = SVS; if(!host || !S) return;
+  host.querySelectorAll("[data-sv-part]").forEach(function(b){
+    b.onclick = function(){ S.pi = +b.getAttribute("data-sv-part"); svRender(host); };
+  });
+  host.querySelectorAll("[data-sv-next]").forEach(function(b){
+    b.onclick = function(){
+      var P = S.parts[S.pi];
+      if(S.at[S.pi] < P.steps.length - 1){ S.at[S.pi]++; svRender(host); var last = host.querySelector(".mwStep.now"); if(last) focusRegion(last, "nearest"); }
+    };
+  });
+  host.querySelectorAll("[data-sv-all]").forEach(function(b){
+    b.onclick = function(){ S.at[S.pi] = S.parts[S.pi].steps.length - 1; svRender(host); };
+  });
+  host.querySelectorAll("[data-sv-again]").forEach(function(b){
+    b.onclick = function(){ S.at[S.pi] = 0; svRender(host); };
+  });
+  host.querySelectorAll("[data-sv-read]").forEach(function(b){
+    b.onclick = function(){
+      var P = S.parts[S.pi], s = P.steps[S.at[S.pi]];
+      speakText(svSpeech((s.label || "") + ". " + s.eq + ". " + (s.why || "")), {max: 280});
+    };
+  });
+  host.querySelectorAll("[data-sv-nextpart]").forEach(function(b){
+    b.onclick = function(){ if(S.pi < S.parts.length - 1){ S.pi++; svRender(host); } };
+  });
+  host.querySelectorAll(".mwStep").forEach(function(card){
+    var toggle = function(){
+      card.classList.toggle("open");
+      var t = card.querySelector(".mwTap");
+      if(t) t.textContent = card.classList.contains("open") ? "Tap to hide the reason" : "Tap the step to see why";
+    };
+    card.onclick = function(e){ if(e.target.closest(".mwTok")) return; toggle(); };
+    card.onkeydown = function(e){ if(e.key === "Enter" || e.key === " "){ e.preventDefault(); toggle(); } };
+  });
+  host.querySelectorAll(".mwTok").forEach(function(tok){
+    tok.onclick = function(e){
+      e.stopPropagation();
+      var card = tok.closest(".mwStep"); if(!card) return;
+      card.querySelectorAll(".mwTok.on").forEach(function(x){ x.classList.remove("on"); });
+      tok.classList.add("on");
+      var box = card.querySelector(".mwTokWhy");
+      if(!box){ box = document.createElement("div"); box.className = "mwTokWhy"; card.appendChild(box); }
+      box.textContent = tok.getAttribute("data-tip") || "";
+      card.classList.add("open");
+    };
+  });
+}
+function solveTry(q, outEl, mode){
+  if(!outEl) return false;
+  var fp = fnProblem(q);
+  if(fp){ svStart(fp, q, outEl, mode); return true; }
+  var m = mathsParse(q);
+  if(m && m.steps && m.steps.length){ svStart(m, q, outEl, mode); return true; }
+  return false;
+}
+
 /* ---------- solve a problem: worked method from the chapter ---------- */
 function solveStart(){
   var mp = $("mp");
-  mp.innerHTML = "<h3 style='margin-top:0'>Solve a problem</h3><p class='status'>Paste a question from your book, homework or a test. I will show the method and the steps at your class level.</p><textarea id='svQ' placeholder='For example: Find the value of x in 2x + 3 = 11.' style='margin-top:8px'></textarea><div class='row'><select id='svMode'><option value='steps'>Step-by-step solution</option><option value='answer'>Short answer</option></select><button class='primary' id='svGo'>Solve it</button></div><div id='svOut' class='out'></div>";
+  mp.innerHTML = "<h3 style='margin-top:0'>Solve a problem</h3><p class='status'>Paste a question from your book, homework or a test. I will solve it step by step and explain why each line is true.</p><textarea id='svQ' placeholder='For example: Check injectivity and surjectivity of f : N → N, f(x) = x².' style='margin-top:8px'></textarea><div class='row'><select id='svMode'><option value='steps'>Step-by-step solution</option><option value='answer'>Short answer</option></select><button class='primary' id='svGo'>Solve it</button></div><div id='svOut' class='out'></div>";
   $("svGo").onclick = async function(){
     var q = $("svQ").value.trim(); if(q.length < 4){ toast("Write the problem first"); return; }
     var mode = $("svMode").value, b = this;
+    if(solveTry(q, $("svOut"), mode)){ logEv("solve", "Solved: " + q.slice(0, 70)); revealResult($("svOut")); return; }
     var prompt = "The student wants help solving this problem:\n\n" + q + "\n\nSolve it " + (mode === "answer" ? "briefly, with the key working" : "step by step") + " at the level of " + DB.profile.cls + ". Rules: use the method taught in this chapter; write each step on its own line with a short reason; show the working, not only the answer; if a value is missing, say what is missing instead of guessing; end with a line starting 'Final answer:'. Keep it short enough to copy into a notebook.";
     var r = await run(prompt, $("svOut"), b, {ctx: "solve", q: q, key: "sv|" + mode + "|" + normQ(q).slice(0, 80), local: function(){ return localSolve(q, mode); }});
     if(r) logEv("solve", "Solved: " + q.slice(0, 70));
   };
 }
+/* ---------- interactive maths workbench: parser, steps, graphs ---------- */
+/* The engine is deliberately small and offline. It understands:
+   - one-variable linear equations (including brackets and fractions)
+   - quadratic equations (formula, discriminant, factorised form)
+   - arithmetic expressions with BODMAS, powers and percentages
+   Every answer comes with plain-language steps, so the UI never has to invent
+   an explanation of its own. */
+
+function mNorm(s){
+  return String(s == null ? "" : s)
+    .replace(/[−–—]/g, "-").replace(/[×·⋅]/g, "*").replace(/÷/g, "/")
+    .replace(/²/g, "^2").replace(/³/g, "^3").replace(/[“”]/g, '"')
+    .replace(/\s+/g, " ").trim();
+}
+function mEsc(s){ return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+function mNum(x){
+  if(!isFinite(x)) return String(x);
+  var r = Math.round(x * 1e6) / 1e6;
+  if(Object.is(r, -0)) r = 0;
+  return String(r);
+}
+function mPoly(a, b, c){ return {a: a || 0, b: b || 0, c: c || 0}; }
+function mAdd(P, Q){ return mPoly(P.a + Q.a, P.b + Q.b, P.c + Q.c); }
+function mNeg(P){ return mPoly(-P.a, -P.b, -P.c); }
+function mScale(P, k){ return mPoly(P.a * k, P.b * k, P.c * k); }
+function mMul(P, Q){
+  if(P.a && (Q.a || Q.b)) throw new Error("degree");
+  if(Q.a && P.b) throw new Error("degree");
+  return mPoly(P.a * Q.c + P.b * Q.b + P.c * Q.a, P.b * Q.c + P.c * Q.b, P.c * Q.c);
+}
+function mVarOf(str){
+  var letters = String(str).toLowerCase().match(/[a-z]/g) || [];
+  var uniq = letters.filter(function(x, i){ return letters.indexOf(x) === i; });
+  return uniq.length === 1 ? uniq[0] : null;
+}
+function mwTok(t){
+  if(!t || t.length > 28 || !/^[+\-*/().0-9a-z^]+$/i.test(t)) return false;
+  return (t.match(/[a-z]/gi) || []).length <= 1;
+}
+function mPolyParse(str, v){
+  str = mNorm(str).toLowerCase().replace(/\s+/g, "");
+  v = String(v).toLowerCase();
+  var i = 0;
+  function num(){
+    var m = /^\d*\.?\d+/.exec(str.slice(i));
+    if(!m) return null;
+    i += m[0].length; return parseFloat(m[0]);
+  }
+  function factor(){
+    var c = str.charAt(i);
+    if(c === "+"){ i++; return factor(); }
+    if(c === "-"){ i++; return mNeg(factor()); }
+    if(c === "("){ i++; var e = expr(); if(str.charAt(i) !== ")") throw new Error("paren"); i++; return e; }
+    if(str.slice(i, i + v.length) === v){
+      i += v.length;
+      if(str.charAt(i) === "^"){
+        i++; var e2 = num(); if(e2 === null) e2 = 1;
+        if(e2 === 0) return mPoly(0, 0, 1);
+        if(e2 === 1) return mPoly(0, 1, 0);
+        if(e2 === 2) return mPoly(1, 0, 0);
+        throw new Error("degree");
+      }
+      return mPoly(0, 1, 0);
+    }
+    var n = num();
+    if(n === null) throw new Error("factor");
+    return mPoly(0, 0, n);
+  }
+  function term(){
+    var P = factor(), c;
+    for(;;){
+      c = str.charAt(i);
+      if(c === "*"){ i++; P = mMul(P, factor()); }
+      else if(c === "/"){
+        i++; var Q = factor();
+        if(Q.a || Q.b || !Q.c) throw new Error("div");
+        P = mScale(P, 1 / Q.c);
+      } else if(c === "(" || c === v || /[0-9]/.test(c)){
+        P = mMul(P, factor());
+      } else return P;
+    }
+  }
+  function expr(){
+    var P = term(), c;
+    for(;;){
+      c = str.charAt(i);
+      if(c === "+"){ i++; P = mAdd(P, term()); }
+      else if(c === "-"){ i++; P = mAdd(P, mNeg(term())); }
+      else return P;
+    }
+  }
+  var out = expr();
+  if(i !== str.length) throw new Error("tail");
+  return out;
+}
+/* Exact-ish rational view of a decimal coefficient, so 2/3 stays 2/3 instead
+   of becoming 0.666667 in the middle of a worked step. */
+function ratOf(x, maxDen){
+  if(!isFinite(x)) return null;
+  var sign = x < 0 ? -1 : 1; x = Math.abs(x);
+  var bestN = 1, bestD = 1, bestErr = Infinity;
+  maxDen = maxDen || 1000;
+  for(var d = 1; d <= maxDen; d++){
+    var n = Math.round(x * d), err = Math.abs(x - n / d);
+    if(err < bestErr - 1e-12){ bestErr = err; bestN = n; bestD = d; }
+    if(err < 1e-12) break;
+  }
+  if(bestErr > 1e-9) return null;
+  return {n: sign * bestN, d: bestD};
+}
+function mwFrac(num, den){
+  if(!den) return mNum(num);
+  var r = ratOf(num / den, 1000);
+  if(r){
+    if(r.n === 0) return "0";
+    var s = r.n < 0 ? "-" : "";
+    var n = Math.abs(r.n), d = r.d, g = mwGcd(n, d); n /= g; d /= g;
+    return d === 1 ? s + mNum(n) : s + mNum(n) + "/" + mNum(d);
+  }
+  return mNum(num / den);
+}
+function mwGcd(a, b){ a = Math.abs(a); b = Math.abs(b); while(b){ var t = a % b; a = b; b = t; } return a || 1; }
+function termStr(b, v){
+  if(!b) return "0";
+  var s = b < 0 ? "-" : "";
+  b = Math.abs(b);
+  if(!v) return s + mNum(b);
+  return s + (b === 1 ? "" : mNum(b)) + v;
+}
+function coefStr(k, v){
+  if(Math.abs(k) < 1e-12) return "";
+  var sign = k < 0 ? "-" : "";
+  var a = Math.abs(k);
+  if(Math.abs(a - Math.round(a)) < 1e-12) return termStr(k, v);
+  var r = ratOf(a, 1000);
+  if(r && r.n <= 400 && r.d <= 400){
+    var top = (r.n === 1 ? "" : mNum(r.n)) + v;
+    return sign + top + "/" + mNum(r.d);
+  }
+  return sign + mNum(a) + v;
+}
+function polyStr(P, v){
+  var t = [], s;
+  if(Math.abs(P.a) > 1e-12) t.push(coefStr(P.a, v + "^2"));
+  if(Math.abs(P.b) > 1e-12){
+    s = coefStr(P.b, v);
+    if(t.length) t.push((P.b < 0 ? " - " : " + ") + s.replace(/^-/, ""));
+    else t.push(s);
+  }
+  if(Math.abs(P.c) > 1e-12 || !t.length){
+    var f = mwFrac(P.c, 1);
+    if(t.length) t.push((P.c < 0 ? " - " : " + ") + f.replace(/^-/, ""));
+    else t.push(f);
+  }
+  return t.join("");
+}
+function polyEval(P, x){ return P.a * x * x + P.b * x + P.c; }
+function extractEquation(q){
+  var s = mNorm(q);
+  if(s.indexOf("=") < 0) return null;
+  var toks = s.split(" ");
+  var ki = -1;
+  for(var i = 0; i < toks.length; i++){ if(toks[i].indexOf("=") >= 0){ ki = i; break; } }
+  if(ki < 0) return null;
+  var parts = toks[ki].split("=");
+  if(parts.length !== 2) return null;
+  var left = [], right = [];
+  for(var a = ki - 1; a >= 0 && mwTok(toks[a]); a--) left.unshift(toks[a]);
+  for(var b = ki + 1; b < toks.length && mwTok(toks[b]); b++) right.push(toks[b]);
+  if(parts[0]) left.push(parts[0]);
+  if(parts[1]) right.unshift(parts[1]);
+  left = left.filter(Boolean); right = right.filter(Boolean);
+  if(!left.length || !right.length) return null;
+  return {left: left.join(""), right: right.join(""), text: left.join(" ") + " = " + right.join(" ")};
+}
+function mwPretty(s){
+  return mNorm(s).replace(/([+\-*/])/g, " $1 ").replace(/\(\s+/g, "(").replace(/\s+\)/g, ")")
+    .replace(/\s+/g, " ").replace(/^([+\-*/])\s+/, "$1").replace(/\s*\^\s*/g, "^").trim();
+}
+function niceNum(x){
+  if(!isFinite(x)) return String(x);
+  if(Math.abs(x - Math.round(x)) < 1e-9) return mNum(Math.round(x));
+  var r = ratOf(x, 1000);
+  if(r && r.d > 1 && Math.abs(x - r.n / r.d) < 1e-9) return mwFrac(r.n, r.d) + " ≈ " + mNum(Math.round(x * 10000) / 10000);
+  return mNum(Math.round(x * 10000) / 10000);
+}
+function linearEquation(q){
+  var E = extractEquation(q); if(!E) return null;
+  var v = mVarOf(E.left + E.right); if(!v) return null;
+  var L, R;
+  try { L = mPolyParse(E.left, v); R = mPolyParse(E.right, v); }
+  catch(err){ return null; }
+  if(Math.abs(L.a) > 1e-12 || Math.abs(R.a) > 1e-12) return null;
+
+  var steps = [];
+  var orig = mwPretty(E.left) + " = " + mwPretty(E.right);
+  steps.push({
+    eq: orig,
+    label: "Start with the equation",
+    why: "An equation is like a balance: the left side and the right side have the same value. Whatever you do to one side, you must do to the other.",
+    bal: {L: L, R: R}
+  });
+  if(E.left.indexOf("(") >= 0 || E.right.indexOf("(") >= 0){
+    steps.push({
+      eq: polyStr(L, v) + " = " + polyStr(R, v),
+      label: "Expand the brackets",
+      why: "Multiply each term inside a bracket by the number or letter outside it. Expanding does not change the value, it just makes the equation easier to work with.",
+      op: "expand brackets",
+      bal: {L: L, R: R}
+    });
+  }
+
+  var curL = L, curR = R;
+  if(Math.abs(R.b) > 1e-12){
+    curL = mAdd(L, mNeg(mPoly(0, R.b, 0)));
+    curR = mAdd(R, mNeg(mPoly(0, R.b, 0)));
+    steps.push({
+      eq: polyStr(curL, v) + " = " + polyStr(curR, v),
+      label: "Move the " + v + "-terms to one side",
+      why: "Subtract " + termStr(R.b, v) + " from both sides. On the right, " + termStr(R.b, v) + " and " + termStr(-R.b, v) + " cancel out. On the left, the " + v + "-terms combine.",
+      op: "− " + termStr(R.b, v) + " on both sides",
+      bal: {L: curL, R: curR}
+    });
+  }
+
+  var A = curL.b, B = curR.c, C = curL.c;
+  if(Math.abs(A) < 1e-12){
+    var leftOver = C, rightOver = B;
+    var eq = polyStr(mPoly(0, 0, leftOver), v) + " = " + polyStr(mPoly(0, 0, rightOver), v);
+    var same = Math.abs(leftOver - rightOver) < 1e-12;
+    var last = steps[steps.length - 1];
+    var why = "The " + v + "-terms cancel out. " + (same
+      ? "Both sides become the same number, so this is an identity: any value of " + v + " makes the equation true."
+      : "That leaves a false statement (" + mNum(leftOver) + " is not equal to " + mNum(rightOver) + "), so no value of " + v + " can make the equation true.");
+    if(last && last.eq === eq){
+      last.label = same ? "Every value works" : "No solution";
+      last.why = last.why + " " + why;
+      last.final = true;
+    } else {
+      steps.push({eq: eq, label: same ? "Every value works" : "No solution", why: why, final: true, plain: true});
+    }
+    return {v: v, L: L, R: R, steps: steps, kind: "linear", answer: null, identity: same, impossible: !same};
+  }
+
+  if(Math.abs(C) > 1e-12){
+    curL = mPoly(0, A, 0);
+    curR = mPoly(0, 0, B - C);
+    steps.push({
+      eq: polyStr(curL, v) + " = " + polyStr(curR, v),
+      label: "Remove the number from the left",
+      why: (C < 0 ? "Add " + mNum(-C) : "Subtract " + mNum(C)) + " on both sides. The number disappears from the left, and exactly the same amount is removed from the right.",
+      op: (C < 0 ? "+ " + mNum(-C) : "− " + mNum(C)) + " on both sides",
+      bal: {L: curL, R: curR}
+    });
+  }
+
+  var x = (B - C) / A;
+  var answer = niceNum(x);
+  if(Math.abs(A - 1) > 1e-12){
+    curL = mPoly(0, 1, 0);
+    curR = mPoly(0, 0, x);
+    steps.push({
+      eq: v + " = " + answer,
+      label: "Divide both sides by " + mwFrac(A, 1),
+      why: "There are " + mwFrac(A, 1) + " copies of " + v + " on the left. Dividing both sides by " + mwFrac(A, 1) + " leaves one " + v + " on its own.",
+      op: "÷ " + mwFrac(A, 1) + " on both sides",
+      bal: {L: curL, R: curR}
+    });
+  }
+
+  var lhs = L.b * x + L.c, rhs = R.b * x + R.c;
+  var equal = Math.abs(lhs - rhs) < 1e-6;
+  steps.push({
+    eq: "LHS = " + niceNum(lhs) + ",   RHS = " + niceNum(rhs),
+    label: "Check by substitution",
+    why: "Put " + v + " = " + answer + " back into the original equation. Both sides should give the same value. " + (equal ? "They do, so the answer is correct." : "They do not, so recheck the working."),
+    check: true
+  });
+  steps.push({
+    eq: "Final answer: " + v + " = " + answer,
+    label: "Answer",
+    why: "The value of " + v + " that keeps both sides equal is " + answer + ".",
+    final: true,
+    plain: true
+  });
+  return {v: v, L: L, R: R, steps: steps, kind: "linear", answer: answer, x: x};
+}
+function surdParts(n){
+  n = Math.round(n * 1e6) / 1e6;
+  if(n < 0) return {neg: true};
+  var r = Math.sqrt(n);
+  if(Math.abs(r - Math.round(r)) < 1e-9) return {k: Math.round(r), m: 1, exact: true};
+  if(Math.abs(n - Math.round(n)) > 1e-9) return {k: 1, m: n, exact: false};
+  var k = 1, m = Math.round(n);
+  for(var i = 2; i * i <= m; i++){ while(m % (i * i) === 0){ m /= i * i; k *= i; } }
+  return {k: k, m: m, exact: false};
+}
+function surdRootText(b, k, m, den, sign){
+  if(m === 1){
+    var n1 = -b + (sign === "+" ? k : -k);
+    return mwFrac(n1, den);
+  }
+  var s = sign === "+" ? "" : "-";
+  var top = (b ? mNum(-b) + " " + s + " " : (sign === "+" ? "" : "-")) + (k === 1 ? "" : mNum(k)) + "√" + mNum(m);
+  return den === 1 ? top : "(" + top + ")/" + mNum(den);
+}
+function factorText(a, v, roots){
+  if(!roots.length) return "";
+  var dens = 1, parts = [];
+  for(var i = 0; i < roots.length; i++){
+    var r = ratOf(roots[i], 100);
+    if(!r) return "";
+    var n = r.n, d = r.d, g = mwGcd(Math.abs(n), d); n /= g; d /= g;
+    if(d < 0){ n = -n; d = -d; }
+    dens *= d;
+    parts.push("(" + (d === 1 ? "" : mNum(d)) + v + (n < 0 ? " + " + Math.abs(n) : " - " + n) + ")");
+  }
+  var head = a / dens;
+  if(Math.abs(head - Math.round(head)) > 1e-9) return "";
+  head = Math.round(head);
+  var prefix = head === 1 ? "" : head === -1 ? "-" : mNum(head);
+  return prefix + parts.join("") + " = 0";
+}
+function quadraticEquation(q){
+  var E = extractEquation(q); if(!E) return null;
+  var v = mVarOf(E.left + E.right); if(!v) return null;
+  var L, R;
+  try { L = mPolyParse(E.left, v); R = mPolyParse(E.right, v); }
+  catch(err){ return null; }
+  var P = mPoly(L.a - R.a, L.b - R.b, L.c - R.c);
+  if(Math.abs(P.a) < 1e-12) return null;
+  var a = P.a, b = P.b, c = P.c;
+  var steps = [];
+  steps.push({
+    eq: mwPretty(E.left) + " = " + mwPretty(E.right),
+    label: "Start with the equation",
+    why: "The highest power of " + v + " is 2, so this is a quadratic equation. A quadratic can have two, one or no real solutions.",
+    bal: {L: L, R: R}
+  });
+  var zeroRight = Math.abs(R.a) < 1e-12 && Math.abs(R.b) < 1e-12 && Math.abs(R.c) < 1e-12;
+  if(!zeroRight){
+    steps.push({
+      eq: polyStr(P, v) + " = 0",
+      label: "Bring every term to one side",
+      why: "Subtract the whole right side from both sides. Now the equation is in the standard form a" + v + "² + b" + v + " + c = 0, ready for the quadratic formula.",
+      op: "make the right side 0"
+    });
+  }
+  steps.push({
+    eq: "a = " + mNum(a) + ",   b = " + mNum(b) + ",   c = " + mNum(c),
+    label: "Identify a, b and c",
+    why: "Compare your equation with a" + v + "² + b" + v + " + c = 0. a is the number with " + v + "², b is the number with " + v + ", and c is the constant term.",
+    plain: true
+  });
+  var D = b * b - 4 * a * c;
+  steps.push({
+    eq: "D = b² − 4ac = (" + mNum(b) + ")² − 4 × (" + mNum(a) + ") × (" + mNum(c) + ") = " + mNum(D),
+    label: "Find the discriminant D",
+    why: "The discriminant is the part under the square root. It tells us how many real roots there are: D > 0 gives two, D = 0 gives one repeated root, and D < 0 gives none.",
+    op: "D = " + mNum(D)
+  });
+  if(D < -1e-12){
+    steps.push({
+      eq: "D = " + mNum(D) + " < 0",
+      label: "No real roots",
+      why: "A negative discriminant means we would need the square root of a negative number, which is not real. On a graph, the parabola never touches the x-axis.",
+      final: true,
+      plain: true
+    });
+    return {v: v, L: L, R: R, P: P, steps: steps, kind: "quadratic", roots: [], D: D, a: a, b: b, c: c};
+  }
+  var roots = [];
+  if(Math.abs(D) < 1e-12){
+    var r0 = -b / (2 * a);
+    roots = [r0];
+    steps.push({
+      eq: v + " = −b / (2a) = " + mwFrac(-b, 2 * a),
+      label: "One repeated root",
+      why: "D = 0, so the two roots are the same. The parabola just touches the x-axis at its vertex.",
+      op: v + " = " + niceNum(r0)
+    });
+  } else {
+    var sp = surdParts(D);
+    steps.push({
+      eq: v + " = (−b ± √D) / (2a)",
+      label: "Use the quadratic formula",
+      why: "For any quadratic a" + v + "² + b" + v + " + c = 0, the roots are given by this formula. The ± sign is why there can be two answers.",
+      plain: true
+    });
+    if(sp.m === 1){
+      var r1 = (-b + sp.k) / (2 * a), r2 = (-b - sp.k) / (2 * a);
+      roots = [r1, r2];
+      steps.push({
+        eq: v + " = (" + mNum(-b) + " ± " + mNum(sp.k) + ") / " + mNum(2 * a),
+        label: "Substitute the values",
+        why: "Put a = " + mNum(a) + ", b = " + mNum(b) + " and √D = " + mNum(sp.k) + " into the formula. Then work out the two signs separately.",
+        plain: true
+      });
+      steps.push({
+        eq: v + " = " + niceNum(r1) + "   or   " + v + " = " + niceNum(r2),
+        label: "The two roots",
+        why: "The ± sign gives two answers. Both make the equation true.",
+        final: true
+      });
+      var ft = factorText(a, v, roots);
+      if(ft){
+        steps.push({
+          eq: ft,
+          label: "Factorised form",
+          why: "The roots are whole numbers, so the quadratic can also be written as a product of two brackets. A product is zero when either bracket is zero, which gives the same two roots.",
+          final: true
+        });
+      }
+    } else {
+      var rp = (-b + Math.sqrt(D)) / (2 * a), rn = (-b - Math.sqrt(D)) / (2 * a);
+      roots = [rp, rn];
+      steps.push({
+        eq: v + " = (" + mNum(-b) + " ± √" + mNum(D) + ") / " + mNum(2 * a),
+        label: "Substitute the values",
+        why: "D is not a perfect square, so the exact answer stays in surd form. √" + mNum(D) + " simplifies to " + (sp.k === 1 ? "" : mNum(sp.k)) + "√" + mNum(sp.m) + ".",
+        plain: true
+      });
+      steps.push({
+        eq: v + " = " + surdRootText(b, sp.k, sp.m, 2 * a, "+") + "   or   " + v + " = " + surdRootText(b, sp.k, sp.m, 2 * a, "-"),
+        label: "Exact roots",
+        why: "These are the exact values. In decimals they are about " + mNum(Math.round(rp * 10000) / 10000) + " and " + mNum(Math.round(rn * 10000) / 10000) + ".",
+        final: true
+      });
+    }
+  }
+  steps.push({
+    eq: "Roots: " + roots.map(function(r){ return niceNum(r); }).join(", "),
+    label: "Check on the graph",
+    why: "The roots are the x-values where the parabola crosses the x-axis. The graph below marks them for you.",
+    final: true,
+    plain: true
+  });
+  return {v: v, L: L, R: R, P: P, steps: steps, kind: "quadratic", roots: roots, D: D, a: a, b: b, c: c};
+}
+function numParse(str){
+  str = String(str).replace(/\s+/g, "");
+  var i = 0;
+  function peek(){ return str.charAt(i); }
+  function num(){
+    var m = /^\d*\.?\d+/.exec(str.slice(i));
+    if(!m) return null;
+    i += m[0].length; return parseFloat(m[0]);
+  }
+  function factor(){
+    if(peek() === "+"){ i++; return factor(); }
+    if(peek() === "-"){ i++; return {t: "neg", x: factor()}; }
+    if(peek() === "("){ i++; var e = expr(); if(peek() !== ")") throw new Error("paren"); i++; return e; }
+    var n = num(); if(n === null) throw new Error("number");
+    return {t: "num", v: n};
+  }
+  function power(){
+    var x = factor();
+    while(peek() === "^"){ i++; x = {t: "bin", op: "^", l: x, r: factor()}; }
+    return x;
+  }
+  function term(){
+    var x = power();
+    while(peek() === "*" || peek() === "/"){
+      var op = peek(); i++;
+      x = {t: "bin", op: op, l: x, r: power()};
+    }
+    return x;
+  }
+  function expr(){
+    var x = term();
+    while(peek() === "+" || peek() === "-"){
+      var op = peek(); i++;
+      x = {t: "bin", op: op, l: x, r: term()};
+    }
+    return x;
+  }
+  var out = expr();
+  if(i !== str.length) throw new Error("tail");
+  return out;
+}
+function numEval(n){
+  if(n.t === "num") return n.v;
+  if(n.t === "neg") return -numEval(n.x);
+  var a = numEval(n.l), b = numEval(n.r);
+  switch(n.op){
+    case "+": return a + b;
+    case "-": return a - b;
+    case "*": return a * b;
+    case "/": return a / b;
+    case "^": return Math.pow(a, b);
+  }
+  return NaN;
+}
+function numPrec(n){
+  if(n.t === "num") return 4;
+  if(n.t === "neg") return 4;
+  return n.op === "+" || n.op === "-" ? 1 : n.op === "*" || n.op === "/" ? 2 : 3;
+}
+function numStr(n, parent, side){
+  if(n.t === "num") return mNum(n.v);
+  if(n.t === "neg") return "-" + numStr(n.x, 4, "right");
+  var p = numPrec(n);
+  var left = numStr(n.l, p, "left"), right = numStr(n.r, p, "right");
+  var op = n.op === "*" ? " × " : n.op === "/" ? " ÷ " : n.op === "^" ? "^" : " " + n.op + " ";
+  var s = left + op + right;
+  if(parent && (p < parent || (p === parent && side === "right" && parent >= 2 && (n.op === "-" || n.op === "/")))){
+    s = "(" + s + ")";
+  }
+  return s;
+}
+function numIs(n){ return n.t === "num"; }
+function reduceOnce(n){
+  if(n.t === "num") return {node: n, done: false};
+  if(n.t === "neg"){
+    if(n.x.t === "num") return {node: {t: "num", v: -n.x.v}, done: true, step: {before: "−" + mNum(n.x.v), after: mNum(-n.x.v), why: "The minus sign changes the sign of the number."}};
+    var rn = reduceOnce(n.x);
+    return {node: {t: "neg", x: rn.node}, done: rn.done, step: rn.step};
+  }
+  var l = reduceOnce(n.l);
+  if(l.done) return {node: {t: "bin", op: n.op, l: l.node, r: n.r}, done: true, step: l.step};
+  var r = reduceOnce(n.r);
+  if(r.done) return {node: {t: "bin", op: n.op, l: n.l, r: r.node}, done: true, step: r.step};
+  if(numIs(n.l) && numIs(n.r)){
+    var a = n.l.v, b = n.r.v, v;
+    switch(n.op){
+      case "+": v = a + b; break;
+      case "-": v = a - b; break;
+      case "*": v = a * b; break;
+      case "/": v = a / b; break;
+      case "^": v = Math.pow(a, b); break;
+    }
+    var why = n.op === "+" ? "Add " + mNum(a) + " and " + mNum(b) + "."
+      : n.op === "-" ? "Subtract " + mNum(b) + " from " + mNum(a) + "."
+      : n.op === "*" ? "Multiply " + mNum(a) + " by " + mNum(b) + "."
+      : n.op === "/" ? "Divide " + mNum(a) + " by " + mNum(b) + "."
+      : "Work out " + mNum(a) + " to the power " + mNum(b) + ".";
+    return {node: {t: "num", v: v}, done: true, step: {before: mNum(a) + " " + (n.op === "*" ? "×" : n.op === "/" ? "÷" : n.op) + " " + mNum(b), after: mNum(v), why: why}};
+  }
+  return {node: n, done: false};
+}
+function arithmeticWork(q){
+  var raw = mNorm(q);
+  var pct = /(\d+(?:\.\d+)?)\s*%\s*of\s*(\d+(?:\.\d+)?)/i.exec(raw);
+  if(pct){
+    var p = parseFloat(pct[1]), total = parseFloat(pct[2]), val = p / 100 * total;
+    return {
+      kind: "percent", answer: val, percent: p, total: total,
+      steps: [
+        {eq: mNum(p) + "% of " + mNum(total), label: "Start with the percentage", why: "“Per cent” means “out of 100”. So " + mNum(p) + "% is the same as " + mNum(p) + " out of 100.", plain: true},
+        {eq: mNum(p) + "/100 × " + mNum(total), label: "Write the percentage as a fraction", why: "Replace the % sign with ÷ 100. The word “of” means multiply.", plain: true},
+        {eq: mNum(p / 100) + " × " + mNum(total) + " = " + mNum(val), label: "Multiply", why: "Now multiply the fraction by the whole amount.", plain: true},
+        {eq: "Final answer: " + mNum(val), label: "Answer", why: mNum(p) + "% of " + mNum(total) + " is " + mNum(val) + ".", final: true, plain: true}
+      ]
+    };
+  }
+  /* Only pure arithmetic reaches this point. An equation or any letter makes
+     this a different kind of problem, not an expression to simplify. */
+  if(raw.indexOf("=") >= 0 || /[a-z]/i.test(raw)) return null;
+  var s = raw.replace(/[^0-9+\-*/^(). ]/g, " ").replace(/\s+/g, " ").trim();
+  if(!s || !/\d/.test(s) || !/[+\-*/^]/.test(s)) return null;
+  var root;
+  try { root = numParse(s); } catch(e){ return null; }
+  var steps = [{eq: numStr(root), label: "Start with the expression", why: "Work through the expression using BODMAS: brackets first, then orders (powers), then division and multiplication, then addition and subtraction.", plain: false}];
+  var cur = root, guard = 0;
+  while(guard++ < 40){
+    var rr = reduceOnce(cur);
+    if(!rr.done) break;
+    cur = rr.node;
+    steps.push({
+      eq: numStr(cur),
+      label: "Work out " + rr.step.before,
+      why: rr.step.why + " " + rr.step.before + " = " + rr.step.after + ". Keep the rest of the expression as it is.",
+      op: rr.step.before + " = " + rr.step.after
+    });
+  }
+  var answer = numEval(root);
+  if(!isFinite(answer)) return null;
+  steps.push({eq: "Final answer: " + mNum(answer), label: "Answer", why: "The expression simplifies to " + mNum(answer) + ".", final: true, plain: true});
+  return {kind: "arithmetic", answer: answer, steps: steps, expr: s};
+}
+/* One entry point for the UI. The order matters: an equation must be tried
+   before arithmetic, otherwise a stray "=" could be treated as a sum. */
+function mathsParse(q){
+  var raw = mNorm(q);
+  if(!raw || raw.length < 3) return null;
+  var lin = linearEquation(raw);
+  if(lin) return lin;
+  var quad = quadraticEquation(raw);
+  if(quad) return quad;
+  var ar = arithmeticWork(raw);
+  if(ar) return ar;
+  return null;
+}
+if(typeof module !== "undefined") module.exports = {
+  mathsParse, linearEquation, quadraticEquation, arithmeticWork,
+  polyStr, coefStr, mPolyParse, extractEquation, numParse, numStr, numEval,
+  mNorm, ratOf, niceNum, mwFrac
+};
+/* ---------- maths workbench: progressive, tappable working ---------- */
+var MWB = null;
+
+function mwClassNum(){
+  var m = String((DB.profile && DB.profile.cls) || "").match(/\d+/);
+  var n = m ? parseInt(m[0], 10) : 6;
+  return (n >= 1 && n <= 12) ? n : 6;
+}
+function mathsDefaults(){
+  var n = mwClassNum();
+  if(n <= 7) return ["2x + 3 = 11", "3(x - 2) = 12", "25% of 80", "12 + 8 × 3"];
+  if(n <= 10) return ["2x + 3 = 11", "2x/3 + 4 = 10", "x^2 - 5x + 6 = 0", "(x+1)(x-2)=0", "12 + 8 × 3"];
+  return ["x^2 - 5x + 6 = 0", "2x^2 + 3x - 2 = 0", "x^2 + 2x + 5 = 0", "2x/3 + 4 = 10"];
+}
+/* Look inside the chapter the student is reading. Only equations that the
+   engine can actually parse are offered, so a chip never leads to an error. */
+function mathsChapterExamples(){
+  var c = cur(), out = [];
+  if(!c || !c.text) return out;
+  var t = String(c.text).replace(/\s+/g, " ");
+  var re = /[0-9a-z()+\-−^*/.\s]{2,40}=\s*[−-]?[0-9]+(?:\.[0-9]+)?/gi;
+  var m, guard = 0;
+  while((m = re.exec(t)) && guard++ < 250){
+    var raw = m[0].replace(/\s+/g, " ").trim();
+    if(raw.length < 4) continue;
+    /* The match often starts a few words early (“the next equation is 3x…”).
+       Start at the first position that the engine can parse completely. */
+    var starts = [];
+    for(var i = 0; i < raw.length - 1; i++){
+      var ch = raw.charAt(i), nx = raw.charAt(i + 1);
+      if(/[0-9(]/.test(ch) || (/[a-z]/i.test(ch) && /[\^0-9]/.test(nx))) starts.push(i);
+    }
+    var cand = "";
+    for(var k = 0; k < starts.length; k++){
+      var piece = raw.slice(starts[k]).trim();
+      if(piece.length < 4 || piece.length > 34) continue;
+      var r0 = mathsParse(piece);
+      if(r0 && (r0.kind === "linear" || r0.kind === "quadratic")){ cand = piece; break; }
+    }
+    if(!cand) continue;
+    var r = mathsParse(cand);
+    if(r && (r.kind === "linear" || r.kind === "quadratic") && out.indexOf(cand) < 0) out.push(cand);
+    if(out.length >= 3) break;
+  }
+  return out;
+}
+function mathsStart(){
+  MWB = null;
+  var chips = [], add = function(list){ list.forEach(function(q){ if(chips.indexOf(q) < 0 && chips.length < 6) chips.push(q); }); };
+  add(mathsChapterExamples()); add(mathsDefaults());
+  var c = cur();
+  $("mp").innerHTML =
+    "<h3 style='margin-top:0'> Maths workbench</h3>" +
+    "<p class='status'>Type an equation or a sum. I will show one step at a time, and you can tap any step or any number to ask “why?”. " +
+      (c ? "Examples from <b>" + esc(c.name) + "</b> and your class are below." : "Examples for Class " + mwClassNum() + " are below.") + "</p>" +
+    "<div class='row'><input type='text' id='mwQ' placeholder='For example: 2x + 3 = 11   or   x^2 - 5x + 6 = 0   or   25% of 80' autocomplete='off'><button class='primary' id='mwGo'>Work it out</button></div>" +
+    "<div class='mwEqChips' id='mwChips'>" + chips.map(function(q){ return "<button data-q='" + esc(q).replace(/'/g, "&#39;") + "'>" + esc(q) + "</button>"; }).join("") + "</div>" +
+    "<div id='mwErr' class='status' style='min-height:1px'></div><div id='mwOut'></div>";
+  $("mwGo").onclick = function(){ mathsShow($("mwQ").value); };
+  $("mwQ").onkeydown = function(e){ if(e.key === "Enter") mathsShow(this.value); };
+  $("mwChips").onclick = function(e){ var b = e.target.closest("button[data-q]"); if(b){ $("mwQ").value = b.getAttribute("data-q"); mathsShow(b.getAttribute("data-q")); } };
+}
+function mathsShow(q){
+  q = mNorm(q);
+  var R = mathsParse(q);
+  if(!R){
+    $("mwOut").innerHTML = "";
+    $("mwErr").innerHTML = "<span class='err'>I could not read that. Try an equation with one letter (2x + 3 = 11 or x^2 - 5x + 6 = 0), or a sum such as 12 + 8 × 3.</span>";
+    return;
+  }
+  $("mwErr").textContent = "";
+  $("mwQ").value = q;
+  MWB = {q: q, res: R, at: 0, logged: false, scroll: false};
+  $("mwOut").innerHTML =
+    "<div class='mwGrid'><div class='mwLeft'>" +
+      "<div class='row mwTools'><button class='primary' id='mwNext'>Show next step</button><button id='mwAll'>Show all steps</button><button id='mwAgain'>Start again</button><button id='mwRead' title='Read this step aloud'>🔊 Read this step</button><span class='status' id='mwCount'></span></div>" +
+      "<div id='mwSteps' class='mwSteps'></div>" +
+    "</div><div id='mwSide' class='mwSide'></div></div>";
+  $("mwNext").onclick = function(){ if(MWB && MWB.at < MWB.res.steps.length - 1){ MWB.at++; MWB.scroll = true; mathsRender(); } };
+  $("mwAll").onclick = function(){ if(MWB){ MWB.at = MWB.res.steps.length - 1; mathsRender(); } };
+  $("mwAgain").onclick = function(){ if(MWB){ MWB.at = 0; MWB.scroll = true; mathsRender(); } };
+  $("mwRead").onclick = mathsRead;
+  $("mwSteps").onclick = function(e){
+    var card = e.target.closest(".mwStep"); if(!card) return;
+    var tok = e.target.closest(".mwTok");
+    if(tok){
+      e.stopPropagation();
+      card.querySelectorAll(".mwTok.on").forEach(function(x){ x.classList.remove("on"); });
+      tok.classList.add("on");
+      var tip = tok.getAttribute("data-tip") || "";
+      var box = card.querySelector(".mwTokWhy");
+      if(!box){ box = document.createElement("div"); box.className = "mwTokWhy"; card.appendChild(box); }
+      box.textContent = tip;
+      card.classList.add("open");
+      return;
+    }
+    card.classList.toggle("open");
+    var t = card.querySelector(".mwTap");
+    if(t) t.textContent = card.classList.contains("open") ? "Tap again to fold the reason" : "Tap the step to see why";
+  };
+  mathsRender();
+  revealResult($("mwOut"));
+}
+function mathsRender(){
+  if(!MWB) return;
+  var R = MWB.res, steps = R.steps, at = MWB.at, h = "";
+  for(var i = 0; i <= at; i++){
+    var s = steps[i];
+    h += "<div class='mwStep" + (s.final ? " final" : "") + (i === at ? " now" : "") + "' data-i='" + i + "'>" +
+      "<span class='mwNo'>" + (i + 1) + "</span>" +
+      "<div class='mwLb'>" + esc(s.label) + "</div>" +
+      "<div class='mwEq'>" + mwTokenize(s.eq, R, s) + "</div>" +
+      (s.op ? "<div class='mwOp'>" + esc(s.op) + "</div>" : "") +
+      "<div class='mwWhy'>" + esc(s.why) + "</div>" +
+      "<div class='mwTap'>Tap the step to see why</div></div>";
+  }
+  h += "<p class='status' style='margin:4px 0 0'>Step " + (at + 1) + " of " + steps.length + ". " +
+    (at === steps.length - 1 ? "That is the whole solution. Replay it, or tap any step to reread the reason." : "Press <b>Show next step</b> when you are ready.") + "</p>";
+  $("mwSteps").innerHTML = h;
+  $("mwCount").textContent = (at + 1) + " / " + steps.length;
+  $("mwNext").disabled = at >= steps.length - 1;
+  $("mwAll").disabled = at >= steps.length - 1;
+  $("mwSide").innerHTML = mathsSideHTML(R, steps[at]);
+  replay($("mwSteps"));
+  if(MWB.scroll){
+    var last = $("mwSteps").querySelector(".mwStep.now");
+    if(last) focusRegion(last, "nearest");
+    MWB.scroll = false;
+  }
+  if(at === steps.length - 1 && !MWB.logged){
+    MWB.logged = true;
+    logEv("maths", "Maths: " + MWB.q.slice(0, 70));
+  }
+}
+/* Only mathematical fragments become tappable. Ordinary words stay words. */
+function mwTokenize(eq, R, step){
+  return String(eq).replace(/\^2\b/g, "²").replace(/\^3\b/g, "³").split(/(\s+)/).map(function(chunk){
+    if(!chunk) return "";
+    if(/^\s+$/.test(chunk)) return chunk;
+    if(!/^[0-9a-zA-Z+\-−×÷*/=<>()^²³%.√±]+$/.test(chunk)) return esc(chunk);
+    if(/^[a-zA-Z]{2,}$/.test(chunk) && !/^(LHS|RHS)$/.test(chunk)) return esc(chunk);
+    var bits = chunk.split(/(\d+(?:\.\d+)?|[a-zA-Z]|√|±|[+\-−×÷*/=<>()^²³%])/);
+    return bits.map(function(b){
+      if(!b) return "";
+      var math = /^\d+(?:\.\d+)?$/.test(b) || /^[a-zA-Z]$/.test(b) || /^[+\-−×÷*/=<>()^²³%√±]$/.test(b);
+      if(math){
+        var tip = mwTipFor(b, R, step);
+        if(tip) return "<span class='mwTok' role='button' tabindex='0' data-tip='" + esc(tip) + "'>" + esc(b) + "</span>";
+      }
+      return esc(b);
+    }).join("");
+  }).join("");
+}
+function mwTipFor(tok, R, step){
+  if(/^[0-9]/.test(tok)){
+    if(step && /discriminant|Identify/i.test(step.label)) return "This number is one of a, b or c. Compare it with a" + (R.v || "x") + "² + b" + (R.v || "x") + " + c = 0 to see which one it is.";
+    return "This is a fixed number. It keeps the same value even when the letter changes.";
+  }
+  if(/^[a-zA-Z]$/.test(tok)){
+    if(tok.toUpperCase() === "D" && step && /discriminant/i.test(step.label)) return "D is the discriminant, b² − 4ac. Its sign tells you how many real roots the equation has.";
+    return "“" + tok + "” is the variable — the unknown value we are trying to find.";
+  }
+  if(tok === "=") return "The equals sign is the balance point: everything on the left has exactly the same value as everything on the right.";
+  if(tok === "^") return "A power (index) tells you how many times to multiply a number by itself.";
+  if(tok === "²") return "Squared means multiplied by itself: x² = x × x.";
+  if(tok === "³") return "Cubed means multiplied by itself three times: x³ = x × x × x.";
+  if(tok === "√") return "The square root asks: which number, multiplied by itself, gives the value inside?";
+  if(tok === "±") return "“Plus or minus” means work out the answer twice — once with + and once with −.";
+  if(tok === "(" || tok === ")") return "Brackets group terms together. Work out what is inside them first (BODMAS).";
+  if(tok === "+" || tok === "−" || tok === "-") return "A plus or minus sign joins terms. When a term moves across the equals sign, its sign changes.";
+  if(tok === "×" || tok === "*") return "Multiply means equal groups: 3 × 4 is three groups of four.";
+  if(tok === "÷" || tok === "/") return "Divide means sharing into equal parts. When you divide by a fraction, multiply by its reciprocal instead.";
+  if(tok === "%") return "Per cent means “out of 100”. 25% is 25 out of every 100.";
+  return "";
+}
+function mwCard(title, body, note){
+  return "<div class='mwCard'><h4>" + title + "</h4>" + body + (note ? "<p class='status' style='margin:6px 0 0'>" + note + "</p>" : "") + "</div>";
+}
+function mathsSideHTML(R, step){
+  var h = "";
+  if(R.kind === "linear"){
+    h += mwCard("The balance", mwBalanceHTML(step), "Whatever you do to one side, do exactly the same to the other.");
+    h += mwCard("Two sides, one meeting point", mwLineGraph(R), "The solution is the x-value where the two lines meet.");
+  } else if(R.kind === "quadratic"){
+    h += mwCard("The parabola", mwQuadGraph(R), "The roots are where the curve crosses the x-axis.");
+    h += mwCard("What the graph tells us", mwQuadFacts(R));
+  } else {
+    h += mwCard(R.kind === "percent" ? "The percentage bar" : "On the number line", mwNumberLine(R), R.kind === "percent" ? "The filled part is the percentage of the whole." : "The answer is marked on the line.");
+    h += mwCard("Working order (BODMAS)", mwBodmasHTML(step));
+  }
+  return h;
+}
+function mwBalanceHTML(step){
+  if(/Final answer|LHS|Roots:|Every value|No solution/i.test(step.eq)){
+    return "<p class='status'>The equation is solved. Both sides agreed, so there is no new balance to draw.</p>";
+  }
+  var parts = String(step.eq).split("=");
+  if(parts.length !== 2) return "<p class='status'>This step is a calculation, so there is no balance to draw here.</p>";
+  return "<div class='mwBal'><div class='mwPan'><small>Left side</small><b>" + esc(parts[0].trim()) + "</b></div>" +
+    "<div class='mwBeam'><span></span></div>" +
+    "<div class='mwPan'><small>Right side</small><b>" + esc(parts[1].trim()) + "</b></div></div>" +
+    "<p class='status' style='margin:6px 0 0'>The beam stays level because both sides have the same value.</p>";
+}
+function mwNiceStep(x){
+  if(!x || !isFinite(x)) return 1;
+  var p = Math.pow(10, Math.floor(Math.log(x) / Math.LN10)), f = x / p;
+  return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p;
+}
+function mwTicks(lo, hi, n){
+  var step = mwNiceStep((hi - lo) / Math.max(1, n)), out = [], start = Math.ceil(lo / step) * step;
+  for(var v = start; v <= hi + 1e-9; v += step){ out.push(Math.round(v * 1e6) / 1e6); if(out.length > 30) break; }
+  return out;
+}
+function mwChart(w, h, xlo, xhi, ylo, yhi){
+  if(xhi - xlo < 1e-9) xhi = xlo + 1;
+  if(yhi - ylo < 1e-9) yhi = ylo + 1;
+  var p = {l: 36, r: 14, t: 12, b: 26};
+  return {
+    w: w, h: h, p: p, xlo: xlo, xhi: xhi, ylo: ylo, yhi: yhi,
+    X: function(v){ return p.l + (v - xlo) / (xhi - xlo) * (w - p.l - p.r); },
+    Y: function(v){ return h - p.b - (v - ylo) / (yhi - ylo) * (h - p.t - p.b); }
+  };
+}
+function mwAxes(c){
+  var h = "", xt = mwTicks(c.xlo, c.xhi, 5), yt = mwTicks(c.ylo, c.yhi, 4);
+  xt.forEach(function(v){
+    h += "<line x1='" + c.X(v) + "' y1='" + c.p.t + "' x2='" + c.X(v) + "' y2='" + (c.h - c.p.b) + "' stroke='var(--line)' stroke-width='.7'/>";
+    if(Math.abs(v) > 1e-9) h += "<text x='" + c.X(v) + "' y='" + (c.h - 8) + "' text-anchor='middle' font-size='9' fill='var(--mute)'>" + mNum(v) + "</text>";
+  });
+  yt.forEach(function(v){
+    h += "<line x1='" + c.p.l + "' y1='" + c.Y(v) + "' x2='" + (c.w - c.p.r) + "' y2='" + c.Y(v) + "' stroke='var(--line)' stroke-width='.7'/>";
+    if(Math.abs(v) > 1e-9) h += "<text x='" + (c.p.l - 5) + "' y='" + (c.Y(v) + 3) + "' text-anchor='end' font-size='9' fill='var(--mute)'>" + mNum(v) + "</text>";
+  });
+  if(c.ylo <= 0 && c.yhi >= 0) h += "<line x1='" + c.p.l + "' y1='" + c.Y(0) + "' x2='" + (c.w - c.p.r) + "' y2='" + c.Y(0) + "' stroke='var(--mute)' stroke-width='1'/>";
+  if(c.xlo <= 0 && c.xhi >= 0) h += "<line x1='" + c.X(0) + "' y1='" + c.p.t + "' x2='" + c.X(0) + "' y2='" + (c.h - c.p.b) + "' stroke='var(--mute)' stroke-width='1'/>";
+  return h;
+}
+function mwSvg(c, inner, label){
+  return "<svg viewBox='0 0 " + c.w + " " + c.h + "' role='img' aria-label='" + esc(label || "graph") + "'>" + inner + "</svg>";
+}
+function mwPath(c, pts){
+  return pts.map(function(p, i){ return (i ? "L" : "M") + c.X(p[0]) + " " + c.Y(p[1]); }).join(" ");
+}
+function mwLineGraph(R){
+  var L = R.L, Q = R.R, root = isFinite(R.x) ? R.x : 0;
+  var xlo = Math.min(root - 4, -2), xhi = Math.max(root + 4, 2);
+  if(R.identity || R.impossible){ xlo = -4; xhi = 4; }
+  var a = [], b = [], ylo = 0, yhi = 0, i, x, y;
+  for(i = 0; i <= 64; i++){
+    x = xlo + (xhi - xlo) * i / 64;
+    y = polyEval(L, x); a.push([x, y]); if(y < ylo) ylo = y; if(y > yhi) yhi = y;
+    y = polyEval(Q, x); b.push([x, y]); if(y < ylo) ylo = y; if(y > yhi) yhi = y;
+  }
+  if(yhi - ylo < 1){ ylo -= 2; yhi += 2; }
+  var c = mwChart(320, 200, xlo, xhi, ylo, yhi);
+  var h = mwAxes(c);
+  h += "<path d='" + mwPath(c, a) + "' fill='none' stroke='#5265da' stroke-width='2.4' stroke-linecap='round'/>";
+  h += "<path d='" + mwPath(c, b) + "' fill='none' stroke='#24a99a' stroke-width='2.4' stroke-linecap='round'/>";
+  if(isFinite(R.x)){
+    var yy = polyEval(L, R.x);
+    h += "<circle cx='" + c.X(R.x) + "' cy='" + c.Y(yy) + "' r='5' fill='#d9822b' stroke='var(--card)' stroke-width='2'/>";
+    var lx = Math.max(40, Math.min(280, c.X(R.x))), ly = Math.max(16, Math.min(c.h - 16, c.Y(yy) - 10));
+    h += "<text x='" + lx + "' y='" + ly + "' text-anchor='middle' font-size='11' font-weight='700' fill='#d9822b'>x = " + esc(niceNum(R.x)) + "</text>";
+  }
+  return mwSvg(c, h, "Graph of the left and right sides") +
+    "<div class='mwLegend'><span><i style='background:#5265da'></i>Left side</span><span><i style='background:#24a99a'></i>Right side</span>" + (isFinite(R.x) ? "<span><i style='background:#d9822b'></i>Solution</span>" : "") + "</div>";
+}
+function mwQuadGraph(R){
+  var P = R.P, vx = -R.b / (2 * R.a), vy = polyEval(P, vx), roots = R.roots || [];
+  var xlo, xhi, i, x, y, ylo = 0, yhi = 0;
+  if(roots.length){ xlo = Math.min.apply(null, roots) - 2; xhi = Math.max.apply(null, roots) + 2; }
+  else { xlo = vx - 3; xhi = vx + 3; }
+  var pts = [];
+  for(i = 0; i <= 72; i++){
+    x = xlo + (xhi - xlo) * i / 72;
+    y = polyEval(P, x); pts.push([x, y]); if(y < ylo) ylo = y; if(y > yhi) yhi = y;
+  }
+  if(yhi - ylo < 2){ ylo -= 2; yhi += 2; }
+  var c = mwChart(320, 210, xlo, xhi, ylo, yhi);
+  var h = mwAxes(c);
+  h += "<path d='" + mwPath(c, pts) + "' fill='none' stroke='#5265da' stroke-width='2.6' stroke-linecap='round'/>";
+  h += "<circle cx='" + c.X(vx) + "' cy='" + c.Y(vy) + "' r='4' fill='#24a99a' stroke='var(--card)' stroke-width='2'/>";
+  roots.forEach(function(r, k){
+    h += "<circle cx='" + c.X(r) + "' cy='" + c.Y(0) + "' r='5' fill='#d9822b' stroke='var(--card)' stroke-width='2'/>";
+    var lx = Math.max(30, Math.min(290, c.X(r))), ly = k % 2 ? Math.min(c.h - 8, c.Y(0) + 22) : Math.max(14, c.Y(0) - 10);
+    h += "<text x='" + lx + "' y='" + ly + "' text-anchor='middle' font-size='10' font-weight='700' fill='#d9822b'>x = " + esc(niceNum(r)) + "</text>";
+  });
+  return mwSvg(c, h, "Parabola with its roots") +
+    "<div class='mwLegend'><span><i style='background:#5265da'></i>Curve</span><span><i style='background:#d9822b'></i>Roots</span><span><i style='background:#24a99a'></i>Vertex</span></div>";
+}
+function mwQuadFacts(R){
+  var d = R.D, roots = R.roots || [], h = "<p style='margin:4px 0'>D = <b>" + mNum(d) + "</b>. ";
+  if(d > 1e-9) h += "It is positive, so the parabola crosses the x-axis twice: <b>" + roots.map(niceNum).join("</b> and <b>") + "</b>.";
+  else if(Math.abs(d) <= 1e-9) h += "It is zero, so the parabola touches the x-axis once at <b>x = " + niceNum(roots[0]) + "</b>.";
+  else h += "It is negative, so the parabola never touches the x-axis. There is no real root.";
+  h += "</p><p class='status' style='margin:4px 0 0'>Vertex: (" + niceNum(-R.b / (2 * R.a)) + ", " + niceNum(polyEval(R.P, -R.b / (2 * R.a))) + "). " + (R.a > 0 ? "The curve opens upwards, so the vertex is a minimum." : "The curve opens downwards, so the vertex is a maximum.") + "</p>";
+  return h;
+}
+function mwNumberLine(R){
+  var ans = isFinite(R.answer) ? R.answer : 0;
+  var lo = Math.min(0, ans), hi = Math.max(0, ans);
+  if(hi - lo < 1) hi = lo + 1;
+  var pad = (hi - lo) * 0.15; lo -= pad; hi += pad;
+  var c = mwChart(320, 110, lo, hi, -1, 1), h = "", y = c.Y(0);
+  h += "<line x1='" + c.p.l + "' y1='" + y + "' x2='" + (c.w - c.p.r) + "' y2='" + y + "' stroke='var(--mute)' stroke-width='1.4'/>";
+  mwTicks(lo, hi, 5).forEach(function(v){
+    h += "<line x1='" + c.X(v) + "' y1='" + (y - 5) + "' x2='" + c.X(v) + "' y2='" + (y + 5) + "' stroke='var(--mute)' stroke-width='1'/>";
+    h += "<text x='" + c.X(v) + "' y='" + (y + 20) + "' text-anchor='middle' font-size='9' fill='var(--mute)'>" + mNum(v) + "</text>";
+  });
+  h += "<circle cx='" + c.X(ans) + "' cy='" + y + "' r='6' fill='#d9822b' stroke='var(--card)' stroke-width='2'/>";
+  h += "<text x='" + Math.max(30, Math.min(290, c.X(ans))) + "' y='" + (y - 14) + "' text-anchor='middle' font-size='11' font-weight='700' fill='#d9822b'>" + esc(niceNum(ans)) + "</text>";
+  var bar = "";
+  if(R.kind === "percent"){
+    var pct = Math.max(0, Math.min(100, R.percent));
+    bar = "<div class='mwPct'><i style='width:" + pct + "%'></i></div><div class='mwPctLbl'><span>0</span><span>" + mNum(R.percent) + "% of " + mNum(R.total) + " = " + mNum(R.answer) + "</span><span>" + mNum(R.total) + "</span></div>";
+  }
+  return bar + mwSvg(c, h, "Number line showing the answer");
+}
+function mwBodmasHTML(step){
+  var s = (step.op || "") + " " + (step.label || "") + " " + (step.eq || ""), on = "";
+  if(/\(/.test(step.eq || "")) on = "B";
+  else if(/\^/.test(s)) on = "O";
+  else if(/[÷/]|divide/i.test(s)) on = "D";
+  else if(/[×*]|multiply/i.test(s)) on = "M";
+  else if(/\+|−|-|add|subtract/i.test(s)) on = "A";
+  var items = [["B", "Brackets"], ["O", "Orders"], ["D", "Divide"], ["M", "Multiply"], ["A", "Add"], ["S", "Subtract"]];
+  return "<div class='mwBodmas'>" + items.map(function(x){ return "<span class='" + (x[0] === on ? "on" : "") + "'><b>" + x[0] + "</b>" + x[1] + "</span>"; }).join("") + "</div><p class='status' style='margin:6px 0 0'>" + (on ? "This step is the <b>" + (items.filter(function(x){return x[0] === on;})[0][1]) + "</b> stage. Everything before it is already done." : "Work left to right inside each stage. Multiplication and division belong together; so do addition and subtraction.") + "</p>";
+}
+function mathsRead(){
+  if(!MWB) return;
+  var s = MWB.res.steps[MWB.at];
+  speakText(mathsSpeech(s.label + ". " + s.eq + ". " + s.why), {max: 240});
+}
+function mathsSpeech(s){
+  return String(s)
+    .replace(/²/g, " squared ").replace(/³/g, " cubed ")
+    .replace(/\^2\b/g, " squared ").replace(/\^3\b/g, " cubed ")
+    .replace(/\^(\d+)/g, " to the power $1 ")
+    .replace(/√/g, " square root of ").replace(/±/g, " plus or minus ")
+    .replace(/−/g, " minus ").replace(/×/g, " times ").replace(/÷/g, " divided by ")
+    .replace(/=/g, " equals ").replace(/LHS/g, "left hand side").replace(/RHS/g, "right hand side")
+    .replace(/\s+/g, " ").trim();
+}
+
+
 /* ---------- offline equation solver: exact steps, no internet ---------- */
 function fmtLinear(a, b, v){
   var t = [];
