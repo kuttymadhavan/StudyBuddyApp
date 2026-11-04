@@ -235,11 +235,11 @@ body.fit main{padding-bottom:12px}
 .mmTools{position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px}
 .mmTools button{padding:6px 10px;font-size:.85rem;background:var(--card)}
 /* ---- one screen per section ---- */
-#v-study,#v-progress,#v-perf,#v-hist,#v-rep,#v-rec,#v-fun,#v-note,#v-mist,#v-tools,#v-play,#v-tips{
+#v-study,#v-progress,#v-perf,#v-hist,#v-rep,#v-rec,#v-fun,#v-note,#v-mist,#v-tools,#v-play,#v-tips,#v-plan{
   display:flex;flex-direction:column;min-height:0;
   height:var(--viewH,calc(100dvh - 132px));
 }
-#pgIn,#pfIn,#hsIn,#rpIn,#rcIn,#fnIn,#nbIn,#miIn,#tlIn,#plIn,#tpIn,#v-study>#stBody{
+#pgIn,#pfIn,#hsIn,#rpIn,#rcIn,#fnIn,#nbIn,#miIn,#tlIn,#plIn,#tpIn,#spIn,#v-study>#stBody{
   flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;
 }
 #v-study>#stBody{display:flex;flex-direction:column}
@@ -335,6 +335,29 @@ body.fit main{padding-bottom:12px}
 .mwGuess{width:100%;border-collapse:collapse;margin:4px 0;font-size:.9rem}
 .mwGuess th,.mwGuess td{border:1px solid var(--line);padding:5px 8px;text-align:center}
 .mwGuess th{background:var(--card);font-weight:600;color:var(--mute);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em}
+/* ---- subject / semester / book / chapter cascade ---- */
+.cascade{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.cascade select{flex:1 1 116px;min-width:0}
+.cascade #chSel{flex:1 1 180px}
+/* ---- study plan, syllabus and timetable ---- */
+#v-plan .card{padding:14px;margin-bottom:10px}
+#v-plan h1{font-size:1.25rem;margin:2px 0 8px}
+#v-plan h2{font-size:1.05rem;margin:12px 0 4px}
+#v-plan h3{font-size:.95rem;margin:10px 0 4px}
+.orgTree h3{margin:12px 0 2px;font-size:.98rem;color:var(--acc2ink)}
+.orgTree .semHead{margin:10px 0 2px;font-size:.82rem;color:var(--mute);text-transform:uppercase;letter-spacing:.05em}
+.ttSlot{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line);flex-wrap:wrap}
+.ttSlot .t{font-weight:700;font-variant-numeric:tabular-nums;min-width:104px}
+.ttSlot .what{flex:1;min-width:0}
+.ttSlot.ttDone .what{opacity:.55;text-decoration:line-through}
+.ttDay{margin:10px 0 0}
+.ttDay h4{margin:0 0 2px;font-size:.9rem;color:var(--acc2ink)}
+.sylGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.planItem{display:flex;align-items:center;gap:8px;padding:7px 0;border-top:1px solid var(--line)}
+.planItem .dt{font-size:.8rem;color:var(--mute);min-width:78px}
+.planItem.due{background:var(--acc2bg);border-radius:10px;padding-left:8px}
+.planItem.done .nm{opacity:.6;text-decoration:line-through}
+@media (max-width:620px){#v-plan .cascade select{flex:1 1 100%}.planItem{flex-wrap:wrap}}
 </style>
 </head>
 <body>
@@ -379,11 +402,12 @@ body.fit main{padding-bottom:12px}
 <section id="v-home" class="hidden"><div id="homeIn"></div></section>
 
 <section id="v-study" class="hidden"><h1> Study</h1>
-<div class="card" id="chCard"><div class="row"><select id="chSel" style="flex:1;min-width:180px"></select><button id="chAdd" class="primary">＋ Add book or chapter (PDF)</button><button id="chNcert" title="Official NCERT chapter PDFs, Classes 1–12">⬇ NCERT library</button><button id="chPack" class="hidden" title="Uses the internet and your AI. Press only when online.">⚡ Smart pack (online)</button><button id="chDel" class="hidden"> Delete</button></div><input type="file" id="file" accept="application/pdf" class="hidden"><div class="row" id="engRow" style="margin:8px 0 0"><span class="status">Prepare questions:</span><select id="engSel"><option value="local">On this device (instant, no limits)</option><option value="ai">With AI (smarter, needs internet)</option></select></div><div id="packInfo" class="status"></div><div id="info" class="status"></div></div>
+<div class="card" id="chCard"><div class="cascade"><select id="selSubj" aria-label="Subject" title="Subject"></select><select id="selSem" aria-label="Semester" title="Semester"></select><select id="selBook" aria-label="Book" title="Book"></select><select id="chSel" aria-label="Chapter" title="Chapter"></select></div><div class="row" style="margin:8px 0 0"><button id="chAdd" class="primary">＋ Add book or chapter (PDF)</button><button id="chNcert" title="Official NCERT chapter PDFs, Classes 1–12">⬇ NCERT library</button><button id="chSyll" title="Upload your syllabus (PDF or Excel) so I can plan your study">📋 Syllabus</button><button id="chPack" class="hidden" title="Uses the internet and your AI. Press only when online.">⚡ Smart pack (online)</button><button id="chDel" class="hidden"> Delete</button></div><input type="file" id="file" accept="application/pdf" class="hidden"><input type="file" id="sylFile" accept=".pdf,.xlsx,.xls,.csv,.tsv,.txt,application/pdf" class="hidden"><div class="row" id="engRow" style="margin:8px 0 0"><span class="status">Prepare questions:</span><select id="engSel"><option value="local">On this device (instant, no limits)</option><option value="ai">With AI (smarter, needs internet)</option></select></div><div id="packInfo" class="status"></div><div id="info" class="status"></div></div>
 <div id="split" class="card hidden"></div>
 <div id="upl" class="card hero" style="text-align:center;padding:28px 16px"><div class="ic" style="width:64px;height:64px;margin:0 auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg></div><h2>Bring your book, I’ll do the rest!</h2><p>Upload your textbook (whole book or one chapter). I will split it into chapters and turn it into notes, questions, flashcards and tests. Let’s begin </p><button id="uplBtn" class="primary" style="font-size:1.05rem;padding:12px 22px">Choose my book (PDF)</button><button id="uplNcert" style="display:block;margin:8px auto 0">⬇ Download from NCERT (Classes 1–12)</button><button id="uplMaths" style="display:block;margin:8px auto 0">🧮 Open maths workbench</button><p class="status">or drop the PDF anywhere on this card</p></div>
 <div id="stBody" class="hidden"><div id="path"></div><div id="vidAsk" class="card hero"></div><h3>How do you want to study today?</h3><div id="methods"></div><div class="card" id="mp" style="margin-top:14px"><p class="status">Pick a method above to start </p></div></div><div id="msg" class="status"></div></section>
 
+<section id="v-plan" class="hidden"><div id="spIn"></div></section>
 <section id="v-progress" class="hidden"><div id="pgIn"></div></section>
 <section id="v-perf" class="hidden"><div id="pfIn"></div></section>
 <section id="v-hist" class="hidden"><div id="hsIn"></div></section>
@@ -411,17 +435,17 @@ function loadPdf(){
   return pdfReady;
 }
 var sample = null, EXQ = "", RETRY = null, FOCUS = "", VA = {}, examTimer = null, curView = "home", lastQ = -1, muteObs = false, homeNarrow = false, HOSTED = typeof claude !== "undefined" && !!(claude && claude.use);
-var DB = {profile: null, chapters: [], progress: {}, history: [], facts: {}, cache: {}, book: [], engine: "local", cur: null, speech: {uri: "", name: "", rate: 0.95, pitch: 1}};
+var DB = {profile: null, chapters: [], progress: {}, history: [], facts: {}, cache: {}, book: [], engine: "local", cur: null, speech: {uri: "", name: "", rate: 0.95, pitch: 1}, syllabus: null, plan: null, tt: [], ttDone: {}};
 var KEY = "ocm_study_v1";              /* old single-student store, read once for migration */
 var AUTH_KEY = "ocm_study_auth_v1";    /* student list, device AI connection, current session */
 var DATA_KEY = "ocm_study_user_";      /* one private study blob per student id */
 var AUTH = {v: 1, users: [], session: null, last: null, ai: null, migrated: false};
 var authMode = "login", AUTH_MIGRATED = "";
 function blankDB(){
-  return {profile: null, chapters: [], progress: {}, history: [], facts: {}, cache: {}, book: [], engine: "local", cur: null, speech: {uri: "", name: "", rate: 0.95, pitch: 1}};
+  return {profile: null, chapters: [], progress: {}, history: [], facts: {}, cache: {}, book: [], engine: "local", cur: null, speech: {uri: "", name: "", rate: 0.95, pitch: 1}, syllabus: null, plan: null, tt: [], ttDone: {}};
 }
 function studyFields(){
-  return ["profile", "chapters", "progress", "history", "facts", "cache", "book", "cur", "last", "sess", "speech", "qaMarks", "paper", "mist", "lastBackup", "play"];
+  return ["profile", "chapters", "progress", "history", "facts", "cache", "book", "cur", "last", "sess", "speech", "qaMarks", "paper", "mist", "lastBackup", "play", "syllabus", "plan", "tt", "ttDone"];
 }
 function normalizeStudy(d){
   d = d && typeof d === "object" ? d : {};
@@ -429,6 +453,8 @@ function normalizeStudy(d){
   d.progress = d.progress || {}; d.history = d.history || []; d.facts = d.facts || {};
   d.cache = d.cache || {}; d.book = d.book || []; d.speech = d.speech || {};
   d.engine = d.engine || "local";
+  d.syllabus = d.syllabus || null; d.plan = d.plan || null;
+  d.tt = Array.isArray(d.tt) ? d.tt : []; d.ttDone = d.ttDone || {};
   if(!d.cur || !d.chapters.some(function(c){ return c.id === d.cur; })) d.cur = d.chapters[0] ? d.chapters[0].id : null;
   return d;
 }
@@ -518,7 +544,7 @@ function resetRuntime(){
   clearInterval(examTimer); examTimer = null;
   clearPlayTimer(); PS = null;
   PREP = {}; QA = null; T = null; pend = null; VA = {}; sample = null;
-  RETRY = null; FOCUS = ""; EXQ = ""; lastDoubtQ = ""; MWB = null; SVS = null; NCERT_PICK = null;
+  RETRY = null; FOCUS = ""; EXQ = ""; lastDoubtQ = ""; MWB = null; SVS = null; NCERT_PICK = null; PENDMETA = null;
   Array.prototype.slice.call(document.querySelectorAll(".modal")).forEach(function(x){
     if(typeof x.__close === "function") x.__close(); else x.remove();
   });
@@ -568,7 +594,8 @@ upload:"<path d='M12 16V4 M7 9l5-5 5 5 M4 20h16'/>", profile:"<circle cx='12' cy
  mist:"<path d='M5 3h10l4 4v14H5z M14 3v5h5 M9 12l6 6 M15 12l-6 6'/>",
  tools:"<path d='M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z'/>",
  game:"<rect x='3' y='6' width='18' height='12' rx='4'/><path d='M8 10v4 M6 12h4 M15 11h.01 M17.5 13h.01'/>",
- tips:"<path d='M9 18h6 M10 21h4 M12 3a6 6 0 0 0-4 10.4c.7.7 1 1.6 1 2.6h6c0-1 .3-1.9 1-2.6A6 6 0 0 0 12 3z M12 7v5 M9.5 9.5h5'/>"
+ tips:"<path d='M9 18h6 M10 21h4 M12 3a6 6 0 0 0-4 10.4c.7.7 1 1.6 1 2.6h6c0-1 .3-1.9 1-2.6A6 6 0 0 0 12 3z M12 7v5 M9.5 9.5h5'/>",
+ plan:"<rect x='3' y='4' width='18' height='17' rx='2'/><path d='M3 9h18 M8 2v4 M16 2v4 M8 13h3 M8 17h6'/>"
 };
 function svgIc(k){ return "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'>" + (ICON[k] || "") + "</svg>"; }
 var SEL = ".card,.q,.fact,.mth,.stat>div";
@@ -1072,12 +1099,12 @@ function focusRegion(el, block){
   clearTimeout(el.__flashT); el.__flashT = setTimeout(function(){ el.classList.remove("focus-flash"); }, 1000);
 }
 function revealResult(el){ if(el) focusRegion(el, "nearest"); }
-var VIEWS = ["onb","home","study","progress","perf","hist","rep","rec","fun","note","mist","tools","play","tips"], RENDER = {};
+var VIEWS = ["onb","home","study","plan","progress","perf","hist","rep","rec","fun","note","mist","tools","play","tips"], RENDER = {};
 
 /* ---------- frozen banner: back / home / current screen name ---------- */
 /* One screen at a time. The banner is always visible; a study method opens as
    its own screen so the working is not pushed below the method grid. */
-var SCREEN_NAMES = {onb:"", home:"", study:"Study", progress:"Progress", perf:"Performance", hist:"History", rep:"Reports", rec:"Today's plan", fun:"Fun facts", note:"Notebook", mist:"My error book", tools:"Settings", play:"Let's Play", tips:"Tricks & Tips"};
+var SCREEN_NAMES = {onb:"", home:"", study:"Study", plan:"Study plan", progress:"Progress", perf:"Performance", hist:"History", rep:"Reports", rec:"Today's plan", fun:"Fun facts", note:"Notebook", mist:"My error book", tools:"Settings", play:"Let's Play", tips:"Tricks & Tips"};
 function methodLabel(k){ var m = (typeof METHODS !== "undefined" ? METHODS : []).filter(function(x){ return x.k === k; })[0]; return m ? m.n : "Study"; }
 function methodOpen(){ return document.body.classList.contains("method-open"); }
 function setScreenTitle(t){ var e = $("scTitle"); if(!e) return; e.textContent = t || ""; e.classList.toggle("hidden", !t); }
@@ -1384,6 +1411,7 @@ var HOME_NODES = [
   {k:"study", n:"Study", view:"study", icon:"study", ring:0, c:"#4f7dff"},
   {k:"rec", n:"Today's plan", view:"rec", icon:"rec", ring:0, c:"#a78bfa"},
   {k:"resume", n:"Where I stopped", resume:1, icon:"hist", ring:0, c:"#38bdf8"},
+  {k:"plan", n:"Study plan", view:"plan", icon:"plan", ring:0, c:"#f0abfc"},
   {k:"progress", n:"Progress", view:"progress", icon:"progress", ring:1, c:"#4ade80"},
   {k:"perf", n:"Performance", view:"perf", icon:"perf", ring:1, c:"#fbbf24"},
   {k:"hist", n:"History", view:"hist", icon:"hist", ring:1, c:"#fb923c"},
@@ -1535,7 +1563,7 @@ RENDER.home = function(){
   var p = DB.profile, hello = HELLO[p.lang] || "Namaste", narrow = window.innerWidth < 620; homeNarrow = narrow;
   var h = "<div class='card hero homeWish'><h1>" + hello + ", " + esc(p.name) + "!</h1><p>I am <strong>Mitrādhyāyin</strong>, your study companion. Tap a planet in your galaxy to begin. " + esc(p.cls) + (p.age ? " · age " + p.age : "") + ".</p></div>";
   h += "<div class='card galaxyCard'>" + galaxySvg(narrow) + "</div>";
-  h += "<div class='homeSecs'>" + SECS.map(function(s){ return "<button class='mth tile' data-v='" + s.k + "'><span class='ic'>" + svgIc(s.k) + "</span><b>" + s.n + "</b></button>"; }).join("") + "<button class='mth tile' data-v='mindmap'><span class='ic'>" + svgIc("map") + "</span><b>Mind map</b></button><button class='mth tile' data-v='maths'><span class='ic'>" + svgIc("maths") + "</span><b>Maths</b></button><button class='mth tile' data-v='play'><span class='ic'>" + svgIc("game") + "</span><b>Let's play</b></button><button class='mth tile' data-v='tips'><span class='ic'>" + svgIc("tips") + "</span><b>Tricks &amp; tips</b></button><button class='mth tile' data-v='mist'><span class='ic'>" + svgIc("mist") + "</span><b>My error book</b></button><button class='mth tile' data-v='tools'><span class='ic'>" + svgIc("tools") + "</span><b>Settings</b></button></div>";
+  h += "<div class='homeSecs'>" + SECS.map(function(s){ return "<button class='mth tile' data-v='" + s.k + "'><span class='ic'>" + svgIc(s.k) + "</span><b>" + s.n + "</b></button>"; }).join("") + "<button class='mth tile' data-v='plan'><span class='ic'>" + svgIc("plan") + "</span><b>Study plan</b></button><button class='mth tile' data-v='mindmap'><span class='ic'>" + svgIc("map") + "</span><b>Mind map</b></button><button class='mth tile' data-v='maths'><span class='ic'>" + svgIc("maths") + "</span><b>Maths</b></button><button class='mth tile' data-v='play'><span class='ic'>" + svgIc("game") + "</span><b>Let's play</b></button><button class='mth tile' data-v='tips'><span class='ic'>" + svgIc("tips") + "</span><b>Tricks &amp; tips</b></button><button class='mth tile' data-v='mist'><span class='ic'>" + svgIc("mist") + "</span><b>My error book</b></button><button class='mth tile' data-v='tools'><span class='ic'>" + svgIc("tools") + "</span><b>Settings</b></button></div>";
   h += "<div id='homeToday'></div>";
   $("homeIn").innerHTML = h;
   $("homeIn").querySelectorAll("[data-v]").forEach(function(n){ n.onclick = function(){ var v = n.dataset.v; if(v === "mindmap") openMindmap(); else if(v === "maths") openMaths(); else show(v); }; });
@@ -1544,28 +1572,81 @@ RENDER.home = function(){
   if(c){ $("homeToday").innerHTML = "<div class='row' style='justify-content:center;margin-top:10px'><button class='primary' id='goStudy'>Continue: " + esc(c.name.slice(0, 32)) + " →</button></div>"; $("goStudy").onclick = function(){ show("study"); }; }
 };
 
-/* ---------- Study: chapters ---------- */
+/* ---------- Study: subject / semester / book / chapter ---------- */
+/* Every chapter carries subject, sem and book. Organisation is derived from the
+   chapters themselves, so there is no separate catalog to keep in sync. */
+var PENDMETA = null;
+function subjOf(c){ return (c && c.subject) || "General"; }
+function semOf(c){ return (c && c.sem) || "No semester"; }
+function bookOf(c){ return (c && c.book) || "My chapters"; }
+function subjList(){ return uniq(DB.chapters.map(function(c){ return subjOf(c); })).sort(); }
+function semList(subj){ return uniq(DB.chapters.filter(function(c){ return !subj || subjOf(c) === subj; }).map(semOf)).sort(); }
+function bookList(subj, sem){ return uniq(DB.chapters.filter(function(c){ return (!subj || subjOf(c) === subj) && (!sem || semOf(c) === sem); }).map(bookOf)).sort(); }
+function chapList(subj, sem, book){ return DB.chapters.filter(function(c){ return (!subj || subjOf(c) === subj) && (!sem || semOf(c) === sem) && (!book || bookOf(c) === book); }); }
+function optList(list, all){ return "<option value=''>" + esc(all) + "</option>" + list.map(function(x){ return "<option value=\"" + esc(x).replace(/"/g, "&quot;") + "\">" + esc(x) + "</option>"; }).join(""); }
+function askBookMeta(isChapter, cb){
+  var subs = uniq(subjList().concat(["Maths","Science","Physics","Chemistry","Biology","English","Hindi","Social Science","History","Geography","Economics","Civics","Computer Science","Accountancy","Business Studies","EVS","General"])).sort();
+  var sems = [], i; for(i = 1; i <= 8; i++) sems.push("Semester " + i);
+  sems = uniq(sems.concat(["Term 1","Term 2","Annual","Unit 1","Unit 2"]));
+  var meta = PENDMETA || {};
+  var h = "<h3 style='margin-top:0'>Where does this belong?</h3><p class='status'>Tell me the subject, semester and book so I can keep your study organised subject-wise, semester-wise, book-wise and chapter-wise.</p>";
+  h += "<div class='row'><div style='flex:1;min-width:140px'><label for='mSubj'>Subject</label><input id='mSubj' list='mSubjList' value=\"" + esc(meta.subject || "") + "\" placeholder='e.g. Science'><datalist id='mSubjList'>" + subs.map(function(s){ return "<option value=\"" + esc(s) + "\">"; }).join("") + "</datalist></div>";
+  h += "<div style='flex:1;min-width:140px'><label for='mSem'>Semester</label><input id='mSem' list='mSemList' value=\"" + esc(meta.sem || "") + "\" placeholder='e.g. Semester 1'><datalist id='mSemList'>" + sems.map(function(s){ return "<option value=\"" + esc(s) + "\">"; }).join("") + "</datalist></div></div>";
+  h += "<div class='row'><div style='flex:1;min-width:140px'><label for='mBook'>Book</label><input id='mBook' value=\"" + esc(meta.book || "") + "\" placeholder='e.g. Curiosity'></div>";
+  h += "<div style='flex:1;min-width:140px'><label for='mChap'>Chapter (only for one chapter)</label><input id='mChap' value=\"" + esc(meta.chapter || "") + "\" placeholder='leave empty for a whole book'></div></div>";
+  h += "<p class='status' style='margin:6px 0 0'>Type a chapter name to upload a single chapter; leave it empty to split the whole book into chapters. I will place everything under the subject and semester you choose.</p>";
+  h += "<div class='row' style='margin-top:12px'><button class='primary' id='mGo'>Choose file</button><button data-close>Cancel</button></div>";
+  var m = popup(h);
+  m.el.querySelector("#mGo").onclick = function(){
+    PENDMETA = {
+      subject: m.el.querySelector("#mSubj").value.trim() || "General",
+      sem: m.el.querySelector("#mSem").value.trim(),
+      book: m.el.querySelector("#mBook").value.trim(),
+      chapter: m.el.querySelector("#mChap").value.trim()
+    };
+    m.close(); cb(PENDMETA);
+  };
+}
 function fillSel(){
-  var sel = $("chSel"), has = !!cur();
-  if(!DB.chapters.length){ sel.innerHTML = "<option>No chapters yet</option>"; sel.disabled = true; }
+  var ss = $("selSubj"), ms = $("selSem"), bs = $("selBook"), sel = $("chSel");
+  var curSubj = ss ? ss.value : "", curSem = ms ? ms.value : "", curBook = bs ? bs.value : "";
+  if(ss){
+    if(!DB.chapters.length){ ss.innerHTML = "<option value=''>No subjects yet</option>"; ss.disabled = true; }
+    else { ss.disabled = false; var keepS = curSubj && subjList().indexOf(curSubj) >= 0 ? curSubj : ""; ss.innerHTML = optList(subjList(), "All subjects"); ss.value = keepS; curSubj = keepS; }
+  }
+  if(ms){
+    if(!DB.chapters.length){ ms.innerHTML = "<option value=''>—</option>"; ms.disabled = true; }
+    else { ms.disabled = false; var sems = semList(curSubj), keepM = curSem && sems.indexOf(curSem) >= 0 ? curSem : ""; ms.innerHTML = optList(sems, "All semesters"); ms.value = keepM; curSem = keepM; }
+  }
+  if(bs){
+    if(!DB.chapters.length){ bs.innerHTML = "<option value=''>—</option>"; bs.disabled = true; }
+    else { bs.disabled = false; var bks = bookList(curSubj, curSem), keepB = curBook && bks.indexOf(curBook) >= 0 ? curBook : ""; bs.innerHTML = optList(bks, "All books"); bs.value = keepB; curBook = keepB; }
+  }
+  var list = chapList(curSubj, curSem, curBook), has = !!list.length;
+  if(!has){ sel.innerHTML = "<option>No chapters yet</option>"; sel.disabled = true; }
   else {
     sel.disabled = false; var g = {}, order = [];
-    DB.chapters.forEach(function(c){ var b = c.book || "My chapters"; if(!g[b]){ g[b] = []; order.push(b); } g[b].push("<option value='" + c.id + "'>" + esc(c.name) + "</option>"); });
-    sel.innerHTML = order.map(function(b){ return "<optgroup label='" + esc(b) + "'>" + g[b].join("") + "</optgroup>"; }).join(""); sel.value = DB.cur;
+    list.forEach(function(c){ var b = bookOf(c); if(!g[b]){ g[b] = []; order.push(b); } g[b].push("<option value='" + c.id + "'>" + esc(c.name) + "</option>"); });
+    sel.innerHTML = order.map(function(b){ return "<optgroup label='" + esc(b) + "'>" + g[b].join("") + "</optgroup>"; }).join("");
+    var ids = list.map(function(c){ return c.id; });
+    if(ids.indexOf(DB.cur) < 0) DB.cur = ids[0];
+    sel.value = DB.cur;
   }
+  has = !!cur();
   var sp = typeof pend !== "undefined" && pend;
   $("stBody").classList.toggle("hidden", !has || !!sp); $("upl").classList.toggle("hidden", !!DB.chapters.length || !!sp); $("chDel").classList.toggle("hidden", !has);
   $("chPack").classList.toggle("hidden", !has);
   var pk = has ? cur().pack : null;
   $("chPack").textContent = pk && pk.concepts && pk.concepts.length ? "✓ Smart pack (" + pk.concepts.length + ") · rebuild" : "⚡ Smart pack (online)";
   renderPackInfo();
-  $("info").textContent = has ? cur().pages + " pages · " + cur().text.length.toLocaleString() + " characters read" + (cur().cut ? " (long chapter: first part used)" : "") : "Upload a PDF with selectable text.";
+  $("info").textContent = has ? subjOf(cur()) + (semOf(cur()) !== "No semester" ? " · " + semOf(cur()) : "") + " · " + bookOf(cur()) + " · " + cur().pages + " pages · " + cur().text.length.toLocaleString() + " characters read" + (cur().cut ? " (long chapter: first part used)" : "") : "Upload a PDF with selectable text.";
 }
 function clearOut(){ $("mp").innerHTML = "<p class='status'>Pick a method above to start </p>"; document.querySelectorAll("#methods .mth").forEach(function(b){ b.classList.remove("on"); }); setMethodOpen(false); setMsg(""); renderMethods(); renderPath(); askVideo(); }
 RENDER.study = function(){
   var narrow = window.innerWidth < 620;
   if($("chAdd")) $("chAdd").textContent = narrow ? "＋ Book" : "＋ Add book or chapter (PDF)";
   if($("chNcert")) $("chNcert").textContent = narrow ? "⬇ NCERT" : "⬇ NCERT library";
+  if($("chSyll")) $("chSyll").textContent = narrow ? "📋 Syllabus" : "📋 Syllabus & plan";
   $("engSel").value = DB.engine; fillSel();
   if(narrow && $("chPack")) $("chPack").textContent = /^✓/.test($("chPack").textContent) ? $("chPack").textContent.replace("✓ Smart pack", "✓ Pack") : "⚡ Pack";
   renderMethods(); renderPath();
@@ -1576,7 +1657,11 @@ $("engSel").onchange = function(){
   DB.engine = v; save(); toast(v === "ai" ? "Using " + aiName(c) : "Using this device");
 };
 $("chSel").onchange = function(){ DB.cur = this.value; save(); fillSel(); clearOut(); };
-$("chAdd").onclick = $("uplBtn").onclick = function(){ $("file").click(); };
+if($("selSubj")) $("selSubj").onchange = function(){ fillSel(); clearOut(); };
+if($("selSem")) $("selSem").onchange = function(){ fillSel(); clearOut(); };
+if($("selBook")) $("selBook").onchange = function(){ fillSel(); clearOut(); };
+$("chAdd").onclick = $("uplBtn").onclick = function(){ askBookMeta(false, function(){ $("file").click(); }); };
+$("chSyll").onclick = function(){ show("plan"); };
 $("chNcert").onclick = ncertOpen; $("uplNcert").onclick = ncertOpen;
 $("uplMaths").onclick = openMaths;
 
@@ -1648,26 +1733,32 @@ function buildPack(){
     } else runPack(c.id);
   };
 }
+async function buildPackFor(c){
+  if(!c) throw aierr("api", "no chapter");
+  var s = await getSample(); if(!s) throw aierr("no_net");
+  var d = await s.json(packPrompt(c), {cache: false, modelTier: "default"});
+  var pk = cleanPack(d);
+  if(!pk.concepts.length) throw aierr("api", "empty pack");
+  c.pack = pk; delete PREP[c.id]; save();
+  logEv("pack", "Built smart pack: " + c.name);
+  return pk;
+}
 async function runPack(cid){
   var c = DB.chapters.filter(function(x){ return x.id === cid; })[0]; if(!c) return;
-  var btn = $("chPack"), old = btn.textContent;
-  btn.disabled = true; btn.textContent = "Building…"; setMsg("");
+  var btn = $("chPack"), old = btn ? btn.textContent : "";
+  if(btn){ btn.disabled = true; btn.textContent = "Building…"; }
+  setMsg("");
   $("packInfo").innerHTML = "<span class='status'>Searching online and writing a compact pack… this can take a minute.</span>";
   try {
-    var s = await getSample(); if(!s) throw aierr("no_net");
-    var d = await s.json(packPrompt(c), {cache: false, modelTier: "default"});
-    var pk = cleanPack(d);
-    if(!pk.concepts.length) throw aierr("api", "empty pack");
-    c.pack = pk; save(); delete PREP[c.id];
+    var pk = await buildPackFor(c);
     setMsg("Smart pack ready — " + pk.concepts.length + " concepts, " + pk.qa.length + " Q&As and " + pk.facts.length + " facts saved on this device.");
     toast("Smart pack saved");
-    logEv("pack", "Built smart pack: " + c.name);
   } catch(e){
     $("packInfo").innerHTML = "";
     aiErr(e);
     toast("Could not build the smart pack");
   } finally {
-    btn.disabled = false; btn.textContent = old;
+    if(btn){ btn.disabled = false; btn.textContent = old; }
     fillSel();
   }
 }
@@ -1805,6 +1896,17 @@ $("file").onchange = async function(){
       if(!rows.length) rows = [{name: book, start: 1}];
       pend = {book: book, pages: pages, rows: rows};
     }
+    var meta = PENDMETA; PENDMETA = null;
+    if(fresh && pick && pick.code){
+      var nb = NCERT_BOOKS.filter(function(b){ return b[3] === pick.code; })[0];
+      if(nb){ pend.subject = nb[1]; pend.sem = nb[0] >= 11 ? "Semester 1" : ""; }
+    }
+    if(meta){
+      pend.subject = meta.subject || "General";
+      pend.sem = meta.sem || "";
+      if(meta.book) pend.book = meta.book;
+      if(meta.chapter){ pend.rows = [{name: meta.chapter, start: 1}]; pend.single = true; }
+    }
     fillSel(); showSplit();
     if(fresh) setMsg(pick.single ? "NCERT chapter ready. Check the name, then save it." : "NCERT book ready. Check the chapters found, then save them.");
   } catch(e){
@@ -1846,7 +1948,17 @@ function headingRows(pages){
 }
 function showSplit(){
   var el = $("split"), n = pend.pages.length; el.classList.remove("hidden");
-  var h = "<h3 style='margin-top:0'> " + esc(pend.book) + " · " + n + " pages</h3><p class='status'>Check the chapters found. Fix any name or starting page, add or remove rows, then save.</p>";
+  if(pend.subject === undefined) pend.subject = "General";
+  if(pend.sem === undefined) pend.sem = "";
+  var SUBOPT = uniq(subjList().concat(["Maths","Science","Physics","Chemistry","Biology","English","Hindi","Social Science","History","Geography","Economics","Civics","Computer Science","Accountancy","Business Studies","EVS","General"])).sort();
+  var SEMOPT = (function(){ var a = [], i; for(i = 1; i <= 8; i++) a.push("Semester " + i); return a.concat(["Term 1","Term 2","Annual"]); })();
+  var h = "<h3 style='margin-top:0'>" + esc(pend.book) + " · " + n + " pages</h3><p class='status'>Tell me where this belongs. Everything will be grouped subject-wise, semester-wise and book-wise.</p>";
+  h += "<div class='row'><div style='flex:1;min-width:130px'><label for='spSubj'>Subject</label><input id='spSubj' value=\"" + esc(pend.subject) + "\" list='spSubjList'><datalist id='spSubjList'>" + SUBOPT.map(function(s){ return "<option value=\"" + esc(s) + "\">"; }).join("") + "</datalist></div>";
+  h += "<div style='flex:1;min-width:110px'><label for='spSem'>Semester</label><input id='spSem' value=\"" + esc(pend.sem) + "\" list='spSemList'><datalist id='spSemList'>" + SEMOPT.map(function(s){ return "<option value=\"" + esc(s) + "\">"; }).join("") + "</datalist></div></div>";
+  h += "<div class='row'><div style='flex:1;min-width:160px'><label for='spBook'>Book</label><input id='spBook' value=\"" + esc(pend.book) + "\"></div>";
+  if(pend.single || pend.rows.length === 1) h += "<div style='flex:1;min-width:160px'><label for='spChap'>Chapter name</label><input id='spChap' value=\"" + esc(pend.rows[0] ? pend.rows[0].name : "") + "\"></div>";
+  h += "</div>";
+  h += "<p class='status'>Check the chapter" + (pend.rows.length > 1 ? "s" : "") + " below. Fix any name or starting page, add or remove rows, then save.</p>";
   pend.rows.sort(function(a, b){return a.start - b.start});
   pend.rows.forEach(function(r, i){
     var end = i + 1 < pend.rows.length ? pend.rows[i+1].start - 1 : n;
@@ -1854,7 +1966,11 @@ function showSplit(){
   });
   h += "<div class='row'><button id='spAdd'>＋ Add row</button><button id='spAi'> Detect chapters with AI</button></div><div class='row'><button class='primary' id='spSave'>Save " + pend.rows.length + " chapter" + (pend.rows.length > 1 ? "s" : "") + "</button><button id='spCancel'>Cancel</button></div><div id='spMsg' class='status'></div>";
   el.innerHTML = h;
-  el.querySelectorAll("input").forEach(function(inp){ inp.onchange = function(){ var r = pend.rows[+inp.dataset.i]; r[inp.dataset.f] = inp.dataset.f === "start" ? Math.max(1, Math.min(n, +inp.value || 1)) : inp.value; showSplit(); }; });
+  el.querySelectorAll("input[data-i]").forEach(function(inp){ inp.onchange = function(){ var r = pend.rows[+inp.dataset.i]; if(!r) return; r[inp.dataset.f] = inp.dataset.f === "start" ? Math.max(1, Math.min(n, +inp.value || 1)) : inp.value; showSplit(); }; });
+  $("spSubj").onchange = function(){ pend.subject = this.value.trim() || "General"; };
+  $("spSem").onchange = function(){ pend.sem = this.value.trim(); };
+  $("spBook").onchange = function(){ pend.book = this.value.trim() || pend.book; showSplit(); };
+  if($("spChap")) $("spChap").onchange = function(){ var v = this.value.trim() || "Chapter 1"; if(pend.rows[0]) pend.rows[0].name = v; };
   el.querySelectorAll("[data-del]").forEach(function(b){ b.onclick = function(){ pend.rows.splice(+b.dataset.del, 1); showSplit(); }; });
   $("spAdd").onclick = function(){ var last = pend.rows.length ? pend.rows[pend.rows.length-1].start : 0; pend.rows.push({name: "New chapter", start: Math.min(n, last + 1)}); showSplit(); };
   $("spCancel").onclick = function(){ pend = null; el.classList.add("hidden"); fillSel(); };
@@ -1879,10 +1995,10 @@ function saveSplit(){
     var end = i + 1 < rows.length ? rows[i+1].start - 1 : n, text = pend.pages.slice(r.start - 1, end).join("\n").trim();
     if(text.length < 100){ skipped++; return; }
     var cut = text.length > LIM, id = "c" + stamp + "_" + i; if(!firstId) firstId = id;
-    DB.chapters.push({id: id, book: pend.book, name: r.name.trim(), text: cut ? text.slice(0, LIM) : text, pages: end - r.start + 1, cut: cut});
+    DB.chapters.push({id: id, subject: pend.subject || "General", sem: pend.sem || "", book: pend.book, name: r.name.trim(), text: cut ? text.slice(0, LIM) : text, pages: end - r.start + 1, cut: cut});
   });
   if(!firstId){ $("spMsg").innerHTML = "<span class='err'>No readable text in these page ranges.</span>"; return; }
-  logEv("upload", "Added chapters from “" + pend.book + "”"); DB.cur = firstId; pend = null; save(); $("split").classList.add("hidden"); fillSel(); clearOut();
+  logEv("upload", "Added chapters from “" + pend.book + "” under " + (pend.subject || "General") + (pend.sem ? " · " + pend.sem : "")); DB.cur = firstId; pend = null; save(); $("split").classList.add("hidden"); fillSel(); clearOut();
   if(skipped) setMsg(skipped + " empty section(s) were skipped.");
 }
 
@@ -6722,6 +6838,7 @@ RENDER.mist = function(){
 RENDER.tools = function(){
   var needBk = DB.history.length > 5 && (!DB.lastBackup || Date.now() - DB.lastBackup > 7 * 864e5);
   var h = "<h1>Settings</h1><p class='sub'>Everything here runs on this device. Nothing leaves your phone unless you choose AI.</p><div class='toolsGrid'>";
+  h += "<div class='card'><strong>Study plan</strong><p class='status'>Upload your syllabus and set a timetable with follow-up.</p><button data-v='plan'>Open study plan</button></div>";
   h += "<div class='card'><strong>Print report</strong><p class='status'>A tidy progress report for a parent or teacher.</p><button data-act='pr'>Print report</button></div>";
   h += "<div class='card'><strong>Back up my data</strong><p class='status'>Save a copy of your progress to a file.</p><button data-act='bk'>Back up now</button>" + (needBk ? "<p class='status'>It has been a while since your last backup.</p>" : "") + "</div>";
   h += "<div class='card'><strong>Restore backup</strong><p class='status'>Bring back progress from a backup file.</p><button data-act='rs'>Choose backup file</button></div>";
@@ -7343,10 +7460,362 @@ function speechSettings(){
 })();
 
 /* ---------- chapter picker for report pages ---------- */
-function pickHtml(id){ return DB.chapters.length ? "<div class='row'><select id='" + id + "' style='flex:1'>" + DB.chapters.map(function(c){ return "<option value='" + c.id + "'" + (c.id === DB.cur ? " selected" : "") + ">" + esc(c.name) + "</option>"; }).join("") + "</select></div>" : ""; }
+function pickHtml(id){
+  if(!DB.chapters.length) return "";
+  var g = {}, order = [];
+  DB.chapters.forEach(function(c){ var k = subjOf(c); if(!g[k]){ g[k] = []; order.push(k); } g[k].push("<option value='" + c.id + "'" + (c.id === DB.cur ? " selected" : "") + ">" + esc(bookOf(c)) + " · " + esc(c.name) + "</option>"); });
+  order.sort();
+  return "<div class='row'><select id='" + id + "' style='flex:1'>" + order.map(function(k){ return "<optgroup label='" + esc(k) + "'>" + g[k].join("") + "</optgroup>"; }).join("") + "</select></div>";
+}
 function noData(msg){ return "<div class='card hero' style='text-align:center'>" + plantSvg(1, 72) + "<p>" + msg + "</p><button class='primary' id='gStudy'>Go to Study</button></div>"; }
 function bindNo(){ var b = $("gStudy"); if(b) b.onclick = function(){ show("study"); }; }
 function allAttempts(id){ return (DB.progress[id] || {attempts: []}).attempts; }
+
+/* ---------- Study plan: syllabus, plan, timetable ---------- */
+var DAYNAMES = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+var SYLL_SUBJECTS = ["Maths","Mathematics","Science","Physics","Chemistry","Biology","English","Hindi","Social Science","History","Geography","Economics","Civics","Political Science","Accountancy","Business Studies","Commerce","Computer","Computer Science","EVS","Environmental Studies","Sanskrit","General"];
+function pad2(n){ n = String(n); return n.length < 2 ? "0" + n : n; }
+function dayKey(t){ var d = new Date(t); return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate()); }
+function titleCase(s){ return String(s).replace(/\w\S*/g, function(w){ return w.charAt(0).toUpperCase() + w.slice(1); }); }
+function subjCanon(w){
+  var low = String(w == null ? "" : w).toLowerCase().replace(/[.:\-–—\s]+$/, "").trim();
+  var hit = SYLL_SUBJECTS.filter(function(s){ return s.toLowerCase() === low; })[0];
+  return hit || "";
+}
+function syllChapterNames(line){
+  var s = String(line == null ? "" : line).replace(/\s+/g, " ").trim().replace(/^[\-•*]\s*/, ""), m;
+  m = s.match(/^(?:chapter|unit|lesson|module|chap|ch)\.?\s*[-.:]?\s*(\d{1,2})\b[\s.:\-–—]*(.*)$/i);
+  if(m){ var nm = (m[2] || "").trim(); return [nm ? (nm.length > 90 ? nm.slice(0, 90) : nm) : "Chapter " + m[1]]; }
+  m = s.match(/^(\d{1,2})\s*[.)\-–—:]\s+(.+)$/);
+  if(m){ var n2 = (m[2] || "").trim(); return n2.length >= 2 ? [n2.length > 90 ? n2.slice(0, 90) : n2] : []; }
+  m = s.match(/^(\d{1,2})\s+([A-Z][A-Za-z].{2,88})$/);
+  if(m) return [m[2].trim()];
+  return [];
+}
+function syllClean(s){ return String(s == null ? "" : s).replace(/^[\-\u2022*\s]+/, "").replace(/[\s:.\-–—]+$/, "").replace(/\s+/g, " ").trim().slice(0, 90); }
+function looksLikeChapterLine(line){
+  var s = syllClean(line);
+  if(s.length < 3 || s.length > 90) return false;
+  if(!/[A-Za-z]{2}/.test(s)) return false;
+  if(/^(total|marks?|note|notes?|contents|index|practical|projects?|unit|lesson|chapter|syllabus|syllabi|term|semester|exam|exams|hours?|time|activity|activities|week|weeks|month|months|page|pages|s\.?\s*no|sr\.?\s*no)\b/i.test(s)) return false;
+  if(/^[\d\s.%]+$/.test(s)) return false;
+  return true;
+}
+function syllabusFromText(text){
+  var lines = String(text || "").split(/\r?\n/).map(function(x){ return x.replace(/\s+/g, " ").trim(); }).filter(Boolean);
+  var subs = [], seen = {}, cur = null;
+  function pushSubj(n){ if(seen[n]) cur = seen[n]; else { cur = {name: n, chapters: []}; seen[n] = cur; subs.push(cur); } }
+  lines.forEach(function(line){
+    var canon = subjCanon(line);
+    if(canon){ pushSubj(canon); return; }
+    var names = syllChapterNames(line);
+    if(names.length){ if(!cur) pushSubj("General"); names.forEach(function(n){ cur.chapters.push(n); }); return; }
+    if(cur && looksLikeChapterLine(line)) cur.chapters.push(syllClean(line));
+  });
+  if(!subs.length) subs.push({name: "General", chapters: lines.slice(0, 80).map(function(l){ return l.slice(0, 90); })});
+  subs.forEach(function(s){ s.chapters = uniq(s.chapters); });
+  return subs;
+}
+function syllabusFromRows(rows){
+  var subs = [], seen = {}, cur = null;
+  function pushSubj(n){ if(seen[n]) cur = seen[n]; else { cur = {name: n, chapters: []}; seen[n] = cur; subs.push(cur); } }
+  (rows || []).forEach(function(row){
+    var cells = (row || []).map(function(c){ return String(c == null ? "" : c).replace(/\s+/g, " ").trim(); }).filter(function(x){ return x !== ""; });
+    if(!cells.length) return;
+    var h0 = cells[0].toLowerCase().replace(/[^a-z]/g, ""), h1 = (cells[1] || "").toLowerCase().replace(/[^a-z]/g, "");
+    if(/^(subject|subjects|sno|srno|no|slno)$/.test(h0) && /(chapter|chapters|topic|topics|unit|lesson|name|title|content|description|syllabus)/.test(h1)) return;
+    var canon = subjCanon(cells[0]);
+    if(canon){ pushSubj(canon); cells = cells.slice(1); }
+    if(!cells.length) return;
+    var joined = cells.join(" — "), names = syllChapterNames(joined);
+    if(!cur) pushSubj("General");
+    if(names.length) names.forEach(function(n){ cur.chapters.push(n); });
+    else cur.chapters.push(joined.slice(0, 90));
+  });
+  if(!subs.length) return syllabusFromText((rows || []).map(function(r){ return (r || []).join(" "); }).join("\n"));
+  subs.forEach(function(s){ s.chapters = uniq(s.chapters); });
+  return subs;
+}
+function decodeXml(s){ return String(s).replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&#(\d+);/g, function(_, d){ return String.fromCharCode(+d); }).replace(/&amp;/g, "&"); }
+function inflateRaw(u8){
+  if(typeof DecompressionStream === "undefined") return Promise.resolve(null);
+  try {
+    var stream = new Blob([u8]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+    return new Response(stream).arrayBuffer().then(function(b){ return new Uint8Array(b); });
+  } catch(e){ return Promise.resolve(null); }
+}
+function zipFind(buf, name){
+  var u8 = new Uint8Array(buf), dv = new DataView(buf), i = u8.length - 22;
+  for(; i >= 0; i--){ if(dv.getUint32(i, true) === 0x06054b50) break; }
+  if(i < 0) return null;
+  var count = dv.getUint16(i + 10, true), pos = dv.getUint32(i + 16, true), k, j;
+  for(k = 0; k < count; k++){
+    if(dv.getUint32(pos, true) !== 0x02014b50) break;
+    var comp = dv.getUint16(pos + 10, true), csize = dv.getUint32(pos + 20, true), nlen = dv.getUint16(pos + 28, true), elen = dv.getUint16(pos + 30, true), clen = dv.getUint16(pos + 32, true), lho = dv.getUint32(pos + 42, true), nm = "";
+    for(j = 0; j < nlen; j++) nm += String.fromCharCode(u8[pos + 46 + j]);
+    if(nm === name) return {comp: comp, csize: csize, lho: lho};
+    pos += 46 + nlen + elen + clen;
+  }
+  return null;
+}
+async function zipEntryText(buf, name){
+  var e = zipFind(buf, name); if(!e) return null;
+  var dv = new DataView(buf), nlen = dv.getUint16(e.lho + 26, true), elen = dv.getUint16(e.lho + 28, true), start = e.lho + 30 + nlen + elen;
+  var data = new Uint8Array(buf, start, e.csize);
+  var out = e.comp === 8 ? await inflateRaw(data) : data;
+  return out ? new TextDecoder().decode(out) : null;
+}
+async function xlsxRows(f){
+  try {
+    var buf = await f.arrayBuffer();
+    var ss = await zipEntryText(buf, "xl/sharedStrings.xml"), sheet = await zipEntryText(buf, "xl/worksheets/sheet1.xml");
+    if(!sheet) return null;
+    var shared = [], m2, re = /<si>([\s\S]*?)<\/si>/g;
+    while((m2 = re.exec(ss || ""))){ var t = (m2[1].match(/<t[^>]*>([\s\S]*?)<\/t>/g) || []).map(function(x){ return x.replace(/<[^>]+>/g, ""); }).join(""); shared.push(decodeXml(t)); }
+    var rows = [], rre = /<row[^>]*>([\s\S]*?)<\/row>/g, rm;
+    while((rm = rre.exec(sheet))){
+      var cells = [], cre = /<c\b([^>]*)>([\s\S]*?)<\/c>/g, cm;
+      while((cm = cre.exec(rm[1]))){
+        var attrs = cm[1] || "", body = cm[2] || "", val = "";
+        var vm = body.match(/<v>([\s\S]*?)<\/v>/), tm = body.match(/<t[^>]*>([\s\S]*?)<\/t>/);
+        if(/t="s"/.test(attrs) && vm) val = shared[+vm[1]] || "";
+        else if(tm) val = decodeXml(tm[1]);
+        else if(vm) val = decodeXml(vm[1]);
+        cells.push(val);
+      }
+      rows.push(cells);
+    }
+    return rows.length ? rows : null;
+  } catch(e){ return null; }
+}
+async function parseSyllabusFile(f){
+  var name = (f.name || "").toLowerCase();
+  if(/\.pdf$/.test(name)){
+    await loadPdf();
+    var pdf = await pdfjsLib.getDocument({data: await f.arrayBuffer()}).promise, out = [];
+    for(var p = 1; p <= pdf.numPages; p++){ var c = await (await pdf.getPage(p)).getTextContent(); out.push(c.items.map(function(i){ return i.str; }).join(" ")); }
+    return syllabusFromText(fixSplitWords(out).join("\n").replace(/\s{2,}/g, " "));
+  }
+  if(/\.(xlsx|xls)$/.test(name)){
+    var rows = await xlsxRows(f);
+    if(!rows) throw new Error("xlsx");
+    return syllabusFromRows(rows);
+  }
+  var txt = await f.text();
+  if(/\.tsv$/.test(name)) return syllabusFromRows(txt.split(/\r?\n/).map(function(l){ return l.split("\t"); }));
+  if(/\.csv$/.test(name)) return syllabusFromRows(txt.split(/\r?\n/).map(function(l){ return l.split(/,|;|\t/); }));
+  return syllabusFromText(txt);
+}
+$("sylFile").onchange = async function(){
+  var f = this.files[0]; this.value = ""; if(!f) return;
+  toast("Reading your syllabus…"); setMsg("");
+  try {
+    var subs = await parseSyllabusFile(f);
+    if(!subs || !subs.length) throw new Error("empty");
+    DB.syllabus = {v: 1, at: Date.now(), subjects: subs};
+    DB.plan = null;
+    var nch = subs.reduce(function(a, s){ return a + s.chapters.length; }, 0);
+    logEv("syllabus", "Added syllabus: " + subs.length + " subject(s), " + nch + " chapters");
+    save(); toast("Syllabus ready — " + subs.length + " subject(s)");
+    if(curView === "plan") RENDER.plan(); else show("plan");
+  } catch(e){
+    if(String(e && e.message) === "xlsx") setMsg("I could not read this Excel file on this device. Please save it as CSV or PDF and upload again — that works everywhere.", true);
+    else setMsg("I could not find subjects and chapters in that file. Try a clearer PDF, or a CSV with a subject column and a chapter column.", true);
+  }
+};
+/* ----- study plan ----- */
+function todayPlan(){ return (DB.plan && DB.plan.items) || []; }
+function planDoneKey(it){ return "pi|" + it.id; }
+function planItemById(id){ return todayPlan().filter(function(it){ return it.id === id; })[0]; }
+function planStats(){
+  var P = todayPlan(), tk = dayKey(Date.now()), due = 0, done = 0, bySubj = {};
+  P.forEach(function(it){
+    var d = !!DB.ttDone[planDoneKey(it)];
+    if(d) done++;
+    if(it.date <= tk && !d) due++;
+    var k = it.subj || "General";
+    if(!bySubj[k]) bySubj[k] = {n: 0, d: 0};
+    bySubj[k].n++; if(d) bySubj[k].d++;
+  });
+  return {total: P.length, done: done, due: due, bySubj: bySubj};
+}
+function buildPlan(exam){
+  var items = [], syl = DB.syllabus, stamp = Date.now();
+  if(syl && syl.subjects.length){
+    syl.subjects.forEach(function(s){
+      s.chapters.forEach(function(ch){
+        var key = normQ(ch); if(!key) return;
+        var m = DB.chapters.filter(function(c){ var n = normQ(c.name); return n && (n.indexOf(key) >= 0 || key.indexOf(n) >= 0); })[0];
+        items.push({subj: s.name, sem: "", book: m ? bookOf(m) : "", chapter: ch, chId: m ? m.id : null});
+      });
+    });
+  }
+  if(!items.length) items = DB.chapters.map(function(c){ return {subj: subjOf(c), sem: semOf(c), book: bookOf(c), chapter: c.name, chId: c.id}; });
+  if(!items.length) return null;
+  var start = Date.now(), end = exam ? new Date(exam + "T23:59:59").getTime() : start + 60 * 864e5;
+  if(!isFinite(end) || end <= start) end = start + 7 * 864e5;
+  var days = Math.max(1, Math.ceil((end - start) / 864e5)), per = Math.max(1, Math.ceil(items.length / days));
+  items.forEach(function(it, i){ it.id = "pi" + stamp + "_" + i; it.date = dayKey(start + Math.min(days - 1, Math.floor(i / per)) * 864e5); });
+  DB.plan = {v: 1, at: Date.now(), exam: exam || "", items: items};
+  save();
+  return DB.plan;
+}
+function planMakeDialog(){
+  DB.ttDone = DB.ttDone || {};
+  var min = new Date(Date.now() + 864e5).toISOString().slice(0, 10);
+  var sug = (DB.plan && DB.plan.exam) || new Date(Date.now() + 60 * 864e5).toISOString().slice(0, 10);
+  var h = "<h3 style='margin-top:0'>When must you finish?</h3><p class='status'>Give me your exam or target date. I will spread the chapters across the days so you finish comfortably in time.</p><div class='row'><div style='flex:1'><label for='plExam'>Target or exam date</label><input type='date' id='plExam' value='" + sug + "' min='" + min + "'></div></div><div class='row' style='margin-top:12px'><button class='primary' id='plExamGo'>Make my plan</button><button data-close>Not now</button></div>";
+  var m = popup(h);
+  m.el.querySelector("#plExamGo").onclick = function(){
+    var v = m.el.querySelector("#plExam").value; m.close();
+    var plan = buildPlan(v);
+    if(!plan){ toast("Add a chapter or a syllabus first"); return; }
+    toast("Study plan ready"); if(curView === "plan") RENDER.plan(); else show("plan");
+  };
+}
+function arrangePrompt(){
+  var syl = DB.syllabus, syllabus = syl ? syl.subjects.map(function(s){ return {subject: s.name, chapters: s.chapters.slice(0, 60)}; }) : [];
+  var chs = DB.chapters.map(function(c){ return {id: c.id, name: c.name, book: c.book, subject: c.subject || "", sem: c.sem || ""}; });
+  return "You organise a student's study material.\n\nSYLLABUS:\n" + JSON.stringify(syllabus) + "\n\nUPLOADED CHAPTERS:\n" + JSON.stringify(chs) + "\n\nTASK: Match each uploaded chapter to one subject and one semester from the syllabus where possible, and a sensible book name. Return ONLY a JSON array [{\"id\": the chapter id exactly as given, \"subject\": \"...\", \"sem\": \"...\", \"book\": \"...\", \"chapter\": \"cleaned chapter name\"}]. Keep subject names consistent with the syllabus. If a chapter cannot be matched, keep its current subject and semester. Do not invent chapter ids.";
+}
+async function aiArrange(){
+  if(!navigator.onLine){ setMsg("Verifying and arranging needs the internet. Please go online and try again.", true); return; }
+  if(!aiCfg()){ await connectModal(); if(!aiCfg()){ toast("Connect AI first, then verify"); return; } }
+  var s = await getSample(); if(!s) return;
+  var btn = $("plArrange"), old = btn ? btn.textContent : "";
+  if(btn){ btn.disabled = true; btn.textContent = "🤖 Verifying…"; }
+  try {
+    var d = await s.json(arrangePrompt(), {cache: false, modelTier: "default"});
+    var byId = {}; (Array.isArray(d) ? d : []).forEach(function(r){ if(r && r.id) byId[r.id] = r; });
+    var n = 0;
+    DB.chapters.forEach(function(c){
+      var r = byId[c.id]; if(!r) return;
+      if(r.subject) c.subject = String(r.subject).slice(0, 40);
+      if(r.sem) c.sem = String(r.sem).slice(0, 40);
+      if(r.book) c.book = String(r.book).slice(0, 80);
+      if(r.chapter && String(r.chapter).trim()) c.name = String(r.chapter).trim().slice(0, 90);
+      n++;
+    });
+    save(); logEv("arrange", "AI verified and arranged " + n + " chapters");
+    toast(n ? "Arranged " + n + " chapters" : "AI could not match anything");
+    if(curView === "plan") RENDER.plan(); else show("plan");
+  } catch(e){ aiErr(e); }
+  finally { if(btn){ btn.disabled = false; btn.textContent = old; } }
+}
+async function prepareAllPacks(){
+  if(!navigator.onLine){ setMsg("You are offline. Preparing study packs needs the internet.", true); return; }
+  var todo = DB.chapters.filter(function(c){ return !(c.pack && c.pack.concepts && c.pack.concepts.length); });
+  if(!todo.length){ toast("Every chapter already has a saved study pack"); return; }
+  if(!aiCfg()){ await connectModal(); if(!aiCfg()){ toast("Connect AI first"); return; } }
+  var m = popup("<h3 style='margin-top:0'>Prepare study packs?</h3><p class='status'>I will build and save a smart pack (concepts, Q&amp;As and facts) for " + todo.length + " chapter" + (todo.length > 1 ? "s" : "") + " that do not have one yet. This uses the internet and your AI and may take a few minutes. Keep this screen open.</p><div class='row'><button class='primary' id='ppkGo'>Yes, prepare them</button><button data-close>Not now</button></div><div id='ppkMsg' class='status'></div>");
+  m.el.querySelector("#ppkGo").onclick = async function(){
+    var msg = m.el.querySelector("#ppkMsg"), ok = 0, bad = 0, i;
+    this.disabled = true; this.textContent = "Working…";
+    for(i = 0; i < todo.length; i++){
+      msg.textContent = "Preparing " + (i + 1) + " of " + todo.length + " — " + todo[i].name;
+      try { await buildPackFor(todo[i]); ok++; } catch(e){ bad++; }
+    }
+    msg.textContent = "Done. " + ok + " pack" + (ok === 1 ? "" : "s") + " saved" + (bad ? ", " + bad + " could not be prepared" : "") + ".";
+    var self = this; self.textContent = "Close"; self.disabled = false;
+    self.onclick = function(){ m.close(); if(curView === "plan") RENDER.plan(); else show("plan"); };
+  };
+}
+/* ----- timetable ----- */
+function ttSort(a, b){ return (a.day - b.day) || String(a.start).localeCompare(String(b.start)); }
+function ttToday(){ var d = new Date().getDay(); return (DB.tt || []).filter(function(s){ return s.day === d; }).sort(ttSort); }
+function ttDoneKey(s){ return "t|" + s.id + "|" + dayKey(Date.now()); }
+function ttSlotHtml(s, withDone){
+  var key = ttDoneKey(s), done = !!DB.ttDone[key];
+  var h = "<div class='ttSlot" + (done ? " ttDone" : "") + "'><span class='t'>" + esc(s.start || "") + (s.end ? "–" + esc(s.end) : "") + "</span><span class='what'>" + esc(s.what || "") + (s.subj ? "<span class='status' style='display:block'>" + esc(s.subj) + "</span>" : "") + "</span>";
+  if(withDone) h += "<button data-ttdone='" + esc(key) + "'>" + (done ? "✓ Done" : "Mark done") + "</button>";
+  h += "<button data-ttedit='" + esc(s.id) + "'>Edit</button><button data-ttdel='" + esc(s.id) + "'>✕</button></div>";
+  return h;
+}
+function ttForm(slot){
+  var s = slot || {day: new Date().getDay(), start: "18:00", end: "19:00", what: "", subj: ""};
+  var dayOpts = DAYNAMES.map(function(d, i){ return "<option value='" + i + "'" + (i === s.day ? " selected" : "") + ">" + d + "</option>"; }).join("");
+  var subOpts = uniq(subjList()).map(function(x){ return "<option value=\"" + esc(x) + "\">"; }).join("");
+  var h = "<h3 style='margin-top:0'>" + (slot ? "Edit study slot" : "Add a study slot") + "</h3><div class='row'><div style='flex:1'><label for='ttDay'>Day</label><select id='ttDay'>" + dayOpts + "</select></div></div>";
+  h += "<div class='row'><div style='flex:1'><label for='ttStart'>From</label><input type='time' id='ttStart' value='" + esc(s.start) + "'></div><div style='flex:1'><label for='ttEnd'>To</label><input type='time' id='ttEnd' value='" + esc(s.end) + "'></div></div>";
+  h += "<div class='row'><div style='flex:2;min-width:150px'><label for='ttWhat'>What will you study?</label><input id='ttWhat' value=\"" + esc(s.what) + "\" placeholder='e.g. Revise Science chapter 3'></div></div>";
+  h += "<div class='row'><div style='flex:1;min-width:140px'><label for='ttSubj'>Subject (optional)</label><input id='ttSubj' value=\"" + esc(s.subj) + "\" list='ttSubjList'><datalist id='ttSubjList'>" + subOpts + "</datalist></div></div>";
+  h += "<div class='row' style='margin-top:12px'><button class='primary' id='ttSave'>Save slot</button><button data-close>Cancel</button></div>";
+  var m = popup(h);
+  m.el.querySelector("#ttSave").onclick = function(){
+    var day = parseInt(m.el.querySelector("#ttDay").value, 10) || 0;
+    var start = m.el.querySelector("#ttStart").value || "18:00";
+    var end = m.el.querySelector("#ttEnd").value || "";
+    var what = m.el.querySelector("#ttWhat").value.trim();
+    var sub = m.el.querySelector("#ttSubj").value.trim();
+    if(!what && !sub){ toast("Please say what you will study"); return; }
+    if(slot){ slot.day = day; slot.start = start; slot.end = end; slot.what = what || sub; slot.subj = sub; }
+    else DB.tt.push({id: "tt" + Date.now().toString(36) + Math.floor(Math.random() * 1e6).toString(36), day: day, start: start, end: end, what: what || sub, subj: sub});
+    save(); m.close(); if(curView === "plan") RENDER.plan(); else show("plan"); toast("Timetable saved");
+  };
+}
+RENDER.plan = function(){
+  var el = $("spIn"); if(!el) return;
+  DB.ttDone = DB.ttDone || {}; DB.tt = DB.tt || [];
+  var h = "<h1>Study plan</h1><p class='sub'>Upload your syllabus, make a plan that finishes in time, and set a timetable you can follow and edit.</p>";
+  /* 1. syllabus */
+  var syl = DB.syllabus;
+  h += "<div class='card'><h2 style='margin-top:0'>1 · My syllabus</h2>";
+  if(!syl || !(syl.subjects || []).length){
+    h += "<p class='status'>Upload your syllabus as a <b>PDF</b>, <b>Excel (.xlsx)</b>, CSV or text file. I will read the subjects and chapters, then plan your study so you finish in time.</p><div class='row'><button class='primary' id='plSyl'>📋 Upload syllabus (PDF or Excel)</button></div>";
+  } else {
+    var nch = syl.subjects.reduce(function(a, s){ return a + s.chapters.length; }, 0);
+    h += "<p class='status'>Loaded " + (syl.at ? fmtD(syl.at) : "") + " · " + syl.subjects.length + " subject" + (syl.subjects.length === 1 ? "" : "s") + " · " + nch + " chapters.</p>";
+    h += "<div class='sylGrid'>" + syl.subjects.map(function(s){ return "<div class='card' style='margin:0;padding:10px'><strong>" + esc(s.name) + "</strong><div class='status'>" + s.chapters.length + " chapter" + (s.chapters.length === 1 ? "" : "s") + "</div><div class='status' style='max-height:130px;overflow:auto'>" + (s.chapters.slice(0, 50).map(function(c){ return "• " + esc(c); }).join("<br>") || "—") + "</div></div>"; }).join("") + "</div>";
+    h += "<div class='row' style='margin-top:10px'><button id='plSyl'>📋 Replace syllabus</button><button id='plArrange'>🤖 Verify &amp; arrange with AI</button><button id='plSylClear'>Clear</button></div><p class='status'>Verify &amp; arrange uses the internet and your AI to match your uploaded chapters to this syllabus, subject by subject and semester by semester, and to prepare study packs.</p>";
+  }
+  h += "</div>";
+  /* 2. plan */
+  var st = planStats();
+  h += "<div class='card'><h2 style='margin-top:0'>2 · My study plan</h2>";
+  if(!st.total){
+    h += "<p class='status'>No plan yet. " + ((syl && syl.subjects.length) ? "Make a plan from your syllabus." : "Upload a syllabus, or make a plan from the chapters you have added.") + "</p><div class='row'><button class='primary' id='plMake'>📅 Make my study plan</button><button id='plPacks'>⚡ Prepare all study packs (online)</button></div>";
+  } else {
+    h += "<p class='status'>Plan made " + (DB.plan.at ? fmtD(DB.plan.at) : "") + (DB.plan.exam ? " · finish by " + esc(DB.plan.exam) : "") + " · " + st.done + " of " + st.total + " done · " + st.due + " due or overdue.</p>";
+    h += "<div class='bar'><i style='width:" + Math.round(st.done * 100 / st.total) + "%'></i></div>";
+    h += "<div class='stat' style='margin-top:10px'>" + Object.keys(st.bySubj).map(function(k){ var b = st.bySubj[k]; return "<div><div class='big'>" + b.d + "/" + b.n + "</div>" + esc(k) + "</div>"; }).join("") + "</div>";
+    var tk = dayKey(Date.now());
+    h += "<h3>What to study next</h3>";
+    h += todayPlan().slice().sort(function(a, b){ return String(a.date).localeCompare(String(b.date)); }).slice(0, 12).map(function(it){
+      var done = !!DB.ttDone[planDoneKey(it)], due = it.date <= tk && !done;
+      return "<div class='planItem" + (due ? " due" : "") + (done ? " done" : "") + "'><span class='dt'>" + esc(it.date) + "</span><div class='nm' style='flex:1;min-width:0'><strong>" + esc(it.chapter) + "</strong><div class='status'>" + esc(it.subj) + (it.sem && it.sem !== "No semester" ? " · " + esc(it.sem) : "") + (it.book ? " · " + esc(it.book) : "") + "</div></div>" + (it.chId ? "<button data-plopen='" + esc(it.chId) + "'>Study</button>" : "") + "<button data-plsel='" + esc(it.id) + "'>" + (done ? "✓" : "Done") + "</button></div>";
+    }).join("");
+    h += "<div class='row' style='margin-top:10px'><button id='plMake'>📅 Remake plan</button><button id='plPacks'>⚡ Prepare all study packs (online)</button><button id='plClear'>Clear plan</button></div>";
+  }
+  h += "</div>";
+  /* 3. timetable */
+  h += "<div class='card'><h2 style='margin-top:0'>3 · My timetable</h2>";
+  h += "<h3 style='margin-top:0'>Today · " + DAYNAMES[new Date().getDay()] + "</h3>";
+  var ts = ttToday();
+  if(!ts.length) h += "<p class='status'>No study slots for today yet. Add some below and I will follow up with you here and on your home screen.</p>";
+  else h += ts.map(function(s){ return ttSlotHtml(s, true); }).join("");
+  h += "<h3>My week</h3>";
+  var slots = (DB.tt || []).slice().sort(ttSort), d;
+  if(!slots.length) h += "<p class='status'>Build your week: add a slot for each subject or activity. You can edit or delete any slot later.</p>";
+  else for(d = 0; d < 7; d++){
+    var ds = slots.filter(function(s){ return s.day === d; });
+    if(!ds.length) continue;
+    h += "<div class='ttDay'><h4>" + DAYNAMES[d] + "</h4>" + ds.map(function(s){ return ttSlotHtml(s, false); }).join("") + "</div>";
+  }
+  h += "<div class='row' style='margin-top:10px'><button class='primary' id='ttAdd'>+ Add a slot</button></div></div>";
+  el.innerHTML = h;
+  if($("plSyl")) $("plSyl").onclick = function(){ $("sylFile").click(); };
+  if($("plSylClear")) $("plSylClear").onclick = function(){ askYes("Clear the saved syllabus? Your chapters stay.", function(){ DB.syllabus = null; DB.plan = null; save(); RENDER.plan(); }); };
+  if($("plArrange")) $("plArrange").onclick = aiArrange;
+  if($("plMake")) $("plMake").onclick = planMakeDialog;
+  if($("plPacks")) $("plPacks").onclick = prepareAllPacks;
+  if($("plClear")) $("plClear").onclick = function(){ askYes("Clear your study plan? Your chapters and study packs stay.", function(){ DB.plan = null; save(); RENDER.plan(); }); };
+  if($("ttAdd")) $("ttAdd").onclick = function(){ ttForm(null); };
+  el.querySelectorAll("[data-plsel]").forEach(function(b){ b.onclick = function(){ var it = planItemById(b.getAttribute("data-plsel")); if(!it) return; var k = planDoneKey(it); if(DB.ttDone[k]) delete DB.ttDone[k]; else DB.ttDone[k] = 1; save(); RENDER.plan(); }; });
+  el.querySelectorAll("[data-plopen]").forEach(function(b){ b.onclick = function(){ var cid = b.getAttribute("data-plopen"); if(DB.chapters.some(function(c){ return c.id === cid; })){ DB.cur = cid; save(); show("study"); } else toast("This chapter is not uploaded yet"); }; });
+  el.querySelectorAll("[data-ttdone]").forEach(function(b){ b.onclick = function(){ var k = b.getAttribute("data-ttdone"); if(DB.ttDone[k]) delete DB.ttDone[k]; else DB.ttDone[k] = 1; save(); RENDER.plan(); }; });
+  el.querySelectorAll("[data-ttedit]").forEach(function(b){ b.onclick = function(){ var s = (DB.tt || []).filter(function(x){ return x.id === b.getAttribute("data-ttedit"); })[0]; if(s) ttForm(s); }; });
+  el.querySelectorAll("[data-ttdel]").forEach(function(b){ b.onclick = function(){ var id = b.getAttribute("data-ttdel"); DB.tt = (DB.tt || []).filter(function(x){ return x.id !== id; }); save(); RENDER.plan(); }; });
+};
 
 /* ---------- Progress ---------- */
 RENDER.progress = function(){
@@ -7356,12 +7825,27 @@ RENDER.progress = function(){
   DB.chapters.forEach(function(c){ var P = pracOf(c.id); if(P.length) touched++; P.forEach(function(x){ cnt++; if(x.d > Date.now() - 7 * 864e5) wk += Math.round(x.pct / 5); }); });
   h += "<div class='card hero'><div class='row' style='flex-wrap:nowrap;gap:16px;margin:0'>" + plantSvg(st, 92) + "<div style='flex:1;min-width:0'><div class='status'>Your growth level</div><div class='big'>" + STAGES[st] + "</div><div class='bar'><i style='width:" + pr + "%'></i></div><div class='status'>" + xp + " growth points" + (nx ? " · " + (nx - xp) + " more to become a " + STAGES[st + 1] : " · top level reached") + "</div><p style='margin:6px 0 0'>" + (wk ? "<span class='tag s'><span class='mi'>" + svgIc("up") + "</span> +" + wk + " points this week</span>" : "Practise today to start growing!") + "</p></div></div></div>";
   h += "<div class='stat'><div><div class='big'>" + touched + "/" + DB.chapters.length + "</div>Chapters practised</div><div><div class='big'>" + cnt + "</div>Practices done</div><div><div class='big'>" + xp + "</div>Growth points</div><div><div class='big'>" + streak() + "</div>Day streak</div></div>";
-  h += "<div class='grid2'>" + DB.chapters.map(function(c){
+  function chCard(c){
     var P = pracOf(c.id), sc = chScore(c.id), tr = trendOf(c.id), sg = chStage(c.id), d = (DB.progress[c.id] || {done: {}}).done, rv = reviewInfo(c.id);
     var tg = tr === null ? "" : tr > 0 ? "<span class='tag s'><span class='mi'>" + svgIc("up") + "</span> +" + tr + "</span>" : tr < 0 ? "<span class='tag w'><span class='mi'>" + svgIc("down") + "</span> " + tr + "</span>" : "<span class='tag a'>steady</span>";
     var chips = ["mcq","exam","qa","teach","flash"].map(function(k){ var L = P.filter(function(x){return x.kind === k}); if(!L.length) return ""; var a = Math.round(L.reduce(function(s, x){return s + x.pct}, 0) / L.length); return "<span class='chip on'>" + mEmoji(k) + " " + k + " ×" + L.length + " · avg " + a + "%</span>"; }).join("") + ["explain","notes","doubt"].map(function(k){ return d[k] ? "<span class='chip on'>" + mEmoji(k) + " " + k + " ×" + d[k] + "</span>" : ""; }).join("");
     return "<div class='card' style='margin:0'><div class='row' style='flex-wrap:nowrap;gap:12px;margin-bottom:6px'>" + plantSvg(sg, 64) + "<div style='flex:1;min-width:0'><strong>" + esc(c.name) + "</strong><div class='status'>" + STAGES[sg] + " · " + P.length + " practices</div></div><div style='text-align:right'><div class='big' style='font-size:1.5rem'>" + (sc === null ? "–" : sc + "%") + "</div>" + tg + "</div></div>" + (rv ? "<div class='status' style='margin:4px 0 0'>" + (rv.due ? "<span class='tag w'>Revision due</span>" : "Next review in " + rv.wait + " day" + (rv.wait === 1 ? "" : "s")) + "</div>" : "") + spark(P) + "<div>" + (chips || "<span class='status'>No practice yet</span>") + "</div><div class='row' style='margin:8px 0 0'><button data-open='" + c.id + "'>Continue this chapter</button></div></div>";
-  }).join("") + "</div>";
+  }
+  h += "<h2>Chapter by chapter</h2>";
+  uniq(DB.chapters.map(subjOf)).sort().forEach(function(sj){
+    var inSubj = DB.chapters.filter(function(c){ return subjOf(c) === sj; });
+    var sems = uniq(inSubj.map(semOf)).sort();
+    h += "<div class='orgTree'><h3>📘 " + esc(sj) + "</h3>";
+    sems.forEach(function(sm){
+      var books = uniq(inSubj.filter(function(c){ return semOf(c) === sm; }).map(bookOf)).sort();
+      if(!(sems.length === 1 && sm === "No semester")) h += "<div class='semHead'>" + esc(sm) + "</div>";
+      books.forEach(function(bk){
+        var list = inSubj.filter(function(c){ return semOf(c) === sm && bookOf(c) === bk; });
+        h += "<div class='status' style='margin:6px 0 2px;font-weight:600'>" + esc(bk) + "</div><div class='grid2'>" + list.map(chCard).join("") + "</div>";
+      });
+    });
+    h += "</div>";
+  });
   el.innerHTML = h; el.querySelectorAll("[data-open]").forEach(function(b){ b.onclick = function(){ goStep(nextStep(b.dataset.open), b.dataset.open); }; });
 };
 
@@ -7402,7 +7886,7 @@ RENDER.rep = function(){
   el.innerHTML = h + pickHtml("rpSel") + "<div class='card' id='rpBody'></div>";
   var go = function(){
     DB.cur = $("rpSel").value; save(); var c = cur(), A = allAttempts(c.id), d = prog().done, p = DB.profile;
-    var x = "<h2 style='margin-top:0'>" + esc(c.name) + "</h2><p class='status'>" + esc(p.name) + " · " + esc(p.cls) + (p.school ? " · " + esc(p.school) : "") + "</p><h3>Activities done</h3><div>" + METHODS.map(function(m){ return "<span class='chip" + (d[m.k] ? " on" : "") + "'>" + mEmoji(m.k) + " " + m.n + " ×" + (d[m.k] || 0) + "</span>"; }).join("") + "</div>";
+    var x = "<h2 style='margin-top:0'>" + esc(c.name) + "</h2><p class='status'>" + esc(p.name) + " · " + esc(p.cls) + (p.school ? " · " + esc(p.school) : "") + " · " + esc(subjOf(c)) + (semOf(c) !== "No semester" ? " · " + esc(semOf(c)) : "") + " · " + esc(bookOf(c)) + "</p><h3>Activities done</h3><div>" + METHODS.map(function(m){ return "<span class='chip" + (d[m.k] ? " on" : "") + "'>" + mEmoji(m.k) + " " + m.n + " ×" + (d[m.k] || 0) + "</span>"; }).join("") + "</div>";
     if(A.length){ x += "<h3>All tests</h3><div style='overflow-x:auto'><table style='border-collapse:collapse;width:100%'><tr><th>Date</th><th>Type</th><th>Score</th><th>Grade</th></tr>" + A.map(function(a){ var q = Math.round(a.score * 100 / a.total); return "<tr><td>" + fmtD(a.d) + "</td><td>" + a.kind + "</td><td>" + a.score + "/" + a.total + " (" + q + "%)</td><td>" + gradeOf(q)[0] + "</td></tr>"; }).join("") + "</table></div>";
       var miss = [], seen = {}; A.slice().reverse().forEach(function(a){ (a.qs || []).forEach(function(q){ if(!q.ok && !seen[q.q] && miss.length < 12){ seen[q.q] = 1; miss.push(q); } }); });
       if(miss.length) x += "<h3>Questions to revise</h3>" + miss.map(function(q){ return "<div class='q'><div class='status'>" + esc(q.topic) + "</div><div>" + inline(q.q) + "</div><div class='exp'> " + esc(q.mine || "-") + "<br> " + esc(q.ans) + "<br>" + inline(q.why) + "</div></div>"; }).join("");
@@ -7450,8 +7934,19 @@ RENDER.rec = function(){
   h += tasks.slice(0, 3).map(function(t, i){ return "<div class='planRow'><span class='planNo'>" + (i + 1) + "</span><div style='flex:1;min-width:0'><strong>" + esc(t.t) + "</strong><div class='status'>" + esc(t.w) + "</div></div><button " + t.a + ">" + t.b + "</button></div>"; }).join("");
   h += "</div>";
   h += "<details class='planTipsWrap'><summary>Study methods for " + esc(p.cls) + "</summary><div class='planTips'>" + BAND[bandOf(p.cls)].map(function(m){ return "<div class='planTip'><strong>" + esc(m[1]) + "</strong> " + esc(m[2]) + "</div>"; }).join("") + "</div></details>";
+  var ts = ttToday(), tk = dayKey(Date.now());
+  var planDue = todayPlan().filter(function(it){ return it.date <= tk && !DB.ttDone[planDoneKey(it)]; }).slice(0, 5);
+  if(ts.length || planDue.length || todayPlan().length){
+    h += "<div class='card'><div class='row' style='justify-content:space-between;margin:0 0 4px'><strong>My timetable &amp; plan</strong><button data-view='plan'>Open plan</button></div>";
+    ts.forEach(function(s){ var k = ttDoneKey(s), done = !!DB.ttDone[k]; h += "<div class='planRow'><span class='planNo'>🕘</span><div style='flex:1;min-width:0'><strong" + (done ? " style='text-decoration:line-through;opacity:.6'" : "") + ">" + esc(s.start) + (s.end ? "–" + esc(s.end) : "") + " · " + esc(s.what) + "</strong>" + (s.subj ? "<div class='status'>" + esc(s.subj) + "</div>" : "") + "</div><button data-rctt='" + esc(k) + "'>" + (done ? "✓ Done" : "Done") + "</button></div>"; });
+    planDue.forEach(function(it){ h += "<div class='planRow'><span class='planNo'>📖</span><div style='flex:1;min-width:0'><strong>" + esc(it.chapter) + "</strong><div class='status'>Study plan · " + esc(it.subj) + "</div></div><button data-rcpl='" + esc(it.id) + "'>" + (it.chId ? "Study" : "Done") + "</button></div>"; });
+    if(!ts.length && !planDue.length) h += "<p class='status'>Nothing scheduled for today — a short revision keeps your streak going.</p>";
+    h += "</div>";
+  }
   h += "<div class='card'><div class='row' style='margin:0'><button class='primary' id='rcAi'>Make my weekly plan</button><button data-resume='1'>Where I stopped</button></div><div class='out' id='rcOut'></div></div>";
   el.innerHTML = h; bindNext(el);
+  el.querySelectorAll("[data-rctt]").forEach(function(b){ b.onclick = function(){ var k = b.getAttribute("data-rctt"); if(DB.ttDone[k]) delete DB.ttDone[k]; else DB.ttDone[k] = 1; save(); RENDER.rec(); }; });
+  el.querySelectorAll("[data-rcpl]").forEach(function(b){ b.onclick = function(){ var it = planItemById(b.getAttribute("data-rcpl")); if(!it) return; if(it.chId && DB.chapters.some(function(c){ return c.id === it.chId; })){ DB.cur = it.chId; save(); show("study"); } else { var k = planDoneKey(it); if(DB.ttDone[k]) delete DB.ttDone[k]; else DB.ttDone[k] = 1; save(); RENDER.rec(); } }; });
   $("rcAi").onclick = function(){ var perf = DB.chapters.map(function(ch){ var m = mastery(ch.id); return ch.name + ": " + (m === null ? "not tested" : m + "%"); }).join("; "); run("The student is in " + p.cls + (p.age ? ", age " + p.age : "") + ". Chapter mastery: " + (perf || "no chapters yet") + ". Streak: " + streak() + " days. Suggest a simple weekly study plan with the most successful methods for this class (active recall, spaced revision, past papers, etc.), daily time slots, and a motivating closing line. Keep it short.", $("rcOut"), $("rcAi"), {general: true, ctx: "plan", local: function(){ return localWeekPlan(); }}); };
 };
 
