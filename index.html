@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#eef2fa" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#101625" media="(prefers-color-scheme: dark)">
-<title>Study Buddy</title>
+<title>Gurukul</title>
 <style>
 :root{--bg:#eef2fa;--card:#fbfcff;--ink:#26324a;--mute:#5d6a82;--line:#dce4f2;--acc:#5265da;--accbg:#e8ebff;--acc2:#24a99a;--acc2bg:#e1f6f2;--acc2ink:#14776c;--ok:#237a56;--okbg:#ddf4ea;--bad:#a8424f;--badbg:#fbe7ea;--onacc:#ffffff;--onacc2:#06352f;--glow1:rgba(82,101,218,.10);--glow2:rgba(36,169,154,.08);--shadow:0 12px 32px rgba(35,48,80,.07);--shadow-sm:0 5px 16px rgba(35,48,80,.10);--primary-shadow:0 6px 16px rgba(82,101,218,.24);--primary-shadow-hover:0 9px 22px rgba(82,101,218,.32);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101625;--card:#182034;--ink:#e7ecf8;--mute:#9fabc4;--line:#2a3550;--acc:#93a4ff;--accbg:#232c50;--acc2:#63d7c5;--acc2bg:#153a37;--acc2ink:#8ce3d5;--ok:#82d9ad;--okbg:#12332a;--bad:#f0a3ac;--badbg:#3a212d;--onacc:#111629;--onacc2:#082b27;--glow1:rgba(120,140,255,.14);--glow2:rgba(80,210,190,.08);--shadow:0 12px 32px rgba(0,0,0,.28);--shadow-sm:0 5px 16px rgba(0,0,0,.28);--primary-shadow:0 6px 16px rgba(0,0,0,.30);--primary-shadow-hover:0 9px 22px rgba(0,0,0,.38);color-scheme:dark}}
@@ -151,43 +151,235 @@ input[type=range]{width:100%;accent-color:var(--acc);margin:8px 0 2px}
 .ncLink{display:inline-block;border:1px solid var(--line);border-radius:11px;padding:7px 11px;text-decoration:none;color:var(--ink);font-size:.88rem;background:var(--card)}
 .ncLink:hover{border-color:var(--acc);background:var(--accbg)}
 @media (max-width:760px){.mwGrid{grid-template-columns:1fr}.mwSide{order:2}.mwEq{white-space:normal;overflow-wrap:anywhere}.mwTools button{flex:1 1 auto}.ncChapters{max-height:200px}}
+/* frozen banner: back / home / current screen name */
+#scTitle{font-weight:600;font-size:.92rem;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:24vw}
+#bBack{border-color:var(--acc);border-width:2px}
+#bFwd{border-color:var(--line)}
+.barL{flex:1;min-width:0;display:flex;align-items:center;gap:8px;overflow:hidden}
+.brand{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 10px;white-space:nowrap;max-width:24vw;overflow:hidden;text-overflow:ellipsis}
+.chip .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);flex:none;box-shadow:0 0 0 2px color-mix(in srgb,var(--ok) 25%,transparent)}
+.chip.off .dot{background:var(--mute);box-shadow:none}
+.chip.local .dot{background:var(--acc2);box-shadow:0 0 0 2px color-mix(in srgb,var(--acc2) 25%,transparent)}
+#whoChip{max-width:18vw}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{font-size:.8rem;padding:5px 10px;border-radius:999px}
+#oDanger{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
+body.method-open #v-study>h1{display:none}
+body.fit main{padding-bottom:12px}
+@media (max-width:620px){#scTitle{display:none!important}.brand{display:none}#bBack .lbl,#bFwd .lbl,#bHome .lbl{display:none}#whoChip{max-width:30vw}.bar1{gap:6px}
+ #bKey{display:none!important}
+ #quote{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .cta{padding:10px 12px}
+ .cta .status{display:none}
+ .cta .row{margin:6px 0 0;flex-wrap:nowrap}
+ .cta button{flex:1;min-width:0;padding:8px 10px;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ #v-progress .stat>div,#v-perf .stat>div{min-width:0}
+ #path{display:none}
+ #v-study #chSel{flex:1 1 100%;min-width:0}
+ #v-study #chCard #packInfo{display:none}
+ #v-study .methodsGrid{grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:6px}
+ #v-study .mth.tile{flex-direction:row;align-items:center;justify-content:flex-start;text-align:left;min-height:0;padding:8px;gap:8px}
+ #v-study .mth.tile .ic{width:24px;height:24px;padding:2px}
+ #v-study .mth.tile b{font-size:.84rem;line-height:1.2}
+ #v-study .mth.tile .badge{position:static;margin:0}
+ #v-study #chCard button{padding:6px 8px;font-size:.82rem}
+ #v-study #chCard #engRow{display:none}
+ #v-study #chCard #info,#v-study #chCard #packInfo{font-size:.8rem}
+ #rcIn h1{margin:0 0 2px}
+ #rcIn .sub{display:none}
+ #rcIn .planRow .status{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+ .planRow{padding:6px 0}
+}
+/* ---- home: milky-way map ---- */
+.homeWish{padding:14px 16px}
+.homeWish h1{font-size:1.22rem;margin:0 0 4px}
+.homeWish p{margin:0;font-size:.9rem;color:var(--mute)}
+.galaxyCard{padding:0;overflow:hidden;margin-top:10px;position:relative;background:#070b24;border-color:#2a3163}
+.galaxy{display:block;width:100%;height:auto;max-height:62vh}
+.galaxy .star{fill:#fff;opacity:.85;animation:twinkle 3.4s ease-in-out infinite alternate}
+.galaxy .symbol{animation:symFloat 7s ease-in-out infinite alternate}
+.galaxy .shoot{animation:shootSweep 11s ease-in infinite}
+.galaxy .sunRays{animation:galSpin 64s linear infinite}
+.galaxy .sunGlow{animation:corePulse 4.5s ease-in-out infinite}
+.galaxy .galCore{animation:corePulse 5s ease-in-out infinite}
+.galaxy .orbitSpin{animation:galSpin var(--t,120s) linear infinite}
+.galaxy .orbitCounter{animation:galSpinRev var(--t,120s) linear infinite}
+.galaxy .gnode{cursor:pointer;outline:none}
+.galaxy .gnode .orbBody{transition:transform .2s}
+.galaxy .gnode:hover .orbBody,.galaxy .gnode:focus .orbBody{transform:scale(1.14)}
+.galaxy .gnode:focus .halo{stroke:#fff;stroke-opacity:1}
+.galaxy .gnode .lblBg{transition:stroke-opacity .2s}
+.galaxy .gnode:hover .lblBg,.galaxy .gnode:focus .lblBg{stroke-opacity:1}
+@keyframes galSpin{to{transform:rotate(360deg)}}
+@keyframes galSpinRev{to{transform:rotate(-360deg)}}
+@keyframes twinkle{from{opacity:.15}to{opacity:.95}}
+@keyframes corePulse{0%,100%{opacity:.9}50%{opacity:1}}
+@keyframes symFloat{from{transform:translateY(-7px)}to{transform:translateY(7px)}}
+@keyframes shootSweep{0%{opacity:0;transform:translate(-30px,-16px)}7%{opacity:1}34%{opacity:0;transform:translate(var(--sx,300px),var(--sy,160px))}100%{opacity:0;transform:translate(var(--sx,300px),var(--sy,160px))}}
+@media (prefers-reduced-motion: reduce){.galaxy .star,.galaxy .symbol,.galaxy .shoot,.galaxy .sunRays,.galaxy .sunGlow,.galaxy .galCore,.galaxy .orbitSpin,.galaxy .orbitCounter{animation:none!important}}
+.homeSecs{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-top:12px}
+.homeSecs .mth{padding:10px 8px}
+.homeSecs .mth small{display:none}
+/* ---- mind map ---- */
+.mmWrap{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:16px;background:radial-gradient(circle at 50% 45%,var(--accbg),var(--card) 70%)}
+.mmSvg{display:block;width:100%;height:min(62vh,520px);touch-action:none;cursor:grab}
+.mmSvg.grabbing{cursor:grabbing}
+.mmNode{cursor:pointer;animation:mmIn .5s ease both}
+.mmNode circle{transition:fill .2s,stroke-width .2s}
+@keyframes mmIn{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion: reduce){.mmNode{animation:none}}
+.mmNode:hover circle{fill:var(--accbg)}
+.mmNode text{pointer-events:none}
+.mmBranch{stroke:var(--acc);stroke-opacity:.45;stroke-width:2;fill:none}
+.mmTools{position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px}
+.mmTools button{padding:6px 10px;font-size:.85rem;background:var(--card)}
+/* ---- one screen per section ---- */
+#v-study,#v-progress,#v-perf,#v-hist,#v-rep,#v-rec,#v-fun,#v-note,#v-mist,#v-tools,#v-play,#v-tips{
+  display:flex;flex-direction:column;min-height:0;
+  height:var(--viewH,calc(100dvh - 132px));
+}
+#pgIn,#pfIn,#hsIn,#rpIn,#rcIn,#fnIn,#nbIn,#miIn,#tlIn,#plIn,#tpIn,#v-study>#stBody{
+  flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;
+}
+#v-study>#stBody{display:flex;flex-direction:column}
+#v-study>#stBody>#mp{flex:1;min-height:0;overflow:auto}
+#v-study>#chCard,#v-study>#upl,#v-study>#split{flex:none}
+@media (min-width:621px){#v-study .methodsGrid{grid-template-columns:repeat(auto-fit,minmax(108px,1fr));gap:8px}}
+#v-study .mth.tile{min-height:0;padding:8px 6px;gap:4px}
+#v-study .mth.tile .ic{width:32px;height:32px;padding:6px}
+#v-study .mth.tile b{font-size:.86rem;line-height:1.25}
+#v-study .mth.tile small{display:none}
+#v-study #chCard{padding:12px}
+#v-study #chCard .row{margin-bottom:6px;gap:6px}
+#v-study #chCard button{padding:7px 10px;font-size:.9rem}
+#v-study #chCard #info,#v-study #chCard #packInfo{font-size:.84rem;line-height:1.35}
+#v-study #vidAsk{display:none}
+#stBody>h3{margin:8px 0 4px;font-size:.95rem}
+#path>.card{padding:10px 12px}
+#path .path{gap:4px;margin:4px 0}
+#path .step span{width:26px;height:26px;font-size:.78rem}
+#path .step small{font-size:.66rem}
+#path p{margin:4px 0;font-size:.88rem;line-height:1.4}
+#path .row{margin:6px 0 0}
+#v-progress .card,#v-perf .card,#v-hist .card,#v-rep .card,#v-rec .card,#v-fun .card,#v-note .card{padding:14px;margin-bottom:10px}
+#v-progress h1,#v-perf h1,#v-hist h1,#v-rep h1,#v-rec h1,#v-fun h1,#v-note h1{font-size:1.25rem;margin:2px 0 8px}
+#v-progress h2,#v-perf h2,#v-hist h2,#v-rep h2,#v-rec h2,#v-fun h2,#v-note h2{font-size:1.05rem;margin:8px 0 4px}
+#v-progress .stat>div,#v-perf .stat>div{padding:8px}
+#v-progress .big,#v-perf .big{font-size:1.65rem}
+.planRow{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
+.planRow .status{font-size:.86rem;line-height:1.35}
+.planRow button{flex:none}
+.planNo{flex:none;width:26px;height:26px;border-radius:50%;background:var(--acc);color:var(--onacc);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem}
+.planTipsWrap{margin:2px 0 10px}
+.planTipsWrap summary{cursor:pointer;font-weight:600;font-size:.95rem;padding:6px 0}
+.planTipsWrap[open] summary{margin-bottom:6px}
+.planTips{display:grid;gap:6px}
+.planTip{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:.92rem}
+/* ---- my error book + more tools ---- */
+#v-mist .card,#v-tools .card{padding:14px;margin-bottom:10px}
+#v-mist h1,#v-tools h1{font-size:1.25rem;margin:2px 0 8px}
+#v-mist h2,#v-tools h2{font-size:1.05rem;margin:10px 0 4px}
+.toolsGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.toolsGrid .card{margin-bottom:0}
+.mistList .mist .q{font-weight:600;line-height:1.4}
+
+@media (max-width:620px){.toolsGrid{grid-template-columns:1fr}}
+/* ---- student photo ---- */
+.avatar img,.authAvatar img{width:100%;height:100%;object-fit:cover;display:block;border-radius:50%}
+.photoRow{display:flex;align-items:center;gap:12px;margin:2px 0 8px;position:relative}
+.photoPrev{flex:0 0 56px;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--acc);color:var(--onacc);font-weight:700;font-size:1.3rem;overflow:hidden;border:2px solid var(--acc2)}
+.photoPrev img{width:100%;height:100%;object-fit:cover}
+.filePicker{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;opacity:0}
+.photoPrev[role="button"]{cursor:pointer}
+/* ---- Let's Play ---- */
+#v-play .card,#v-tips .card{padding:14px;margin-bottom:10px}
+#v-play h1,#v-tips h1{font-size:1.25rem;margin:2px 0 8px}
+.playGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.playCard{cursor:pointer;outline:none;transition:border-color .2s,transform .1s}
+.playCard:hover,.playCard:focus{border-color:var(--acc2)}
+.playCard:active{transform:scale(.99)}
+.playCard .tag{display:inline-block;margin:6px 0 0}
+.matchGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
+.matchCard{min-height:64px;border:2px solid var(--line);border-radius:12px;background:var(--card);display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;font-weight:600;font-size:.92rem;cursor:pointer;outline:none;transition:border-color .2s,background .2s}
+.matchCard:hover,.matchCard:focus{border-color:var(--acc2)}
+.matchCard.down{background:var(--accbg);border-color:var(--acc)}
+.matchCard.done{background:var(--okbg);border-color:var(--ok);cursor:default;opacity:.85}
+.matchCard .qm{font-size:1.4rem;font-weight:800;color:var(--mute)}
+.playOpts{display:grid;gap:8px}
+.playOpt{text-align:left;padding:10px 12px;border:2px solid var(--line);border-radius:12px;background:var(--card);font-size:.95rem;line-height:1.35}
+.playOpt:not(:disabled):hover{border-color:var(--acc2)}
+.playOpt.right{background:var(--okbg);border-color:var(--ok)}
+.playOpt.wrong{background:var(--badbg);border-color:var(--bad)}
+/* ---- Tricks & Tips ---- */
+.tipsList{display:grid;gap:10px;margin-top:8px}
+.tipItem{padding-left:12px;border-left:3px solid var(--acc2)}
+.tipItem b{display:block;font-size:.97rem}
+.tipItem span{display:block;font-size:.9rem;line-height:1.45;color:var(--mute);margin-top:2px}
+.tipItem .by{display:block;font-size:.8rem;color:var(--acc2ink);margin-top:3px;font-style:normal}
+.tipDays{display:flex;flex-wrap:wrap;gap:6px}
+.tipDays .tag{margin:0}
+@media (max-width:620px){#v-play .playGrid{grid-template-columns:1fr}}
+/* ---- videos ---- */
+.vidGroup{margin:10px 0}
+.vidGroup h4{margin:0 0 4px;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:var(--acc2ink)}
+.vidLink{margin:4px 0}
+.vidLink a{display:inline-block;text-decoration:none;color:var(--acc);font-weight:600}
+.vidLink a:hover{text-decoration:underline}
+/* ---- maths workbench: hints, another way, practice ---- */
+#mwHintBox{font-size:.92rem;margin:6px 0 0;color:var(--ink)}
+.mwTry .mwEq{margin:6px 0}
+.mwTry input{flex:1;min-width:130px}
+.mwWay li{margin:3px 0;font-size:.92rem;line-height:1.4}
+.mwWay ul{padding-left:20px;margin:4px 0}
+.mwGuess{width:100%;border-collapse:collapse;margin:4px 0;font-size:.9rem}
+.mwGuess th,.mwGuess td{border:1px solid var(--line);padding:5px 8px;text-align:center}
+.mwGuess th{background:var(--card);font-weight:600;color:var(--mute);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em}
 </style>
 </head>
 <body>
-<header id="top"><div class="bar1"><span class="brand">Study Buddy</span><button id="bHome" class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 10l9-6 9 6z M5 10v8 M9 10v8 M15 10v8 M19 10v8 M3 20h18"/></svg><span>Gurukul</span></button><button id="bProf" class="avatar" title="My details" aria-label="My details"><svg viewBox="0 0 40 40"><rect width="40" height="40" fill="var(--accbg)"/><path d="M5 40c0-10 6-14 15-14s15 4 15 14z" fill="var(--acc)"/><circle cx="20" cy="21" r="7" fill="#f2c9a0"/><path d="M7 14l13-6 13 6-13 6z" fill="#2b3550"/><path d="M13 17v4c0 2 14 2 14 0v-4" fill="#2b3550"/><path d="M32 15v7" stroke="#24a99a" stroke-width="1.6"/></svg></button><button id="bKey" class="hidden">✦ Connect AI</button></div><div id="quote"></div></header>
+<header id="top"><div class="bar1"><button id="bBack" class="pill hidden" title="Go back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg><span class="lbl">Back</span></button><button id="bFwd" class="pill hidden" title="Go forward"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg><span class="lbl">Forward</span></button><div class="barL"><span class="brand">Gurukul</span><span id="scTitle" class="hidden"></span></div><span id="whoChip" class="chip hidden"></span><span id="aiStat" class="chip hidden"></span><button id="bHome" class="pill" title="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 10l9-6 9 6z M5 10v8 M9 10v8 M15 10v8 M19 10v8 M3 20h18"/></svg><span class="lbl">Home</span></button><button id="bProf" class="avatar" title="My details" aria-label="My details"><svg viewBox="0 0 40 40"><rect width="40" height="40" fill="var(--accbg)"/><path d="M5 40c0-10 6-14 15-14s15 4 15 14z" fill="var(--acc)"/><circle cx="20" cy="21" r="7" fill="#f2c9a0"/><path d="M7 14l13-6 13 6-13 6z" fill="#2b3550"/><path d="M13 17v4c0 2 14 2 14 0v-4" fill="#2b3550"/><path d="M32 15v7" stroke="#24a99a" stroke-width="1.6"/></svg></button><button id="bKey" class="hidden">✦ Connect AI</button></div><div id="quote"></div></header>
 <main id="main">
 <section id="v-onb" class="hidden"><div class="center">
 <div class="card hero"><h1 id="authTitle"> Namaste! I am Mitrādhyāyin</h1><p id="authSub">Your study companion. Create your account so your books, notes and progress stay yours.</p></div>
 <div class="card" id="loginCard">
 <h2 style="margin-top:0">Welcome back</h2>
-<p class="status">Choose your name and enter your PIN. Only your own books, notes and progress will open.</p>
-<label for="liWho">Student</label><select id="liWho"></select>
-<div id="liPinWrap"><label for="liPin">PIN</label><input type="password" id="liPin" inputmode="numeric" autocomplete="current-password" maxlength="8" placeholder="4–8 digits"></div>
+<p class="status">Enter your username and password. Only your own books, notes and progress will open.</p>
+<label for="liUser">Username</label><input type="text" id="liUser" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="your username">
+<label for="liPass">Password</label><input type="password" id="liPass" autocomplete="current-password" placeholder="your password">
 <div class="row" style="margin-top:14px"><button class="primary" id="liGo">Log in</button></div>
 <div id="liMsg" class="status"></div>
-<p class="status" style="margin-bottom:0">New student on this device? <button type="button" class="linkish" id="toCreate">Create an account</button></p>
+<p class="status" id="liHint" style="margin-bottom:6px"></p>
+<div id="liWhoChips" class="chips"></div>
+<p class="status" style="margin-bottom:0;margin-top:10px">New student on this device? <button type="button" class="linkish" id="toCreate">Create an account</button></p>
 </div>
 <div class="card form" id="createCard">
 <div id="authWho" class="authWho hidden"><span class="authAvatar" id="authInitial">S</span><div><b id="authWhoName">Student</b><span id="authWhoMeta">Class</span></div></div>
 <h2 id="createTitle" style="margin-top:0">Create your account</h2>
 <p id="createSub" class="status">One account per student on this device. Your chapters, notes and progress stay separate.</p>
 <label for="oName">Your name</label><input type="text" id="oName" autocomplete="name">
-<label for="oCls">Class</label><select id="oCls"></select>
+<label for="oUser">Username (used to log in)</label><input type="text" id="oUser" autocapitalize="none" spellcheck="false" autocomplete="username" placeholder="letters and numbers, no spaces">
+<label for="oCls">Class / Standard</label><select id="oCls"></select>
+<label for="oAge">Age</label><input type="number" id="oAge" min="3" max="100" inputmode="numeric" placeholder="your age in years">
 <label for="oLang">Language you prefer</label><select id="oLang"></select>
 <label for="oSch">School / College</label><input type="text" id="oSch" autocomplete="organization">
 <label for="oFrom">Where are you from?</label><input type="text" id="oFrom" placeholder="Town / district / state" autocomplete="address-level2">
-<label id="pinLabel" for="oPin">Create a PIN</label><input type="password" id="oPin" inputmode="numeric" autocomplete="new-password" maxlength="8" placeholder="4–8 digits">
-<label for="oPin2">Confirm PIN</label><input type="password" id="oPin2" inputmode="numeric" autocomplete="new-password" maxlength="8" placeholder="Type the same PIN again">
-<p id="pinHint" class="status">4 to 8 digits. You will use this PIN to log in.</p>
+<label for="oPicFile">Your photo (optional)</label>
+<div class="photoRow"><span class="photoPrev" id="oPicPrev" role="button" tabindex="0" title="Choose a photo">S</span><div class="row" style="margin:0"><button type="button" id="oPicPick">Choose photo</button><button type="button" id="oPicClear" class="hidden">Remove</button></div><input type="file" id="oPicFile" accept="image/*" class="filePicker"></div>
+<p class="status" style="margin:0 0 4px">Shown at the centre of your study galaxy and in the top bar. It stays on this device.</p>
+<label id="pinLabel" for="oPin">Create a password</label><input type="password" id="oPin" autocomplete="new-password" placeholder="at least 4 characters">
+<label for="oPin2">Confirm password</label><input type="password" id="oPin2" autocomplete="new-password" placeholder="type the same password again">
+<p id="pinHint" class="status">At least 4 characters. You will use this password to log in.</p>
 <div class="row" style="margin-top:14px;justify-content:center"><button class="primary" id="oGo">Create my account</button><button id="oBack" class="hidden">Back to log in</button><button id="oLogout" class="hidden">Log out</button></div>
 <div id="oMsg" class="status"></div>
+<div id="oDanger" class="hidden"><p class="status" style="margin:16px 0 6px;font-weight:600">Clear data</p><div class="row" style="justify-content:center"><button id="oEraseMe">Erase my study data</button><button id="oEraseAll" style="border-color:var(--bad);color:var(--bad)">Erase everything on this device</button></div></div>
 </div>
 </div></section>
 
 <section id="v-home" class="hidden"><div id="homeIn"></div></section>
 
 <section id="v-study" class="hidden"><h1> Study</h1>
-<div class="card"><div class="row"><select id="chSel" style="flex:1;min-width:180px"></select><button id="chAdd" class="primary">＋ Add book or chapter (PDF)</button><button id="chNcert" title="Official NCERT chapter PDFs, Classes 1–12">⬇ NCERT library</button><button id="chPack" class="hidden" title="Uses the internet and your AI. Press only when online.">⚡ Smart pack (online)</button><button id="chDel" class="hidden"> Delete</button></div><input type="file" id="file" accept="application/pdf" class="hidden"><div class="row" style="margin:8px 0 0"><span class="status">Prepare questions:</span><select id="engSel"><option value="local">On this device (instant, no limits)</option><option value="ai">With AI (smarter, needs internet)</option></select></div><div id="packInfo" class="status"></div><div id="info" class="status"></div></div>
+<div class="card" id="chCard"><div class="row"><select id="chSel" style="flex:1;min-width:180px"></select><button id="chAdd" class="primary">＋ Add book or chapter (PDF)</button><button id="chNcert" title="Official NCERT chapter PDFs, Classes 1–12">⬇ NCERT library</button><button id="chPack" class="hidden" title="Uses the internet and your AI. Press only when online.">⚡ Smart pack (online)</button><button id="chDel" class="hidden"> Delete</button></div><input type="file" id="file" accept="application/pdf" class="hidden"><div class="row" id="engRow" style="margin:8px 0 0"><span class="status">Prepare questions:</span><select id="engSel"><option value="local">On this device (instant, no limits)</option><option value="ai">With AI (smarter, needs internet)</option></select></div><div id="packInfo" class="status"></div><div id="info" class="status"></div></div>
 <div id="split" class="card hidden"></div>
 <div id="upl" class="card hero" style="text-align:center;padding:28px 16px"><div class="ic" style="width:64px;height:64px;margin:0 auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg></div><h2>Bring your book, I’ll do the rest!</h2><p>Upload your textbook (whole book or one chapter). I will split it into chapters and turn it into notes, questions, flashcards and tests. Let’s begin </p><button id="uplBtn" class="primary" style="font-size:1.05rem;padding:12px 22px">Choose my book (PDF)</button><button id="uplNcert" style="display:block;margin:8px auto 0">⬇ Download from NCERT (Classes 1–12)</button><button id="uplMaths" style="display:block;margin:8px auto 0">🧮 Open maths workbench</button><p class="status">or drop the PDF anywhere on this card</p></div>
 <div id="stBody" class="hidden"><div id="path"></div><div id="vidAsk" class="card hero"></div><h3>How do you want to study today?</h3><div id="methods"></div><div class="card" id="mp" style="margin-top:14px"><p class="status">Pick a method above to start </p></div></div><div id="msg" class="status"></div></section>
@@ -199,6 +391,10 @@ input[type=range]{width:100%;accent-color:var(--acc);margin:8px 0 2px}
 <section id="v-rec" class="hidden"><div id="rcIn"></div></section>
 <section id="v-fun" class="hidden"><div id="fnIn"></div></section>
 <section id="v-note" class="hidden"><div id="nbIn"></div></section>
+<section id="v-mist" class="hidden"><div id="miIn"></div></section>
+<section id="v-tools" class="hidden"><div id="tlIn"></div><input type="file" id="fRs" accept=".json" class="hidden"><input type="file" id="fCls" accept=".json" multiple class="hidden"></section>
+<section id="v-play" class="hidden"><div id="plIn"></div></section>
+<section id="v-tips" class="hidden"><div id="tpIn"></div></section>
 </main>
 <script>
 var $ = function(id){return document.getElementById(id)};
@@ -225,7 +421,7 @@ function blankDB(){
   return {profile: null, chapters: [], progress: {}, history: [], facts: {}, cache: {}, book: [], engine: "local", cur: null, speech: {uri: "", name: "", rate: 0.95, pitch: 1}};
 }
 function studyFields(){
-  return ["profile", "chapters", "progress", "history", "facts", "cache", "book", "cur", "last", "sess", "speech", "qaMarks", "paper", "mist", "lastBackup"];
+  return ["profile", "chapters", "progress", "history", "facts", "cache", "book", "cur", "last", "sess", "speech", "qaMarks", "paper", "mist", "lastBackup", "play"];
 }
 function normalizeStudy(d){
   d = d && typeof d === "object" ? d : {};
@@ -246,6 +442,11 @@ function loadUsers(){
     var r = localStorage.getItem(AUTH_KEY); if(!r) return;
     var a = JSON.parse(r); if(!a || !Array.isArray(a.users)) return;
     AUTH.users = a.users.filter(function(u){ return u && u.id && u.name; });
+    AUTH.users.forEach(function(u){
+      if(!u.user) u.user = slugUser(u.name);
+      if(u.pin === undefined) u.pin = "";
+      if(!u.salt) u.salt = "";
+    });
     AUTH.session = a.session || null; AUTH.last = a.last || null;
     AUTH.ai = a.ai || null; AUTH.migrated = !!a.migrated;
   } catch(e){}
@@ -275,7 +476,7 @@ function migrateLegacy(){
   var id = uid(), snap = studySnapshot(d);
   try { localStorage.setItem(DATA_KEY + id, JSON.stringify(snap)); }
   catch(e){ return false; }
-  AUTH.users.push({id: id, name: d.profile.name, cls: d.profile.cls || "", pin: "", salt: "", at: Date.now()});
+  AUTH.users.push({id: id, name: d.profile.name, cls: d.profile.cls || "", user: slugUser(d.profile.name), age: d.profile.age || "", pin: "", salt: "", at: Date.now()});
   AUTH.ai = d.ai || AUTH.ai;
   if(!AUTH.ai && d.key) AUTH.ai = {provider: "anthropic", key: d.key, email: "", model: d.model || AI_PROVIDERS.anthropic.model};
   AUTH.last = id; AUTH.migrated = true;
@@ -315,6 +516,7 @@ function save(){
 /* Drop per-student runtime state when switching accounts. */
 function resetRuntime(){
   clearInterval(examTimer); examTimer = null;
+  clearPlayTimer(); PS = null;
   PREP = {}; QA = null; T = null; pend = null; VA = {}; sample = null;
   RETRY = null; FOCUS = ""; EXQ = ""; lastDoubtQ = ""; MWB = null; SVS = null; NCERT_PICK = null;
   Array.prototype.slice.call(document.querySelectorAll(".modal")).forEach(function(x){
@@ -334,6 +536,7 @@ var METHODS = [
  {k:"flash", e:"", n:"Flashcards", d:"Quick recall", sug:1},
  {k:"teach", e:"", n:"Teach it back", d:"Explain in your words", sug:1},
  {k:"map", e:"", n:"Concept map", d:"See how ideas connect"},
+ {k:"mindmap", e:"", n:"Mind map", d:"Explore the chapter as a galaxy"},
  {k:"maths", e:"", n:"Maths workbench", d:"See every step, tap to ask why"},
  {k:"solve", e:"", n:"Solve a problem", d:"Step-by-step help"},
  {k:"doubt", e:"", n:"Ask a doubt", d:"Ask me anything"}
@@ -356,10 +559,16 @@ var ICON = {
  doubt:"<circle cx='12' cy='12' r='9'/><path d='M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7 M12 17h.01'/>",
  up:"<path d='M12 19V5 M5 12l7-7 7 7'/>", down:"<path d='M12 5v14 M5 12l7 7 7-7'/>",
  map:"<circle cx='12' cy='5' r='2.5'/><circle cx='5' cy='18' r='2.5'/><circle cx='19' cy='18' r='2.5'/><path d='M10.5 7.2L6.5 15.8 M13.5 7.2l4 8.6 M7.5 18h9'/>",
+ mindmap:"<circle cx='12' cy='12' r='3'/><circle cx='12' cy='3' r='1.8'/><circle cx='21' cy='12' r='1.8'/><circle cx='12' cy='21' r='1.8'/><circle cx='3' cy='12' r='1.8'/><path d='M12 9V4.8 M15 12h4.2 M12 15v4.2 M9 12H4.8'/>",
+ play:"<circle cx='12' cy='12' r='9'/><path d='M10 8.4l5.6 3.6-5.6 3.6z'/>",
 maths:"<rect x='4' y='3' width='16' height='18' rx='2'/><path d='M8 7h8 M8 12h2 M12 12h2 M16 12h.01 M8 16h2 M12 16h2 M16 16h.01'/>",
 solve:"<path d='M4 5h16v14H4z M8 9h8 M8 13h5 M15 16l2 2 3-4'/>",
 note:"<path d='M6 3h9l4 4v14H6z M9 12h7 M9 16h5'/>",
-upload:"<path d='M12 16V4 M7 9l5-5 5 5 M4 20h16'/>", profile:"<circle cx='12' cy='8' r='4'/><path d='M4 21c0-4 4-6 8-6s8 2 8 6'/>", video:"<rect x='3' y='5' width='14' height='14' rx='2'/><path d='M17 10l4-2v8l-4-2z'/>"
+upload:"<path d='M12 16V4 M7 9l5-5 5 5 M4 20h16'/>", profile:"<circle cx='12' cy='8' r='4'/><path d='M4 21c0-4 4-6 8-6s8 2 8 6'/>", video:"<rect x='3' y='5' width='14' height='14' rx='2'/><path d='M17 10l4-2v8l-4-2z'/>",
+ mist:"<path d='M5 3h10l4 4v14H5z M14 3v5h5 M9 12l6 6 M15 12l-6 6'/>",
+ tools:"<path d='M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z'/>",
+ game:"<rect x='3' y='6' width='18' height='12' rx='4'/><path d='M8 10v4 M6 12h4 M15 11h.01 M17.5 13h.01'/>",
+ tips:"<path d='M9 18h6 M10 21h4 M12 3a6 6 0 0 0-4 10.4c.7.7 1 1.6 1 2.6h6c0-1 .3-1.9 1-2.6A6 6 0 0 0 12 3z M12 7v5 M9.5 9.5h5'/>"
 };
 function svgIc(k){ return "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'>" + (ICON[k] || "") + "</svg>"; }
 var SEL = ".card,.q,.fact,.mth,.stat>div";
@@ -419,8 +628,18 @@ var CLASSES = ["Class 5","Class 6","Class 7","Class 8","Class 9","Class 10","Cla
 var LANGS = ["English","Hindi","Marathi","Malayalam","Tamil","Telugu","Kannada","Gujarati","Hinglish (Hindi + English mix)"];
 var HELLO = {Hindi:"नमस्ते", Marathi:"नमस्कार", Malayalam:"നമസ്കാരം", Tamil:"வணக்கம்", Telugu:"నమస్కారం", Kannada:"ನಮಸ್ಕಾರ", Gujarati:"નમસ્તે"};
 function L(){ var p = DB.profile; return "Reply in " + p.lang + ". Use simple, warm, human and to-the-point words, like a friendly elder sibling. Where it helps understanding, use everyday colloquial words a student from " + p.from + " would use. Keep technical terms in English with a short meaning. Be encouraging."; }
-function who(){ var p = DB.profile; return p.name + " (" + p.cls + ", " + p.school + ", from " + p.from + ")"; }
-function persona(){ return "You are Mitrādhyāyin, a warm study companion for " + who() + ". " + L() + " Teach at the level of " + DB.profile.cls + ". Explain ideas in short, clear sentences (usually 1–3), using the chapter’s own terms and examples; define any new word you use. Do not invent facts, do not pad answers, and do not mention page numbers, figure numbers or the author. Never end your reply with a question or an offer such as ‘Want me to…’, because the app shows buttons for the next step. End with one short encouraging line instead. "; }
+function ageOf(){ var a = parseInt(DB.profile && DB.profile.age, 10); return isFinite(a) && a > 0 ? a : null; }
+function levelHint(){
+  var a = ageOf(), c = (DB.profile && DB.profile.cls) || "school";
+  if(a === null) return "a student in " + c;
+  if(a <= 8) return "a very young learner (about " + a + " years old, " + c + "), so use the shortest sentences and no exam jargon";
+  if(a <= 11) return "a primary-school child (about " + a + " years old, " + c + "), so stay concrete and use everyday examples";
+  if(a <= 14) return "a middle-school student (about " + a + " years old, " + c + "), so define every new term";
+  if(a <= 17) return "a senior-school student (about " + a + " years old, " + c + "), so include exam wording and worked examples";
+  return "a college-level student (about " + a + " years old, " + c + ")";
+}
+function who(){ var p = DB.profile; return p.name + " (" + p.cls + (p.age ? ", age " + p.age : "") + ", " + p.school + ", from " + p.from + ")"; }
+function persona(){ return "You are Mitrādhyāyin, a warm study companion for " + who() + ". " + L() + " Pitch every explanation for " + levelHint() + ". Go deeper than a textbook summary: explain why each idea matters, how it connects to the ones before it, and give one worked or real-life example. Explain ideas in short, clear sentences (usually 1–3), using the chapter’s own terms and examples; define any new word you use. Do not invent facts, do not pad answers, and do not mention page numbers, figure numbers or the author. Never end your reply with a question or an offer such as ‘Want me to…’, because the app shows buttons for the next step. End with one short encouraging line instead. "; }
 function base(q){ var c = cur(); q = q || EXQ; EXQ = ""; var ct = q ? excerpt(q, 4) : c.text; return persona() + "Stay faithful to the textbook text below; never contradict it. Use its wording and examples where they help. If the text does not contain the answer, say briefly what the chapter does cover instead of guessing.\n\nBOOK: " + c.book + "\nCHAPTER: " + c.name + "\nCHAPTER TEXT:\n" + ct + "\n\nTASK:\n"; }
 /* ---------- AI providers: free models, email sign-in, or your own key ---------- */
 var AI_PROVIDERS = {
@@ -438,7 +657,7 @@ function aiCfg(){
   return null;
 }
 function aiName(c){ var P = c && AI_PROVIDERS[c.provider]; return P ? P.name : "AI"; }
-function refreshKeyBtn(){ var b = $("bKey"); if(!b) return; var c = aiCfg(); b.classList.toggle("hidden", HOSTED || !DB.profile); b.textContent = c ? "✦ " + aiName(c) + " connected ✓" : "✦ Connect AI"; }
+function refreshKeyBtn(){ var b = $("bKey"); if(!b) return; var c = aiCfg(); b.classList.toggle("hidden", HOSTED || !DB.profile); b.textContent = c ? "✦ " + aiName(c) + " connected ✓" : "✦ Connect AI"; if(typeof refreshBanner === "function") refreshBanner(); }
 function useAI(cfg){ DB.ai = cfg; DB.key = ""; DB.model = ""; DB.engine = "ai"; sample = wrapSample(mkApi(cfg)); save(); refreshKeyBtn(); if($("engSel")) $("engSel").value = "ai"; }
 function dropAI(){ DB.ai = null; DB.key = ""; DB.model = ""; sample = null; if(DB.engine === "ai") DB.engine = "local"; save(); refreshKeyBtn(); if($("engSel")) $("engSel").value = DB.engine; }
 function aiErrText(code){
@@ -466,7 +685,7 @@ function mkOpenAI(ai){
   var call = async function(prompt, opts){
     opts = opts || {}; if(!navigator.onLine) throw aierr("no_net");
     var h = {"content-type":"application/json", "authorization":"Bearer " + ai.key};
-    if(ai.provider === "openrouter"){ h["HTTP-Referer"] = location.href; h["X-Title"] = "Study Buddy"; }
+    if(ai.provider === "openrouter"){ h["HTTP-Referer"] = location.href; h["X-Title"] = "Gurukul"; }
     var r;
     try { r = await fetch(P.api, {method:"POST", headers:h, body: JSON.stringify({model: ai.model || P.model, max_tokens: 8000, stream: !!opts.onText, messages:[{role:"user", content: prompt}]})}); }
     catch(e){ throw aierr("no_net", e); }
@@ -781,13 +1000,46 @@ async function run(prompt, outEl, btn, opt){
 }
 async function runJ(prompt, general, quiet){ var s = await getSample(); if(!s) return null; try { return await s.json((general ? persona() + "\n\n" : base()) + prompt, {cache: false, modelTier: "default"}); } catch(e){ if(!quiet) aiErr(e, RETRY); return null; } }
 
-/* ---------- quotes ---------- */
-var QG = [["An investment in knowledge pays the best interest.","Benjamin Franklin"],["Live as if you were to die tomorrow. Learn as if you were to live forever.","Mahatma Gandhi"],["Dream, dream, dream. Dreams transform into thoughts and thoughts result in action.","A. P. J. Abdul Kalam"],["Education is the most powerful weapon which you can use to change the world.","Nelson Mandela"],["Success is the sum of small efforts, repeated day in and day out.","Robert Collier"],["The expert in anything was once a beginner.","Helen Hayes"],["It always seems impossible until it’s done.","Nelson Mandela"],["Knowledge gives humility, and humility makes one worthy.","Subhashita (विद्या ददाति विनयं)"],["Don’t watch the clock; do what it does. Keep going.","Sam Levenson"],["Small steps every day beat big plans someday.","Study Buddy"]];
-var QC = [["Management is doing things right; leadership is doing the right things.","Peter Drucker"],["Do not save what is left after spending; spend what is left after saving.","Warren Buffett"],["Price is what you pay. Value is what you get.","Warren Buffett"],["Plans are nothing; planning is everything.","Dwight D. Eisenhower"],["Coming together is a beginning; keeping together is progress; working together is success.","Henry Ford"],["A goal without a plan is just a wish.","Antoine de Saint-Exupéry"]];
+/* ---------- quotes (only Upanishads, Bhagavad Gita, Chanakya Neeti, Arthashastra and Panchatantra) ----------
+   Each entry: [English meaning, source, original Sanskrit]. The Sanskrit is shown in brackets. */
+var QG = [
+ ["You have a right to your actions alone, never to their fruits.","Bhagavad Gita 2.47","कर्मण्येवाधिकारस्ते मा फलेषु कदाचन"],
+ ["In this world there is nothing as purifying as knowledge.","Bhagavad Gita 4.38","न हि ज्ञानेन सदृशं पवित्रमिह विद्यते"],
+ ["Lift yourself by your own self; never let yourself sink.","Bhagavad Gita 6.5","उद्धरेदात्मनात्मानं नात्मानमवसादयेत्"],
+ ["On this path no effort is ever wasted, nor does it bring harm.","Bhagavad Gita 2.40","नेहाभिक्रमनाशोऽस्ति प्रत्यवायो न विद्यते"],
+ ["Whatever a great person does, others follow.","Bhagavad Gita 3.21","यद्यदाचरति श्रेष्ठस्तत्तदेवेतरो जनः"],
+ ["Pleasure and pain come and go; learn to endure them calmly.","Bhagavad Gita 2.14","आगमापायिनोऽनित्यास्तांस्तितिक्षस्व भारत"],
+ ["Know it through humble respect, earnest inquiry and service.","Bhagavad Gita 4.34","तद्विद्धि प्रणिपातेन परिप्रश्नेन सेवया"],
+ ["The faithful, diligent and self-controlled one attains knowledge.","Bhagavad Gita 4.39","श्रद्धावाँल्लभते ज्ञानं तत्परः संयतेन्द्रियः"],
+ ["Be merely an instrument, never the doer who clings to the result.","Bhagavad Gita 11.33","निमित्तमात्रं भव सव्यसाचिन्"],
+ ["While dwelling on objects, attachment is born; watch your thoughts.","Bhagavad Gita 2.62","ध्यायतो विषयान्पुंसः सङ्गस्तेषूपजायते"],
+ ["All that moves in this moving world is pervaded by the Divine.","Isha Upanishad 1","ईशावास्यमिदं सर्वं यत्किञ्च जगत्यां जगत्"],
+ ["Truth alone triumphs, never falsehood.","Mundaka Upanishad 3.1.6","सत्यमेव जयते नानृतम्"],
+ ["Arise, awake, and stop not till the goal is reached.","Katha Upanishad 1.3.14","उत्तिष्ठत जाग्रत प्राप्य वरान्निबोधत"],
+ ["Lead me from untruth to truth, from darkness to light.","Brihadaranyaka Upanishad 1.3.28","असतो मा सद्गमय तमसो मा ज्योतिर्गमय"],
+ ["That thou art — you are never separate from the whole.","Chandogya Upanishad 6.8.7","तत्त्वमसि"],
+ ["Through knowledge one attains immortality.","Isha Upanishad 11","विद्यया अमृतमश्नुते"],
+ ["Subtler than the atom, greater than the great.","Katha Upanishad 1.2.20","अणोरणीयान्महतो महीयान्"],
+ ["That alone is knowledge which liberates.","Upanishads","सा विद्या या विमुक्तये"],
+ ["The wealth of knowledge is the foremost of all wealth.","Chanakya Neeti","विद्याधनं सर्वधनं प्रधानम्"],
+ ["Laziness is a great enemy that lives in one’s own body.","Chanakya Neeti","आलस्यं हि मनुष्याणां शरीरस्थो महान् रिपुः"],
+ ["There is no eye equal to knowledge.","Chanakya Neeti","नास्ति विद्यासमं चक्षुः"],
+ ["Endless is learning, many are the skills, short is the time, many the obstacles — so begin now.","Chanakya Neeti","अनन्तशास्त्रं बहुलाश्च विद्याः स्वल्पश्च कालो बहवश्च विघ्नाः"],
+ ["Where is knowledge for the comfort-seeker? The seeker of knowledge has no comfort.","Chanakya Neeti 10.3","सुखार्थिनः कुतो विद्या नास्ति विद्यार्थिनः सुखम्"],
+ ["A king is honoured in his own land; the learned are honoured everywhere.","Chanakya Neeti","स्वदेशे पूज्यते राजा विद्वान् सर्वत्र पूज्यते"],
+ ["Three gems on earth: water, food and good words.","Chanakya Neeti","पृथिव्यां त्रीणि रत्नानि जलमन्नं सुभाषितम्"],
+ ["One without learning is like an animal.","Chanakya Neeti","विद्याविहीनः पशुः"],
+ ["In the happiness of the people lies the ruler’s happiness; in their welfare, his welfare.","Arthashastra 1.19","प्रजासुखे सुखं राज्ञः प्रजानां च हिते हितम्"],
+ ["Before you begin any work, ask: why am I doing it, what will it lead to, and how will I succeed?","Arthashastra (Kautilya)","किमर्थं किं फलं कथं सिद्धिः"],
+ ["Tasks are accomplished by effort, not by mere wishes.","Panchatantra","उद्यमेन हि सिध्यन्ति कार्याणि न मनोरथैः"],
+ ["He who has wisdom has strength.","Panchatantra","बुद्धिर्यस्य बलं तस्य"],
+ ["All dependence is sorrow; all self-mastery is joy.","Panchatantra","सर्वं परवशं दुःखं सर्वमात्मवशं सुखम्"]
+];
 function newQuote(){
-  var c = cur(), com = c && /commerc|manage|business|account|econom|organi|trade|bank/i.test(c.book + " " + c.name), pool = com ? QC.concat(QG) : QG, i;
+  var pool = QG, i;
   do { i = Math.floor(Math.random() * pool.length); } while(i === lastQ && pool.length > 1); lastQ = i;
-  $("quote").innerHTML = "“" + esc(pool[i][0]) + "” — " + esc(pool[i][1]);
+  var q = pool[i];
+  $("quote").innerHTML = "“" + esc(q[0]) + "” — " + esc(q[1]) + " (" + esc(q[2]) + ")";
   $("quote").style.animation = "none"; void $("quote").offsetWidth; $("quote").style.animation = "";
 }
 
@@ -820,18 +1072,69 @@ function focusRegion(el, block){
   clearTimeout(el.__flashT); el.__flashT = setTimeout(function(){ el.classList.remove("focus-flash"); }, 1000);
 }
 function revealResult(el){ if(el) focusRegion(el, "nearest"); }
-var VIEWS = ["onb","home","study","progress","perf","hist","rep","rec","fun","note"], RENDER = {};
+var VIEWS = ["onb","home","study","progress","perf","hist","rep","rec","fun","note","mist","tools","play","tips"], RENDER = {};
+
+/* ---------- frozen banner: back / home / current screen name ---------- */
+/* One screen at a time. The banner is always visible; a study method opens as
+   its own screen so the working is not pushed below the method grid. */
+var SCREEN_NAMES = {onb:"", home:"", study:"Study", progress:"Progress", perf:"Performance", hist:"History", rep:"Reports", rec:"Today's plan", fun:"Fun facts", note:"Notebook", mist:"My error book", tools:"Settings", play:"Let's Play", tips:"Tricks & Tips"};
+function methodLabel(k){ var m = (typeof METHODS !== "undefined" ? METHODS : []).filter(function(x){ return x.k === k; })[0]; return m ? m.n : "Study"; }
+function methodOpen(){ return document.body.classList.contains("method-open"); }
+function setScreenTitle(t){ var e = $("scTitle"); if(!e) return; e.textContent = t || ""; e.classList.toggle("hidden", !t); }
+var NAV = [], NIDX = -1;
+function navPush(v){
+  if(NIDX >= 0 && NAV[NIDX] === v) return;
+  NAV = NAV.slice(0, NIDX + 1); NAV.push(v); NIDX = NAV.length - 1;
+}
+function updateBackBtn(){
+  var b = $("bBack"), f = $("bFwd");
+  var authed = !!(DB.profile && AUTH.session) && curView !== "onb";
+  if(b) b.classList.toggle("hidden", !authed || (!methodOpen() && NIDX <= 0));
+  if(f) f.classList.toggle("hidden", !authed || methodOpen() || NIDX >= NAV.length - 1);
+}
+function setMethodOpen(on, name){
+  document.body.classList.toggle("method-open", on);
+  var hasCh = !!cur(), sp = (typeof pend !== "undefined" && !!pend);
+  if($("chCard")) $("chCard").classList.toggle("hidden", on);
+  if($("methods")) $("methods").classList.toggle("hidden", on);
+  if($("path")) $("path").classList.toggle("hidden", on || !hasCh);
+  if($("vidAsk")) $("vidAsk").classList.toggle("hidden", on || !hasCh);
+  if($("upl")) $("upl").classList.toggle("hidden", on || hasCh || sp);
+  if($("stBody")) $("stBody").classList.toggle("hidden", on ? false : (!hasCh || sp));
+  setScreenTitle(on ? (name || methodLabel("")) : (SCREEN_NAMES[curView] || ""));
+  updateBackBtn();
+}
+function closeMethod(){
+  if(!methodOpen()) return;
+  var mp = $("mp"); if(mp) mp.innerHTML = "<p class='status'>Pick a method above to start </p>";
+  document.querySelectorAll("#methods .mth").forEach(function(x){ x.classList.remove("on"); });
+  setMethodOpen(false);
+  window.scrollTo(0, 0);
+}
 function show(v){
   if(v !== "onb" && !(DB.profile && AUTH.session)) v = "onb";
-  clearInterval(examTimer); curView = v;
+  if(v === "onb"){ NAV = []; NIDX = -1; } else navPush(v);
+  showView(v);
+}
+function showView(v){
+  clearInterval(examTimer); clearPlayTimer(); PS = null; curView = v;
+  if(methodOpen()) setMethodOpen(false);
   VIEWS.forEach(function(x){ $("v-" + x).classList.toggle("hidden", x !== v); });
   var authed = !!(DB.profile && AUTH.session);
   $("bHome").classList.toggle("hidden", v === "onb" && !authed);
   $("bProf").classList.toggle("hidden", v === "onb" && !authed);
   $("bKey").classList.toggle("hidden", HOSTED || !authed);
-  muteObs = true; if(RENDER[v]) RENDER[v](); if(["progress","perf","hist","rep","rec","fun","note"].indexOf(v) >= 0) addCta(v); newQuote(); window.scrollTo(0, 0); replay($("v-" + v)); setTimeout(function(){ muteObs = false; }, 0);
+  setScreenTitle(SCREEN_NAMES[v] || "");
+  document.body.classList.toggle("fit", ["study","progress","perf","hist","rep","rec","fun","note","mist","tools","play","tips"].indexOf(v) >= 0);
+  refreshBanner(); updateBackBtn();
+  muteObs = true; if(RENDER[v]) RENDER[v](); if(["progress","perf","hist","rep","fun","note"].indexOf(v) >= 0) addCta(v); newQuote(); setViewH(); window.scrollTo(0, 0); replay($("v-" + v)); setTimeout(function(){ muteObs = false; }, 0);
 }
 $("bHome").onclick = function(){ show("home"); };
+$("bBack").onclick = function(){
+  if(methodOpen()){ closeMethod(); return; }
+  if(NIDX > 0){ NIDX--; showView(NAV[NIDX]); } else show("home");
+};
+$("bFwd").onclick = function(){ if(NIDX >= 0 && NIDX < NAV.length - 1){ NIDX++; showView(NAV[NIDX]); } };
 $("bProf").onclick = function(){ if(DB.profile) show("onb"); };
 $("bKey").onclick = function(){ connectModal(); };
 $("oCls").innerHTML = CLASSES.map(function(c){return "<option>" + c + "</option>"}).join("");
@@ -847,36 +1150,60 @@ function authError(id, msg){
   e.innerHTML = msg ? "<span class='err'>" + esc(msg) + "</span>" : "";
 }
 function digitsOnly(e){ e.target.value = String(e.target.value || "").replace(/\D/g, "").slice(0, 8); }
-function renderLoginList(){
-  var sel = $("liWho"); if(!sel) return;
-  sel.innerHTML = AUTH.users.map(function(u){
-    return "<option value='" + u.id + "'>" + esc(u.name) + (u.cls ? " — " + esc(u.cls) : "") + "</option>";
-  }).join("");
-  var pick = AUTH.last || AUTH.session;
-  if(pick && findUser(pick)) sel.value = pick;
-  sel.onchange = updateLoginPin;
-  updateLoginPin();
+function slugUser(s){ return String(s || "").toLowerCase().replace(/[^a-z0-9._-]/g, "").slice(0, 20); }
+function uniqueUser(base, skipId){
+  var b = slugUser(base) || "student", u = b, i = 1;
+  while(AUTH.users.some(function(x){ return x.id !== skipId && String(x.user || "").toLowerCase() === u; })){ i++; u = b + i; }
+  return u;
 }
-function updateLoginPin(){
-  var sel = $("liWho"), u = sel ? findUser(sel.value) : null;
-  $("liPinWrap").classList.toggle("hidden", !(u && u.pin));
-  $("liGo").textContent = (u && u.pin) ? "Log in" : (u ? "Continue as " + u.name.split(" ")[0] : "Log in");
-  $("liPin").value = "";
-  authError("liMsg", "");
+function userByName(uname){ uname = String(uname || "").trim().toLowerCase(); return AUTH.users.filter(function(x){ return String(x.user || "").toLowerCase() === uname; })[0] || null; }
+function renderLoginChips(){
+  var box = $("liWhoChips"); if(!box) return;
+  box.innerHTML = AUTH.users.map(function(u){
+    return "<button type='button' data-u='" + esc(u.user) + "'>" + esc(u.user) + (u.name ? " · " + esc(u.name.split(" ")[0]) : "") + "</button>";
+  }).join("");
+  box.querySelectorAll("button").forEach(function(b){ b.onclick = function(){ $("liUser").value = b.getAttribute("data-u"); $("liPass").value = ""; $("liPass").focus(); authError("liMsg", ""); }; });
+  var hint = $("liHint");
+  if(hint) hint.textContent = AUTH.users.length ? "Students on this device (tap a username to fill it):" : "";
+}
+var PROF_SVG = null;
+function refreshAvatar(){
+  var pic = (DB.profile && DB.profile.pic) || "";
+  var b = $("bProf");
+  if(b){ if(PROF_SVG === null) PROF_SVG = b.innerHTML; b.innerHTML = pic ? "<img src='" + pic + "' alt=''>" : PROF_SVG; }
+  var ai = $("authInitial");
+  if(ai){
+    if(pic) ai.innerHTML = "<img src='" + pic + "' alt=''>";
+    else ai.textContent = ((DB.profile && DB.profile.name) || "S").trim().charAt(0).toUpperCase();
+  }
+}
+function refreshBanner(){
+  var w = $("whoChip"), onb = curView === "onb" || !DB.profile;
+  refreshAvatar();
+  if(w){ w.textContent = DB.profile ? DB.profile.name : ""; w.classList.toggle("hidden", onb); }
+  var a = $("aiStat");
+  if(a){
+    var c = aiCfg(), on = navigator.onLine, txt = onb ? "" : (!on ? "Offline" : (c ? aiName(c) : "On device"));
+    a.className = "chip" + (c ? "" : " local") + (on ? "" : " off") + (txt ? "" : " hidden");
+    a.innerHTML = txt ? "<span class='dot'></span>" + esc(txt) : "";
+    a.title = txt ? "AI connection: " + txt : "";
+  }
 }
 function startSession(u){
   if(!u) return;
   var d = null; try { var raw = localStorage.getItem(DATA_KEY + u.id); if(raw) d = JSON.parse(raw); } catch(e){}
   resetRuntime();
   DB = normalizeStudy(d);
-  if(!DB.profile) DB.profile = {name: u.name, cls: u.cls || "Class 9", lang: "English", school: "", from: ""};
+  if(!DB.profile) DB.profile = {name: u.name, cls: u.cls || "Class 9", age: u.age || "", user: u.user || slugUser(u.name), lang: "English", school: "", from: ""};
+  if(!DB.profile.user) DB.profile.user = u.user || slugUser(u.name);
+  if(!DB.profile.age && u.age) DB.profile.age = u.age;
   DB.ai = AUTH.ai || null;
   AUTH.session = u.id; AUTH.last = u.id; AUTH.migrated = false; AUTH_MIGRATED = "";
-  if(DB.profile){ u.name = DB.profile.name; u.cls = DB.profile.cls; }
+  if(DB.profile){ u.name = DB.profile.name; u.cls = DB.profile.cls; u.user = DB.profile.user; u.age = DB.profile.age; }
   save();
-  refreshWhoBtn(); refreshKeyBtn();
+  refreshWhoBtn(); refreshKeyBtn(); refreshBanner();
   show("home");
-  toast(u.pin ? "Welcome, " + DB.profile.name : "Welcome, " + DB.profile.name + ". Add a PIN in My details.");
+  toast(u.pin ? "Welcome, " + DB.profile.name : "Welcome, " + DB.profile.name + ". Add a password in My details.");
 }
 function logOut(){
   if(DB.profile && AUTH.session) save();
@@ -892,38 +1219,71 @@ function logOut(){
   toast("Logged out. Another student can log in now.");
 }
 function onLogin(){
-  var sel = $("liWho"), u = sel ? findUser(sel.value) : null;
-  if(!u){ authError("liMsg", "Choose a student first."); return; }
+  var uname = $("liUser") ? $("liUser").value : "", pass = $("liPass") ? String($("liPass").value || "") : "";
+  var u = userByName(uname);
+  if(!u){ authError("liMsg", "No student on this device uses that username."); return; }
   if(u.pin){
-    var pin = String($("liPin").value || "").replace(/\D/g, "");
-    if(!pinOK(pin, u)){ authError("liMsg", "That PIN is not right. Please try again."); $("liPin").value = ""; $("liPin").focus(); return; }
+    if(pinHash(pass, u.salt) !== u.pin){ authError("liMsg", "That password is not right. Please try again."); $("liPass").value = ""; $("liPass").focus(); return; }
   }
   startSession(u);
 }
+function readAge(){ var a = parseInt(String($("oAge") ? $("oAge").value : "").replace(/[^0-9]/g, ""), 10); return isFinite(a) && a >= 3 && a <= 100 ? a : 0; }
+/* ---------- student photo: shrink on device, store small, show at the galaxy centre ---------- */
+var pendPic = null;
+function photoInitial(){ return ((DB.profile && DB.profile.name) || ($("oName") ? $("oName").value : "") || "S").trim().charAt(0).toUpperCase(); }
+function setPicPreview(pic){
+  var el = $("oPicPrev"); if(!el) return;
+  if(pic){ el.innerHTML = "<img src='" + pic + "' alt=''>"; el.classList.add("has"); }
+  else { el.textContent = photoInitial(); el.classList.remove("has"); }
+  if($("oPicClear")) $("oPicClear").classList.toggle("hidden", !pic);
+}
+function shrinkPhoto(file, cb){
+  var fr = new FileReader();
+  fr.onload = function(){
+    var img = new Image();
+    img.onload = function(){
+      try {
+        var S = 200, cv = document.createElement("canvas"); cv.width = cv.height = S;
+        var ctx = cv.getContext("2d"), side = Math.min(img.width, img.height);
+        ctx.drawImage(img, (img.width - side) / 2, (img.height - side) / 2, side, side, 0, 0, S, S);
+        cb(cv.toDataURL("image/jpeg", 0.82));
+      } catch(e){ cb(null); }
+    };
+    img.onerror = function(){ toast("That file is not a picture I can read."); cb(null); };
+    img.src = fr.result;
+  };
+  fr.onerror = function(){ toast("Could not read that picture."); cb(null); };
+  fr.readAsDataURL(file);
+}
 function onProfileGo(){
   var editing = !!(DB.profile && AUTH.session);
-  var v = {name: $("oName").value.trim(), cls: $("oCls").value, lang: $("oLang").value, school: $("oSch").value.trim(), from: $("oFrom").value.trim()};
+  var v = {name: $("oName").value.trim(), cls: $("oCls").value, age: readAge(), lang: $("oLang").value, school: $("oSch").value.trim(), from: $("oFrom").value.trim(), pic: pendPic === null ? ((DB.profile && DB.profile.pic) || "") : pendPic};
+  var uname = slugUser($("oUser").value);
   if(!v.name || !v.school || !v.from){ authError("oMsg", "Please fill in your name, school and place."); return; }
-  var p1 = String($("oPin").value || "").replace(/\D/g, ""), p2 = String($("oPin2").value || "").replace(/\D/g, "");
-  var clash = AUTH.users.filter(function(u){ return u.id !== AUTH.session && u.name.toLowerCase() === v.name.toLowerCase(); })[0];
-  if(clash){ authError("oMsg", "Another student on this device already uses that name. Add a surname or initial."); return; }
+  if(!v.age){ authError("oMsg", "Please enter your age (3 to 100)."); return; }
+  if(!uname){ authError("oMsg", "Please choose a username using letters and numbers, with no spaces."); return; }
+  var dupe = AUTH.users.filter(function(u){ return u.id !== AUTH.session && String(u.user || "").toLowerCase() === uname; })[0];
+  if(dupe){ authError("oMsg", "That username is already used on this device. Please choose another."); return; }
+  var p1 = String($("oPin").value || ""), p2 = String($("oPin2").value || "");
+  v.user = uname;
   if(editing){
     var me = findUser(AUTH.session);
     if(p1 || p2){
-      if(p1.length < 4){ authError("oMsg", "Choose a PIN of 4 to 8 digits."); return; }
-      if(p1 !== p2){ authError("oMsg", "The two PINs do not match."); return; }
+      if(p1.length < 4){ authError("oMsg", "Choose a password of at least 4 characters."); return; }
+      if(p1 !== p2){ authError("oMsg", "The two passwords do not match."); return; }
       me.salt = newSalt(); me.pin = pinHash(p1, me.salt);
     }
-    DB.profile = v; save(); refreshWhoBtn(); toast("Details saved"); show("home"); return;
+    me.name = v.name; me.cls = v.cls; me.user = uname; me.age = v.age;
+    DB.profile = v; pendPic = null; save(); refreshWhoBtn(); refreshBanner(); toast("Details saved"); show("home"); return;
   }
-  if(p1.length < 4){ authError("oMsg", "Choose a PIN of 4 to 8 digits."); return; }
-  if(p1 !== p2){ authError("oMsg", "The two PINs do not match."); return; }
-  var u = {id: uid(), name: v.name, cls: v.cls, pin: "", salt: "", at: Date.now()};
+  if(p1.length < 4){ authError("oMsg", "Choose a password of at least 4 characters."); return; }
+  if(p1 !== p2){ authError("oMsg", "The two passwords do not match."); return; }
+  var u = {id: uid(), name: v.name, cls: v.cls, user: uname, age: v.age, pin: "", salt: "", at: Date.now()};
   u.salt = newSalt(); u.pin = pinHash(p1, u.salt);
   resetRuntime();
-  DB = blankDB(); DB.profile = v; DB.ai = AUTH.ai || null;
+  DB = blankDB(); DB.profile = v; DB.ai = AUTH.ai || null; pendPic = null;
   AUTH.users.push(u); AUTH.session = u.id; AUTH.last = u.id; AUTH.migrated = false; AUTH_MIGRATED = "";
-  save(); refreshWhoBtn(); refreshKeyBtn(); logEv("profile", "Joined Study Buddy as " + v.cls);
+  save(); refreshWhoBtn(); refreshKeyBtn(); refreshBanner(); logEv("profile", "Joined Gurukul as " + v.cls);
   show("home"); toast("Welcome, " + v.name);
 }
 RENDER.onb = function(){
@@ -937,67 +1297,233 @@ RENDER.onb = function(){
     $("authWho").classList.remove("hidden");
     $("authInitial").textContent = (DB.profile.name || "S").trim().charAt(0).toUpperCase();
     $("authWhoName").textContent = DB.profile.name;
-    $("authWhoMeta").textContent = DB.profile.cls + (DB.profile.school ? " · " + DB.profile.school : "");
+    $("authWhoMeta").textContent = DB.profile.cls + (DB.profile.age ? " · age " + DB.profile.age : "") + (DB.profile.school ? " · " + DB.profile.school : "");
     $("createTitle").textContent = "My account";
-    $("createSub").textContent = "Change your details here. Leave both PIN boxes empty to keep your current PIN.";
+    $("createSub").textContent = "Change your details here. Leave both password boxes empty to keep your current password.";
     $("oName").value = DB.profile.name; $("oCls").value = DB.profile.cls; $("oLang").value = DB.profile.lang;
+    $("oUser").value = DB.profile.user || slugUser(DB.profile.name); $("oAge").value = DB.profile.age || "";
     $("oSch").value = DB.profile.school; $("oFrom").value = DB.profile.from;
+    setPicPreview(DB.profile.pic || "");
     $("oPin").value = ""; $("oPin2").value = "";
     $("oGo").textContent = "Save my details";
-    $("oBack").classList.add("hidden"); $("oLogout").classList.remove("hidden");
-    $("pinLabel").textContent = "New PIN (optional)";
-    $("pinHint").textContent = (findUser(AUTH.session) && findUser(AUTH.session).pin) ? "4 to 8 digits. Leave blank to keep the current PIN." : "This account has no PIN yet. Add 4 to 8 digits so only you can open it.";
+    $("oBack").classList.add("hidden"); $("oLogout").classList.remove("hidden"); $("oDanger").classList.remove("hidden");
+    $("pinLabel").textContent = "New password (optional)";
+    $("pinHint").textContent = (findUser(AUTH.session) && findUser(AUTH.session).pin) ? "At least 4 characters. Leave blank to keep the current password." : "This account has no password yet. Add at least 4 characters so only you can open it.";
   } else {
     $("authWho").classList.add("hidden");
     $("authTitle").textContent = has ? "Welcome back" : " Namaste! I am Mitrādhyāyin";
-    $("authSub").textContent = has ? "Choose your name to open only your own books, notes and progress." : "Your study companion. Create your account so your books, notes and progress stay yours.";
+    $("authSub").textContent = has ? "Log in with your username and password. Only your own books, notes and progress will open." : "Your study companion. Create your account so your books, notes and progress stay yours.";
     $("loginCard").classList.toggle("hidden", !has || creating);
     $("createCard").classList.toggle("hidden", has && !creating);
     $("createTitle").textContent = "Create your account";
     $("createSub").textContent = "One account per student on this device. Your chapters, notes and progress stay separate.";
-    $("oName").value = ""; $("oSch").value = ""; $("oFrom").value = ""; $("oPin").value = ""; $("oPin2").value = "";
+    $("oName").value = ""; $("oUser").value = ""; $("oAge").value = ""; $("oSch").value = ""; $("oFrom").value = ""; $("oPin").value = ""; $("oPin2").value = "";
+    setPicPreview("");
     $("oCls").selectedIndex = 0; $("oLang").selectedIndex = 0;
     $("oGo").textContent = "Create my account";
     $("oBack").classList.toggle("hidden", !has || !creating);
-    $("oLogout").classList.add("hidden");
-    $("pinLabel").textContent = "Create a PIN";
-    $("pinHint").textContent = "4 to 8 digits. You will use this PIN to log in.";
+    $("oLogout").classList.add("hidden"); $("oDanger").classList.add("hidden");
+    $("pinLabel").textContent = "Create a password";
+    $("pinHint").textContent = "At least 4 characters. You will use this password to log in.";
     if(has){
-      renderLoginList();
-      if(AUTH_MIGRATED) authError("liMsg", "Your earlier study data is ready under " + AUTH_MIGRATED + ". Choose the name to continue.");
+      renderLoginChips();
+      if(AUTH_MIGRATED){ var mu = AUTH.users.filter(function(u){ return u.name === AUTH_MIGRATED; })[0]; authError("liMsg", "Your earlier study data is ready. Log in with the username " + esc(mu ? mu.user : AUTH_MIGRATED) + "."); }
     }
   }
-  refreshWhoBtn(); authError("oMsg", "");
+  refreshWhoBtn(); refreshBanner(); authError("oMsg", "");
 };
+function eraseMe(){
+  if(!AUTH.session) return;
+  var nm = DB.profile ? DB.profile.name : "this student";
+  askYes("Erase all study data for " + nm + "? Books, notes, progress and history will be deleted, and the account will be removed. This cannot be undone.", function(){
+    var id = AUTH.session;
+    try { localStorage.removeItem(DATA_KEY + id); } catch(e){}
+    AUTH.users = AUTH.users.filter(function(x){ return x.id !== id; });
+    AUTH.session = null; AUTH.last = AUTH.users[0] ? AUTH.users[0].id : null;
+    saveUsers(); resetRuntime(); DB = blankDB();
+    authMode = AUTH.users.length ? "login" : "create";
+    refreshWhoBtn(); refreshBanner(); show("onb"); toast("Study data erased");
+  });
+}
+function eraseAll(){
+  askYes("Erase EVERYTHING on this device — all students, books, notes and progress — and start fresh? This cannot be undone.", function(){
+    try {
+      var keys = []; for(var i = 0; i < localStorage.length; i++){ keys.push(localStorage.key(i)); }
+      keys.forEach(function(k){ if(k && k.indexOf("ocm_study") === 0) localStorage.removeItem(k); });
+    } catch(e){}
+    location.reload();
+  });
+}
 $("liGo").onclick = onLogin;
-$("liPin").onkeydown = function(e){ if(e.key === "Enter") onLogin(); };
-$("liPin").oninput = digitsOnly;
-$("oPin").oninput = digitsOnly; $("oPin2").oninput = digitsOnly;
+$("liPass").onkeydown = function(e){ if(e.key === "Enter") onLogin(); };
+$("liUser").onkeydown = function(e){ if(e.key === "Enter") $("liPass").focus(); };
+$("oUser").oninput = function(){ this.value = this.value.replace(/[^a-zA-Z0-9._-]/g, "").slice(0, 20); };
+$("oAge").oninput = function(){ this.value = this.value.replace(/[^0-9]/g, "").slice(0, 3); };
+$("oName").oninput = function(){ if(pendPic === null && !((DB.profile && DB.profile.pic))) setPicPreview(""); };
+$("oPicPick").onclick = function(){ $("oPicFile").click(); };
+$("oPicPrev").onclick = function(){ $("oPicFile").click(); };
+$("oPicPrev").onkeydown = function(e){ if(e.key === "Enter" || e.key === " "){ e.preventDefault(); $("oPicFile").click(); } };
+$("oPicClear").onclick = function(){ pendPic = ""; setPicPreview(""); toast("Photo removed — press Save to keep it."); };
+$("oPicFile").onchange = function(){
+  var f = this.files && this.files[0]; this.value = "";
+  if(!f) return;
+  shrinkPhoto(f, function(pic){ if(pic === null) return; pendPic = pic; setPicPreview(pic); toast(pic ? "Photo ready — press Save to keep it." : "Could not use that picture."); });
+};
 $("toCreate").onclick = function(){ authMode = "create"; RENDER.onb(); };
 $("oBack").onclick = function(){ authMode = "login"; RENDER.onb(); };
 $("oGo").onclick = onProfileGo;
 $("oLogout").onclick = function(){
   askYes("Log out of " + (DB.profile ? DB.profile.name + "’s" : "this") + " account? Another student can then log in on this device.", logOut);
 };
+$("oEraseMe").onclick = eraseMe;
+$("oEraseAll").onclick = eraseAll;
 
-/* ---------- Gurukul (home) ---------- */
-var SECS = [{k:"study",e:"",n:"Study"},{k:"progress",e:"",n:"Progress"},{k:"perf",e:"",n:"Performance"},{k:"hist",e:"",n:"History"},{k:"rep",e:"",n:"Reports"},{k:"rec",e:"",n:"Recommendations"},{k:"fun",e:"",n:"Fun Facts"},{k:"note",e:"",n:"Notebook"}];
-function gurukulSvg(){
-  var cx = 360, cy = 250, cp = !!arguments[0], h = "<svg viewBox='" + (cp ? "225 160 270 215" : "0 0 720 520") + "' style='width:100%;" + (cp ? "height:200px" : "height:auto") + "' role='img' aria-label='Gurukul'>";
-  h += "<circle cx='60' cy='50' r='26' fill='var(--acc2)' opacity='.8'/><ellipse cx='360' cy='330' rx='120' ry='14' fill='var(--accbg)'/>";
-  h += "<rect x='40' y='400' width='14' height='60' fill='var(--acc2)' opacity='.7'/><circle cx='47' cy='390' r='34' fill='var(--acc)' opacity='.35'/>";
-  SECS.forEach(function(s, i){
-    var a = -Math.PI / 2 + i * 2 * Math.PI / SECS.length, x = cx + 285 * Math.cos(a), y = cy + 185 * Math.sin(a);
-    s.x = x; s.y = y;
-    h += "<line x1='" + cx + "' y1='" + cy + "' x2='" + x + "' y2='" + y + "' stroke='var(--acc)' stroke-width='2' stroke-dasharray='5 6' opacity='.5'/>";
+/* ---------- Home: the study galaxy ---------- */
+var SECS = [{k:"study",e:"",n:"Study"},{k:"progress",e:"",n:"Progress"},{k:"perf",e:"",n:"Performance"},{k:"hist",e:"",n:"History"},{k:"rep",e:"",n:"Reports"},{k:"rec",e:"",n:"Today's plan"},{k:"fun",e:"",n:"Fun facts"},{k:"note",e:"",n:"Notebook"}];
+var HOME_NODES = [
+  {k:"study", n:"Study", view:"study", icon:"study", ring:0, c:"#4f7dff"},
+  {k:"rec", n:"Today's plan", view:"rec", icon:"rec", ring:0, c:"#a78bfa"},
+  {k:"resume", n:"Where I stopped", resume:1, icon:"hist", ring:0, c:"#38bdf8"},
+  {k:"progress", n:"Progress", view:"progress", icon:"progress", ring:1, c:"#4ade80"},
+  {k:"perf", n:"Performance", view:"perf", icon:"perf", ring:1, c:"#fbbf24"},
+  {k:"hist", n:"History", view:"hist", icon:"hist", ring:1, c:"#fb923c"},
+  {k:"rep", n:"Reports", view:"rep", icon:"rep", ring:1, c:"#6c8cff"},
+  {k:"fun", n:"Fun facts", view:"fun", icon:"fun", ring:1, c:"#a3e635"},
+  {k:"note", n:"Notebook", view:"note", icon:"note", ring:1, c:"#ff9f43"},
+  {k:"mindmap", n:"Mind map", tool:"mindmap", icon:"map", ring:1, c:"#34d399"},
+  {k:"maths", n:"Maths workbench", s:"Maths", tool:"maths", icon:"maths", ring:1, c:"#2dd4bf"},
+  {k:"mist", n:"My error book", s:"Error book", view:"mist", icon:"mist", ring:1, c:"#ff5d73"},
+  {k:"tools", n:"Settings", s:"Settings", view:"tools", icon:"tools", ring:1, c:"#94a3b8"},
+  {k:"play", n:"Let's play", s:"Play", view:"play", icon:"game", ring:1, c:"#f472b6"},
+  {k:"tips", n:"Tricks and tips", s:"Tips", view:"tips", icon:"tips", ring:1, c:"#ffd84d"}
+];
+var GAL_RING = ["#ffd36b", "#8ea2ff"];
+var STAR_SEED = null;
+function starLayer(n, W, H){
+  if(!STAR_SEED){
+    STAR_SEED = []; var s = 987654321, i;
+    for(i = 0; i < 260; i++){
+      s = (s * 1103515245 + 12345) & 0x7fffffff; var a = s / 0x7fffffff;
+      s = (s * 1103515245 + 12345) & 0x7fffffff; var b = s / 0x7fffffff;
+      s = (s * 1103515245 + 12345) & 0x7fffffff; STAR_SEED.push([a, b, s / 0x7fffffff]);
+    }
+  }
+  return STAR_SEED.slice(0, n).map(function(a, i){
+    return "<circle class='star' cx='" + ((a[0] * 1.08 - 0.04) * W).toFixed(1) + "' cy='" + ((a[1] * 1.08 - 0.04) * H).toFixed(1) + "' r='" + (0.5 + a[2] * 1.5).toFixed(2) + "' style='animation-delay:" + ((i % 9) * -0.45).toFixed(2) + "s'/>";
+  }).join("");
+}
+function orbitNodes(nodes, r, cx, cy, dur, R, fs, labelUp, rc){
+  var h = "<g class='orbitSpin' style='--t:" + dur + ";transform-origin:" + cx + "px " + cy + "px;transform-box:view-box'>";
+  h += "<circle cx='" + cx + "' cy='" + cy + "' r='" + r + "' fill='none' stroke='" + rc + "' stroke-opacity='.38' stroke-dasharray='2 9' stroke-width='1.4'/>";
+  var n = nodes.length;
+  nodes.forEach(function(nd, i){
+    var a = -Math.PI / 2 + i * 2 * Math.PI / n, x = cx + r * Math.cos(a), y = cy + r * Math.sin(a);
+    var ic = ICON[nd.icon] || ICON.study, sc = (R * 1.15) / 24, col = nd.c || rc;
+    h += "<g class='gnode orbitCounter' " + (nd.resume ? "data-resume='1'" : "data-nav='" + (nd.tool || nd.view) + "'") + " role='button' tabindex='0' aria-label='" + esc(nd.n) + "' style='--t:" + dur + ";transform-origin:" + x + "px " + y + "px;transform-box:view-box'>";
+    h += "<g class='orbBody' style='transform-box:fill-box;transform-origin:center'>";
+    h += "<circle class='halo' cx='" + x + "' cy='" + y + "' r='" + (R + 4) + "' fill='none' stroke='" + col + "' stroke-opacity='.4' stroke-width='1.6'/>";
+    h += "<circle cx='" + x + "' cy='" + y + "' r='" + R + "' fill='url(#gOrb_" + nd.k + ")' stroke='" + col + "' stroke-width='1.5'/>";
+    h += "<circle cx='" + (x - R * 0.3).toFixed(1) + "' cy='" + (y - R * 0.32).toFixed(1) + "' r='" + (R * 0.4).toFixed(1) + "' fill='#fff' opacity='.14'/>";
+    h += "<g transform='translate(" + (x - R * 0.56).toFixed(1) + "," + (y - R * 0.56).toFixed(1) + ") scale(" + sc.toFixed(3) + ")' fill='none' stroke='#fff' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'>" + ic + "</g>";
+    h += "</g>";
+    var label = nd.s || nd.n;
+    var lw = label.length * fs * 0.56 + fs * 0.9, lh = fs * 1.75;
+    var ly = (labelUp || y < cy - R * 0.9) ? (y - R - lh - 3) : (y + R + 4);
+    h += "<g class='glabel'><rect class='lblBg' x='" + (x - lw / 2).toFixed(1) + "' y='" + ly.toFixed(1) + "' width='" + lw.toFixed(1) + "' height='" + lh.toFixed(1) + "' rx='" + (lh / 2).toFixed(1) + "' fill='#0b0d33' stroke='" + col + "' stroke-opacity='.55' stroke-width='1'/>";
+    h += "<text x='" + x + "' y='" + (ly + lh / 2).toFixed(1) + "' text-anchor='middle' dominant-baseline='central' font-size='" + fs + "' font-weight='700' fill='#eef1ff'>" + esc(label) + "</text></g>";
+    h += "</g>";
   });
-  h += "<polygon points='285,238 360,182 435,238' fill='var(--acc)'/><rect x='298' y='238' width='124' height='72' fill='var(--card)' stroke='var(--acc)' stroke-width='2'/>";
-  [318,342,378,402].forEach(function(x){ h += "<line x1='" + x + "' y1='238' x2='" + x + "' y2='310' stroke='var(--acc)' stroke-width='4'/>"; });
-  h += "<rect x='350' y='268' width='20' height='42' rx='3' fill='var(--acc2)'/><text x='360' y='224' text-anchor='middle' font-size='15' fill='#fff' font-weight='700'>गुरुकुल</text><text x='360' y='352' text-anchor='middle' font-size='17' font-weight='700' fill='var(--ink)'>Gurukul</text>";
-  SECS.forEach(function(s){ if(cp) return;
-    h += "<g class='node' data-v='" + s.k + "'><circle cx='" + s.x + "' cy='" + s.y + "' r='38' fill='var(--card)' stroke='var(--acc)' stroke-width='3'/><g transform='translate(" + (s.x - 17) + "," + (s.y - 17) + ") scale(1.416)' fill='none' stroke='var(--acc)' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'>" + ICON[s.k] + "</g><text x='" + s.x + "' y='" + (s.y + 62) + "' text-anchor='middle' font-size='15' font-weight='600' fill='var(--ink)'>" + s.n + "</text></g>";
+  return h + "</g>";
+}
+function galaxySvg(compact){
+  var W = compact ? 440 : 880, H = compact ? 620 : 700, cx = W / 2, cy = compact ? 300 : 332;
+  var innerR = compact ? 120 : 168, outerR = compact ? 184 : 258, cr = compact ? 27 : 38;
+  var inner = HOME_NODES.filter(function(n){ return n.ring === 0; }), outer = HOME_NODES.filter(function(n){ return n.ring === 1; });
+  var SYMS = [["∑", .10, .30], ["π", .87, .25], ["√", .20, .74], ["Δ", .81, .64], ["∞", .31, .13], ["θ", .68, .87], ["∫", .12, .57], ["≈", .90, .45], ["A+", .50, .07], ["💡", .06, .45], ["⚛", .49, .94], ["✎", .73, .11], ["%", .42, .22], ["Ω", .58, .78]];
+  var TINT = ["#ffd36b", "#8fd8ff", "#ff9ad5", "#a9ffcf", "#c3b1ff"];
+  var h = "<svg class='galaxy' viewBox='0 0 " + W + " " + H + "' role='img' aria-label='Study galaxy. Tap a planet to open a section.'>";
+  h += "<defs>";
+  h += "<radialGradient id='gSunCore' cx='35%' cy='30%' r='78%'><stop offset='0%' stop-color='#fffbe3'/><stop offset='45%' stop-color='#ffd36b'/><stop offset='100%' stop-color='#ff9a3c'/></radialGradient>";
+  h += "<radialGradient id='gSunGlow' cx='50%' cy='50%' r='50%'><stop offset='0%' stop-color='#ffd36b' stop-opacity='.55'/><stop offset='38%' stop-color='#ff9a5a' stop-opacity='.22'/><stop offset='100%' stop-color='#ff9a5a' stop-opacity='0'/></radialGradient>";
+  h += "<radialGradient id='gNeb1' cx='50%' cy='50%' r='50%'><stop offset='0%' stop-color='#6d43d6' stop-opacity='.5'/><stop offset='100%' stop-color='#6d43d6' stop-opacity='0'/></radialGradient>";
+  h += "<radialGradient id='gNeb2' cx='50%' cy='50%' r='50%'><stop offset='0%' stop-color='#0f8f9f' stop-opacity='.42'/><stop offset='100%' stop-color='#0f8f9f' stop-opacity='0'/></radialGradient>";
+  h += "<radialGradient id='gNeb3' cx='50%' cy='50%' r='50%'><stop offset='0%' stop-color='#a82b7a' stop-opacity='.34'/><stop offset='100%' stop-color='#a82b7a' stop-opacity='0'/></radialGradient>";
+  h += "<radialGradient id='gDisk' cx='50%' cy='50%' r='50%'><stop offset='0%' stop-color='#ffd6a0' stop-opacity='.28'/><stop offset='38%' stop-color='#c98bd6' stop-opacity='.12'/><stop offset='100%' stop-color='#7a5cff' stop-opacity='0'/></radialGradient>";
+  h += "<linearGradient id='gShoot' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='#fff' stop-opacity='0'/><stop offset='100%' stop-color='#fff'/></linearGradient>";
+  h += "<clipPath id='gSunClip'><circle cx='" + cx + "' cy='" + cy + "' r='" + cr + "'/></clipPath>";
+  HOME_NODES.forEach(function(nd){
+    var col = nd.c || GAL_RING[1];
+    h += "<radialGradient id='gOrb_" + nd.k + "' cx='34%' cy='30%' r='74%'><stop offset='0%' stop-color='#ffffff' stop-opacity='.9'/><stop offset='42%' stop-color='" + col + "'/><stop offset='100%' stop-color='#0a0c2a'/></radialGradient>";
   });
+  h += "</defs>";
+  h += "<rect width='" + W + "' height='" + H + "' fill='#070b24'/>";
+  h += "<ellipse cx='" + (W * .22).toFixed(0) + "' cy='" + (H * .18).toFixed(0) + "' rx='" + (W * .44).toFixed(0) + "' ry='" + (H * .36).toFixed(0) + "' fill='url(#gNeb1)'/>";
+  h += "<ellipse cx='" + (W * .82).toFixed(0) + "' cy='" + (H * .78).toFixed(0) + "' rx='" + (W * .42).toFixed(0) + "' ry='" + (H * .34).toFixed(0) + "' fill='url(#gNeb2)'/>";
+  h += "<ellipse cx='" + (W * .70).toFixed(0) + "' cy='" + (H * .15).toFixed(0) + "' rx='" + (W * .36).toFixed(0) + "' ry='" + (H * .28).toFixed(0) + "' fill='url(#gNeb3)'/>";
+  h += "<circle cx='" + cx + "' cy='" + cy + "' r='" + (outerR + 24) + "' fill='url(#gDisk)'/>";
+  h += "<g class='galaxyStars'>" + starLayer(compact ? 130 : 220, W, H) + "</g>";
+  h += "<g class='galaxySyms'>" + SYMS.map(function(s, i){
+    return "<text class='symbol' x='" + (W * s[1]).toFixed(0) + "' y='" + (H * s[2]).toFixed(0) + "' text-anchor='middle' font-size='" + (compact ? 15 : 21) + "' font-weight='700' fill='" + TINT[i % 5] + "' opacity='.34' style='animation-delay:" + (i * -0.6).toFixed(1) + "s'>" + s[0] + "</text>";
+  }).join("") + "</g>";
+  h += "<g transform='rotate(-18 " + cx + " " + cy + ")'>";
+  [[outerR + 26, GAL_RING[1], .14], [innerR + 30, GAL_RING[0], .13]].forEach(function(e){
+    h += "<ellipse cx='" + cx + "' cy='" + cy + "' rx='" + e[0] + "' ry='" + (e[0] * 0.34).toFixed(1) + "' fill='none' stroke='" + e[1] + "' stroke-opacity='" + e[2] + "' stroke-width='1.3'/>";
+  });
+  h += "</g>";
+  h += orbitNodes(inner, innerR, cx, cy, compact ? "76s" : "96s", compact ? 27 : 35, compact ? 13 : 15, true, GAL_RING[0]);
+  h += orbitNodes(outer, outerR, cx, cy, compact ? "124s" : "156s", compact ? 24 : 33, compact ? 12 : 14.5, false, GAL_RING[1]);
+  h += "<g class='galCore'>";
+  h += "<circle class='sunGlow' cx='" + cx + "' cy='" + cy + "' r='" + (cr * (compact ? 3 : 3.2)).toFixed(0) + "' fill='url(#gSunGlow)'/>";
+  h += "<g class='sunRays' style='transform-origin:" + cx + "px " + cy + "px;transform-box:view-box'>";
+  var r1 = cr * 1.14, r2 = cr * 1.86;
+  for(var k = 0; k < 20; k++){
+    var a2 = k * 2 * Math.PI / 20;
+    h += "<line x1='" + (cx + r1 * Math.cos(a2)).toFixed(1) + "' y1='" + (cy + r1 * Math.sin(a2)).toFixed(1) + "' x2='" + (cx + r2 * Math.cos(a2)).toFixed(1) + "' y2='" + (cy + r2 * Math.sin(a2)).toFixed(1) + "' stroke='#ffd36b' stroke-opacity='.5' stroke-width='2' stroke-linecap='round'/>";
+  }
+  h += "</g>";
+  var pic = (DB.profile && DB.profile.pic) || "";
+  h += "<circle cx='" + cx + "' cy='" + cy + "' r='" + cr + "' fill='url(#gSunCore)'/>";
+  if(pic){
+    h += "<image href='" + pic + "' x='" + (cx - cr) + "' y='" + (cy - cr) + "' width='" + (cr * 2) + "' height='" + (cr * 2) + "' preserveAspectRatio='xMidYMid slice' clip-path='url(#gSunClip)'/>";
+  } else {
+    h += "<text x='" + cx + "' y='" + (cy + (compact ? 7 : 10)) + "' text-anchor='middle' font-size='" + (compact ? 20 : 28) + "' font-weight='800' fill='#3a2a08'>" + esc((DB.profile.name || "S").trim().charAt(0).toUpperCase()) + "</text>";
+  }
+  h += "<circle cx='" + cx + "' cy='" + cy + "' r='" + cr + "' fill='none' stroke='#ffd36b' stroke-width='2.4'/>";
+  h += "</g>";
+  h += "<g transform='translate(" + (W * .1).toFixed(0) + "," + (H * .1).toFixed(0) + ")'>";
+  h += "<g class='shoot' style='--sx:" + (compact ? 190 : 330) + "px;--sy:" + (compact ? 100 : 172) + "px'>";
+  h += "<path d='M0 0 L150 78' stroke='url(#gShoot)' stroke-width='2.4' stroke-linecap='round' fill='none'/><circle cx='150' cy='78' r='2.6' fill='#fff'/></g></g>";
+  h += "<text x='" + cx + "' y='" + (cy + (compact ? 68 : 88)) + "' text-anchor='middle' font-size='" + (compact ? 12 : 14) + "' font-weight='700' fill='#b9bff0'>Mitrādhyāyin</text>";
   return h + "</svg>";
+}
+function openMindmap(){ if(!cur()){ show("study"); toast("Add a chapter first, then open the mind map."); return; } show("study"); goMethod("mindmap", "", DB.cur); }
+function openMaths(){
+  goMethod("maths", "", DB.cur);
+}
+function bindGalaxy(root){
+  root.querySelectorAll("[data-nav]").forEach(function(g){
+    var go = function(){ var v = g.getAttribute("data-nav"); if(v === "mindmap") openMindmap(); else if(v === "maths") openMaths(); else show(v); };
+    g.onclick = go;
+    g.onkeydown = function(e){ if(e.key === "Enter" || e.key === " "){ e.preventDefault(); go(); } };
+  });
+  root.querySelectorAll("[data-resume]").forEach(function(g){
+    var go = function(){ resumeLast(); };
+    g.onclick = go;
+    g.onkeydown = function(e){ if(e.key === "Enter" || e.key === " "){ e.preventDefault(); go(); } };
+  });
+  var svg = root.querySelector("svg.galaxy");
+  if(svg && !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)){
+    var st = svg.querySelector(".galaxyStars"), sym = svg.querySelector(".galaxySyms");
+    if(st){
+      svg.addEventListener("pointermove", function(e){
+        var b = svg.getBoundingClientRect();
+        var dx = (e.clientX - b.left) / b.width - .5, dy = (e.clientY - b.top) / b.height - .5;
+        st.style.transform = "translate(" + (dx * 14).toFixed(1) + "px," + (dy * 14).toFixed(1) + "px)";
+        if(sym) sym.style.transform = "translate(" + (dx * 26).toFixed(1) + "px," + (dy * 26).toFixed(1) + "px)";
+      });
+      svg.addEventListener("pointerleave", function(){ st.style.transform = ""; if(sym) sym.style.transform = ""; });
+    }
+  }
 }
 function streak(){
   var days = {}; DB.history.forEach(function(e){ days[fmtD(e.t)] = 1; });
@@ -1006,16 +1532,16 @@ function streak(){
 }
 function mastery(id){ var A = (DB.progress[id] || {attempts: []}).attempts.slice(-3); if(!A.length) return null; return Math.round(A.reduce(function(a, x){return a + x.score * 100 / x.total}, 0) / A.length); }
 RENDER.home = function(){
-  var p = DB.profile, hello = HELLO[p.lang] || "Namaste", tests = 0; for(var k in DB.progress) tests += (DB.progress[k].prac || []).length;
-  var h = "<div class='card hero' style='text-align:center'><h1>" + hello + ", " + esc(p.name) + "! </h1><p>I am <strong>Mitrādhyāyin</strong>, your study companion. Together we will study better and score well in your " + esc(p.cls) + " classes and exams. Choose a section to begin.</p></div>";
-  h += "<div class='stat'><div><div class='big'>" + DB.chapters.length + "</div>Chapters</div><div><div class='big'>" + tests + "</div>Practices</div><div><div class='big'>" + streak() + "</div>Day streak</div></div>";
-  h += homeFlow();
-  var narrow = window.innerWidth < 620; homeNarrow = narrow;
-  h += narrow ? "<div class='card' style='padding:6px'>" + gurukulSvg(true) + "</div><div class='grid'>" + SECS.map(function(s){ return "<button class='mth tile' data-v='" + s.k + "'><span class='ic'>" + svgIc(s.k) + "</span><b>" + s.n + "</b></button>"; }).join("") + "</div>" : "<div class='card' style='padding:6px;max-width:760px;margin-left:auto;margin-right:auto'>" + gurukulSvg() + "</div>";
-  h += "<div class='row' style='justify-content:center'><button class='primary' id='goStudy'>" + (cur() ? "Continue: " + esc(cur().name.slice(0, 32)) : "Start studying") + " →</button></div>";
+  var p = DB.profile, hello = HELLO[p.lang] || "Namaste", narrow = window.innerWidth < 620; homeNarrow = narrow;
+  var h = "<div class='card hero homeWish'><h1>" + hello + ", " + esc(p.name) + "!</h1><p>I am <strong>Mitrādhyāyin</strong>, your study companion. Tap a planet in your galaxy to begin. " + esc(p.cls) + (p.age ? " · age " + p.age : "") + ".</p></div>";
+  h += "<div class='card galaxyCard'>" + galaxySvg(narrow) + "</div>";
+  h += "<div class='homeSecs'>" + SECS.map(function(s){ return "<button class='mth tile' data-v='" + s.k + "'><span class='ic'>" + svgIc(s.k) + "</span><b>" + s.n + "</b></button>"; }).join("") + "<button class='mth tile' data-v='mindmap'><span class='ic'>" + svgIc("map") + "</span><b>Mind map</b></button><button class='mth tile' data-v='maths'><span class='ic'>" + svgIc("maths") + "</span><b>Maths</b></button><button class='mth tile' data-v='play'><span class='ic'>" + svgIc("game") + "</span><b>Let's play</b></button><button class='mth tile' data-v='tips'><span class='ic'>" + svgIc("tips") + "</span><b>Tricks &amp; tips</b></button><button class='mth tile' data-v='mist'><span class='ic'>" + svgIc("mist") + "</span><b>My error book</b></button><button class='mth tile' data-v='tools'><span class='ic'>" + svgIc("tools") + "</span><b>Settings</b></button></div>";
+  h += "<div id='homeToday'></div>";
   $("homeIn").innerHTML = h;
-  $("homeIn").querySelectorAll("[data-v]").forEach(function(n){ n.onclick = function(){ show(n.dataset.v); }; });
-  $("goStudy").onclick = function(){ show("study"); }; bindNext($("homeIn"));
+  $("homeIn").querySelectorAll("[data-v]").forEach(function(n){ n.onclick = function(){ var v = n.dataset.v; if(v === "mindmap") openMindmap(); else if(v === "maths") openMaths(); else show(v); }; });
+  bindGalaxy($("homeIn"));
+  var c = cur();
+  if(c){ $("homeToday").innerHTML = "<div class='row' style='justify-content:center;margin-top:10px'><button class='primary' id='goStudy'>Continue: " + esc(c.name.slice(0, 32)) + " →</button></div>"; $("goStudy").onclick = function(){ show("study"); }; }
 };
 
 /* ---------- Study: chapters ---------- */
@@ -1035,8 +1561,15 @@ function fillSel(){
   renderPackInfo();
   $("info").textContent = has ? cur().pages + " pages · " + cur().text.length.toLocaleString() + " characters read" + (cur().cut ? " (long chapter: first part used)" : "") : "Upload a PDF with selectable text.";
 }
-function clearOut(){ $("mp").innerHTML = "<p class='status'>Pick a method above to start </p>"; document.querySelectorAll("#methods .mth").forEach(function(b){ b.classList.remove("on"); }); setMsg(""); renderMethods(); renderPath(); askVideo(); }
-RENDER.study = function(){ $("engSel").value = DB.engine; fillSel(); renderMethods(); renderPath(); if(cur()) askVideo(); };
+function clearOut(){ $("mp").innerHTML = "<p class='status'>Pick a method above to start </p>"; document.querySelectorAll("#methods .mth").forEach(function(b){ b.classList.remove("on"); }); setMethodOpen(false); setMsg(""); renderMethods(); renderPath(); askVideo(); }
+RENDER.study = function(){
+  var narrow = window.innerWidth < 620;
+  if($("chAdd")) $("chAdd").textContent = narrow ? "＋ Book" : "＋ Add book or chapter (PDF)";
+  if($("chNcert")) $("chNcert").textContent = narrow ? "⬇ NCERT" : "⬇ NCERT library";
+  $("engSel").value = DB.engine; fillSel();
+  if(narrow && $("chPack")) $("chPack").textContent = /^✓/.test($("chPack").textContent) ? $("chPack").textContent.replace("✓ Smart pack", "✓ Pack") : "⚡ Pack";
+  renderMethods(); renderPath();
+};
 $("engSel").onchange = function(){
   var v = this.value, c = aiCfg();
   if(v === "ai" && !c){ connectModal().then(function(){ if(aiCfg()){ DB.engine = "ai"; save(); toast("Using " + aiName(aiCfg())); } else { DB.engine = "local"; $("engSel").value = "local"; save(); toast("Using this device"); } }); return; }
@@ -1045,14 +1578,7 @@ $("engSel").onchange = function(){
 $("chSel").onchange = function(){ DB.cur = this.value; save(); fillSel(); clearOut(); };
 $("chAdd").onclick = $("uplBtn").onclick = function(){ $("file").click(); };
 $("chNcert").onclick = ncertOpen; $("uplNcert").onclick = ncertOpen;
-$("uplMaths").onclick = function(){
-  $("stBody").classList.remove("hidden");
-  renderMethods();
-  openMethod("maths");
-  var b = document.querySelector("#methods [data-m='maths']");
-  document.querySelectorAll("#methods .mth").forEach(function(x){ x.classList.toggle("on", x === b); });
-  setTimeout(function(){ var m = $("mp"); if(m) m.scrollIntoView({behavior: "smooth", block: "start"}); }, 60);
-};
+$("uplMaths").onclick = openMaths;
 
 /* ---------- smart pack: build once online, then use it offline ---------- */
 function cleanPack(d){
@@ -1067,7 +1593,7 @@ function cleanPack(d){
     var ex = String(x.ex || x.example || "").replace(/\s+/g, " ").trim();
     var k = termKey(t) || t.toLowerCase();
     if(!t || !m || sc[k]) return;
-    sc[k] = 1; out.concepts.push({t: trunc(t, 90), d: trunc(m, 300), ex: trunc(ex, 220)});
+    sc[k] = 1; out.concepts.push({t: trunc(t, 90), d: trunc(m, 440), ex: trunc(ex, 320)});
   });
   var qs = d && (d.qa || d.questions || []);
   if(!Array.isArray(qs)) qs = [];
@@ -1077,7 +1603,7 @@ function cleanPack(d){
     var a = String(x.a || x.answer || "").replace(/\s+/g, " ").trim();
     var k = normQ(q);
     if(!q || !a || !k || sq[k]) return;
-    sq[k] = 1; out.qa.push({q: trunc(q, 220), a: trunc(a, 480)});
+    sq[k] = 1; out.qa.push({q: trunc(q, 240), a: trunc(a, 720)});
   });
   var fs = d && (d.facts || d.fact || []);
   if(!Array.isArray(fs)) fs = [];
@@ -1087,20 +1613,21 @@ function cleanPack(d){
     if(!f || !k || sf[k]) return;
     sf[k] = 1; out.facts.push(trunc(f, 260));
   });
-  out.concepts = out.concepts.slice(0, 16);
-  out.qa = out.qa.slice(0, 12);
-  out.facts = out.facts.slice(0, 6);
+  out.concepts = out.concepts.slice(0, 24);
+  out.qa = out.qa.slice(0, 18);
+  out.facts = out.facts.slice(0, 10);
   return out;
 }
 function packPrompt(c){
   var txt = String(c.text || "");
-  if(txt.length > 18000) txt = txt.slice(0, 16000) + "\n…\n" + txt.slice(-2000);
-  return "Build a compact offline knowledge pack for a school or college student.\n\n" +
-    "STUDENT: " + (DB.profile.cls || "school") + ", studying in " + (DB.profile.lang || "English") + ".\n" +
+  if(txt.length > 24000) txt = txt.slice(0, 21000) + "\n…\n" + txt.slice(-3000);
+  var a = ageOf();
+  return "Build a deep, well-researched offline knowledge pack for one student.\n\n" +
+    "STUDENT: " + (DB.profile.cls || "school") + (a ? ", age " + a : "") + ", studying in " + (DB.profile.lang || "English") + ". Pitch everything for " + levelHint() + ".\n" +
     "BOOK: " + c.book + "\nCHAPTER: " + c.name + "\n\nCHAPTER TEXT (may be partial):\n" + txt + "\n\n" +
-    "TASK: Use the chapter as the base, then add the standard concepts, examples and exam questions that a good teacher would cover for this topic at this student's level. Cover every important term in the chapter first, then the essential related terms the chapter assumes. Stay at school level: no college-level material. Be accurate and do not invent names, dates, numbers or examples. Where a standard example is needed, use a simple Indian everyday example. Keep the wording simple and clear; do not copy long sentences from the chapter.\n\n" +
-    "Return JSON exactly in this shape: {\"concepts\":[{\"t\":\"term\",\"d\":\"1-2 sentence definition\",\"ex\":\"one short example\"}],\"qa\":[{\"q\":\"exam-style question\",\"a\":\"model answer in 1-3 sentences\"}],\"facts\":[\"one short memorable fact\"]}\n" +
-    "Rules: 8-16 concepts; 8-12 qa; 4-6 facts; no duplicates; no markdown; no extra keys.";
+    "TASK: Go beyond a summary. Use the chapter as the base, then add the standard concepts, worked examples, connections and exam questions a strong teacher would cover. For each concept give a precise definition, why it matters, how it links to the ideas before it, and a concrete example or worked step. Cover every important term in the chapter first, then the essential ideas the chapter assumes. Match the depth to the student's age and standard: younger students get concrete, everyday examples and short sentences; older students get precise definitions, derivations, edge cases and exam-style wording. Be accurate; do not invent names, dates, numbers or examples. Use simple Indian everyday examples where a standard example is needed. Do not copy long sentences from the chapter.\n\n" +
+    "Return JSON exactly in this shape: {\"concepts\":[{\"t\":\"term\",\"d\":\"clear 2-3 sentence definition, with why it matters\",\"ex\":\"one worked or real-life example\"}],\"qa\":[{\"q\":\"exam-style question\",\"a\":\"model answer in 2-4 sentences\"}],\"facts\":[\"one memorable, accurate fact with a reason\"]}\n" +
+    "Rules: 12-24 concepts; 12-18 qa; 6-10 facts; no duplicates; no markdown; no extra keys.";
 }
 function buildPack(){
   var c = cur(); if(!c) return;
@@ -1533,36 +2060,74 @@ function ncertOpen(){
 }
 
 
-/* ---------- videos ---------- */
+/* ---------- videos (Khan Academy India channel first, then YouTube and other free sites) ---------- */
+var KHAN_CHANNEL = {
+  handle: "KhanAcademyIndiaEnglish",
+  name: "Khan Academy India – English",
+  url: "https://www.youtube.com/@KhanAcademyIndiaEnglish/featured"
+};
+function khanChannelSearch(q){
+  return "https://www.youtube.com/@" + KHAN_CHANNEL.handle + "/search?query=" + encodeURIComponent(q);
+}
+var VIDEO_SITES = [
+  {k:"yt", n:"YouTube", tip:"most-viewed videos first", u:function(q){ return "https://www.youtube.com/results?search_query=" + encodeURIComponent(q) + "&sp=CAM%253D"; }},
+  {k:"ck12", n:"CK-12", tip:"free interactive textbooks", u:function(q){ return "https://www.ck12.org/search/?q=" + encodeURIComponent(q); }},
+  {k:"wiki", n:"Wikipedia", tip:"a quick encyclopedia overview", u:function(q){ return "https://en.wikipedia.org/w/index.php?search=" + encodeURIComponent(q); }},
+  {k:"web", n:"Web search", tip:"every other site", u:function(q){ return "https://www.google.com/search?q=" + encodeURIComponent(q); }}
+];
+function videoSite(k){ return VIDEO_SITES.filter(function(s){ return s.k === k; })[0]; }
+function vidLink(url, label){ return "<p class='vidLink'><a target='_blank' rel='noopener' href='" + esc(url) + "'>▶ " + esc(label) + "</a></p>"; }
 function askVideo(){
   var c = cur(); if(!c) return;
   if(VA[c.id]){ $("vidAsk").innerHTML = "<span class='status'>Want to watch explaining videos? </span><button id='vYes'>Watch videos</button>"; $("vYes").onclick = vids; return; } VA[c.id] = 1;
-  $("vidAsk").innerHTML = "<strong> Want to watch some videos explaining “" + esc(c.name) + "”?</strong><div class='row' style='margin-top:8px'><button class='primary' id='vYes'>Yes, show me</button><button id='vNo'>Maybe later</button></div>";
+  $("vidAsk").innerHTML = "<strong> Want to watch some videos explaining “" + esc(c.name) + "”?</strong><p class='status' style='margin:4px 0 0'>I check the free Khan Academy India YouTube channel first, then show more YouTube and other sites.</p><div class='row' style='margin-top:8px'><button class='primary' id='vYes'>Yes, show me</button><button id='vNo'>Maybe later</button></div>";
   $("vNo").onclick = function(){ $("vidAsk").innerHTML = "<span class='status'>No problem! Tap here anytime: </span><button id='vYes'> Videos</button>"; $("vYes").onclick = vids; };
   $("vYes").onclick = vids;
 }
 async function vids(){ RETRY = vids;
   var c = cur(), m = popup("<h3 style='margin-top:0'> Finding good videos…</h3><p class='status'>One moment </p>");
+  if(!c){ m.set("<p>Open a chapter first, then I can find videos for it.</p><button data-close class='primary'>Back to class</button>"); return; }
   var d = localVideos(c);
-  if(DB.engine === "ai"){ var vd = await runJc("vid|" + c.id, "Suggest 3 different YouTube search phrases that will find the best, most popular explanatory videos for this chapter, for a " + DB.profile.cls + " student, preferably in " + DB.profile.lang + " (one may be in English). Return ONLY a JSON array [{\"title\": short friendly title, \"search\": search phrase}]."); if(Array.isArray(vd) && vd.length) d = vd; }
+  if(DB.engine === "ai"){
+    try {
+      var vd = await runJc("vid|" + c.id, "Suggest 4 different search phrases that will find the best explanatory videos for this chapter, for a " + DB.profile.cls + " student, preferably in " + DB.profile.lang + " (one may be in English). Return ONLY a JSON array [{\"title\": short friendly title, \"search\": search phrase, \"topic\": the plain topic name to search on the Khan Academy India YouTube channel}].");
+      if(Array.isArray(vd) && vd.length) d = vd.map(function(x){ return {title: String(x.title || "Video"), search: String(x.search || c.name), topic: String(x.topic || c.name)}; });
+    } catch(e){}
+  }
   if(!Array.isArray(d) || !d.length){ m.set("<p>Sorry, I couldn’t find suggestions now.</p><button data-close class='primary'>Back to class</button>"); return; }
-  m.set("<h3 style='margin-top:0'> Videos for “" + esc(c.name) + "”</h3><p class='status'>These open YouTube with the most viewed videos first. Watch, then come back here </p>" + d.slice(0, 4).map(function(x){ return "<p><a target='_blank' rel='noopener' href='https://www.youtube.com/results?search_query=" + encodeURIComponent(String(x.search)) + "&sp=CAM%253D'>▶ " + esc(String(x.title)) + "</a></p>"; }).join("") + "<button data-close class='primary'>Back to class </button>");
+  var topic = String((d[0] && d[0].topic) || c.name).trim();
+  var yt = videoSite("yt");
+  var other = VIDEO_SITES.filter(function(s){ return s.k !== "yt"; });
+  var h = "<h3 style='margin-top:0'> Videos for “" + esc(c.name) + "”</h3>";
+  h += "<p class='status' style='margin:2px 0 8px'>First I look inside the free <b>Khan Academy India</b> YouTube channel, then show the best of YouTube and other sites. Each link opens in a new tab.</p>";
+  h += "<div class='vidGroup'><h4>⭐ Khan Academy India — check this channel first</h4>" +
+    vidLink(khanChannelSearch(topic), "“" + topic + "” in the Khan Academy India channel") +
+    vidLink(khanChannelSearch(c.book + " " + c.name), c.book + ": " + c.name) +
+    vidLink(KHAN_CHANNEL.url, "Browse the whole " + KHAN_CHANNEL.name + " channel") + "</div>";
+  h += "<div class='vidGroup'><h4>YouTube — most viewed first</h4>" + d.slice(0, 4).map(function(x){ return vidLink(yt.u(String(x.search)), String(x.title)); }).join("") + "</div>";
+  h += "<div class='vidGroup'><h4>More free sites</h4>" + other.map(function(s){ return vidLink(s.u(topic), s.n + " — " + s.tip); }).join("") + "</div>";
+  if(!navigator.onLine) h += "<p class='status'>You are offline now. These pages will open once you are back online.</p>";
+  h += "<button data-close class='primary'>Back to class </button>";
+  m.set(h);
   logEv("video", "Looked up explaining videos");
 }
 
 /* ---------- Study: methods ---------- */
-var GROUPS = [["Learn the chapter", ["explain","notes","map","maths","doubt"]], ["Practise and test", ["solve","qa","mcq","exam"]], ["Mitra suggests", ["flash","teach"]]];
+var GROUPS = [["Learn the chapter", ["explain","notes","map","mindmap","maths","doubt"]], ["Practise and test", ["solve","qa","mcq","exam"]], ["Mitra suggests", ["flash","teach"]]];
 function renderMethods(){ var nc = cur(), nsx = nc ? nextStep(nc.id) : null, nsK = nsx && !nsx.done ? nsx.k : "";
-  $("methods").innerHTML = GROUPS.map(function(g){ return "<h3 class='gh'>" + g[0] + "</h3><div class='grid'>" + g[1].map(function(k){ var m = METHODS.filter(function(x){return x.k === k})[0]; return "<button class='mth tile' data-m='" + k + "'>" + (nsK === k ? "<span class='badge'>Next</span>" : "") + "<span class='ic'>" + svgIc(k) + "</span><b>" + m.n + "</b><small>" + m.d + "</small></button>"; }).join("") + "</div>"; }).join("");
+  var all = [].concat.apply([], GROUPS.map(function(g){ return g[1]; }));
+  $("methods").innerHTML = "<div class='grid methodsGrid'>" + all.map(function(k){ var m = METHODS.filter(function(x){return x.k === k})[0]; return "<button class='mth tile' data-m='" + k + "' title='" + esc(m.d) + "'>" + (nsK === k ? "<span class='badge'>Next</span>" : "") + "<span class='ic'>" + svgIc(k) + "</span><b>" + m.n + "</b><small>" + m.d + "</small></button>"; }).join("") + "<button class='mth tile' data-video='1' title='Find explanatory videos for this chapter'><span class='ic'>" + svgIc("play") + "</span><b>Watch videos</b><small>Khan Academy channel, YouTube and more</small></button></div>";
   $("methods").querySelectorAll(".mth").forEach(function(b){ b.onclick = function(){ document.querySelectorAll("#methods .mth").forEach(function(x){ x.classList.toggle("on", x === b); }); openMethod(b.dataset.m); }; });
+  $("methods").querySelectorAll("[data-video]").forEach(function(b){ b.onclick = vids; });
 }
 var lastDoubtQ = "";
 function openMethod(k){
   clearInterval(examTimer); var mp = $("mp"); setMsg(""); var c = cur();
+  setMethodOpen(true, methodLabel(k));
   /* A paused Q&A or test belongs to its own method. Switching to another
      method must not make “Resume” reopen the wrong thing. */
   if(DB.sess && DB.sess.kind !== k) DB.sess = null;
-  if(!c && ["explain","notes","doubt","qa","teach","flash","mcq","exam","map"].indexOf(k) >= 0){
+  if(!c && ["explain","notes","doubt","qa","teach","flash","mcq","exam","map","mindmap"].indexOf(k) >= 0){
     mp.innerHTML = "<div class='card hero' style='text-align:center'><p>Add your book or a chapter first. Then I can prepare this for you.</p><button class='primary' id='noChBtn'>＋ Add a book (PDF)</button></div>";
     var nb = $("noChBtn"); if(nb) nb.onclick = function(){ $("file").click(); };
     focusRegion(mp, "start");
@@ -1593,6 +2158,7 @@ function openMethod(k){
     };
     $("askQ").onkeydown = function(e){ if(e.key === "Enter") $("askGo").click(); };
   } else if(k === "map"){ mapStart(); }
+  else if(k === "mindmap"){ mindmapStart(); }
   else if(k === "maths"){ mathsStart(); }
   else if(k === "solve"){ solveStart(); }
   else if(k === "qa" || k === "teach"){ qaStart(k); }
@@ -1740,6 +2306,120 @@ function drawMap(scope){
   else h += "<p class='status'>These ideas appear in different parts of the chapter, so there are few direct links. Tap one to read it.</p>";
   out.innerHTML = h;
   out.querySelectorAll("[data-t]").forEach(function(el){ el.onclick = function(){ explainTopic(el.dataset.t); }; el.onkeydown = function(ev){ if(ev.key === "Enter" || ev.key === " "){ ev.preventDefault(); explainTopic(el.dataset.t); } }; });
+}
+
+/* ---------- interactive mind map ---------- */
+var MM = null;
+function mmLabel(s){
+  s = String(s || "").replace(/^(a|an|the)\s+/i, "").replace(/[.?!]+$/, "");
+  var cut = s.split(/\s+(?:is|are|was|were|maps?|has|have|combines?|reverses?|means?|refers?|includes?|describes?|shows?|gives?|forms?|takes?|contains?)\s+/i)[0];
+  cut = cut.trim().replace(/[,;:.]$/, "");
+  var w = cut.split(/\s+/).filter(Boolean);
+  if(w.length > 3) cut = w.slice(0, 3).join(" ");
+  return cut ? cut.charAt(0).toUpperCase() + cut.slice(1) : String(s).slice(0, 20);
+}
+function mmData(){
+  var c = cur(), P = prep(c), out = [], seen = {};
+  function add(t, d, ex){
+    t = String(t || "").replace(/\s+/g, " ").trim(); if(!t) return;
+    var k = termKey(t) || t.toLowerCase(); if(seen[k]) return; seen[k] = 1;
+    out.push({t: t, d: String(d || "").trim(), ex: String(ex || "").trim()});
+  }
+  if(c.pack && c.pack.concepts) c.pack.concepts.forEach(function(x){ add(x.t, x.d, x.ex); });
+  if(out.length < 6) P.defs.forEach(function(d){ add(d.term, defText(d), ""); });
+  if(out.length < 4) keyTerms(P, 16, 2).forEach(function(t){ add(t.t, termIdeal(P, t, 2) || "", ""); });
+  if(out.length < 3){
+    /* Very short chapter: grow the map from its own key sentences so the
+       student still gets an interactive picture instead of a dead end. */
+    var sents = String(c.text || "").replace(/\s+/g, " ").match(/[^.!?]+[.!?]*/g) || [];
+    sents.forEach(function(s){
+      s = s.trim(); if(out.length >= 8 || s.length < 25) return;
+      add(mmLabel(s), s, "");
+    });
+  }
+  return out.slice(0, 10);
+}
+function mindmapStart(){
+  var c = cur(); if(!c) return;
+  var data = mmData();
+  if(data.length < 2){
+    $("mp").innerHTML = "<h3 style='margin-top:0'>Mind map</h3><p class='status'>This chapter is too short to grow a mind map yet. Add more of its text, or open another chapter.</p>";
+    return;
+  }
+  MM = {data: data, sel: -1, vb: {x: 0, y: 0, w: 900, h: 640}};
+  $("mp").innerHTML = "<h3 style='margin-top:0'>Mind map</h3><p class='status'>Tap a branch to read it. Drag to move, scroll or use + / − to zoom.</p><div class='mmWrap'><div class='mmTools'><button id='mmIn' title='Zoom in'>＋</button><button id='mmOut' title='Zoom out'>−</button><button id='mmFit' title='Fit'>Fit</button></div><svg class='mmSvg' id='mmSvg'></svg></div><div id='mmDetail' class='card' style='margin-top:10px'><p class='status'>Tap any branch to see its explanation here.</p></div>";
+  mmDraw();
+  mmBindPan();
+  $("mmIn").onclick = function(){ mmZoom(0.82); };
+  $("mmOut").onclick = function(){ mmZoom(1.22); };
+  $("mmFit").onclick = function(){ MM.vb = {x: 0, y: 0, w: 900, h: 640}; mmDraw(); };
+  focusRegion($("mp"), "start");
+}
+function mmDraw(){
+  var svg = $("mmSvg"); if(!svg || !MM) return;
+  var W = 900, H = 640, cx = W / 2, cy = H / 2;
+  var n = MM.data.length, R = n <= 4 ? 200 : n <= 6 ? 225 : 250;
+  var vb = MM.vb;
+  var h = "<g>";
+  h += "<circle cx='" + cx + "' cy='" + cy + "' r='" + R + "' fill='none' stroke='var(--line)' stroke-dasharray='3 8'/>";
+  MM.data.forEach(function(d, i){
+    var a = -Math.PI / 2 + i * 2 * Math.PI / n, x = cx + R * Math.cos(a), y = cy + R * Math.sin(a);
+    d.x = x; d.y = y;
+    h += "<line class='mmBranch' x1='" + cx + "' y1='" + cy + "' x2='" + x.toFixed(1) + "' y2='" + y.toFixed(1) + "'/>";
+    var r = MM.sel === i ? 60 : 56, label = d.t.length > 16 ? d.t.slice(0, 14) + "…" : d.t;
+    h += "<g class='mmNode' data-i='" + i + "' role='button' tabindex='0' style='animation-delay:" + (i * 0.05).toFixed(2) + "s'>" +
+      "<title>" + esc(d.t) + "</title>" +
+      "<circle cx='" + x.toFixed(1) + "' cy='" + y.toFixed(1) + "' r='" + r + "' fill='" + (MM.sel === i ? "var(--accbg)" : "var(--card)") + "' stroke='var(--acc)' stroke-width='" + (MM.sel === i ? 3.4 : 2.2) + "'/>" +
+      "<text x='" + x.toFixed(1) + "' y='" + (y + 4).toFixed(1) + "' text-anchor='middle' font-size='11' font-weight='600' fill='var(--ink)'>" + esc(label) + "</text></g>";
+  });
+  /* The chapter name sits in the middle. Split it over two lines so long
+     names stay inside the core instead of running over the edge. */
+  var nm = String(cur().name || "Chapter").trim(), ws = nm.split(/\s+/), l1 = ws[0] || "", l2 = "";
+  for(var wi = 1; wi < ws.length; wi++){ if(!l2 && (l1 + " " + ws[wi]).length <= 15) l1 += " " + ws[wi]; else l2 += (l2 ? " " : "") + ws[wi]; }
+  if(l1.length > 15) l1 = l1.slice(0, 14) + "…";
+  if(l2.length > 15) l2 = l2.slice(0, 14) + "…";
+  h += "<circle cx='" + cx + "' cy='" + cy + "' r='64' fill='var(--acc)'/><text x='" + cx + "' y='" + (cy - 12) + "' text-anchor='middle' font-size='11' font-weight='700' fill='#fff'>" + esc(l1) + "</text>" + (l2 ? "<text x='" + cx + "' y='" + (cy + 3) + "' text-anchor='middle' font-size='11' font-weight='700' fill='#fff'>" + esc(l2) + "</text>" : "") + "<text x='" + cx + "' y='" + (cy + 20) + "' text-anchor='middle' font-size='9.5' fill='#fff' opacity='.8'>chapter</text>";
+  h += "</g>";
+  svg.setAttribute("viewBox", vb.x + " " + vb.y + " " + vb.w + " " + vb.h);
+  svg.innerHTML = h;
+  svg.querySelectorAll(".mmNode").forEach(function(g){
+    var go = function(){ mmSelect(+g.getAttribute("data-i")); };
+    g.onclick = go;
+    g.onkeydown = function(e){ if(e.key === "Enter" || e.key === " "){ e.preventDefault(); go(); } };
+  });
+}
+function mmSelect(i){
+  MM.sel = i; mmDraw();
+  var d = MM.data[i], box = $("mmDetail");
+  box.innerHTML = "<h3 style='margin:0 0 6px'>" + esc(d.t) + "</h3>" + (d.d ? "<p style='margin:0 0 8px'>" + esc(d.d) + "</p>" : "<p class='status'>No definition was found in the chapter text.</p>") + (d.ex ? "<p class='status' style='margin:0 0 8px'><b>Example:</b> " + esc(d.ex) + "</p>" : "") + "<div class='row'><button class='primary' id='mmWhy'>Explain this simply</button><button id='mmRead'>Read aloud</button></div><div class='out' id='mmEx'></div>";
+  $("mmWhy").onclick = function(){ explainTopic(d.t); };
+  $("mmRead").onclick = function(){ speakText(d.t + ". " + d.d + (d.ex ? " For example, " + d.ex : "")); };
+  focusRegion(box, "nearest");
+}
+function mmZoom(f){
+  if(!MM) return;
+  var vb = MM.vb, nw = Math.max(300, Math.min(1500, vb.w * f)), nh = nw * 640 / 900;
+  MM.vb = {x: vb.x + (vb.w - nw) / 2, y: vb.y + (vb.h - nh) / 2, w: nw, h: nh};
+  mmDraw();
+}
+function mmBindPan(){
+  var svg = $("mmSvg"); if(!svg || !MM) return;
+  var drag = null;
+  svg.addEventListener("pointerdown", function(e){
+    if(e.target.closest && e.target.closest(".mmNode")) return;
+    drag = {sx: e.clientX, sy: e.clientY, x: MM.vb.x, y: MM.vb.y, r: svg.getBoundingClientRect()};
+    svg.classList.add("grabbing"); try { svg.setPointerCapture(e.pointerId); } catch(_e){}
+  });
+  svg.addEventListener("pointermove", function(e){
+    if(!drag) return;
+    var dx = (e.clientX - drag.sx) * MM.vb.w / drag.r.width, dy = (e.clientY - drag.sy) * MM.vb.h / drag.r.height;
+    MM.vb.x = drag.x - dx; MM.vb.y = drag.y - dy;
+    svg.setAttribute("viewBox", MM.vb.x + " " + MM.vb.y + " " + MM.vb.w + " " + MM.vb.h);
+  });
+  function end(){ drag = null; svg.classList.remove("grabbing"); }
+  svg.addEventListener("pointerup", end);
+  svg.addEventListener("pointercancel", end);
+  svg.addEventListener("wheel", function(e){ e.preventDefault(); mmZoom(e.deltaY > 0 ? 1.08 : 0.92); }, {passive: false});
 }
 
 /* ---------- function problems: one-one, onto, interactive working ---------- */
@@ -2885,13 +3565,22 @@ function mathsShow(q){
   MWB = {q: q, res: R, at: 0, logged: false, scroll: false};
   $("mwOut").innerHTML =
     "<div class='mwGrid'><div class='mwLeft'>" +
-      "<div class='row mwTools'><button class='primary' id='mwNext'>Show next step</button><button id='mwAll'>Show all steps</button><button id='mwAgain'>Start again</button><button id='mwRead' title='Read this step aloud'>🔊 Read this step</button><span class='status' id='mwCount'></span></div>" +
+      "<div class='row mwTools'><button class='primary' id='mwNext'>Show next step</button><button id='mwAll'>Show all steps</button><button id='mwHint'>💡 Hint</button><button id='mwAgain'>Start again</button><button id='mwRead' title='Read this step aloud'>🔊 Read this step</button><span class='status' id='mwCount'></span></div>" +
+      "<div id='mwHintBox' class='status'></div>" +
       "<div id='mwSteps' class='mwSteps'></div>" +
+      "<div id='mwTry'>" + mwPracticeHTML() + "</div>" +
     "</div><div id='mwSide' class='mwSide'></div></div>";
   $("mwNext").onclick = function(){ if(MWB && MWB.at < MWB.res.steps.length - 1){ MWB.at++; MWB.scroll = true; mathsRender(); } };
   $("mwAll").onclick = function(){ if(MWB){ MWB.at = MWB.res.steps.length - 1; mathsRender(); } };
   $("mwAgain").onclick = function(){ if(MWB){ MWB.at = 0; MWB.scroll = true; mathsRender(); } };
   $("mwRead").onclick = mathsRead;
+  $("mwHint").onclick = function(){
+    if(!MWB) return;
+    $("mwHintBox").innerHTML = "💡 " + esc(mwHintFor(MWB.res, MWB.at));
+  };
+  $("mwTryGo").onclick = mwTryCheck;
+  $("mwTryNew").onclick = mwTryNew;
+  $("mwTryIn").onkeydown = function(e){ if(e.key === "Enter"){ e.preventDefault(); mwTryCheck(); } };
   $("mwSteps").onclick = function(e){
     var card = e.target.closest(".mwStep"); if(!card) return;
     var tok = e.target.closest(".mwTok");
@@ -2911,6 +3600,7 @@ function mathsShow(q){
     if(t) t.textContent = card.classList.contains("open") ? "Tap again to fold the reason" : "Tap the step to see why";
   };
   mathsRender();
+  mwTryNew();
   revealResult($("mwOut"));
 }
 function mathsRender(){
@@ -2933,6 +3623,7 @@ function mathsRender(){
   $("mwNext").disabled = at >= steps.length - 1;
   $("mwAll").disabled = at >= steps.length - 1;
   $("mwSide").innerHTML = mathsSideHTML(R, steps[at]);
+  var hb = $("mwHintBox"); if(hb && hb.innerHTML) hb.innerHTML = "💡 " + esc(mwHintFor(R, steps[at]));
   replay($("mwSteps"));
   if(MWB.scroll){
     var last = $("mwSteps").querySelector(".mwStep.now");
@@ -3000,6 +3691,7 @@ function mathsSideHTML(R, step){
     h += mwCard(R.kind === "percent" ? "The percentage bar" : "On the number line", mwNumberLine(R), R.kind === "percent" ? "The filled part is the percentage of the whole." : "The answer is marked on the line.");
     h += mwCard("Working order (BODMAS)", mwBodmasHTML(step));
   }
+  h += mwAltHTML(R);
   return h;
 }
 function mwBalanceHTML(step){
@@ -3137,6 +3829,98 @@ function mwBodmasHTML(step){
   else if(/\+|−|-|add|subtract/i.test(s)) on = "A";
   var items = [["B", "Brackets"], ["O", "Orders"], ["D", "Divide"], ["M", "Multiply"], ["A", "Add"], ["S", "Subtract"]];
   return "<div class='mwBodmas'>" + items.map(function(x){ return "<span class='" + (x[0] === on ? "on" : "") + "'><b>" + x[0] + "</b>" + x[1] + "</span>"; }).join("") + "</div><p class='status' style='margin:6px 0 0'>" + (on ? "This step is the <b>" + (items.filter(function(x){return x[0] === on;})[0][1]) + "</b> stage. Everything before it is already done." : "Work left to right inside each stage. Multiplication and division belong together; so do addition and subtraction.") + "</p>";
+}
+/* ---- math bench: hints, alternative methods, guided practice ---- */
+function mwHintFor(R, at){
+  var s = (R.steps || [])[at] || {}, lb = String(s.label || "").toLowerCase();
+  if(at >= (R.steps || []).length - 1) return "You have reached the answer. Put it back into the original question and check that both sides match — that is how you know it is right.";
+  if(R.kind === "linear"){
+    if(at === 0) return "Goal: get the letter on its own on one side. Whatever you do to one side, do exactly the same to the other.";
+    if(lb.indexOf("bracket") >= 0) return "Multiply the number outside each bracket by every term inside it, then collect like terms.";
+    if(lb.indexOf("move") >= 0) return "Subtract the " + (R.v || "x") + "-term on the right from both sides, so all the letters end up together on one side.";
+    if(lb.indexOf("remove") >= 0) return "The number on the left is added or subtracted. Undo it by doing the opposite to both sides.";
+    if(lb.indexOf("divide") >= 0) return "There is more than one copy of the letter. Divide both sides by the number in front of it.";
+    if(lb.indexOf("check") >= 0) return "Put your value back into the very first equation. Both sides must come out equal.";
+    return "Do the opposite operation to both sides to keep the balance level.";
+  }
+  if(R.kind === "quadratic"){
+    if(at === 0) return "The highest power is 2, so expect up to two answers.";
+    if(lb.indexOf("one side") >= 0) return "Make the right side zero: subtract every term on the right from both sides.";
+    if(lb.indexOf("identify") >= 0) return "a sits with " + (R.v || "x") + "2, b with " + (R.v || "x") + ", and c is the plain number on its own.";
+    if(lb.indexOf("discriminant") >= 0) return "Work out D = b2 − 4ac. Its sign tells you how many real roots there are: + gives two, 0 gives one, − gives none.";
+    if(lb.indexOf("formula") >= 0 || lb.indexOf("substitute") >= 0) return "Put a, b and √D into (−b ± √D) / (2a). Work out the + sign and the − sign separately.";
+    return "Use D to decide how many roots there are, then find each one.";
+  }
+  if(R.kind === "percent") return "“Per cent” means out of 100. Write " + mNum(R.percent) + "/100 and multiply it by " + mNum(R.total) + ".";
+  return "Use BODMAS: brackets, then orders (powers), then × and ÷, then + and −.";
+}
+function mwAltHTML(R){
+  if(R.kind === "linear" && isFinite(R.x)){
+    var v = R.v || "x", A = R.L.b, C = R.L.c, B = R.R.c;
+    var undo = "<ul><li>The left side builds " + v + " by <b>" + (Math.abs(A - 1) < 1e-9 ? "keeping " + v + " as it is" : "multiplying " + v + " by " + niceNum(A)) + "</b>" + (Math.abs(C) > 1e-9 ? " and then <b>" + (C > 0 ? "adding " : "subtracting ") + niceNum(Math.abs(C)) + "</b>" : "") + ".</li>" +
+      "<li>Undo in reverse order: " + (Math.abs(C) > 1e-9 ? (C > 0 ? "subtract " : "add ") + niceNum(Math.abs(C)) + ", then " : "") + (Math.abs(A - 1) < 1e-9 ? "nothing else is needed" : "divide by " + niceNum(A)) + ".</li>" +
+      "<li>" + v + " = (" + mNum(B) + (C >= 0 ? " − " : " + ") + mNum(Math.abs(C)) + ") ÷ " + niceNum(A) + " = <b>" + niceNum(R.x) + "</b>.</li></ul>";
+    var rows = "", g0 = Math.round(R.x);
+    [g0 - 1, g0, g0 + 1].forEach(function(g){ rows += "<tr><td>" + mNum(g) + "</td><td>" + niceNum(A * g + C) + "</td><td>" + mNum(B) + "</td><td>" + (Math.abs(A * g + C - B) < 1e-9 ? "✓ equal" : "not yet") + "</td></tr>"; });
+    var table = "<table class='mwGuess'><tr><th>" + v + "</th><th>Left side</th><th>Right side</th><th></th></tr>" + rows + "</table>";
+    return mwCard("Another way: undo the steps", "<div class='mwWay'>" + undo + "</div>") + mwCard("Guess and check", table, "Try a value, work out both sides, then get closer until they match. Doing this builds number sense before you learn the rule.");
+  }
+  if(R.kind === "quadratic"){
+    var v2 = R.v || "x", ft = factorText(R.a, v2, R.roots || []), vx = -R.b / (2 * R.a), h = "";
+    if(ft) h += mwCard("Another way: factorise", "<p style='margin:4px 0'>" + esc(ft) + "</p><p class='status' style='margin:0'>A product is zero when either bracket is zero, so set each bracket equal to 0. This is often quicker than the formula when the roots are whole numbers.</p>");
+    h += mwCard("What the graph says", "<p style='margin:4px 0'>The turning point (vertex) is at " + v2 + " = <b>" + niceNum(vx) + "</b>. " + (R.D > 1e-9 ? "The curve crosses the x-axis twice — that is why there are two roots." : Math.abs(R.D) <= 1e-9 ? "The curve just touches the x-axis once — the two roots are the same." : "The curve never reaches the x-axis — so there is no real root.") + "</p>", "You can read the roots straight off the graph in the panel beside the steps.");
+    return h;
+  }
+  if(R.kind === "percent"){
+    return mwCard("Two quick ways", "<div class='mwWay'><ul><li><b>Fraction way:</b> " + mNum(R.percent) + "% = " + mNum(R.percent) + "/100, so multiply " + mNum(R.total) + " by that fraction.</li><li><b>Build-up way:</b> find 10% by dividing by 10, then scale it. Great for 5%, 15% and 20%.</li><li><b>Estimate first:</b> the answer is near " + niceNum(Math.round(R.answer)) + ", so check your exact value against that.</li></ul></div>");
+  }
+  return mwCard("Estimate, then check", "<div class='mwWay'><ul><li>Round the numbers to ones or tens and guess the answer first.</li><li>Carry out the steps, then compare with your guess.</li><li>If they are far apart, look again for a slip.</li></ul></div>");
+}
+function mwSimilar(R){
+  var v = R.v || "x";
+  if(R.kind === "linear"){
+    var A = Math.random() < 0.35 ? 1 : (2 + Math.floor(Math.random() * 4));
+    var r = (Math.random() < 0.5 ? -1 : 1) * (1 + Math.floor(Math.random() * 7));
+    var C = Math.floor(Math.random() * 9) - 3, B = A * r + C;
+    return {q: polyStr(mPoly(0, A, C), v) + " = " + mNum(B), ans: [r], label: "Solve for " + v};
+  }
+  if(R.kind === "quadratic"){
+    var p = (Math.random() < 0.5 ? -1 : 1) * (1 + Math.floor(Math.random() * 5));
+    var q = (Math.random() < 0.5 ? -1 : 1) * (1 + Math.floor(Math.random() * 5));
+    return {q: polyStr(mPoly(1, -(p + q), p * q), v) + " = 0", ans: [p, q], label: "Find both roots"};
+  }
+  if(R.kind === "percent"){
+    var pcts = [5, 10, 20, 25, 50, 75], pc = pcts[Math.floor(Math.random() * pcts.length)], tot = 20 * (1 + Math.floor(Math.random() * 9));
+    return {q: pc + "% of " + tot, ans: [pc / 100 * tot], label: "Work it out"};
+  }
+  var a = 2 + Math.floor(Math.random() * 12), b = 2 + Math.floor(Math.random() * 9), c2 = 2 + Math.floor(Math.random() * 9);
+  return {q: a + " + " + b + " × " + c2, ans: [a + b * c2], label: "Work it out"};
+}
+function mwPracticeHTML(){
+  return "<div class='card mwCard mwTry'><h4>Your turn — try a similar one</h4><p class='status' style='margin:2px 0'>Solve it yourself, then check. Explaining and doing is how the method sticks.</p><p class='mwEq' id='mwTryQ'></p><div class='row'><input type='text' id='mwTryIn' placeholder='Type your answer' autocomplete='off' spellcheck='false'><button class='primary' id='mwTryGo'>Check</button><button id='mwTryNew'>New one</button></div><p class='status' id='mwTryFb' style='min-height:1.1em;margin:6px 0 0'></p></div>";
+}
+function mwTryNew(){
+  if(!MWB) return;
+  var t = mwSimilar(MWB.res); MWB.try = t;
+  var q = $("mwTryQ"); if(q) q.textContent = t.q + (t.label ? "   (" + t.label + ")" : "");
+  var inp = $("mwTryIn"); if(inp){ inp.value = ""; inp.disabled = false; }
+  var fb = $("mwTryFb"); if(fb) fb.textContent = "";
+  var go = $("mwTryGo"); if(go) go.disabled = false;
+}
+function mwTryCheck(){
+  if(!MWB || !MWB.try) return;
+  var t = MWB.try, raw = String(($("mwTryIn") || {}).value || "").trim(), fb = $("mwTryFb"); if(!fb) return;
+  if(!raw){ fb.textContent = "Type an answer first."; return; }
+  var nums = raw.replace(/[−–—]/g, "-").replace(/=/g, " ").split(/[\s,;]+/).filter(function(x){ return x !== ""; }).map(function(x){
+    var fr = x.split("/"); if(fr.length === 2){ var dd = parseFloat(fr[1]); return dd ? parseFloat(fr[0]) / dd : NaN; }
+    return parseFloat(x);
+  }).filter(function(n){ return isFinite(n); });
+  if(!nums.length){ fb.textContent = "I could not read that. Type a number such as 4, -2 or 1/2."; return; }
+  var want = t.ans.slice().sort(function(a, b){ return a - b; }), got = nums.slice().sort(function(a, b){ return a - b; });
+  var ok = want.length === got.length && want.every(function(w, i){ return Math.abs(w - got[i]) < 1e-6; });
+  if(ok){ fb.innerHTML = "<span style='color:var(--ok)'>✓ Correct! Well done — that is exactly right.</span>"; logEv("maths", "Maths practice: correct"); }
+  else if(got.length === 1 && want.length === 2) fb.innerHTML = "<span style='color:var(--bad)'>A quadratic can have two answers. List both, separated by a comma.</span>";
+  else fb.innerHTML = "<span style='color:var(--bad)'>Not quite. Try again, or press the Hint button above.</span>";
 }
 function mathsRead(){
   if(!MWB) return;
@@ -5558,7 +6342,12 @@ function localWeekPlan(){
   out.push("Small steps daily beat big pushes once in a while.");
   return out.join("\n");
 }
-function localVideos(c){ var p = DB.profile; return [{title: "The chapter explained", search: c.name + " explained " + p.cls}, {title: "In your language", search: c.name + " " + p.lang.split(" ")[0] + " " + p.cls}, {title: "Full lesson", search: c.book + " " + c.name + " lecture"}, {title: "Quick revision", search: c.name + " quick revision"}]; }
+function localVideos(c){ var p = DB.profile, t = String(c.name || "").trim(); return [
+  {title: "The chapter explained", search: t + " explained " + p.cls, topic: t},
+  {title: "In your language", search: t + " " + p.lang.split(" ")[0] + " " + p.cls, topic: t},
+  {title: "Full lesson", search: c.book + " " + t + " lecture", topic: c.book + " " + t},
+  {title: "Quick revision", search: t + " quick revision", topic: t}
+]; }
 
 /* ---------- study loop: next steps, resume, reminders ---------- */
 var LOOP = [["explain","Understand","Understand the concepts"],["notes","Notes","Make your short notes"],["qa","Q&A","Recall with the Q&A coach"],["flash","Cards","Revise with flashcards"],["mcq","MCQs","Practise MCQs"],["exam","Exam","Take a mock exam"]];
@@ -5593,7 +6382,7 @@ function resumeLast(){
   if(S && DB.chapters.some(function(c){ return c.id === S.cid; })){
     DB.cur = S.cid; save(); show("study");
     var b = document.querySelector("#methods [data-m='" + S.kind + "']"); document.querySelectorAll("#methods .mth").forEach(function(x){ x.classList.toggle("on", x === b); });
-    if(S.qa){ QA = S.qa; qaShow(); } else { openMethod(S.kind); buildTest(S.kind, S.items, S.left); }
+    if(S.qa){ setMethodOpen(true, methodLabel(S.kind)); QA = S.qa; qaShow(); } else { openMethod(S.kind); buildTest(S.kind, S.items, S.left); }
     setTimeout(function(){ var m = $("mp"); if(m) m.scrollIntoView({behavior: "smooth", block: "start"}); }, 60); return;
   }
   var L1 = DB.last; if(L1 && DB.chapters.some(function(c){ return c.id === L1.cid; })){
@@ -5683,7 +6472,7 @@ function homeFlow(){
   if(fresh) h += "<div class='card'><strong>Ready to begin</strong><p class='status' style='margin:2px 0 8px'>" + esc(fresh.c.name) + "</p><button class='primary' data-go='path' data-chap='" + fresh.c.id + "'>Start this chapter</button></div>";
   if(!DB.chapters.length) h += "<div class='card'><strong>Upload your first book</strong><p class='status'>I will split it into chapters and guide you step by step.</p><button class='primary' data-view='study'>Upload my book</button></div>";
   var needBk = DB.history.length > 5 && (!DB.lastBackup || Date.now() - DB.lastBackup > 7 * 864e5);
-  h += "<div class='card'><strong>More tools</strong><div class='row' style='margin:8px 0 0'><button data-act='mist'>Practise my mistakes</button><button data-act='pr'>Print report</button><button data-act='bk'>Back up my data</button><button data-act='rs'>Restore backup</button><button data-act='cls'>Class view (teacher)</button></div>" + (needBk ? "<p class='status'>It has been a while since your last backup. Back up now so nothing is lost.</p>" : "") + "<input type='file' id='fRs' accept='.json' class='hidden'><input type='file' id='fCls' accept='.json' multiple class='hidden'></div>";
+  h += "<div class='card'><strong>More actions</strong><div class='row' style='margin:8px 0 0'><button data-act='mist'>Practise my mistakes</button><button data-act='pr'>Print report</button><button data-act='bk'>Back up my data</button><button data-act='rs'>Restore backup</button><button data-act='cls'>Class view (teacher)</button></div>" + (needBk ? "<p class='status'>It has been a while since your last backup. Back up now so nothing is lost.</p>" : "") + "<input type='file' id='fRs' accept='.json' class='hidden'><input type='file' id='fCls' accept='.json' multiple class='hidden'></div>";
   return h;
 }
 
@@ -5888,16 +6677,341 @@ function finishTest(defer){
 
 /* ---------- extra tools: mistakes, backup, report, class view, read aloud ---------- */
 function revGap(id){ var s = chScore(id); return s === null ? 1 : s < 60 ? 1 : s < 80 ? 3 : 7; }
-function mistakeItems(){
+function mistakeItems(scope){
   var seen = {}, out = []; DB.mist = DB.mist || {};
-  allAttempts(DB.cur).slice().reverse().forEach(function(a){ a.qs.forEach(function(x){ var h = hash(x.q); if(seen[h]) return; seen[h] = 1; if(x.ok || !x.o || (DB.mist[h] || 0) >= 2) return; out.push({q: x.q, options: x.o, answer: x.a, why: x.why, topic: x.topic, pick: null, m: 1}); }); });
+  var list = scope === "*" ? DB.chapters : DB.chapters.filter(function(c){ return c.id === DB.cur; });
+  list.forEach(function(c){ allAttempts(c.id).slice().reverse().forEach(function(a){ a.qs.forEach(function(x){ var h = hash(x.q); if(seen[h]) return; seen[h] = 1; if(x.ok || !x.o || (DB.mist[h] || 0) >= 2) return; out.push({h: h, q: x.q, options: x.o, answer: x.a, why: x.why, topic: x.topic, mine: x.mine, cid: c.id, cname: c.name, pick: null, m: 1}); }); }); });
   return out;
 }
-function mistakePractice(){
-  if(!cur()){ toast("Add a chapter first"); return; }
-  var it = mistakeItems().slice(0, 10); if(!it.length){ toast("No saved mistakes to retry. Take an MCQ practice first."); return; }
-  goMethod("mcq"); buildTest("mcq", it, null);
+function mistakePractice(scope){
+  var it = mistakeItems(scope || "*").slice(0, 10);
+  if(!it.length){ toast("No saved mistakes to retry yet. Take an MCQ practice or an exam first."); return; }
+  var cid = (it[0] && it[0].cid) || DB.cur;
+  if(!cid){ toast("Add a chapter first"); return; }
+  goMethod("mcq", "", cid); buildTest("mcq", it, null);
 }
+RENDER.mist = function(){
+  var el = $("miIn"), items = mistakeItems("*");
+  var h = "<h1>My error book</h1><p class='sub'>Every wrong answer is a clue about what to practise next. Fix it here, then say “I know this now”.</p>";
+  if(!items.length){
+    h += "<div class='card hero' style='text-align:center'>" + plantSvg(1, 64) + "<p>No mistakes saved yet. Take an MCQ practice or an exam and every wrong answer will land here.</p><div class='row' style='justify-content:center'><button class='primary' id='miGo'>Go to Study</button></div></div>";
+    el.innerHTML = h; $("miGo").onclick = function(){ show("study"); }; return;
+  }
+  h += "<div class='card'><div class='row'><button class='primary' id='miPrac'>Practise these (" + Math.min(items.length, 10) + ")</button></div><p class='status' style='margin:8px 0 0'>These were answered wrongly and are not yet marked as learnt. Practise, then tick them off.</p></div>";
+  var groups = {}, order = [];
+  items.forEach(function(it){ var k = it.cname || "My chapters"; if(!groups[k]){ groups[k] = []; order.push(k); } groups[k].push(it); });
+  h += "<div class='mistList'>";
+  order.forEach(function(k){
+    h += "<h2>" + esc(k) + "</h2>";
+    groups[k].forEach(function(it){
+      h += "<div class='card mist'><div class='q'>" + inline(it.q) + "</div>" +
+        "<p class='status' style='margin:6px 0 2px'>Your answer: <strong style='color:var(--bad)'>" + esc(it.mine || "(not answered)") + "</strong></p>" +
+        "<p class='status' style='margin:0 0 2px'>Correct answer: <strong style='color:var(--ok)'>" + esc(it.options[it.answer]) + "</strong></p>" +
+        (it.why ? "<p class='status' style='margin:0 0 4px'>Why: " + inline(it.why) + "</p>" : "") +
+        (it.topic ? "<span class='tag'>" + esc(it.topic) + "</span> " : "") +
+        "<div class='row' style='margin:8px 0 0'><button data-know='" + it.h + "'>✓ I know this now</button></div></div>";
+    });
+  });
+  h += "</div>";
+  el.innerHTML = h;
+  $("miPrac").onclick = function(){ mistakePractice("*"); };
+  el.querySelectorAll("[data-know]").forEach(function(b){
+    b.onclick = function(){ DB.mist = DB.mist || {}; var k = b.getAttribute("data-know"); DB.mist[k] = Math.max(2, (DB.mist[k] || 0) + 1); save(); RENDER.mist(); toast("Removed from your error book"); };
+  });
+};
+RENDER.tools = function(){
+  var needBk = DB.history.length > 5 && (!DB.lastBackup || Date.now() - DB.lastBackup > 7 * 864e5);
+  var h = "<h1>Settings</h1><p class='sub'>Everything here runs on this device. Nothing leaves your phone unless you choose AI.</p><div class='toolsGrid'>";
+  h += "<div class='card'><strong>Print report</strong><p class='status'>A tidy progress report for a parent or teacher.</p><button data-act='pr'>Print report</button></div>";
+  h += "<div class='card'><strong>Back up my data</strong><p class='status'>Save a copy of your progress to a file.</p><button data-act='bk'>Back up now</button>" + (needBk ? "<p class='status'>It has been a while since your last backup.</p>" : "") + "</div>";
+  h += "<div class='card'><strong>Restore backup</strong><p class='status'>Bring back progress from a backup file.</p><button data-act='rs'>Choose backup file</button></div>";
+  h += "<div class='card'><strong>Class view</strong><p class='status'>For teachers: combine many students’ backups.</p><button data-act='cls'>Choose backup files</button></div>";
+  h += "<div class='card'><strong>My details</strong><p class='status'>Name, class, password and clearing data.</p><button data-act='prof'>Open my details</button></div>";
+  h += "</div>";
+  $("tlIn").innerHTML = h;
+  $("tlIn").querySelectorAll("[data-v]").forEach(function(n){ n.onclick = function(){ var v = n.dataset.v; if(v === "mindmap") openMindmap(); else show(v); }; });
+};
+
+/* ---------- Let's Play: games built from the uploaded chapter ---------- */
+var playTimer = null, PS = null;
+function playDB(){ DB.play = DB.play || {best: {}}; DB.play.best = DB.play.best || {}; return DB.play; }
+function clearPlayTimer(){ clearInterval(playTimer); playTimer = null; }
+function playConcepts(){
+  var c = cur(); if(!c) return [];
+  var P = prep(c), out = [];
+  if(P.pack && (P.pack.concepts || []).length){
+    P.pack.concepts.forEach(function(x){ if(x.t && x.d) out.push({t: String(x.t), d: sentenceCap(String(x.d))}); });
+  }
+  if(out.length < 4) P.defs.forEach(function(d){ var b = defText(d); if(d.term && b) out.push({t: d.term, d: sentenceCap(b)}); });
+  var seen = {}, uniq = [];
+  out.forEach(function(x){ var k = termKey(x.t); if(!k || seen[k]) return; seen[k] = 1; uniq.push(x); });
+  if(uniq.length < 4) keyTerms(P, 10, 2).forEach(function(t){ var k = termKey(t.t); if(!k || seen[k]) return; seen[k] = 1; uniq.push({t: t.t, d: ""}); });
+  return uniq;
+}
+RENDER.play = function(){
+  clearPlayTimer();
+  var el = $("plIn"), c = cur(), best = playDB().best || {};
+  var h = "<h1>Let's Play</h1><p class='sub'>Play with the words and ideas of <strong>" + esc(c ? c.name : "your chapter") + "</strong>. Every game is built from your own book, so playing is also revising.</p>";
+  if(!c){
+    h += "<div class='card hero' style='text-align:center'>" + plantSvg(1, 64) + "<p>Add a book or chapter first, then come back to play.</p><div class='row' style='justify-content:center'><button class='primary' id='plGo'>Go to Study</button></div></div>";
+    el.innerHTML = h; $("plGo").onclick = function(){ show("study"); }; return;
+  }
+  h += "<div class='playGrid'>" +
+    "<div class='card playCard' role='button' tabindex='0' data-game='match'><strong>Match the pairs</strong><p class='status'>Flip the cards and pair each word with its meaning.</p><span class='tag'>Best: " + (best.match ? best.match + " moves" : "—") + "</span></div>" +
+    "<div class='card playCard' role='button' tabindex='0' data-game='rapid'><strong>Rapid round</strong><p class='status'>Answer as many questions as you can in 60 seconds.</p><span class='tag'>Best: " + (best.rapid != null ? best.rapid + "/10" : "—") + "</span></div>" +
+    "<div class='card playCard' role='button' tabindex='0' data-game='scramble'><strong>Word scramble</strong><p class='status'>Unscramble the key word from its meaning.</p><span class='tag'>Best: " + (best.scramble != null ? best.scramble + "/8" : "—") + "</span></div>" +
+    "</div><div id='plStage'></div>";
+  el.innerHTML = h;
+  el.querySelectorAll("[data-game]").forEach(function(n){
+    var go = function(){ startGame(n.getAttribute("data-game")); };
+    n.onclick = go; n.onkeydown = function(e){ if(e.key === "Enter" || e.key === " "){ e.preventDefault(); go(); } };
+  });
+};
+function startGame(kind){
+  clearPlayTimer();
+  var st = $("plStage"); if(!st) return;
+  if(kind === "match") startMatch(st);
+  else if(kind === "rapid") startRapid(st);
+  else startScramble(st);
+}
+/* game 1: match the pairs (memory) */
+function startMatch(st){
+  var pool = playConcepts().filter(function(x){ return x.d; });
+  pool = shuf(pool).slice(0, 6);
+  if(pool.length < 3){ st.innerHTML = "<div class='card'><p class='status'>I need a few words with meanings to build this game. Try a longer chapter, or build a Smart pack, then come back.</p></div>"; return; }
+  var cards = [];
+  pool.forEach(function(x, i){ cards.push({pid: i, kind: "t", text: x.t}); cards.push({pid: i, kind: "d", text: x.d}); });
+  PS = {kind: "match", cards: shuf(cards), open: [], done: 0, moves: 0, lock: false, total: pool.length};
+  drawMatch(st);
+}
+function drawMatch(st){
+  var s = PS, h = "<div class='card'><div class='row'><strong>Match the pairs</strong><span class='status' style='margin-left:auto'>Moves: " + s.moves + " · Pairs: " + s.done + "/" + s.total + "</span></div><div class='matchGrid' style='margin-top:10px'>";
+  s.cards.forEach(function(cd, i){
+    var up = cd.open || cd.fixed;
+    h += "<div class='matchCard" + (cd.fixed ? " done" : cd.open ? " down" : "") + "' role='button' tabindex='0' data-i='" + i + "'>" + (up ? esc(cd.text) : "<span class='qm'>?</span>") + "</div>";
+  });
+  h += "</div><div class='row' style='margin-top:10px'><button id='plAgain'>New game</button><button id='plBack'>Other games</button></div>" + (s.done === s.total ? "<p class='status' style='margin:8px 0 0;font-weight:700'>" + esc(matchPraise(s.moves, s.total)) + "</p>" : "") + "</div>";
+  st.innerHTML = h;
+  st.querySelectorAll(".matchCard").forEach(function(n){
+    var i = parseInt(n.getAttribute("data-i"), 10), go = function(){ matchFlip(i, st); };
+    n.onclick = go; n.onkeydown = function(e){ if(e.key === "Enter" || e.key === " "){ e.preventDefault(); go(); } };
+  });
+  $("plAgain").onclick = function(){ startMatch(st); };
+  $("plBack").onclick = function(){ RENDER.play(); };
+}
+function matchFlip(i, st){
+  var s = PS; if(!s || s.lock) return;
+  var cd = s.cards[i]; if(!cd || cd.fixed || cd.open) return;
+  cd.open = true; s.open.push(i); drawMatch(st);
+  if(s.open.length === 2){
+    s.moves++;
+    var a = s.cards[s.open[0]], b = s.cards[s.open[1]];
+    if(a.pid === b.pid && a.kind !== b.kind){
+      a.fixed = b.fixed = true; s.done++; s.open = []; drawMatch(st);
+      if(s.done === s.total) saveMatch(s.moves, s.total, st);
+    } else {
+      s.lock = true;
+      setTimeout(function(){ a.open = b.open = false; s.open = []; s.lock = false; drawMatch(st); }, 750);
+    }
+  }
+}
+function saveMatch(moves, total, st){
+  var b = playDB().best;
+  if(!b.match || moves < b.match){ b.match = moves; save(); toast("New best — " + moves + " moves!"); }
+  else toast("All pairs found in " + moves + " moves.");
+  drawMatch(st);
+}
+function matchPraise(moves, total){ return moves <= total + 2 ? "Superb memory! Every pair found in " + moves + " moves." : "You found every pair in " + moves + " moves. Beat it next time!"; }
+/* game 2: rapid round (timed quiz) */
+function rapidBank(){
+  var qs = [];
+  try { qs = genMcqLocal(10, "easy", ""); } catch(e){ qs = []; }
+  if(qs.length) return qs;
+  var all = playConcepts().filter(function(x){ return x.d; });
+  return shuf(all).slice(0, 10).map(function(x){
+    var wrong = shuf(all.filter(function(y){ return termKey(y.t) !== termKey(x.t); })).slice(0, 2).map(function(y){ return y.d; });
+    var opts = shuf([x.d].concat(wrong));
+    return {q: "What does “" + x.t + "” mean?", options: opts, answer: opts.indexOf(x.d), why: ""};
+  }).filter(function(x){ return x.options.length >= 2; });
+}
+function startRapid(st){
+  var qs = rapidBank();
+  if(!qs.length){ st.innerHTML = "<div class='card'><p class='status'>I could not build questions from this chapter yet. Add more text or build a Smart pack, then try again.</p></div>"; return; }
+  PS = {kind: "rapid", qs: qs, at: 0, right: 0, streak: 0, left: 60, phase: "q", pick: null};
+  st.innerHTML = "<div class='card'><div class='row'><strong>Rapid round</strong><span class='status' id='plClock' style='margin-left:auto'></span></div><div id='plQ' style='margin-top:10px'></div></div>";
+  rapidWriteQ(st);
+  playTimer = setInterval(function(){
+    if(!PS || PS.kind !== "rapid" || PS.phase !== "q") return;
+    PS.left--;
+    var cl = $("plClock"); if(cl) cl.textContent = rapidClockText();
+    if(PS.left <= 0){ clearPlayTimer(); PS.phase = "end"; rapidWriteQ(st); }
+  }, 1000);
+}
+function rapidClockText(){ var s = PS; return "⏱ " + Math.max(0, s.left) + "s · Score " + s.right + " · Streak " + s.streak; }
+function rapidWriteQ(st){
+  var s = PS, box = $("plQ"), cl = $("plClock");
+  if(cl) cl.textContent = rapidClockText();
+  if(!box) return;
+  var it = s.qs[s.at];
+  if(s.phase === "end" || !it){
+    var b = playDB().best, msg = (!b.rapid || s.right > b.rapid) ? ((b.rapid = s.right, save()), "New best! " + s.right + " correct.") : "You scored " + s.right + " of " + s.qs.length + ".";
+    box.innerHTML = "<p class='status' style='font-weight:700'>Time up! " + esc(msg) + "</p>" +
+      (s.right >= 6 ? "<p class='status'>Brilliant — that is strong recall. Keep it up!</p>" : "<p class='status'>Good start. Play again to beat your score.</p>") +
+      "<div class='row' style='margin-top:8px'><button class='primary' id='plAgain'>Play again</button><button id='plBack'>Other games</button></div>";
+    $("plAgain").onclick = function(){ startRapid(st); };
+    $("plBack").onclick = function(){ RENDER.play(); };
+    return;
+  }
+  var h = "<p class='q' style='margin:0 0 8px'>" + inline(it.q) + "</p><div class='playOpts'>";
+  it.options.forEach(function(o, k){
+    var cls = "";
+    if(s.phase === "fb"){ if(k === it.answer) cls = " right"; else if(k === s.pick) cls = " wrong"; }
+    h += "<button class='playOpt" + cls + "' data-k='" + k + "'" + (s.phase === "fb" ? " disabled" : "") + ">" + esc(o) + "</button>";
+  });
+  h += "</div>";
+  if(s.phase === "fb" && it.why) h += "<p class='status' style='margin:8px 0 0'>" + inline(it.why) + "</p>";
+  box.innerHTML = h;
+  if(s.phase === "q") box.querySelectorAll(".playOpt").forEach(function(n){ n.onclick = function(){ rapidPick(parseInt(n.getAttribute("data-k"), 10), st); }; });
+}
+function rapidPick(k, st){
+  var s = PS; if(!s || s.phase !== "q") return;
+  var it = s.qs[s.at], good = k === it.answer;
+  s.pick = k; if(good){ s.right++; s.streak++; } else s.streak = 0;
+  s.phase = "fb"; rapidWriteQ(st);
+  setTimeout(function(){ if(!PS || PS.kind !== "rapid" || PS.phase !== "fb") return; s.at++; s.phase = "q"; s.pick = null; rapidWriteQ(st); }, 620);
+}
+/* game 3: word scramble */
+function scrambleWords(){
+  var out = [], c = cur(); if(!c) return out;
+  playConcepts().forEach(function(x){ if(/^[A-Za-z][A-Za-z ]{3,17}$/.test(x.t)) out.push({w: x.t.trim(), hint: x.d}); });
+  if(out.length < 3){
+    var P = prep(c);
+    keyTerms(P, 12, 2).forEach(function(t){ if(/^[A-Za-z][A-Za-z ]{3,17}$/.test(t.t)) out.push({w: t.t.trim(), hint: ""}); });
+  }
+  return shuf(out);
+}
+function scrambleText(w){
+  var s = shuf(w.split("")).join("");
+  if(s.toLowerCase() === w.toLowerCase() && w.length > 2) s = w.split("").reverse().join("");
+  return s;
+}
+function startScramble(st){
+  var pool = scrambleWords();
+  if(pool.length < 3){ st.innerHTML = "<div class='card'><p class='status'>I need a few key words from this chapter to build the game. Try a longer chapter or build a Smart pack.</p></div>"; return; }
+  PS = {kind: "scramble", words: pool, at: 0, right: 0, total: Math.min(8, pool.length), phase: "q"};
+  st.innerHTML = "<div class='card'><div class='row'><strong>Word scramble</strong><span class='status' id='plScScore' style='margin-left:auto'></span></div><div id='plQ' style='margin-top:10px'></div></div>";
+  scrambleWrite(st);
+}
+function scrambleWrite(st){
+  var s = PS, box = $("plQ"), sc = $("plScScore");
+  if(sc) sc.textContent = "Word " + Math.min(s.at + 1, s.total) + " of " + s.total + " · Correct " + s.right;
+  if(!box) return;
+  if(s.at >= s.total){ scrambleEnd(box); return; }
+  var it = s.words[s.at]; if(!it.scr) it.scr = scrambleText(it.w);
+  var h = "<p style='margin:0 0 6px;letter-spacing:3px;font-size:1.3rem;font-weight:800'>" + esc(it.scr.toUpperCase()) + "</p>";
+  if(it.hint) h += "<p class='status' style='margin:0 0 8px'>" + inline(it.hint) + "</p>";
+  h += "<div class='row'><input id='plAns' type='text' placeholder='Type the word' autocomplete='off' autocapitalize='none' spellcheck='false' style='flex:1;min-width:150px'><button class='primary' id='plOk'>Check</button><button id='plShow'>Show answer</button></div><p class='status' id='plFb' style='margin:8px 0 0;min-height:1.2em'></p>";
+  box.innerHTML = h;
+  var inp = $("plAns"); if(inp){ inp.focus(); inp.onkeydown = function(e){ if(e.key === "Enter") scrambleCheck(st); }; }
+  $("plOk").onclick = function(){ scrambleCheck(st); };
+  $("plShow").onclick = function(){ scrambleReveal(st); };
+}
+function scrambleCheck(st){
+  var s = PS; if(!s || s.kind !== "scramble") return;
+  var it = s.words[s.at], val = String(($("plAns") || {}).value || "").trim().toLowerCase().replace(/\s+/g, " ");
+  if(!val) return;
+  if(val === it.w.toLowerCase()){
+    s.right++; s.at++; scrambleWrite(st);
+  } else {
+    var fb = $("plFb"); if(fb) fb.innerHTML = "<span style='color:var(--bad)'>Not yet — look again, or press “Show answer”.</span>";
+    var inp = $("plAns"); if(inp){ inp.select(); }
+  }
+}
+function scrambleReveal(st){
+  var s = PS; if(!s || s.kind !== "scramble") return;
+  var it = s.words[s.at], fb = $("plFb");
+  if(fb) fb.innerHTML = "The word was “<strong>" + esc(it.w) + "</strong>”.";
+  var ok = $("plOk"), sh = $("plShow"), inp = $("plAns");
+  if(ok) ok.disabled = true; if(sh) sh.disabled = true; if(inp) inp.disabled = true;
+  setTimeout(function(){ if(!PS || PS.kind !== "scramble") return; s.at++; scrambleWrite(st); }, 950);
+}
+function scrambleEnd(box){
+  var s = PS, b = playDB().best, msg = (!b.scramble || s.right > b.scramble) ? ((b.scramble = s.right, save()), "New best! " + s.right + " of " + s.total + ".") : "You got " + s.right + " of " + s.total + ".";
+  box.innerHTML = "<p class='status' style='font-weight:700'>" + esc(msg) + "</p><div class='row' style='margin-top:8px'><button class='primary' id='plAgain'>Play again</button><button id='plBack'>Other games</button></div>";
+  $("plAgain").onclick = function(){ startScramble(st); };
+  $("plBack").onclick = function(){ RENDER.play(); };
+}
+
+/* ---------- Tricks & Tips: proven methods, memory tricks, chapter help ---------- */
+var TIPS = [
+ {n: "Proven study methods", items: [
+  {t: "Active recall", b: "Close the book and test yourself from memory. Pulling an answer out builds far stronger memory than reading it again and again.", by: "Cognitive science — the single most effective method"},
+  {t: "Spaced repetition", b: "Revise today’s lesson after 1 day, 3 days, 1 week and 1 month. You catch each memory just as it starts to fade, so it lasts far longer.", by: "Hermann Ebbinghaus (the forgetting curve)"},
+  {t: "The Feynman technique", b: "Explain the topic in simple words, as if to a small child. The place where you get stuck is exactly what you have not understood yet.", by: "Richard Feynman, Nobel Prize in Physics"},
+  {t: "Pomodoro focus", b: "Study in short sprints: 25 minutes of full focus, then a 5-minute break. Fresh, focused effort beats long tired hours.", by: "Francesco Cirillo"},
+  {t: "SQ3R", b: "Survey, Question, Read, Recite, Review. Turn each heading into a question before you read; your mind then hunts for the answer.", by: "Francis P. Robinson"},
+  {t: "Interleaving", b: "Mix two or three topics in one session instead of one long block. It feels harder — and that is exactly why it sticks.", by: "Cognitive science"},
+  {t: "Teach it back", b: "Be the teacher. Explain the idea aloud in your own words; the gaps show up immediately.", by: "The method used in the Upanishads: learn by asking and explaining"}
+ ]},
+ {n: "Memory tricks", items: [
+  {t: "Make an acronym", b: "Take the first letters of a list and shape them into a word. VIBGYOR carries the rainbow colours in order."},
+  {t: "Story method", b: "Link the facts into a silly, vivid story. Strange and funny images stay in memory best."},
+  {t: "Memory palace", b: "Place each idea in a familiar room of your home; walk through the rooms to recall them in order."},
+  {t: "Chunk it", b: "Break a long list or number into small groups. 98 76 54 32 is far easier than 98765432."},
+  {t: "Dual coding", b: "Draw a tiny diagram or mind map beside your notes; the brain stores pictures and words separately, so you get two chances to remember."},
+  {t: "Turn it into a song", b: "Set a formula or a list to a tune. Rhythm is a strong hook that the brain holds on to."},
+  {t: "Sleep on it", b: "Revise the hardest part just before sleeping; your brain replays and stores it overnight."}
+ ]},
+ {n: "Habits of great learners", items: [
+  {t: "Dream, then act", b: "“Dream is not that which you see while sleeping; it is something that does not let you sleep.”", by: "A. P. J. Abdul Kalam"},
+  {t: "Arise and keep going", b: "“Arise, awake, and stop not till the goal is reached.”", by: "Swami Vivekananda (from the Katha Upanishad)"},
+  {t: "Effort beats wishes", b: "Tasks are accomplished by effort, not by daydreaming.", by: "Panchatantra"},
+  {t: "Defeat laziness daily", b: "Laziness is the enemy that lives in our own body; a small daily habit beats it.", by: "Chanakya Neeti"},
+  {t: "Plan before you act", b: "Before you begin, ask why you are doing it, what it will lead to, and how you will succeed.", by: "Kautilya, Arthashastra"},
+  {t: "Stay curious", b: "“I have no special talent. I am only passionately curious.”", by: "Albert Einstein"},
+  {t: "Be patient with hard things", b: "“Nothing in life is to be feared; it is only to be understood.”", by: "Marie Curie"}
+ ]}
+];
+function reviewSchedule(){
+  var d = new Date();
+  return [[0, "Today"], [1, "Tomorrow"], [3, "In 3 days"], [7, "In 1 week"], [30, "In 1 month"]].map(function(x){
+    var t = new Date(d.getTime() + x[0] * 864e5);
+    return x[1] + " · " + t.toLocaleDateString("en-GB", {day: "2-digit", month: "short"});
+  });
+}
+function tipsMnemonic(){
+  var c = cur(); if(!c) return null;
+  var P = prep(c), terms = [];
+  if(P.pack && (P.pack.concepts || []).length) terms = P.pack.concepts.map(function(x){ return String(x.t || ""); }).filter(Boolean);
+  if(terms.length < 3) terms = keyTerms(P, 6, 2).map(function(t){ return t.t; });
+  terms = terms.slice(0, 6);
+  if(terms.length < 3) return null;
+  return {terms: terms, initials: terms.map(function(t){ return t.replace(/[^A-Za-z0-9]/g, "").charAt(0).toUpperCase(); }).join("")};
+}
+RENDER.tips = function(){
+  var el = $("tpIn"), c = cur();
+  var h = "<h1>Tricks &amp; Tips</h1><p class='sub'>Proven ways to remember what you study, quick memory tricks, and wisdom from the Upanishads, the Gita, Chanakya, Kautilya and the Panchatantra.</p>";
+  if(c){
+    var mm = tipsMnemonic();
+    h += "<div class='card'><strong>For this chapter: " + esc(c.name) + "</strong>";
+    if(mm){
+      h += "<p class='status' style='margin:6px 0 2px'>First-letter mnemonic for the key words:</p><p style='font-size:1.35rem;font-weight:800;letter-spacing:4px;margin:0 0 6px'>" + esc(mm.initials) + "</p><p class='status' style='margin:0'>" + mm.terms.map(function(t){ return esc(t); }).join(" · ") + "</p>";
+    } else {
+      h += "<p class='status' style='margin:6px 0 0'>Add more text to this chapter and I will build a first-letter mnemonic for you.</p>";
+    }
+    h += "<div class='row' style='margin-top:10px'><button class='primary' id='tpCards'>Flashcards</button><button id='tpMap'>Mind map</button><button id='tpTeach'>Teach it back</button></div></div>";
+    h += "<div class='card'><strong>Best times to revise</strong><p class='status' style='margin:4px 0 6px'>Review this chapter on these days to beat the forgetting curve:</p><div class='tipDays'>" + reviewSchedule().map(function(d){ return "<span class='tag'>" + esc(d) + "</span>"; }).join("") + "</div><p class='status' style='margin:8px 0 0'>Quick test: close the book and write everything you remember for 3 minutes, then check what you missed.</p></div>";
+  }
+  TIPS.forEach(function(grp){
+    h += "<div class='card'><strong>" + grp.n + "</strong><div class='tipsList'>";
+    grp.items.forEach(function(it){ h += "<div class='tipItem'><b>" + esc(it.t) + "</b><span>" + esc(it.b) + "</span>" + (it.by ? "<i class='by'>— " + esc(it.by) + "</i>" : "") + "</div>"; });
+    h += "</div></div>";
+  });
+  el.innerHTML = h;
+  if($("tpCards")) $("tpCards").onclick = function(){ show("study"); goMethod("flash", "", DB.cur); };
+  if($("tpMap")) $("tpMap").onclick = function(){ openMindmap(); };
+  if($("tpTeach")) $("tpTeach").onclick = function(){ show("study"); goMethod("teach", "", DB.cur); };
+};
 function backupData(){
   var n = (DB.profile ? DB.profile.name : "student").replace(/\W+/g, "_"), c = Object.assign({}, DB, {ai: null, key: "", sess: null});
   saveFile("StudyBuddy_" + n + "_" + new Date().toISOString().slice(0, 10) + ".json", JSON.stringify(c)); DB.lastBackup = Date.now(); save(); toast("Backup saved");
@@ -5910,7 +7024,7 @@ function restoreData(f){
       if(!d.cur || !d.chapters.some(function(c){ return c.id === d.cur; })) d.cur = d.chapters[0] ? d.chapters[0].id : null;
       DB = d; save(); location.reload();
     });
-  }).catch(function(){ toast("That is not a Study Buddy backup file"); });
+  }).catch(function(){ toast("That is not a Gurukul backup file"); });
 }
 /* ---------- notebook: keep the explanations that matter ---------- */
 function saveNote(text, label){
@@ -5954,7 +7068,7 @@ RENDER.note = function(){
   $("nbFind").oninput = draw; $("nbCh").onchange = draw; draw();
   $("nbAdd").onclick = function(){ if(saveNote($("nbText").value, "My note")) RENDER.note(); };
   if($("nbExport")) $("nbExport").onclick = function(){
-    var t = "# My Study Buddy notebook\n\n" + list.map(function(x){ return "## " + (x.ch || "General") + " · " + fmtD(x.t) + "\n\n" + x.text; }).join("\n\n---\n\n");
+    var t = "# My Gurukul notebook\n\n" + list.map(function(x){ return "## " + (x.ch || "General") + " · " + fmtD(x.t) + "\n\n" + x.text; }).join("\n\n---\n\n");
     saveFile("StudyBuddy-notebook.md", t);
   };
 };
@@ -6097,7 +7211,7 @@ function audioOverview(){
 function printReport(){
   var p = DB.profile || {name: "Student", cls: "", school: ""}, w = window.open("", "_blank"); if(!w){ toast("Please allow pop-ups, then try again"); return; }
   var rows = DB.chapters.map(function(c){ var sc = chScore(c.id), wk = weakTopics(c.id); return "<tr><td>" + esc(c.name) + "</td><td>" + (sc === null ? "–" : sc + "%") + "</td><td>" + allAttempts(c.id).length + "</td><td>" + (wk.length ? esc(wk.join(", ")) : "–") + "</td></tr>"; }).join("");
-  w.document.write("<title>Study Buddy report</title><style>body{font:15px/1.5 system-ui,sans-serif;padding:24px;color:#222}table{border-collapse:collapse;width:100%}td,th{border:1px solid #bbb;padding:6px 9px;text-align:left}</style><h1>Progress report</h1><p><b>" + esc(p.name) + "</b> · " + esc(p.cls) + " · " + esc(p.school || "") + "<br>Date: " + fmtD(Date.now()) + " · Growth points: " + totalXp() + "</p><table><tr><th>Chapter</th><th>Recent score</th><th>Tests taken</th><th>Topics to revise</th></tr>" + rows + "</table><p style='color:#666'>Choose Save as PDF in the print window to keep a copy.</p>");
+  w.document.write("<title>Gurukul report</title><style>body{font:15px/1.5 system-ui,sans-serif;padding:24px;color:#222}table{border-collapse:collapse;width:100%}td,th{border:1px solid #bbb;padding:6px 9px;text-align:left}</style><h1>Progress report</h1><p><b>" + esc(p.name) + "</b> · " + esc(p.cls) + " · " + esc(p.school || "") + "<br>Date: " + fmtD(Date.now()) + " · Growth points: " + totalXp() + "</p><table><tr><th>Chapter</th><th>Recent score</th><th>Tests taken</th><th>Topics to revise</th></tr>" + rows + "</table><p style='color:#666'>Choose Save as PDF in the print window to keep a copy.</p>");
   w.document.close(); w.focus(); setTimeout(function(){ w.print(); }, 300);
 }
 function classView(files){
@@ -6224,7 +7338,7 @@ function speechSettings(){
       }
     };
   }
-  document.addEventListener("click", function(e){ var b = e.target.closest && e.target.closest("[data-act]"); if(!b) return; var a = b.getAttribute("data-act"); if(a === "mist") mistakePractice(); else if(a === "bk") backupData(); else if(a === "rs") $("fRs").click(); else if(a === "pr") printReport(); else if(a === "cls") $("fCls").click(); });
+  document.addEventListener("click", function(e){ var b = e.target.closest && e.target.closest("[data-act]"); if(!b) return; var a = b.getAttribute("data-act"); if(a === "mist") mistakePractice(); else if(a === "bk") backupData(); else if(a === "rs") $("fRs").click(); else if(a === "pr") printReport(); else if(a === "cls") $("fCls").click(); else if(a === "prof") show("onb"); });
   document.addEventListener("change", function(e){ var t = e.target; if(t.id === "fRs" && t.files[0]) restoreData(t.files[0]); if(t.id === "fCls" && t.files.length) classView(t.files); });
 })();
 
@@ -6240,7 +7354,7 @@ RENDER.progress = function(){
   if(!DB.chapters.length){ el.innerHTML = h + noData("Upload your book and start practising. Your plant will grow here."); bindNo(); return; }
   var xp = totalXp(), st = ovStage(xp), nx = TH[st + 1], pr = nx ? Math.round((xp - TH[st]) * 100 / (nx - TH[st])) : 100, wk = 0, cnt = 0, touched = 0;
   DB.chapters.forEach(function(c){ var P = pracOf(c.id); if(P.length) touched++; P.forEach(function(x){ cnt++; if(x.d > Date.now() - 7 * 864e5) wk += Math.round(x.pct / 5); }); });
-  h += "<div class='card hero'><div class='row' style='flex-wrap:nowrap;gap:16px;margin:0'>" + plantSvg(st, 110) + "<div style='flex:1;min-width:0'><div class='status'>Your growth level</div><div class='big'>" + STAGES[st] + "</div><div class='bar'><i style='width:" + pr + "%'></i></div><div class='status'>" + xp + " growth points" + (nx ? " · " + (nx - xp) + " more to become a " + STAGES[st + 1] : " · top level reached") + "</div><p style='margin:6px 0 0'>" + (wk ? "<span class='tag s'><span class='mi'>" + svgIc("up") + "</span> +" + wk + " points this week</span>" : "Practise today to start growing!") + "</p></div></div></div>";
+  h += "<div class='card hero'><div class='row' style='flex-wrap:nowrap;gap:16px;margin:0'>" + plantSvg(st, 92) + "<div style='flex:1;min-width:0'><div class='status'>Your growth level</div><div class='big'>" + STAGES[st] + "</div><div class='bar'><i style='width:" + pr + "%'></i></div><div class='status'>" + xp + " growth points" + (nx ? " · " + (nx - xp) + " more to become a " + STAGES[st + 1] : " · top level reached") + "</div><p style='margin:6px 0 0'>" + (wk ? "<span class='tag s'><span class='mi'>" + svgIc("up") + "</span> +" + wk + " points this week</span>" : "Practise today to start growing!") + "</p></div></div></div>";
   h += "<div class='stat'><div><div class='big'>" + touched + "/" + DB.chapters.length + "</div>Chapters practised</div><div><div class='big'>" + cnt + "</div>Practices done</div><div><div class='big'>" + xp + "</div>Growth points</div><div><div class='big'>" + streak() + "</div>Day streak</div></div>";
   h += "<div class='grid2'>" + DB.chapters.map(function(c){
     var P = pracOf(c.id), sc = chScore(c.id), tr = trendOf(c.id), sg = chStage(c.id), d = (DB.progress[c.id] || {done: {}}).done, rv = reviewInfo(c.id);
@@ -6311,17 +7425,34 @@ var BAND = [
  [["","Cornell notes","Notes on the right, keywords on the left, summary at the bottom."],["","Spaced repetition","Revisit topics over growing gaps instead of cramming."],["","Study group","Teach each other. Explaining is the fastest way to learn."],["","Past papers","Solve earlier university papers and note repeated questions."]]
 ];
 RENDER.rec = function(){
-  var p = DB.profile, el = $("rcIn"), h = "<h1> Recommendations</h1><p class='sub'>Made for " + esc(p.cls) + ", based on how you are studying.</p><div class='card hero'><h3 style='margin-top:0'>For you right now</h3>";
-  var tips = [], last = DB.history.length ? DB.history[DB.history.length - 1].t : 0;
-  if(!DB.chapters.length) tips.push(" Upload your book first. Everything here becomes personal once I know your chapters. <button data-view='study'>Upload now</button>");
-  DB.chapters.forEach(function(c){ var w = weakTopics(c.id); if(w.length) tips.push(" In “" + esc(c.name) + "”, revise: " + w.map(esc).join(", ") + ". <button data-go='mcq' data-chap='" + c.id + "' data-focus='" + esc(w.join(", ")).replace(/'/g, "&#39;") + "'>Practise now</button>"); });
-  var untested = DB.chapters.filter(function(c){ return !allAttempts(c.id).length; }); if(DB.chapters.length && untested.length) tips.push(" Not tested yet: " + untested.slice(0, 3).map(function(c){ return esc(c.name); }).join(", ") + ". <button data-go='mcq' data-chap='" + untested[0].id + "'>Take a test</button>");
-  if(last && Date.now() - last > 3 * 864e5) tips.push(" You haven’t studied for a few days. Even 15 minutes today restarts your streak. <button data-resume='1'>Resume now</button> ");
-  var used = {}; DB.history.forEach(function(e){ used[e.type] = 1; }); if(DB.chapters.length && !used.flash) tips.push(" Try flashcards and Teach-it-back. Toppers use them for quick recall. <button data-go='flash'>Try flashcards</button>");
-  if(!tips.length) tips.push(" You’re doing well. Keep your daily streak going and take an exam-mode test once a week.");
-  h += tips.map(function(t){ return "<p>" + t + "</p>"; }).join("") + nextBar("rec") + "</div><h3>Proven study methods for " + esc(p.cls) + "</h3>" + BAND[bandOf(p.cls)].map(function(m, i){ return "<div class='card' style='animation-delay:" + i * 80 + "ms'><strong>" + m[0] + " " + m[1] + "</strong><br>" + m[2] + "</div>"; }).join("");
-  h += "<div class='card'><button class='primary' id='rcAi'> Make my personal study plan</button><div class='out' id='rcOut'></div></div>"; el.innerHTML = h; bindNext(el);
-  $("rcAi").onclick = function(){ var perf = DB.chapters.map(function(c){ var m = mastery(c.id); return c.name + ": " + (m === null ? "not tested" : m + "%"); }).join("; "); run("The student is in " + p.cls + ". Chapter mastery: " + (perf || "no chapters yet") + ". Streak: " + streak() + " days. Suggest a simple weekly study plan with the most successful methods for this class (active recall, spaced revision, past papers, etc.), daily time slots, and a motivating closing line. Keep it short.", $("rcOut"), $("rcAi"), {general: true, ctx: "plan", local: function(){ return localWeekPlan(); }}); };
+  var p = DB.profile, el = $("rcIn"), c = cur(), tasks = [];
+  var dayName = new Date().toLocaleDateString("en-IN", {weekday: "long", day: "numeric", month: "short"});
+  var h = "<h1>Today's plan</h1><p class='sub'>" + dayName + " · made for " + esc(p.cls) + (p.age ? " · age " + p.age : "") + ".</p>";
+  if(c){
+    var ns = nextStep(c.id);
+    if(ns.done){
+      var nc = nextChapterAfter(c.id);
+      tasks.push({t: nc ? "Start " + nc.name : "Revise " + c.name, w: ns.why, b: nc ? "Open chapter" : "Mock exam", a: nc ? "data-go='path' data-chap='" + nc.id + "'" : "data-go='exam' data-chap='" + c.id + "'"});
+    } else {
+      tasks.push({t: ns.label, w: ns.why, b: "Start now", a: "data-go='" + ns.k + "' data-chap='" + c.id + "' data-focus='" + esc(ns.focus || "").replace(/'/g, "&#39;") + "'"});
+    }
+    var w = weakTopics(c.id);
+    if(w.length) tasks.push({t: "Fix weak topics", w: w.slice(0, 4).join(", "), b: "Practise", a: "data-go='mcq' data-chap='" + c.id + "' data-focus='" + esc(w.join(", ")).replace(/'/g, "&#39;") + "'"});
+    else tasks.push({t: "Check what you remember", w: "A quick recall round shows what to fix today.", b: "Q&A coach", a: "data-go='qa' data-chap='" + c.id + "'"});
+    var due = dueReviews().filter(function(x){ return x.c.id !== c.id; })[0];
+    if(due) tasks.push({t: "Revise " + due.c.name, w: "Last studied " + due.days + " day" + (due.days === 1 ? "" : "s") + " ago. A short review locks it in.", b: "Review", a: "data-review='" + due.c.id + "'"});
+    else tasks.push({t: "Take a quick test", w: "A short test shows whether today's study worked.", b: "MCQ practice", a: "data-go='mcq' data-chap='" + c.id + "'"});
+  } else {
+    tasks.push({t: "Add your first chapter", w: "Upload a book or choose an NCERT chapter. Then I can build your daily plan.", b: "Upload a book", a: "data-view='study'"});
+  }
+  var mins = [15, 25, 40, 45][bandOf(p.cls)];
+  h += "<div class='card hero'><div class='row' style='justify-content:space-between;margin:0 0 2px'><strong>About " + mins + " minutes today</strong><span class='chip'>" + streak() + "-day streak</span></div>";
+  h += tasks.slice(0, 3).map(function(t, i){ return "<div class='planRow'><span class='planNo'>" + (i + 1) + "</span><div style='flex:1;min-width:0'><strong>" + esc(t.t) + "</strong><div class='status'>" + esc(t.w) + "</div></div><button " + t.a + ">" + t.b + "</button></div>"; }).join("");
+  h += "</div>";
+  h += "<details class='planTipsWrap'><summary>Study methods for " + esc(p.cls) + "</summary><div class='planTips'>" + BAND[bandOf(p.cls)].map(function(m){ return "<div class='planTip'><strong>" + esc(m[1]) + "</strong> " + esc(m[2]) + "</div>"; }).join("") + "</div></details>";
+  h += "<div class='card'><div class='row' style='margin:0'><button class='primary' id='rcAi'>Make my weekly plan</button><button data-resume='1'>Where I stopped</button></div><div class='out' id='rcOut'></div></div>";
+  el.innerHTML = h; bindNext(el);
+  $("rcAi").onclick = function(){ var perf = DB.chapters.map(function(ch){ var m = mastery(ch.id); return ch.name + ": " + (m === null ? "not tested" : m + "%"); }).join("; "); run("The student is in " + p.cls + (p.age ? ", age " + p.age : "") + ". Chapter mastery: " + (perf || "no chapters yet") + ". Streak: " + streak() + " days. Suggest a simple weekly study plan with the most successful methods for this class (active recall, spaced revision, past papers, etc.), daily time slots, and a motivating closing line. Keep it short.", $("rcOut"), $("rcAi"), {general: true, ctx: "plan", local: function(){ return localWeekPlan(); }}); };
 };
 
 /* ---------- Fun facts ---------- */
@@ -6339,8 +7470,16 @@ RENDER.fun = function(){
   };
 };
 
-window.addEventListener("resize", function(){ if(curView === "home" && (window.innerWidth < 620) !== homeNarrow) RENDER.home(); });
-load(); if(aiCfg()) save(); if(DB.engine === "ai" && !aiCfg()){ DB.engine = "local"; save(); } refreshKeyBtn();
+function setViewH(){
+  var hd = $("top"), h = hd ? hd.getBoundingClientRect().height : 99;
+  var av = Math.max(300, Math.round(window.innerHeight - h - 30));
+  document.documentElement.style.setProperty("--viewH", av + "px");
+}
+window.addEventListener("resize", function(){
+  setViewH();
+  if(curView === "home" && (window.innerWidth < 620) !== homeNarrow) RENDER.home();
+});
+load(); setViewH(); if(aiCfg()) save(); if(DB.engine === "ai" && !aiCfg()){ DB.engine = "local"; save(); } refreshKeyBtn();
 authMode = AUTH.users.length ? "login" : "create";
 if(DB.profile && AUTH.session) show("home"); else show("onb");
 </script>
