@@ -441,11 +441,13 @@ var AUTH_KEY = "ocm_study_auth_v1";    /* student list, device AI connection, cu
 var DATA_KEY = "ocm_study_user_";      /* one private study blob per student id */
 var AUTH = {v: 1, users: [], session: null, last: null, ai: null, migrated: false};
 var authMode = "login", AUTH_MIGRATED = "";
+var FOLDER = {handle: null, pending: false, timer: null, writing: false, queued: false, lasted: "", warned: false};
+var FOLDER_DB = "gurukul_fs_v1", FOLDER_STORE = "handles";
 function blankDB(){
-  return {profile: null, chapters: [], progress: {}, history: [], facts: {}, cache: {}, book: [], engine: "local", cur: null, speech: {uri: "", name: "", rate: 0.95, pitch: 1}, syllabus: null, plan: null, tt: [], ttDone: {}};
+  return {profile: null, chapters: [], progress: {}, history: [], facts: {}, cache: {}, book: [], engine: "local", cur: null, speech: {uri: "", name: "", rate: 0.95, pitch: 1}, syllabus: null, plan: null, tt: [], ttDone: {}, save: {asked: false, enabled: false, name: "", file: "", at: 0}};
 }
 function studyFields(){
-  return ["profile", "chapters", "progress", "history", "facts", "cache", "book", "cur", "last", "sess", "speech", "qaMarks", "paper", "mist", "lastBackup", "play", "syllabus", "plan", "tt", "ttDone"];
+  return ["profile", "chapters", "progress", "history", "facts", "cache", "book", "cur", "last", "sess", "speech", "qaMarks", "paper", "mist", "lastBackup", "play", "syllabus", "plan", "tt", "ttDone", "save"];
 }
 function normalizeStudy(d){
   d = d && typeof d === "object" ? d : {};
@@ -455,6 +457,10 @@ function normalizeStudy(d){
   d.engine = d.engine || "local";
   d.syllabus = d.syllabus || null; d.plan = d.plan || null;
   d.tt = Array.isArray(d.tt) ? d.tt : []; d.ttDone = d.ttDone || {};
+  d.save = (d.save && typeof d.save === "object") ? d.save : {};
+  if(d.save.asked === undefined) d.save.asked = false;
+  d.save.enabled = !!d.save.enabled; d.save.name = d.save.name || "";
+  d.save.file = d.save.file || ""; d.save.at = d.save.at || 0;
   if(!d.cur || !d.chapters.some(function(c){ return c.id === d.cur; })) d.cur = d.chapters[0] ? d.chapters[0].id : null;
   return d;
 }
@@ -537,6 +543,7 @@ function save(){
       localStorage.setItem(DATA_KEY + AUTH.session, JSON.stringify(studySnapshot(DB)));
     }
     saveUsers();
+    if(typeof scheduleFolderSave === "function") scheduleFolderSave();
   } catch(e){ setMsg("Could not save on this device, so progress may be lost when you close the page.", true); }
 }
 /* Drop per-student runtime state when switching accounts. */
@@ -545,6 +552,9 @@ function resetRuntime(){
   clearPlayTimer(); PS = null;
   PREP = {}; QA = null; T = null; pend = null; VA = {}; sample = null;
   RETRY = null; FOCUS = ""; EXQ = ""; lastDoubtQ = ""; MWB = null; SVS = null; NCERT_PICK = null; PENDMETA = null;
+  FOLDER.handle = null; FOLDER.pending = false; FOLDER.warned = false;
+  if(FOLDER.timer){ clearTimeout(FOLDER.timer); FOLDER.timer = null; }
+  FOLDER.writing = false; FOLDER.queued = false; FOLDER.lasted = "";
   Array.prototype.slice.call(document.querySelectorAll(".modal")).forEach(function(x){
     if(typeof x.__close === "function") x.__close(); else x.remove();
   });
@@ -1230,10 +1240,12 @@ function startSession(u){
   save();
   refreshWhoBtn(); refreshKeyBtn(); refreshBanner();
   show("home");
+  afterLoginFolders();
   toast(u.pin ? "Welcome, " + DB.profile.name : "Welcome, " + DB.profile.name + ". Add a password in My details.");
 }
 function logOut(){
   if(DB.profile && AUTH.session) save();
+  try { if(DB.save && DB.save.enabled && FOLDER.handle) writeFolderNow(); } catch(e){}
   stopSpeech();
   resetRuntime();
   AUTH.last = AUTH.session || AUTH.last;
@@ -1311,7 +1323,7 @@ function onProfileGo(){
   DB = blankDB(); DB.profile = v; DB.ai = AUTH.ai || null; pendPic = null;
   AUTH.users.push(u); AUTH.session = u.id; AUTH.last = u.id; AUTH.migrated = false; AUTH_MIGRATED = "";
   save(); refreshWhoBtn(); refreshKeyBtn(); refreshBanner(); logEv("profile", "Joined Gurukul as " + v.cls);
-  show("home"); toast("Welcome, " + v.name);
+  show("home"); afterLoginFolders(); toast("Welcome, " + v.name);
 }
 RENDER.onb = function(){
   var editing = !!(DB.profile && AUTH.session), has = AUTH.users.length > 0;
@@ -1365,6 +1377,7 @@ function eraseMe(){
   askYes("Erase all study data for " + nm + "? Books, notes, progress and history will be deleted, and the account will be removed. This cannot be undone.", function(){
     var id = AUTH.session;
     try { localStorage.removeItem(DATA_KEY + id); } catch(e){}
+    try { if(typeof fdbDel === "function") fdbDel("folder_" + id); } catch(e){}
     AUTH.users = AUTH.users.filter(function(x){ return x.id !== id; });
     AUTH.session = null; AUTH.last = AUTH.users[0] ? AUTH.users[0].id : null;
     saveUsers(); resetRuntime(); DB = blankDB();
@@ -1378,7 +1391,8 @@ function eraseAll(){
       var keys = []; for(var i = 0; i < localStorage.length; i++){ keys.push(localStorage.key(i)); }
       keys.forEach(function(k){ if(k && k.indexOf("ocm_study") === 0) localStorage.removeItem(k); });
     } catch(e){}
-    location.reload();
+    try { if(typeof fdbClear === "function") fdbClear().then(function(){ location.reload(); }, function(){ location.reload(); }); else location.reload(); }
+    catch(e){ location.reload(); }
   });
 }
 $("liGo").onclick = onLogin;
@@ -6839,6 +6853,7 @@ RENDER.tools = function(){
   var needBk = DB.history.length > 5 && (!DB.lastBackup || Date.now() - DB.lastBackup > 7 * 864e5);
   var h = "<h1>Settings</h1><p class='sub'>Everything here runs on this device. Nothing leaves your phone unless you choose AI.</p><div class='toolsGrid'>";
   h += "<div class='card'><strong>Study plan</strong><p class='status'>Upload your syllabus and set a timetable with follow-up.</p><button data-v='plan'>Open study plan</button></div>";
+  h += folderCardHtml();
   h += "<div class='card'><strong>Print report</strong><p class='status'>A tidy progress report for a parent or teacher.</p><button data-act='pr'>Print report</button></div>";
   h += "<div class='card'><strong>Back up my data</strong><p class='status'>Save a copy of your progress to a file.</p><button data-act='bk'>Back up now</button>" + (needBk ? "<p class='status'>It has been a while since your last backup.</p>" : "") + "</div>";
   h += "<div class='card'><strong>Restore backup</strong><p class='status'>Bring back progress from a backup file.</p><button data-act='rs'>Choose backup file</button></div>";
@@ -7138,11 +7153,240 @@ function restoreData(f){
     askYes("Replace this student’s study data with this backup?", function(){
       d.ai = DB.ai; d.history = d.history || []; d.facts = d.facts || {}; d.progress = d.progress || {}; d.cache = d.cache || {}; d.book = d.book || []; d.speech = d.speech || {};
       d.engine = d.ai ? (d.engine || "local") : "local";
+      d.save = DB.save;   /* the save folder belongs to this device, not the backup */
       if(!d.cur || !d.chapters.some(function(c){ return c.id === d.cur; })) d.cur = d.chapters[0] ? d.chapters[0].id : null;
       DB = d; save(); location.reload();
     });
   }).catch(function(){ toast("That is not a Gurukul backup file"); });
 }
+/* ---------- save folder: keep a live copy in a chosen folder ----------
+   Uses the File System Access API. The directory handle is stored in
+   IndexedDB (per student) so it can be reused without asking again. Cloud
+   folders (iCloud Drive, OneDrive, Google Drive, Dropbox) work because they
+   are ordinary folders once their desktop app is installed. */
+function fdbOpen(){
+  return new Promise(function(res, rej){
+    var idb = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB;
+    if(!idb) return rej(new Error("no-idb"));
+    var r = idb.open(FOLDER_DB, 1);
+    r.onupgradeneeded = function(){ var db = r.result; if(!db.objectStoreNames.contains(FOLDER_STORE)) db.createObjectStore(FOLDER_STORE); };
+    r.onsuccess = function(){ res(r.result); };
+    r.onerror = function(){ rej(r.error || new Error("idb")); };
+  });
+}
+function fdbGet(key){
+  return fdbOpen().then(function(db){
+    return new Promise(function(res, rej){
+      var rq = db.transaction(FOLDER_STORE, "readonly").objectStore(FOLDER_STORE).get(key);
+      rq.onsuccess = function(){ res(rq.result || null); };
+      rq.onerror = function(){ rej(rq.error); };
+    });
+  });
+}
+function fdbPut(key, val){
+  return fdbOpen().then(function(db){
+    return new Promise(function(res, rej){
+      var rq = db.transaction(FOLDER_STORE, "readwrite").objectStore(FOLDER_STORE).put(val, key);
+      rq.onsuccess = function(){ res(true); };
+      rq.onerror = function(){ rej(rq.error); };
+    });
+  });
+}
+function fdbDel(key){
+  return fdbOpen().then(function(db){
+    return new Promise(function(res, rej){
+      var rq = db.transaction(FOLDER_STORE, "readwrite").objectStore(FOLDER_STORE).delete(key);
+      rq.onsuccess = function(){ res(true); };
+      rq.onerror = function(){ rej(rq.error); };
+    });
+  });
+}
+function fdbClear(){
+  return fdbOpen().then(function(db){
+    return new Promise(function(res, rej){
+      var rq = db.transaction(FOLDER_STORE, "readwrite").objectStore(FOLDER_STORE).clear();
+      rq.onsuccess = function(){ res(true); };
+      rq.onerror = function(){ rej(rq.error); };
+    });
+  }).catch(function(){ return false; });
+}
+function folderSupported(){ return !!(window.showDirectoryPicker && window.isSecureContext !== false); }
+function folderCanWrite(h){ return (h && typeof h.queryPermission === "function") ? h.queryPermission({mode: "readwrite"}) : Promise.resolve("granted"); }
+function folderAskWrite(h){ return (h && typeof h.requestPermission === "function") ? h.requestPermission({mode: "readwrite"}) : Promise.resolve("granted"); }
+function folderFileName(){
+  if(DB.save && DB.save.file) return DB.save.file;
+  var n = (DB.profile && DB.profile.name) || "student";
+  n = String(n).replace(/[\\/:*?"<>|]+/g, " ").replace(/\s+/g, " ").trim().slice(0, 48) || "student";
+  var f = "Gurukul - " + n + ".json";
+  if(DB.save) DB.save.file = f;
+  return f;
+}
+function folderSnapshot(){
+  var d = studySnapshot(DB);
+  if(d.save) d.save = {asked: !!d.save.asked, enabled: !!d.save.enabled, name: d.save.name || "", file: d.save.file || "", at: Date.now()};
+  d.app = "Gurukul"; d.kind = "data"; d.at = Date.now();
+  return d;
+}
+function scheduleFolderSave(){
+  if(typeof DB === "undefined" || !DB || !DB.save || !DB.save.enabled || !FOLDER.handle) return;
+  if(FOLDER.timer) clearTimeout(FOLDER.timer);
+  FOLDER.timer = setTimeout(function(){
+    FOLDER.timer = null;
+    if(FOLDER.writing){ FOLDER.queued = true; return; }
+    writeFolderNow();
+  }, 800);
+}
+function writeFolderNow(){
+  if(typeof DB === "undefined" || !DB || !DB.save || !DB.save.enabled || !FOLDER.handle) return Promise.resolve(false);
+  if(FOLDER.writing){ FOLDER.queued = true; return Promise.resolve(false); }
+  FOLDER.writing = true;
+  var h = FOLDER.handle, name = folderFileName(), sid = AUTH.session;
+  /* Capture the snapshot now, so switching accounts mid-write cannot save a blank page. */
+  var text = JSON.stringify(folderSnapshot(), null, 1) + "\n";
+  return folderCanWrite(h).then(function(p){
+    if(p !== "granted"){ FOLDER.pending = true; FOLDER.lasted = "needs permission"; refreshFolderChip(); return false; }
+    return h.getFileHandle(name, {create: true}).then(function(fh){ return fh.createWritable(); }).then(function(w){
+      return w.write(text).then(function(){ return w.close(); });
+    }).then(function(){
+      FOLDER.pending = false; FOLDER.lasted = "";
+      if(AUTH.session === sid && DB && DB.save){
+        DB.save.at = Date.now();
+        try { if(DB.profile) localStorage.setItem(DATA_KEY + sid, JSON.stringify(studySnapshot(DB))); } catch(e){}
+      }
+      refreshFolderChip();
+      return true;
+    });
+  }).catch(function(e){
+    FOLDER.lasted = (e && (e.name || e.message)) || "error";
+    FOLDER.pending = true; refreshFolderChip();
+    return false;
+  }).then(function(ok){
+    FOLDER.writing = false;
+    if(FOLDER.queued){ FOLDER.queued = false; scheduleFolderSave(); }
+    return ok;
+  });
+}
+function attachFolder(){
+  if(!DB.save) DB.save = {asked: false, enabled: false, name: "", file: "", at: 0};
+  if(!DB.save.enabled){ refreshFolderChip(); return Promise.resolve(false); }
+  if(!folderSupported()){ FOLDER.pending = true; FOLDER.lasted = "not supported here"; refreshFolderChip(); return Promise.resolve(false); }
+  return fdbGet("folder_" + AUTH.session).then(function(h){
+    if(!h){ FOLDER.pending = true; FOLDER.lasted = "link lost"; refreshFolderChip(); return false; }
+    FOLDER.handle = h;
+    return folderCanWrite(h).then(function(p){
+      FOLDER.pending = (p !== "granted");
+      if(FOLDER.pending){ FOLDER.lasted = "needs permission"; refreshFolderChip(); return false; }
+      FOLDER.lasted = "";
+      /* catch the folder up with anything saved while it was not attached */
+      return writeFolderNow().then(function(){ return true; });
+    });
+  }).catch(function(){ FOLDER.pending = true; FOLDER.lasted = "error"; refreshFolderChip(); return false; });
+}
+function chooseFolder(){
+  if(!folderSupported()){ toast("This browser cannot save to a folder directly"); return Promise.resolve(false); }
+  var pick;
+  try { pick = window.showDirectoryPicker({id: "gurukul", mode: "readwrite", startIn: "documents"}); }
+  catch(e){
+    if(e && e.name === "SecurityError") toast("This browser blocked folder access. Open the app from its local server and try again.");
+    else toast("Could not open the folder picker");
+    return Promise.resolve(false);
+  }
+  return Promise.resolve(pick).then(function(h){
+    return folderAskWrite(h).then(function(p){
+      if(p !== "granted"){ toast("No permission was given, so nothing was saved"); return false; }
+      FOLDER.handle = h; FOLDER.pending = false; FOLDER.lasted = "";
+      DB.save = DB.save || {asked: false, enabled: false, name: "", file: "", at: 0};
+      DB.save.asked = true; DB.save.enabled = true; DB.save.name = h.name || "folder"; DB.save.at = Date.now();
+      return fdbPut("folder_" + AUTH.session, h).catch(function(){ return true; }).then(function(){
+        save();
+        if(FOLDER.timer){ clearTimeout(FOLDER.timer); FOLDER.timer = null; }
+        return writeFolderNow().then(function(ok){
+          toast(ok ? ("Saving to \u201C" + (DB.save.name || "folder") + "\u201D") : "Folder chosen; saving will retry");
+          refreshFolderChip();
+          return ok;
+        });
+      });
+    });
+  }).catch(function(e){
+    if(e && e.name === "AbortError") return false;
+    if(e && e.name === "SecurityError"){ toast("This browser blocked folder access. Open the app from its local server and try again."); return false; }
+    toast("Could not use that folder"); return false;
+  });
+}
+function folderReconnect(){
+  var get = FOLDER.handle ? Promise.resolve(FOLDER.handle) : fdbGet("folder_" + AUTH.session);
+  get.then(function(h){
+    if(!h){ toast("The folder link was lost \u2014 please choose the folder again"); return chooseFolder(); }
+    FOLDER.handle = h;
+    return folderAskWrite(h).then(function(p){
+      if(p === "granted"){ FOLDER.pending = false; return writeFolderNow().then(function(){ toast("Save folder reconnected"); }); }
+      FOLDER.pending = true; refreshFolderChip(); toast("No permission was given");
+    });
+  }).catch(function(){ toast("Could not reconnect the folder"); });
+}
+function folderTurnOff(){
+  var nm = (DB.save && DB.save.name) || "the folder";
+  askYes("Stop saving to \u201C" + nm + "\u201D? Your work stays safe in this browser.", function(){
+    DB.save.enabled = false; FOLDER.handle = null; FOLDER.pending = false; FOLDER.lasted = "";
+    try { fdbDel("folder_" + AUTH.session); } catch(e){}
+    save(); refreshFolderChip(); toast("Folder saving turned off");
+  });
+}
+function folderCardHtml(){
+  var s = DB.save || {asked: false, enabled: false, name: "", at: 0}, sup = folderSupported(), state, btns;
+  if(!s.enabled){
+    state = sup ? "Your work is kept in this browser. Choose a folder \u2014 you can pick a cloud folder such as iCloud Drive, OneDrive, Google Drive or Dropbox \u2014 and I will save a copy there automatically." : "This browser cannot write to a folder directly. Try Chrome or Edge, or open the app from its local server. Your work stays in this browser meanwhile; use <b>Back up my data</b> to keep a copy anywhere.";
+    btns = sup ? "<button class='primary' data-act='foldpick'>Choose a folder</button>" : "";
+  } else if(!sup){
+    state = "Saved earlier to \u201C" + esc(s.name) + "\u201D, but this browser can no longer write to a folder.";
+    btns = "";
+  } else if(FOLDER.pending){
+    state = "Saving to \u201C" + esc(s.name) + "\u201D" + (FOLDER.lasted ? " \u2014 could not write (" + esc(FOLDER.lasted) + ")" : "") + ". Press Reconnect to allow it again.";
+    btns = "<button data-act='foldchg'>Change folder</button> <button class='primary' data-act='foldrec'>Reconnect</button> <button data-act='foldoff'>Turn off</button>";
+  } else {
+    state = "Saving automatically to \u201C" + esc(s.name) + "\u201D" + (s.at ? ". Last save " + fmtT(s.at) + " on " + fmtD(s.at) + "." : ".");
+    btns = "<button data-act='foldchg'>Change folder</button> <button data-act='foldoff'>Turn off</button>";
+  }
+  return "<div class='card'><strong>Save folder</strong><p class='status'>" + state + "</p>" + (btns ? "<div class='row' style='margin:8px 0 0'>" + btns + "</div>" : "") + "</div>";
+}
+function refreshFolderChip(){ if(curView === "tools" && RENDER.tools) RENDER.tools(); }
+function folderWelcomeModal(){
+  DB.save = DB.save || {asked: false, enabled: false, name: "", file: "", at: 0};
+  var ok = folderSupported();
+  var h = "<h3 style='margin-top:0'>Where should I save your work?</h3>" +
+    "<p>Choose a folder for <b>" + esc((DB.profile && DB.profile.name) || "your") + "\u2019s Gurukul data. I will keep a copy there and update it automatically every time something changes, so your progress is safe even if this browser is cleared.</p>" +
+    "<p class='status'>You can choose a <b>cloud folder</b> \u2014 iCloud Drive, OneDrive, Google Drive or Dropbox \u2014 if its desktop app is installed on this computer. It then syncs just like any other folder.</p>";
+  if(ok) h += "<p class='status'>The app keeps one file there: <b>" + esc(folderFileName()) + "</b>.</p>";
+  else h += "<p class='status' style='color:var(--bad)'>This browser cannot write to a folder directly. Try Chrome or Edge, or open the app from its local server. Your work will stay in this browser; use <b>Back up my data</b> in Settings to download a copy you can keep anywhere.</p>";
+  h += "<div class='row' style='margin-top:12px'>" + (ok ? "<button class='primary' id='fwPick'>Choose a folder</button>" : "") + "<button id='fwLater'>" + (ok ? "Keep in this browser for now" : "Continue") + "</button></div>";
+  var m = popup(h);
+  m.el.querySelector("#fwLater").onclick = function(){
+    DB.save.asked = true; save(); m.close();
+    toast(ok ? "Your work is kept in this browser. You can choose a folder in Settings." : "You can back up any time in Settings.");
+  };
+  if(ok){
+    m.el.querySelector("#fwPick").onclick = function(){
+      chooseFolder().then(function(got){ if(got){ save(); if(m.el.parentNode) m.close(); } });
+    };
+  }
+}
+function afterLoginFolders(){
+  if(!DB.save) DB.save = {asked: false, enabled: false, name: "", file: "", at: 0};
+  if(!DB.save.asked){
+    /* ask once, for this student, on their first visit */
+    setTimeout(function(){
+      if(DB.profile && AUTH.session && DB.save && !DB.save.asked && !document.querySelector(".modal")) folderWelcomeModal();
+    }, 600);
+    return;
+  }
+  attachFolder().then(function(){
+    if(FOLDER.pending && DB.save.enabled && !FOLDER.warned){ FOLDER.warned = true; toast("Open Settings to reconnect your save folder."); }
+  });
+}
+try {
+  document.addEventListener("visibilitychange", function(){ if(document.visibilityState === "hidden" && typeof DB !== "undefined" && DB && DB.save && DB.save.enabled) writeFolderNow(); });
+  window.addEventListener("pagehide", function(){ if(typeof DB !== "undefined" && DB && DB.save && DB.save.enabled) writeFolderNow(); });
+} catch(e){}
 /* ---------- notebook: keep the explanations that matter ---------- */
 function saveNote(text, label){
   text = String(text || "").trim();
@@ -7455,7 +7699,7 @@ function speechSettings(){
       }
     };
   }
-  document.addEventListener("click", function(e){ var b = e.target.closest && e.target.closest("[data-act]"); if(!b) return; var a = b.getAttribute("data-act"); if(a === "mist") mistakePractice(); else if(a === "bk") backupData(); else if(a === "rs") $("fRs").click(); else if(a === "pr") printReport(); else if(a === "cls") $("fCls").click(); else if(a === "prof") show("onb"); });
+  document.addEventListener("click", function(e){ var b = e.target.closest && e.target.closest("[data-act]"); if(!b) return; var a = b.getAttribute("data-act"); if(a === "mist") mistakePractice(); else if(a === "bk") backupData(); else if(a === "rs") $("fRs").click(); else if(a === "pr") printReport(); else if(a === "cls") $("fCls").click(); else if(a === "prof") show("onb"); else if(a === "foldpick" || a === "foldchg") chooseFolder().then(function(){ if(curView === "tools") RENDER.tools(); }); else if(a === "foldrec") folderReconnect(); else if(a === "foldoff") folderTurnOff(); });
   document.addEventListener("change", function(e){ var t = e.target; if(t.id === "fRs" && t.files[0]) restoreData(t.files[0]); if(t.id === "fCls" && t.files.length) classView(t.files); });
 })();
 
@@ -7976,7 +8220,7 @@ window.addEventListener("resize", function(){
 });
 load(); setViewH(); if(aiCfg()) save(); if(DB.engine === "ai" && !aiCfg()){ DB.engine = "local"; save(); } refreshKeyBtn();
 authMode = AUTH.users.length ? "login" : "create";
-if(DB.profile && AUTH.session) show("home"); else show("onb");
+if(DB.profile && AUTH.session){ show("home"); afterLoginFolders(); } else show("onb");
 </script>
 </body>
 </html>
