@@ -7,6 +7,7 @@
 <meta name="theme-color" content="#101625" media="(prefers-color-scheme: dark)">
 <title>Gurukul</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%235265da'/%3E%3Cpath d='M16 20h12a5 5 0 0 1 4 2 5 5 0 0 1 4-2h12v24H36a4 4 0 0 0-4 2 4 4 0 0 0-4-2H16z' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linejoin='round'/%3E%3Ccircle cx='46' cy='17' r='3.5' fill='%23ffd36b'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="icon-192.png">
 <style>
 :root{--bg:#eef2fa;--card:#fbfcff;--ink:#26324a;--mute:#5d6a82;--line:#dce4f2;--acc:#5265da;--accbg:#e8ebff;--acc2:#24a99a;--acc2bg:#e1f6f2;--acc2ink:#14776c;--ok:#237a56;--okbg:#ddf4ea;--bad:#a8424f;--badbg:#fbe7ea;--onacc:#ffffff;--onacc2:#06352f;--glow1:rgba(82,101,218,.10);--glow2:rgba(36,169,154,.08);--shadow:0 12px 32px rgba(35,48,80,.07);--shadow-sm:0 5px 16px rgba(35,48,80,.10);--primary-shadow:0 6px 16px rgba(82,101,218,.24);--primary-shadow-hover:0 9px 22px rgba(82,101,218,.32);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101625;--card:#182034;--ink:#e7ecf8;--mute:#9fabc4;--line:#2a3550;--acc:#93a4ff;--accbg:#232c50;--acc2:#63d7c5;--acc2bg:#153a37;--acc2ink:#8ce3d5;--ok:#82d9ad;--okbg:#12332a;--bad:#f0a3ac;--badbg:#3a212d;--onacc:#111629;--onacc2:#082b27;--glow1:rgba(120,140,255,.14);--glow2:rgba(80,210,190,.08);--shadow:0 12px 32px rgba(0,0,0,.28);--shadow-sm:0 5px 16px rgba(0,0,0,.28);--primary-shadow:0 6px 16px rgba(0,0,0,.30);--primary-shadow-hover:0 9px 22px rgba(0,0,0,.38);color-scheme:dark}}
@@ -16,7 +17,7 @@ body{margin:0;background-color:var(--bg);background-image:radial-gradient(900px 
 ::selection{background:var(--accbg);color:var(--ink)}
 header{position:sticky;top:0;z-index:5;background:var(--bg);background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:8px 14px}
 .bar1{display:flex;align-items:center;gap:8px;max-width:960px;margin:0 auto}.brand{font-weight:700;font-size:1.1rem;letter-spacing:-.02em;flex:1}
-#quote{max-width:960px;margin:4px auto 0;font-size:.86rem;color:var(--mute);font-style:italic;background:var(--acc2bg);border-radius:10px;padding:5px 10px;animation:fade .6s}
+.homeQuote{margin:6px 0 0;font-size:.86rem;color:var(--mute);font-style:italic;background:var(--acc2bg);border-radius:10px;padding:6px 10px}
 main{max-width:960px;margin:0 auto;padding:16px 14px 70px}h1{font-size:1.5rem;margin:6px 0;letter-spacing:-.02em}h2{font-size:1.2rem;margin:14px 0 6px;letter-spacing:-.01em}h3{font-size:1.05rem;margin:12px 0 4px;letter-spacing:-.01em}
 .sub,.status{color:var(--mute);font-size:.93rem}.err{color:var(--bad)}.hidden{display:none!important}
 .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
@@ -170,16 +171,14 @@ body.method-open #v-study>h1{display:none}
 body.fit main{padding-bottom:12px}
 @media (max-width:620px){#scTitle{display:none!important}.brand{display:none}#bBack .lbl,#bFwd .lbl,#bHome .lbl{display:none}#whoChip{max-width:30vw}.bar1{gap:6px}
  #bKey{display:none!important}
- #quote{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
  .cta{padding:10px 12px}
  .cta .status{display:none}
  .cta .row{margin:6px 0 0;flex-wrap:nowrap}
  .cta button{flex:1;min-width:0;padding:8px 10px;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
  #v-progress .stat>div,#v-perf .stat>div{min-width:0}
- #path{display:none}
  #v-study #chSel{flex:1 1 100%;min-width:0}
  #v-study #chCard #packInfo{display:none}
- #v-study .methodsGrid{grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:6px}
+ #v-study .methodsGrid{grid-template-columns:repeat(auto-fit,minmax(108px,1fr));gap:6px}
  #v-study .mth.tile{flex-direction:row;align-items:center;justify-content:flex-start;text-align:left;min-height:0;padding:8px;gap:8px}
  #v-study .mth.tile .ic{width:24px;height:24px;padding:2px}
  #v-study .mth.tile b{font-size:.84rem;line-height:1.2}
@@ -193,11 +192,11 @@ body.fit main{padding-bottom:12px}
  .planRow{padding:6px 0}
 }
 /* ---- home: milky-way map ---- */
-.homeWish{padding:14px 16px}
-.homeWish h1{font-size:1.22rem;margin:0 0 4px}
+.homeWish{padding:12px 16px}
+.homeWish h1{font-size:1.22rem;margin:0 0 3px}
 .homeWish p{margin:0;font-size:.9rem;color:var(--mute)}
 .galaxyCard{padding:0;overflow:hidden;margin-top:10px;position:relative;background:#070b24;border-color:#2a3163}
-.galaxy{display:block;width:100%;height:auto;max-height:62vh}
+.galaxy{display:block;width:100%;height:auto;max-height:54vh}
 .galaxy .star{fill:#fff;opacity:.85;animation:twinkle 3.4s ease-in-out infinite alternate}
 .galaxy .symbol{animation:symFloat 7s ease-in-out infinite alternate}
 .galaxy .shoot{animation:shootSweep 11s ease-in infinite}
@@ -219,9 +218,12 @@ body.fit main{padding-bottom:12px}
 @keyframes symFloat{from{transform:translateY(-7px)}to{transform:translateY(7px)}}
 @keyframes shootSweep{0%{opacity:0;transform:translate(-30px,-16px)}7%{opacity:1}34%{opacity:0;transform:translate(var(--sx,300px),var(--sy,160px))}100%{opacity:0;transform:translate(var(--sx,300px),var(--sy,160px))}}
 @media (prefers-reduced-motion: reduce){.galaxy .star,.galaxy .symbol,.galaxy .shoot,.galaxy .sunRays,.galaxy .sunGlow,.galaxy .galCore,.galaxy .orbitSpin,.galaxy .orbitCounter{animation:none!important}}
-.homeSecs{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-top:12px}
+.homeSecs{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:12px}
 .homeSecs .mth{padding:10px 8px}
 .homeSecs .mth small{display:none}
+.homeExtras{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:10px}
+.homeExtras button{padding:7px 12px;font-size:.86rem}
+#path{display:none!important}
 /* ---- mind map ---- */
 .mmWrap{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:16px;background:radial-gradient(circle at 50% 45%,var(--accbg),var(--card) 70%)}
 .mmSvg{display:block;width:100%;height:min(62vh,520px);touch-action:none;cursor:grab}
@@ -411,7 +413,7 @@ body.fit main{padding-bottom:12px}
 </style>
 </head>
 <body>
-<header id="top"><div class="bar1"><button id="bBack" class="pill hidden" title="Go back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg><span class="lbl">Back</span></button><button id="bFwd" class="pill hidden" title="Go forward"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg><span class="lbl">Forward</span></button><div class="barL"><span class="brand">Gurukul</span><span id="scTitle" class="hidden"></span></div><span id="whoChip" class="chip hidden"></span><span id="aiStat" class="chip hidden"></span><button id="bHome" class="pill" title="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 10l9-6 9 6z M5 10v8 M9 10v8 M15 10v8 M19 10v8 M3 20h18"/></svg><span class="lbl">Home</span></button><button id="bProf" class="avatar" title="My details" aria-label="My details"><svg viewBox="0 0 40 40"><rect width="40" height="40" fill="var(--accbg)"/><path d="M5 40c0-10 6-14 15-14s15 4 15 14z" fill="var(--acc)"/><circle cx="20" cy="21" r="7" fill="#f2c9a0"/><path d="M7 14l13-6 13 6-13 6z" fill="#2b3550"/><path d="M13 17v4c0 2 14 2 14 0v-4" fill="#2b3550"/><path d="M32 15v7" stroke="#24a99a" stroke-width="1.6"/></svg></button><button id="bKey" class="hidden">✦ Connect AI</button></div><div id="quote"></div></header>
+<header id="top"><div class="bar1"><button id="bBack" class="pill hidden" title="Go back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg><span class="lbl">Back</span></button><button id="bFwd" class="pill hidden" title="Go forward"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg><span class="lbl">Forward</span></button><div class="barL"><span class="brand">Gurukul</span><span id="scTitle" class="hidden"></span></div><span id="whoChip" class="chip hidden"></span><span id="aiStat" class="chip hidden"></span><button id="bHome" class="pill" title="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 10l9-6 9 6z M5 10v8 M9 10v8 M15 10v8 M19 10v8 M3 20h18"/></svg><span class="lbl">Home</span></button><button id="bProf" class="avatar" title="My details" aria-label="My details"><svg viewBox="0 0 40 40"><rect width="40" height="40" fill="var(--accbg)"/><path d="M5 40c0-10 6-14 15-14s15 4 15 14z" fill="var(--acc)"/><circle cx="20" cy="21" r="7" fill="#f2c9a0"/><path d="M7 14l13-6 13 6-13 6z" fill="#2b3550"/><path d="M13 17v4c0 2 14 2 14 0v-4" fill="#2b3550"/><path d="M32 15v7" stroke="#24a99a" stroke-width="1.6"/></svg></button><button id="bKey" class="hidden">✦ Connect AI</button></div></header>
 <div id="pilotBar" class="pilotBar hidden" role="status"></div>
 <main id="main">
 <section id="v-intro" class="hidden"><div class="center authWide">
@@ -749,29 +751,33 @@ function migrateLegacy(){
   var raw = null; try { raw = localStorage.getItem(KEY); } catch(e){} if(!raw) return false;
   var d = null; try { d = JSON.parse(raw); } catch(e){ return false; }
   if(!d || !d.profile || !d.profile.name) return false;
-  var id = uid(), snap = studySnapshot(d);
+  var id = uid(), snap = studySnapshot(d), snapStr = JSON.stringify(snap);
   snap.updatedAt = Date.now();
-  sdbPut(id, snap);
   if(!writeStudentLocal(id, snap)) return false;
+  var idbP = sdbPut(id, snap);
+  if(snapStr.length <= 1400000){
+    try { localStorage.removeItem(KEY); } catch(e){}
+  } else {
+    idbP.then(function(ok){ if(ok) try { localStorage.removeItem(KEY); } catch(e){} });
+  }
   AUTH.users.push({id: id, name: d.profile.name, cls: d.profile.cls || "", user: slugUser(d.profile.name), age: d.profile.age || "", pin: "", salt: "", at: Date.now()});
   AUTH.ai = d.ai || AUTH.ai;
   if(!AUTH.ai && d.key) AUTH.ai = {provider: "anthropic", key: d.key, email: "", model: d.model || AI_PROVIDERS.anthropic.model};
   AUTH.last = id; AUTH.migrated = true;
-  try { localStorage.removeItem(KEY); } catch(e){}
   saveUsers(); AUTH_MIGRATED = d.profile.name;
   return true;
 }
-var BOOT_IDB_STUB = false, IDB_HYDRATING = false;
+var BOOT_IDB_STUB = false, IDB_HYDRATING = false, AUTH_TOKEN = 0;
 function load(){
   AUTH = {v: 1, users: [], session: null, last: null, ai: null, migrated: false};
   loadUsers();
   if(!AUTH.users.length) migrateLegacy();
-  DB = blankDB(); BOOT_IDB_STUB = false;
+  DB = blankDB(); BOOT_IDB_STUB = false; IDB_HYDRATING = false;
   if(AUTH.session){
     var u = findUser(AUTH.session);
     if(u){
       var d = null; try { var raw = localStorage.getItem(DATA_KEY + u.id); if(raw) d = JSON.parse(raw); } catch(e){}
-      if(d && d.__idb) BOOT_IDB_STUB = true;
+      if(d && d.__idb){ BOOT_IDB_STUB = true; IDB_HYDRATING = true; }
       DB = normalizeStudy(d);
       if(!DB.profile) DB.profile = {name: u.name, cls: u.cls || "Class 9", lang: "English", school: "", from: ""};
       AUTH.last = u.id;
@@ -903,7 +909,16 @@ function markDone(k){
   if(k === "notes" || k === "explain" || k === "doubt" || k === "cram") toast("+" + pts + " XP earned");
   if(curView === "study") renderPath();
 }
-function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
+function safePic(p){ return typeof p === "string" && /^data:image\/(png|jpeg|webp|gif);base64,[A-Za-z0-9+/=]+$/.test(p) ? p : ""; }
+function copyText(txt, okMsg){
+  var s = String(txt || "");
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(s).then(function(){ toast(okMsg || "Copied"); }, function(){ try { window.prompt("Copy text:", s); } catch(e){ toast("Could not copy"); } });
+  } else {
+    try { window.prompt("Copy text:", s); } catch(e){ toast("Copy is not available in this browser"); }
+  }
+}
 function inline(s){return esc(s).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/(^|[^*])\*(?!\s)(.+?)\*/g,"$1<em>$2</em>").replace(/`(.+?)`/g,"<code>$1</code>")}
 function md(t){
   var lines = String(t).split("\n"), h = "", inUl = false, i = 0;
@@ -1000,10 +1015,28 @@ function aiErrText(code){
 function jsonFrom(call){
   return async function(p){
     var r = await call(p + "\n\nReturn ONLY valid JSON with no markdown fences or extra text.", {});
-    var t = String(r && r.text || "").replace(/```json|```/g, "").trim(), a = t.search(/[\[{]/), z = Math.max(t.lastIndexOf("]"), t.lastIndexOf("}"));
-    if(a < 0 || z < a) throw aierr("api", "unreadable reply");
+    var t = String(r && r.text || "").replace(/```(?:json)?|```/gi, "").trim(), a = t.search(/[\[{]/);
+    if(a < 0) throw aierr("api", "unreadable reply");
+    var open = t.charAt(a), close = open === "[" ? "]" : "}", depth = 0, inStr = false, es = false, z = -1, i, ch;
+    for(i = a; i < t.length; i++){
+      ch = t.charAt(i);
+      if(es){ es = false; continue; }
+      if(ch === "\\"){ if(inStr) es = true; continue; }
+      if(ch === '"'){ inStr = !inStr; continue; }
+      if(inStr) continue;
+      if(ch === open) depth++;
+      else if(ch === close){ depth--; if(depth === 0){ z = i; break; } }
+    }
+    if(z < a) throw aierr("api", "unreadable reply");
     return JSON.parse(t.slice(a, z + 1));
   };
+}
+function fetchWithTimeout(url, opts, ms){
+  var ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
+  var tm = ctrl ? setTimeout(function(){ try { ctrl.abort(); } catch(e){} }, ms || 25000) : null;
+  var o = Object.assign({}, opts || {});
+  if(ctrl) o.signal = ctrl.signal;
+  return fetch(url, o).then(function(r){ if(tm) clearTimeout(tm); return r; }, function(e){ if(tm) clearTimeout(tm); throw e; });
 }
 function mkOpenAI(ai){
   var P = AI_PROVIDERS[ai.provider];
@@ -1012,7 +1045,7 @@ function mkOpenAI(ai){
     var h = {"content-type":"application/json", "authorization":"Bearer " + ai.key};
     if(ai.provider === "openrouter"){ h["HTTP-Referer"] = location.href; h["X-Title"] = "Gurukul"; }
     var r;
-    try { r = await fetch(P.api, {method:"POST", headers:h, body: JSON.stringify({model: ai.model || P.model, max_tokens: 8000, stream: !!opts.onText, messages:[{role:"user", content: prompt}]})}); }
+    try { r = await fetchWithTimeout(P.api, {method:"POST", headers:h, body: JSON.stringify({model: ai.model || P.model, max_tokens: 8000, stream: !!opts.onText, messages:[{role:"user", content: prompt}]})}, 25000); }
     catch(e){ throw aierr("no_net", e); }
     if(!r.ok){
       var t = ""; try { t = await r.text(); } catch(e){}
@@ -1020,12 +1053,29 @@ function mkOpenAI(ai){
     }
     if(opts.onText && r.body && r.body.getReader){
       var rd = r.body.getReader(), dec = new TextDecoder(), buf = "", acc = "";
-      while(true){ var x = await rd.read(); if(x.done) break; buf += dec.decode(x.value, {stream: true}); var parts = buf.split("\n"); buf = parts.pop();
-        parts.forEach(function(l){ l = l.trim(); if(l.indexOf("data:") === 0){ var d = l.slice(5).trim(); if(d === "[DONE]") return; try { var j = JSON.parse(d), pc = j.choices && j.choices[0] && j.choices[0].delta && j.choices[0].delta.content; if(pc){ acc += pc; opts.onText({text: acc}); } } catch(e){} } }); }
+      function consumeLines(lines){
+        lines.forEach(function(l){
+          l = l.trim();
+          if(l.indexOf("data:") === 0){
+            var d = l.slice(5).trim(); if(!d || d === "[DONE]") return;
+            var j = null; try { j = JSON.parse(d); } catch(e){ return; }
+            if(j && j.error) throw aierr("api", j.error.message || "stream error");
+            var pc = j && j.choices && j.choices[0] && j.choices[0].delta && j.choices[0].delta.content;
+            if(pc){ acc += pc; opts.onText({text: acc}); }
+          }
+        });
+      }
+      try {
+        while(true){ var x = await rd.read(); if(x.done) break; buf += dec.decode(x.value, {stream: true}); var parts = buf.split("\n"); buf = parts.pop(); consumeLines(parts); }
+        buf += dec.decode();
+        if(buf) consumeLines(buf.split("\n"));
+      } catch(e){ if(e && e.code) throw e; throw aierr("no_net", e); }
       return {text: acc};
     }
     var j2 = await r.json(), m = j2.choices && j2.choices[0] && j2.choices[0].message;
-    return {text: (m && (typeof m.content === "string" ? m.content : Array.isArray(m.content) ? m.content.map(function(x){ return x.text || ""; }).join("") : "")) || ""};
+    var txt2 = (m && (typeof m.content === "string" ? m.content : Array.isArray(m.content) ? m.content.map(function(x){ return x.text || ""; }).join("") : "")) || "";
+    if(opts.onText && txt2) opts.onText({text: txt2});
+    return {text: txt2};
   };
   call.json = jsonFrom(call);
   return call;
@@ -1035,7 +1085,7 @@ function mkGemini(ai){
   var call = async function(prompt, opts){
     opts = opts || {}; if(!navigator.onLine) throw aierr("no_net");
     var model = ai.model || P.model, r;
-    try { r = await fetch(P.api + encodeURIComponent(model) + ":generateContent?key=" + encodeURIComponent(ai.key), {method:"POST", headers:{"content-type":"application/json"}, body: JSON.stringify({contents:[{role:"user", parts:[{text: prompt}]}], generationConfig:{maxOutputTokens: 8192, temperature: 0.4}})}); }
+    try { r = await fetchWithTimeout(P.api + encodeURIComponent(model) + ":generateContent", {method:"POST", headers:{"content-type":"application/json", "x-goog-api-key": ai.key}, body: JSON.stringify({contents:[{role:"user", parts:[{text: prompt}]}], generationConfig:{maxOutputTokens: 8192, temperature: 0.4}})}, 25000); }
     catch(e){ throw aierr("no_net", e); }
     if(!r.ok){
       var t = ""; try { t = await r.text(); } catch(e){}
@@ -1055,19 +1105,35 @@ function mkAnthropic(ai){
   var call = async function(prompt, opts){
     opts = opts || {}; if(!navigator.onLine) throw aierr("no_net");
     var r;
-    try { r = await fetch(P.api, {method:"POST", headers:{"content-type":"application/json", "x-api-key": ai.key, "anthropic-version":"2023-06-01", "anthropic-dangerous-direct-browser-access":"true"}, body: JSON.stringify({model: ai.model || P.model, max_tokens: 8000, stream: !!opts.onText, messages:[{role:"user", content: prompt}]})}); }
+    try { r = await fetchWithTimeout(P.api, {method:"POST", headers:{"content-type":"application/json", "x-api-key": ai.key, "anthropic-version":"2023-06-01", "anthropic-dangerous-direct-browser-access":"true"}, body: JSON.stringify({model: ai.model || P.model, max_tokens: 8000, stream: !!(opts.onText && window.ReadableStream), messages:[{role:"user", content: prompt}]})}, 25000); }
     catch(e){ throw aierr("no_net", e); }
     if(!r.ok){
       var t = ""; try { t = await r.text(); } catch(e){}
       throw aierr(r.status === 401 || r.status === 403 ? "bad_key" : r.status === 429 ? "rate_limited" : r.status === 404 ? "bad_model" : "api", t);
     }
-    if(opts.onText){
+    if(opts.onText && r.body && r.body.getReader){
       var rd = r.body.getReader(), dec = new TextDecoder(), buf = "", acc = "";
-      while(true){ var x = await rd.read(); if(x.done) break; buf += dec.decode(x.value, {stream: true}); var parts = buf.split("\n"); buf = parts.pop();
-        parts.forEach(function(l){ if(l.indexOf("data:") === 0){ try { var j = JSON.parse(l.slice(5)); if(j.type === "content_block_delta" && j.delta && j.delta.text){ acc += j.delta.text; opts.onText({text: acc}); } } catch(e){} } }); }
+      function consumeAnt(lines){
+        lines.forEach(function(l){
+          if(l.indexOf("data:") === 0){
+            var d = l.slice(5).trim(); if(!d || d === "[DONE]") return;
+            var j = null; try { j = JSON.parse(d); } catch(e){ return; }
+            if(j && j.error) throw aierr("api", j.error.message || "stream error");
+            if(j && j.type === "content_block_delta" && j.delta && j.delta.text){ acc += j.delta.text; opts.onText({text: acc}); }
+          }
+        });
+      }
+      try {
+        while(true){ var x = await rd.read(); if(x.done) break; buf += dec.decode(x.value, {stream: true}); var parts = buf.split("\n"); buf = parts.pop(); consumeAnt(parts); }
+        buf += dec.decode();
+        if(buf) consumeAnt(buf.split("\n"));
+      } catch(e){ if(e && e.code) throw e; throw aierr("no_net", e); }
       return {text: acc};
     }
-    var j2 = await r.json(); return {text: (j2.content || []).map(function(c){ return c.text || ""; }).join("")};
+    var j2 = await r.json();
+    var txt2 = (j2.content || []).map(function(c){ return c.text || ""; }).join("");
+    if(opts.onText && txt2) opts.onText({text: txt2});
+    return {text: txt2};
   };
   call.json = jsonFrom(call);
   return call;
@@ -1291,7 +1357,9 @@ async function getSample(){
 async function saveFile(name, text){
   try {
     if(HOSTED){ var d = await claude.use("downloads"); if(d){ await d.save({filename: name, data: text}); } else toast("Saving is not available here"); return; }
-    var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], {type: "text/markdown"})); a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    var url = URL.createObjectURL(new Blob([text], {type: "text/markdown"}));
+    var a = document.createElement("a"); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){ try { URL.revokeObjectURL(url); } catch(e){} }, 1500);
   } catch(e){ toast("The file was not saved"); }
 }
 function aiErr(e, retry){ var _sm = setMsg; setMsg = function(t, b){ _sm(t, b, retry); }; try { aiErr0(e); } finally { setMsg = _sm; } }
@@ -1360,12 +1428,18 @@ var QG = [
  ["He who has wisdom has strength.","Panchatantra","बुद्धिर्यस्य बलं तस्य"],
  ["All dependence is sorrow; all self-mastery is joy.","Panchatantra","सर्वं परवशं दुःखं सर्वमात्मवशं सुखम्"]
 ];
-function newQuote(){
+var CUR_QUOTE = "", PRG_TAB = "overview", PLN_TAB = "today";
+function pickQuote(fresh){
   var pool = QG, i;
+  if(CUR_QUOTE && !fresh) return CUR_QUOTE;
   do { i = Math.floor(Math.random() * pool.length); } while(i === lastQ && pool.length > 1); lastQ = i;
   var q = pool[i];
-  $("quote").innerHTML = "“" + esc(q[0]) + "” — " + esc(q[1]) + " (" + esc(q[2]) + ")";
-  $("quote").style.animation = "none"; void $("quote").offsetWidth; $("quote").style.animation = "";
+  CUR_QUOTE = "“" + esc(q[0]) + "” — " + esc(q[1]) + " (" + esc(q[2]) + ")";
+  return CUR_QUOTE;
+}
+function newQuote(){
+  var qEl = $("homeQuote"), html = pickQuote(true);
+  if(qEl) qEl.innerHTML = html;
 }
 
 /* ---------- navigation ---------- */
@@ -1440,10 +1514,16 @@ function show(v){
   var authView = AUTH_VIEWS.indexOf(v) >= 0;
   if(!authView && !(DB.profile && AUTH.session)) v = "intro";
   if(PILOT_GATE && !authView && DB.profile && AUTH.session && (!DB.pilot || !DB.pilot.registered)) v = "activate";
+  if(v === "perf" || v === "hist" || v === "rep"){ PRG_TAB = v; v = "progress"; }
+  else if(v === "progress" && PRG_TAB !== "overview" && NAV[NIDX] !== "progress"){ PRG_TAB = "overview"; }
+  if(v === "rec"){ PLN_TAB = "today"; v = "plan"; }
+  else if(v === "plan" && NAV[NIDX] !== "plan"){ PLN_TAB = "syllabus"; }
   if(authView){ NAV = []; NIDX = -1; } else navPush(v);
   showView(v);
 }
 function showView(v){
+  if(v === "perf" || v === "hist" || v === "rep"){ PRG_TAB = v; v = "progress"; }
+  if(v === "rec"){ PLN_TAB = "today"; v = "plan"; }
   clearInterval(examTimer); clearPlayTimer(); PS = null; curView = v;
   if(methodOpen()) setMethodOpen(false);
   VIEWS.forEach(function(x){ $("v-" + x).classList.toggle("hidden", x !== v); });
@@ -1455,9 +1535,9 @@ function showView(v){
   setScreenTitle(SCREEN_NAMES[v] || "");
   if(typeof anaView === "function") anaView(v);
   if(typeof refreshPilotBar === "function") refreshPilotBar();
-  document.body.classList.toggle("fit", ["study","progress","perf","hist","rep","rec","fun","note","mist","tools","play","tips"].indexOf(v) >= 0);
+  document.body.classList.toggle("fit", ["study","progress","plan","perf","hist","rep","rec","fun","note","mist","tools","play","tips"].indexOf(v) >= 0);
   refreshBanner(); updateBackBtn();
-  muteObs = true; if(RENDER[v]) RENDER[v](); if(["progress","perf","hist","rep","fun","note"].indexOf(v) >= 0) addCta(v); newQuote(); setViewH(); window.scrollTo(0, 0); replay($("v-" + v)); setTimeout(function(){ muteObs = false; }, 0);
+  muteObs = true; if(RENDER[v]) RENDER[v](); if(["progress","perf","hist","rep","fun","note"].indexOf(v) >= 0) addCta(v); if(v === "home") newQuote(); setViewH(); window.scrollTo(0, 0); replay($("v-" + v)); setTimeout(function(){ muteObs = false; }, 0);
 }
 $("bHome").onclick = function(){ show("home"); };
 $("bBack").onclick = function(){
@@ -1498,7 +1578,7 @@ function renderLoginChips(){
 }
 var PROF_SVG = null;
 function refreshAvatar(){
-  var pic = (DB.profile && DB.profile.pic) || "";
+  var pic = safePic(DB.profile && DB.profile.pic);
   var b = $("bProf");
   if(b){ if(PROF_SVG === null) PROF_SVG = b.innerHTML; b.innerHTML = pic ? "<img src='" + pic + "' alt=''>" : PROF_SVG; }
   var ai = $("authInitial");
@@ -1521,8 +1601,10 @@ function refreshBanner(){
 }
 function startSession(u){
   if(!u) return;
+  var tok = ++AUTH_TOKEN;
   var d = null; try { var raw = localStorage.getItem(DATA_KEY + u.id); if(raw) d = JSON.parse(raw); } catch(e){}
-  function finishStart(data){
+  function finishStart(data, skipInitialSave){
+    if(tok !== AUTH_TOKEN) return;
     resetRuntime();
     DB = normalizeStudy(data);
     if(!DB.profile) DB.profile = {name: u.name, cls: u.cls || "Class 9", age: u.age || "", user: u.user || slugUser(u.name), lang: "English", school: "", from: ""};
@@ -1531,7 +1613,7 @@ function startSession(u){
     DB.ai = AUTH.ai || null;
     AUTH.session = u.id; AUTH.last = u.id; AUTH.migrated = false; AUTH_MIGRATED = "";
     if(DB.profile){ u.name = DB.profile.name; u.cls = DB.profile.cls; u.user = DB.profile.user; u.age = DB.profile.age; }
-    save();
+    if(!skipInitialSave) save(); else saveUsers();
     refreshWhoBtn(); refreshKeyBtn(); refreshBanner();
     if(PILOT_GATE && (!DB.pilot || !DB.pilot.registered)){
       LOCKED = true; show("activate");
@@ -1545,20 +1627,32 @@ function startSession(u){
     afterLoginPilot();
     toast(u.pin ? "Welcome, " + DB.profile.name : "Welcome, " + DB.profile.name + ". Add a password in My details.");
   }
-  if(d && d.__idb){
+  if(!d || d.__idb){
     IDB_HYDRATING = true;
-    sdbGet(u.id).then(function(idbD){ IDB_HYDRATING = false; finishStart(idbD || d); }, function(){ IDB_HYDRATING = false; finishStart(d); });
+    sdbGet(u.id).then(function(idbD){
+      IDB_HYDRATING = false;
+      if(tok !== AUTH_TOKEN) return;
+      var missingStub = !!(d && d.__idb && !idbD);
+      if(missingStub) toast("Large offline chapters could not be loaded from browser storage — restore from backup or save folder if missing.");
+      finishStart(idbD || d, missingStub);
+    }, function(){
+      IDB_HYDRATING = false;
+      if(tok !== AUTH_TOKEN) return;
+      if(d && d.__idb) toast("Could not open browser storage — offline changes will not overwrite existing chapters.");
+      finishStart(d, !!(d && d.__idb));
+    });
     return;
   }
-  finishStart(d);
+  finishStart(d, false);
   sdbGet(u.id).then(function(idbD){
-    if(idbD && AUTH.session === u.id && (idbD.updatedAt || 0) > (DB.updatedAt || 0)){
+    if(tok === AUTH_TOKEN && idbD && AUTH.session === u.id && (idbD.updatedAt || 0) > (DB.updatedAt || 0)){
       DB = normalizeStudy(idbD); DB.ai = AUTH.ai || null; PREP = {};
       if(RENDER[curView]) RENDER[curView]();
     }
   });
 }
 function logOut(){
+  AUTH_TOKEN++; IDB_HYDRATING = false;
   if(DB.profile && AUTH.session) save();
   try { if(DB.save && DB.save.enabled && FOLDER.handle) writeFolderNow(); } catch(e){}
   try { if(typeof anaStop === "function") anaStop(); } catch(e){}
@@ -1585,6 +1679,7 @@ function readAge(){ var a = parseInt(String($("oAge") ? $("oAge").value : "").re
 var pendPic = null;
 function photoInitial(){ return ((DB.profile && DB.profile.name) || ($("oName") ? $("oName").value : "") || "S").trim().charAt(0).toUpperCase(); }
 function setPicPreview(pic){
+  pic = safePic(pic);
   var el = $("oPicPrev"); if(!el) return;
   if(pic){ el.innerHTML = "<img src='" + pic + "' alt=''>"; el.classList.add("has"); }
   else { el.textContent = photoInitial(); el.classList.remove("has"); }
@@ -1735,7 +1830,11 @@ RENDER.intro = function(){
   if(wrap){
     wrap.innerHTML = AUTH.users.length
       ? "Already have an account on this device? <button type='button' class='linkish' id='inLogin'>Log in</button>"
-      : (PILOT_GATE ? "Invite-only for this pilot. Your details are used only to review your access request." : "Development mode: invite code is held so you can test all features on this device.");
+      : (PILOT_GATE
+          ? "Invite-only for this pilot. Your details are used only to review your access request."
+          : (PAYWALL_ACTIVE
+              ? "Start with 3 free chapters, flashcard previews, MCQ practice and the maths workbench — upgrade anytime for unlimited chapters and exams."
+              : "Development mode: invite code is held so you can test all features on this device."));
   }
   if($("inReq")) $("inReq").textContent = PILOT_GATE ? "Request access" : "Create student account";
   if($("inCode")) $("inCode").classList.toggle("hidden", !PILOT_GATE);
@@ -1830,15 +1929,13 @@ function pilotRetryRequest(){
 }
 function pilotCopyRequest(){
   var req = PENDING_REQ || pilotReadJSON(REQ_KEY); if(!req) return;
-  var txt = JSON.stringify(req, null, 1);
-  if(navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(txt).then(function(){ toast("Request copied"); }, function(){ toast("Could not copy"); });
-  } else { toast("Copy is not available in this browser"); }
+  copyText(JSON.stringify(req, null, 1), "Request copied");
 }
 function eraseMe(){
   if(!AUTH.session) return;
   var nm = DB.profile ? DB.profile.name : "this student";
   askYes("Erase all study data for " + nm + "? Books, notes, progress and history will be deleted, and the account will be removed. This cannot be undone.", function(){
+    AUTH_TOKEN++; IDB_HYDRATING = false;
     var id = AUTH.session;
     try { if(typeof anaStop === "function") anaStop(); } catch(e){}
     try { localStorage.removeItem(DATA_KEY + id); } catch(e){}
@@ -1847,6 +1944,7 @@ function eraseMe(){
     try { if(typeof fdbDel === "function") fdbDel("folder_" + id); } catch(e){}
     try { if(typeof sdbDel === "function") sdbDel(id); } catch(e){}
     AUTH.users = AUTH.users.filter(function(x){ return x.id !== id; });
+    if(!AUTH.users.length) pilotClearPending();
     AUTH.session = null; AUTH.last = AUTH.users[0] ? AUTH.users[0].id : null;
     saveUsers(); resetRuntime(); DB = blankDB();
     refreshWhoBtn(); refreshBanner();
@@ -1928,21 +2026,13 @@ $("acLogout").onclick = function(){ askYes("Log out of this account?", logOut); 
 var SECS = [{k:"study",e:"",n:"Study"},{k:"progress",e:"",n:"Progress"},{k:"perf",e:"",n:"Performance"},{k:"hist",e:"",n:"History"},{k:"rep",e:"",n:"Reports"},{k:"rec",e:"",n:"Today's plan"},{k:"fun",e:"",n:"Fun facts"},{k:"note",e:"",n:"Notebook"}];
 var HOME_NODES = [
   {k:"study", n:"Study", view:"study", icon:"study", ring:0, c:"#4f7dff"},
-  {k:"rec", n:"Today's plan", view:"rec", icon:"rec", ring:0, c:"#a78bfa"},
-  {k:"resume", n:"Where I stopped", resume:1, icon:"hist", ring:0, c:"#38bdf8"},
-  {k:"plan", n:"Study plan", view:"plan", icon:"plan", ring:0, c:"#f0abfc"},
+  {k:"plan", n:"Plan", view:"plan", icon:"plan", ring:0, c:"#f0abfc"},
+  {k:"resume", n:"Continue", resume:1, icon:"hist", ring:0, c:"#38bdf8"},
   {k:"progress", n:"Progress", view:"progress", icon:"progress", ring:1, c:"#4ade80"},
-  {k:"perf", n:"Performance", view:"perf", icon:"perf", ring:1, c:"#fbbf24"},
-  {k:"hist", n:"History", view:"hist", icon:"hist", ring:1, c:"#fb923c"},
-  {k:"rep", n:"Reports", view:"rep", icon:"rep", ring:1, c:"#6c8cff"},
-  {k:"fun", n:"Fun facts", view:"fun", icon:"fun", ring:1, c:"#a3e635"},
+  {k:"maths", n:"Maths", tool:"maths", icon:"maths", ring:1, c:"#2dd4bf"},
+  {k:"mist", n:"Mistakes", view:"mist", icon:"mist", ring:1, c:"#ff5d73"},
   {k:"note", n:"Notebook", view:"note", icon:"note", ring:1, c:"#ff9f43"},
-  {k:"mindmap", n:"Mind map", tool:"mindmap", icon:"map", ring:1, c:"#34d399"},
-  {k:"maths", n:"Maths workbench", s:"Maths", tool:"maths", icon:"maths", ring:1, c:"#2dd4bf"},
-  {k:"mist", n:"My error book", s:"Error book", view:"mist", icon:"mist", ring:1, c:"#ff5d73"},
-  {k:"tools", n:"Settings", s:"Settings", view:"tools", icon:"tools", ring:1, c:"#94a3b8"},
-  {k:"play", n:"Let's play", s:"Play", view:"play", icon:"game", ring:1, c:"#f472b6"},
-  {k:"tips", n:"Tricks and tips", s:"Tips", view:"tips", icon:"tips", ring:1, c:"#ffd84d"}
+  {k:"tools", n:"Settings", view:"tools", icon:"tools", ring:1, c:"#94a3b8"}
 ];
 var GAL_RING = ["#ffd36b", "#8ea2ff"];
 var STAR_SEED = null;
@@ -1983,10 +2073,10 @@ function orbitNodes(nodes, r, cx, cy, dur, R, fs, labelUp, rc){
   return h + "</g>";
 }
 function galaxySvg(compact){
-  var W = compact ? 440 : 880, H = compact ? 620 : 700, cx = W / 2, cy = compact ? 300 : 332;
-  var innerR = compact ? 120 : 168, outerR = compact ? 184 : 258, cr = compact ? 27 : 38;
+  var W = compact ? 440 : 880, H = compact ? 490 : 540, cx = W / 2, cy = compact ? 245 : 268;
+  var innerR = compact ? 105 : 138, outerR = compact ? 168 : 216, cr = compact ? 26 : 36;
   var inner = HOME_NODES.filter(function(n){ return n.ring === 0; }), outer = HOME_NODES.filter(function(n){ return n.ring === 1; });
-  var SYMS = [["∑", .10, .30], ["π", .87, .25], ["√", .20, .74], ["Δ", .81, .64], ["∞", .31, .13], ["θ", .68, .87], ["∫", .12, .57], ["≈", .90, .45], ["A+", .50, .07], ["💡", .06, .45], ["⚛", .49, .94], ["✎", .73, .11], ["%", .42, .22], ["Ω", .58, .78]];
+  var SYMS = [["∑", .10, .30], ["π", .87, .25], ["√", .20, .74], ["Δ", .81, .64], ["∞", .31, .13], ["θ", .68, .87], ["∫", .12, .57], ["≈", .90, .45], ["A+", .50, .07], ["💡", .06, .45], ["⚛", .49, .94], ["✎", .73, .11]];
   var TINT = ["#ffd36b", "#8fd8ff", "#ff9ad5", "#a9ffcf", "#c3b1ff"];
   var h = "<svg class='galaxy' viewBox='0 0 " + W + " " + H + "' role='img' aria-label='Study galaxy. Tap a planet to open a section.'>";
   h += "<defs>";
@@ -2008,27 +2098,27 @@ function galaxySvg(compact){
   h += "<ellipse cx='" + (W * .82).toFixed(0) + "' cy='" + (H * .78).toFixed(0) + "' rx='" + (W * .42).toFixed(0) + "' ry='" + (H * .34).toFixed(0) + "' fill='url(#gNeb2)'/>";
   h += "<ellipse cx='" + (W * .70).toFixed(0) + "' cy='" + (H * .15).toFixed(0) + "' rx='" + (W * .36).toFixed(0) + "' ry='" + (H * .28).toFixed(0) + "' fill='url(#gNeb3)'/>";
   h += "<circle cx='" + cx + "' cy='" + cy + "' r='" + (outerR + 24) + "' fill='url(#gDisk)'/>";
-  h += "<g class='galaxyStars'>" + starLayer(compact ? 130 : 220, W, H) + "</g>";
+  h += "<g class='galaxyStars'>" + starLayer(compact ? 120 : 200, W, H) + "</g>";
   h += "<g class='galaxySyms'>" + SYMS.map(function(s, i){
-    return "<text class='symbol' x='" + (W * s[1]).toFixed(0) + "' y='" + (H * s[2]).toFixed(0) + "' text-anchor='middle' font-size='" + (compact ? 15 : 21) + "' font-weight='700' fill='" + TINT[i % 5] + "' opacity='.34' style='animation-delay:" + (i * -0.6).toFixed(1) + "s'>" + s[0] + "</text>";
+    return "<text class='symbol' x='" + (W * s[1]).toFixed(0) + "' y='" + (H * s[2]).toFixed(0) + "' text-anchor='middle' font-size='" + (compact ? 14 : 20) + "' font-weight='700' fill='" + TINT[i % 5] + "' opacity='.34' style='animation-delay:" + (i * -0.6).toFixed(1) + "s'>" + s[0] + "</text>";
   }).join("") + "</g>";
   h += "<g transform='rotate(-18 " + cx + " " + cy + ")'>";
-  [[outerR + 26, GAL_RING[1], .14], [innerR + 30, GAL_RING[0], .13]].forEach(function(e){
+  [[outerR + 22, GAL_RING[1], .14], [innerR + 26, GAL_RING[0], .13]].forEach(function(e){
     h += "<ellipse cx='" + cx + "' cy='" + cy + "' rx='" + e[0] + "' ry='" + (e[0] * 0.34).toFixed(1) + "' fill='none' stroke='" + e[1] + "' stroke-opacity='" + e[2] + "' stroke-width='1.3'/>";
   });
   h += "</g>";
-  h += orbitNodes(inner, innerR, cx, cy, compact ? "76s" : "96s", compact ? 27 : 35, compact ? 13 : 15, true, GAL_RING[0]);
-  h += orbitNodes(outer, outerR, cx, cy, compact ? "124s" : "156s", compact ? 24 : 33, compact ? 12 : 14.5, false, GAL_RING[1]);
+  h += orbitNodes(inner, innerR, cx, cy, compact ? "76s" : "96s", compact ? 25 : 32, compact ? 13 : 14.5, true, GAL_RING[0]);
+  h += orbitNodes(outer, outerR, cx, cy, compact ? "124s" : "156s", compact ? 24 : 31, compact ? 12.5 : 14, false, GAL_RING[1]);
   h += "<g class='galCore'>";
-  h += "<circle class='sunGlow' cx='" + cx + "' cy='" + cy + "' r='" + (cr * (compact ? 3 : 3.2)).toFixed(0) + "' fill='url(#gSunGlow)'/>";
+  h += "<circle class='sunGlow' cx='" + cx + "' cy='" + cy + "' r='" + (cr * (compact ? 2.8 : 3.0)).toFixed(0) + "' fill='url(#gSunGlow)'/>";
   h += "<g class='sunRays' style='transform-origin:" + cx + "px " + cy + "px;transform-box:view-box'>";
-  var r1 = cr * 1.14, r2 = cr * 1.86;
+  var r1 = cr * 1.14, r2 = cr * 1.82;
   for(var k = 0; k < 20; k++){
     var a2 = k * 2 * Math.PI / 20;
     h += "<line x1='" + (cx + r1 * Math.cos(a2)).toFixed(1) + "' y1='" + (cy + r1 * Math.sin(a2)).toFixed(1) + "' x2='" + (cx + r2 * Math.cos(a2)).toFixed(1) + "' y2='" + (cy + r2 * Math.sin(a2)).toFixed(1) + "' stroke='#ffd36b' stroke-opacity='.5' stroke-width='2' stroke-linecap='round'/>";
   }
   h += "</g>";
-  var pic = (DB.profile && DB.profile.pic) || "";
+  var pic = safePic(DB.profile && DB.profile.pic);
   h += "<circle cx='" + cx + "' cy='" + cy + "' r='" + cr + "' fill='url(#gSunCore)'/>";
   if(pic){
     h += "<image href='" + pic + "' x='" + (cx - cr) + "' y='" + (cy - cr) + "' width='" + (cr * 2) + "' height='" + (cr * 2) + "' preserveAspectRatio='xMidYMid slice' clip-path='url(#gSunClip)'/>";
@@ -2040,7 +2130,7 @@ function galaxySvg(compact){
   h += "<g transform='translate(" + (W * .1).toFixed(0) + "," + (H * .1).toFixed(0) + ")'>";
   h += "<g class='shoot' style='--sx:" + (compact ? 190 : 330) + "px;--sy:" + (compact ? 100 : 172) + "px'>";
   h += "<path d='M0 0 L150 78' stroke='url(#gShoot)' stroke-width='2.4' stroke-linecap='round' fill='none'/><circle cx='150' cy='78' r='2.6' fill='#fff'/></g></g>";
-  h += "<text x='" + cx + "' y='" + (cy + (compact ? 68 : 88)) + "' text-anchor='middle' font-size='" + (compact ? 12 : 14) + "' font-weight='700' fill='#b9bff0'>Mitrādhyāyin</text>";
+  h += "<text x='" + cx + "' y='" + (cy + (compact ? 62 : 80)) + "' text-anchor='middle' font-size='" + (compact ? 12 : 14) + "' font-weight='700' fill='#b9bff0'>Mitrādhyāyin</text>";
   return h + "</svg>";
 }
 function openMindmap(){ if(!cur()){ show("study"); toast("Add a chapter first, then open the mind map."); return; } show("study"); goMethod("mindmap", "", DB.cur); }
@@ -2150,11 +2240,11 @@ function scholarBadges(){
 RENDER.home = function(){
   var p = DB.profile, hello = HELLO[p.lang] || "Namaste", narrow = window.innerWidth < 620; homeNarrow = narrow;
   var dg = dailyGoalInfo(), st = streak(), c = cur(), due = dueReviews()[0];
-  var h = "<div class='card hero homeWish'><h1>" + hello + ", " + esc(p.name) + "!</h1><p>I am <strong>Mitrādhyāyin</strong>, your study companion. " + esc(p.cls) + (p.age ? " · age " + p.age : "") + ".</p></div>";
+  var h = "<div class='card hero homeWish'><h1>" + hello + ", " + esc(p.name) + "!</h1><p>I am <strong>Mitrādhyāyin</strong>, your study companion. " + esc(p.cls) + (p.age ? " · age " + p.age : "") + ".</p><div id='homeQuote' class='homeQuote'>" + pickQuote(false) + "</div></div>";
   h += "<div class='card focusCard'><div class='focusTop'><strong>Today's Focus</strong><div class='row' style='margin:0;gap:6px'><span class='chip" + (st ? "" : " local") + "'>🔥 " + st + "-day streak</span>" + (dg.freezes ? "<span class='chip' title='Streak Freeze shields protect your streak if you miss 1 day'>🛡️ " + dg.freezes + "</span>" : "") + "</div></div>";
   h += "<div class='xpRow'><span class='status'>" + (dg.done ? "✓ Daily goal done!" : "Daily goal: " + dg.xp + " / " + dg.target + " XP") + "</span><div class='xpBar'><i style='width:" + dg.pct + "%'></i></div><strong style='font-size:.82rem'>" + dg.pct + "%</strong></div>";
   if(c){
-    var ns = nextStep(c.id), rd = readinessOf(c.id);
+    var rd = readinessOf(c.id);
     h += "<div class='row' style='margin:10px 0 0'>" +
       (due ? "<button class='primary' data-rev='" + due.c.id + "'>Revise due: " + esc(due.c.name.slice(0, 24)) + "</button>" : "<button class='primary' id='hmContinue'>Continue: " + esc(c.name.slice(0, 22)) + " (" + rd.pct + "% ready)</button>") +
       "<button id='hmCram'>⚡ 5-Min Cram</button><button id='hmExam'>⏱ Quick Exam</button><button id='hmMaths'>Maths Solver</button></div>";
@@ -2162,12 +2252,23 @@ RENDER.home = function(){
     h += "<div class='row' style='margin:10px 0 0'><button class='primary' id='hmSample'>✨ Try a sample chapter</button><button data-v='study'>＋ Add book / paste text</button><button id='hmMaths'>Maths practice</button></div>";
   }
   var ss = subStatus();
-  if(!ss.paidActive){
-    h += "<div class='row' style='margin:8px 0 0;align-items:center'><span class='proBadge free'>" + (ss.devBypass ? "Dev Preview" : (ss.pilotActive ? "Pilot Pass" : "Free · " + ss.chaptersUsed + "/" + FREE_CHAPTER_LIMIT + " ch")) + "</span><button type='button' class='linkish' id='hmUpgrade'>Upgrade to Yearly Pro (₹" + SUB_PLAN.priceInr + "/yr)</button></div>";
+  if(ss.pendingPayment){
+    h += "<div class='row' style='margin:8px 0 0;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:rgba(82,101,218,.08);align-items:center'><span class='status' style='flex:1;min-width:170px'><b>Payment pending:</b> <code>" + esc(ss.pendingPayment.paymentId) + "</code> — awaiting organiser confirmation.</span><button data-act='subchk'>Check payment status</button></div>";
+  } else if(!ss.paidActive && !ss.pilotActive){
+    h += "<div class='row' style='margin:8px 0 0;align-items:center'><span class='proBadge free'>" + (ss.devBypass ? "Dev Preview" : ("Free · " + ss.chaptersUsed + "/" + FREE_CHAPTER_LIMIT + " ch")) + "</span><button type='button' class='linkish' id='hmUpgrade'>Upgrade to Yearly Pro (₹" + SUB_PLAN.priceInr + "/yr)</button></div>";
   }
   h += "</div>";
   h += "<div class='card galaxyCard'>" + galaxySvg(narrow) + "</div>";
-  h += "<div class='homeSecs'>" + SECS.map(function(s){ return "<button class='mth tile' data-v='" + s.k + "'><span class='ic'>" + svgIc(s.k) + "</span><b>" + s.n + "</b></button>"; }).join("") + "<button class='mth tile' data-v='plan'><span class='ic'>" + svgIc("plan") + "</span><b>Study plan</b></button><button class='mth tile' data-v='mindmap'><span class='ic'>" + svgIc("map") + "</span><b>Mind map</b></button><button class='mth tile' data-v='maths'><span class='ic'>" + svgIc("maths") + "</span><b>Maths</b></button><button class='mth tile' data-v='play'><span class='ic'>" + svgIc("game") + "</span><b>Let's play</b></button><button class='mth tile' data-v='tips'><span class='ic'>" + svgIc("tips") + "</span><b>Tricks &amp; tips</b></button><button class='mth tile' data-v='mist'><span class='ic'>" + svgIc("mist") + "</span><b>My error book</b></button><button class='mth tile' data-v='tools'><span class='ic'>" + svgIc("tools") + "</span><b>Settings</b></button></div>";
+  var HOME_CORE = [
+    {v:"study", ic:"study", n:"Study"},
+    {v:"plan", ic:"plan", n:"Plan & Schedule"},
+    {v:"progress", ic:"progress", n:"Progress & Reports"},
+    {v:"maths", ic:"maths", n:"Maths"},
+    {v:"mist", ic:"mist", n:"Mistakes"},
+    {v:"tools", ic:"tools", n:"Settings"}
+  ];
+  h += "<div class='homeSecs'>" + HOME_CORE.map(function(s){ return "<button class='mth tile' data-v='" + s.v + "'><span class='ic'>" + svgIc(s.ic) + "</span><b>" + s.n + "</b></button>"; }).join("") + "</div>";
+  h += "<div class='homeExtras'><button data-v='note'>📓 Notebook</button><button data-v='play'>🎮 Let's Play</button><button data-v='fun'>✨ Fun Facts</button><button data-v='tips'>💡 Tricks &amp; Tips</button></div>";
   $("homeIn").innerHTML = h;
   $("homeIn").querySelectorAll("[data-v]").forEach(function(n){ n.onclick = function(){ var v = n.dataset.v; if(v === "mindmap") openMindmap(); else if(v === "maths") openMaths(); else show(v); }; });
   $("homeIn").querySelectorAll("[data-rev]").forEach(function(n){ n.onclick = function(){ reviewChapter(n.getAttribute("data-rev")); }; });
@@ -2177,6 +2278,8 @@ RENDER.home = function(){
   if($("hmSample")) $("hmSample").onclick = function(){ show("study"); sampleChapterModal(); };
   if($("hmMaths")) $("hmMaths").onclick = openMaths;
   if($("hmUpgrade")) $("hmUpgrade").onclick = function(){ upgradeModal(""); };
+  var hSubChk = $("homeIn").querySelector("[data-act='subchk']");
+  if(hSubChk) hSubChk.onclick = function(){ subCheckStatus(false); };
   bindGalaxy($("homeIn"));
 };
 
@@ -2916,8 +3019,9 @@ async function vids(){ RETRY = vids;
 }
 
 /* ---------- Study: methods ---------- */
-var GROUPS = [["Learn the chapter", ["explain","notes","map","mindmap","maths","doubt"]], ["Practise and test", ["solve","qa","mcq","exam"]], ["Mitra suggests", ["cram","flash","teach"]]];
+var GROUPS = [["Learn the chapter", ["explain","notes","mindmap","maths","doubt"]], ["Practise and test", ["qa","mcq","exam"]], ["Quick revision", ["cram","flash"]]];
 function renderMethods(){ var nc = cur(), nsx = nc ? nextStep(nc.id) : null, nsK = nsx && !nsx.done ? nsx.k : "";
+  if(nsK === "teach") nsK = "qa";
   var all = [].concat.apply([], GROUPS.map(function(g){ return g[1]; }));
   $("methods").innerHTML = "<div class='grid methodsGrid'>" + all.map(function(k){ var m = METHODS.filter(function(x){return x.k === k})[0]; return "<button class='mth tile' data-m='" + k + "' title='" + esc(m.d) + "'>" + (nsK === k ? "<span class='badge'>Next</span>" : "") + "<span class='ic'>" + svgIc(k) + "</span><b>" + m.n + "</b><small>" + m.d + "</small></button>"; }).join("") + "<button class='mth tile' data-video='1' title='Find explanatory videos for this chapter'><span class='ic'>" + svgIc("play") + "</span><b>Watch videos</b><small>Khan Academy channel, YouTube and more</small></button></div>";
   $("methods").querySelectorAll(".mth").forEach(function(b){ b.onclick = function(){ document.querySelectorAll("#methods .mth").forEach(function(x){ x.classList.toggle("on", x === b); }); openMethod(b.dataset.m); }; });
@@ -2960,10 +3064,10 @@ function openMethod(k){
       if(r){ logEv("doubt", "Doubt: " + q.slice(0, 80)); markDone("doubt"); }
     };
     $("askQ").onkeydown = function(e){ if(e.key === "Enter") $("askGo").click(); };
-  } else if(k === "map"){ mapStart(); }
-  else if(k === "mindmap"){ mindmapStart(); }
-  else if(k === "maths"){ mathsStart(); }
-  else if(k === "solve"){ solveStart(); }
+  } else if(k === "map"){ mindmapStart("concept"); }
+  else if(k === "mindmap"){ mindmapStart("radial"); }
+  else if(k === "maths"){ mathsStart("calc"); }
+  else if(k === "solve"){ mathsStart("word"); }
   else if(k === "qa" || k === "teach"){ qaStart(k); }
   else if(k === "flash"){ flashStart(); }
   else if(k === "cram"){ cramStart(); }
@@ -3148,15 +3252,27 @@ function mmData(){
   }
   return out.slice(0, 10);
 }
-function mindmapStart(){
+function mindmapStart(mode){
   var c = cur(); if(!c) return;
+  if(mode === "concept"){
+    var P = prep(c), secs = (P.secs || []).map(function(s, i){ return {i: i, label: s.label}; }).filter(function(x){ return x.label && x.label.length < 40 && secNodeCount(P, x.i) >= 3; });
+    $("mp").innerHTML = "<div class='subTabs' style='margin:0 0 10px'><button id='mmModeRad'>Radial Mind Map</button><button id='mmModeCon' class='primary'>Concept Connections</button></div><p class='status'>A picture of how important ideas in this chapter connect. Tap any node to read it.</p><div class='row'><select id='mapScope' style='flex:1;min-width:180px'><option value='all'>Whole chapter</option>" + secs.map(function(x){ return "<option value='" + x.i + "'>" + esc(x.label) + "</option>"; }).join("") + "</select><button class='primary' id='mapGo'>Draw my map</button></div><div id='mapOut'></div>";
+    $("mmModeRad").onclick = function(){ mindmapStart("radial"); };
+    $("mapGo").onclick = function(){ drawMap($("mapScope").value); };
+    drawMap("all");
+    focusRegion($("mp"), "start");
+    return;
+  }
   var data = mmData();
+  var tabs = "<div class='subTabs' style='margin:0 0 10px'><button id='mmModeRad' class='primary'>Radial Mind Map</button><button id='mmModeCon'>Concept Connections</button></div>";
   if(data.length < 2){
-    $("mp").innerHTML = "<h3 style='margin-top:0'>Mind map</h3><p class='status'>This chapter is too short to grow a mind map yet. Add more of its text, or open another chapter.</p>";
+    $("mp").innerHTML = tabs + "<p class='status'>This chapter is too short to grow a mind map yet. Add more of its text, or open another chapter.</p>";
+    $("mmModeCon").onclick = function(){ mindmapStart("concept"); };
     return;
   }
   MM = {data: data, sel: -1, vb: {x: 0, y: 0, w: 900, h: 640}};
-  $("mp").innerHTML = "<h3 style='margin-top:0'>Mind map</h3><p class='status'>Tap a branch to read it. Drag to move, scroll or use + / − to zoom.</p><div class='mmWrap'><div class='mmTools'><button id='mmIn' title='Zoom in'>＋</button><button id='mmOut' title='Zoom out'>−</button><button id='mmFit' title='Fit'>Fit</button></div><svg class='mmSvg' id='mmSvg'></svg></div><div id='mmDetail' class='card' style='margin-top:10px'><p class='status'>Tap any branch to see its explanation here.</p></div>";
+  $("mp").innerHTML = tabs + "<p class='status'>Tap a branch to read it. Drag to move, scroll or use + / − to zoom.</p><div class='mmWrap'><div class='mmTools'><button id='mmIn' title='Zoom in'>＋</button><button id='mmOut' title='Zoom out'>−</button><button id='mmFit' title='Fit'>Fit</button></div><svg class='mmSvg' id='mmSvg'></svg></div><div id='mmDetail' class='card' style='margin-top:10px'><p class='status'>Tap any branch to see its explanation here.</p></div>";
+  $("mmModeCon").onclick = function(){ mindmapStart("concept"); };
   mmDraw();
   mmBindPan();
   $("mmIn").onclick = function(){ mmZoom(0.82); };
@@ -4158,7 +4274,7 @@ function numParse(str){
   }
   function power(){
     var x = factor();
-    while(peek() === "^"){ i++; x = {t: "bin", op: "^", l: x, r: factor()}; }
+    if(peek() === "^"){ i++; return {t: "bin", op: "^", l: x, r: power()}; }
     return x;
   }
   function term(){
@@ -4345,18 +4461,33 @@ function mathsChapterExamples(){
   }
   return out;
 }
-function mathsStart(){
+function mathsStart(mode){
   MWB = null;
+  var tabs = "<div class='subTabs' style='margin:0 0 10px'><button id='mwModeCalc'" + (mode !== "word" ? " class='primary'" : "") + ">Equation &amp; Sum Workbench</button><button id='mwModeWord'" + (mode === "word" ? " class='primary'" : "") + ">Solve a Word Problem</button></div>";
+  if(mode === "word"){
+    $("mp").innerHTML = tabs + "<p class='status'>Paste a question from your book, homework or a test. I will solve it step by step and explain why each line is true.</p><textarea id='svQ' placeholder='For example: Check injectivity and surjectivity of f : N → N, f(x) = x².' style='margin-top:8px'></textarea><div class='row'><select id='svMode'><option value='steps'>Step-by-step solution</option><option value='answer'>Short answer</option></select><button class='primary' id='svGo'>Solve it</button></div><div id='svOut' class='out'></div>";
+    $("mwModeCalc").onclick = function(){ mathsStart("calc"); };
+    $("svGo").onclick = async function(){
+      var q = $("svQ").value.trim(); if(q.length < 4){ toast("Write the problem first"); return; }
+      var sm = $("svMode").value, b = this;
+      if(solveTry(q, $("svOut"), sm)){ logEv("solve", "Solved: " + q.slice(0, 70)); revealResult($("svOut")); return; }
+      var prompt = "The student wants help solving this problem:\n\n" + q + "\n\nSolve it " + (sm === "answer" ? "briefly, with the key working" : "step by step") + " at the level of " + DB.profile.cls + ". Rules: use the method taught in this chapter; write each step on its own line with a short reason; show the working, not only the answer; if a value is missing, say what is missing instead of guessing; end with a line starting 'Final answer:'. Keep it short enough to copy into a notebook.";
+      var r = await run(prompt, $("svOut"), b, {ctx: "solve", q: q, key: "sv|" + sm + "|" + normQ(q).slice(0, 80), local: function(){ return localSolve(q, sm); }});
+      if(r) logEv("solve", "Solved: " + q.slice(0, 70));
+    };
+    return;
+  }
   var chips = [], add = function(list){ list.forEach(function(q){ if(chips.indexOf(q) < 0 && chips.length < 6) chips.push(q); }); };
   add(mathsChapterExamples()); add(mathsDefaults());
   var c = cur();
   $("mp").innerHTML =
-    "<h3 style='margin-top:0'> Maths workbench</h3>" +
+    tabs +
     "<p class='status'>Type an equation or a sum. I will show one step at a time, and you can tap any step or any number to ask “why?”. " +
       (c ? "Examples from <b>" + esc(c.name) + "</b> and your class are below." : "Examples for Class " + mwClassNum() + " are below.") + "</p>" +
     "<div class='row'><input type='text' id='mwQ' placeholder='For example: 2x + 3 = 11   or   x^2 - 5x + 6 = 0   or   25% of 80' autocomplete='off'><button class='primary' id='mwGo'>Work it out</button></div>" +
     "<div class='mwEqChips' id='mwChips'>" + chips.map(function(q){ return "<button data-q='" + esc(q).replace(/'/g, "&#39;") + "'>" + esc(q) + "</button>"; }).join("") + "</div>" +
     "<div id='mwErr' class='status' style='min-height:1px'></div><div id='mwOut'></div>";
+  $("mwModeWord").onclick = function(){ mathsStart("word"); };
   $("mwGo").onclick = function(){ mathsShow($("mwQ").value); };
   $("mwQ").onkeydown = function(e){ if(e.key === "Enter") mathsShow(this.value); };
   $("mwChips").onclick = function(e){ var b = e.target.closest("button[data-q]"); if(b){ $("mwQ").value = b.getAttribute("data-q"); mathsShow(b.getAttribute("data-q")); } };
@@ -4973,8 +5104,11 @@ function qaShow(){
     DB.sess = null; var gr = recordPrac(s.kind, avg * 10); mp.innerHTML = "<div class='hero card' style='text-align:center'><div class='big'>" + avg + " / 10</div><p>" + (avg >= 8 ? "Shabash! You really know this " : avg >= 5 ? "Good going! A little more practice and you’ll shine " : "Nice try! Read the notes once more and try again, you’ll get there ") + "</p>" + growthHtml(gr) + "<button class='primary' id='qaAgain'>Practise again</button></div>" + nextBar(s.kind);
     $("qaAgain").onclick = function(){ qaStart(s.kind); }; bindNext(mp); logEv(s.kind, (s.kind === "teach" ? "Teach-it-back" : "Q&A coach") + ": average " + avg + "/10 over " + s.scores.length + " answers"); markDone(s.kind); focusRegion(mp, "start"); return;
   }
+  var tabs = "<div class='subTabs' style='margin:0 0 10px'><button id='qaModeQ'" + (s.kind !== "teach" ? " class='primary'" : "") + ">Q&amp;A Coach</button><button id='qaModeT'" + (s.kind === "teach" ? " class='primary'" : "") + ">Teach It Back</button></div>";
   var mk = s.kind === "teach" ? "" : "<div class='row'><label style='margin:0'>Answer as a</label><select id='qaM'>" + [2, 3, 4].map(function(m){ return "<option value='" + m + "'" + (m === (DB.qaMarks || 3) ? " selected" : "") + ">" + m + "-mark answer</option>"; }).join("") + "</select><span class='status'>One clear point for each mark.</span></div>";
-  mp.innerHTML = "<div class='q'><div class='status'>" + (s.kind === "teach" ? "Teach it back" : "Question") + " " + (s.i + 1) + " of " + s.items.length + " · " + esc(it.topic || "") + "</div><p><strong>" + inline(String(it.q)) + "</strong></p>" + mk + "<textarea id='qaA' placeholder='Write in your own words…'></textarea><div class='row'><button class='primary' id='qaChk'>Check my answer</button></div><div id='qaFb'></div></div>";
+  mp.innerHTML = tabs + "<div class='q'><div class='status'>" + (s.kind === "teach" ? "Teach it back" : "Question") + " " + (s.i + 1) + " of " + s.items.length + " · " + esc(it.topic || "") + "</div><p><strong>" + inline(String(it.q)) + "</strong></p>" + mk + "<textarea id='qaA' placeholder='Write in your own words…'></textarea><div class='row'><button class='primary' id='qaChk'>Check my answer</button></div><div id='qaFb'></div></div>";
+  $("qaModeQ").onclick = function(){ if(s.kind !== "qa") qaStart("qa"); };
+  $("qaModeT").onclick = function(){ if(s.kind !== "teach") qaStart("teach"); };
   $("qaChk").onclick = async function(){
     var a = $("qaA").value.trim(); if(a.length < 3){ toast("Write something first "); return; }
     var b = this, M = $("qaM") ? +$("qaM").value : 0; if(M) DB.qaMarks = M; b.disabled = true; b.textContent = "Checking…";
@@ -5568,7 +5702,7 @@ function defGood(d){
   if(!t || !b) return false;
   if(/[a-z]'s\b/.test(t)) return false;                     // joker's cap, customer's rating
   if(/^(if|when|this|that|these|those|it|there|here|resulting|combined|largest|smallest|radii|type|kind|sort|form|part|piece|number|amount|set|group)\b/i.test(t)) return false;
-  if(/\d/.test(t)) return false;                            // “radii of two cylinders”
+  if(/\b\d+\b/.test(t) && !/^(Group|Class|Newton|Theorem|Law)\b/i.test(t)) return false; // “2 cylinders” etc., while allowing H2O/CO2/B12
   if(/^(calculated|determined|shown|given|cut|of the type|in the form|of dimensions|of radius|of height|of length|of area|of volume|used|made|free|entitled|allowed|required|expected|responsible|able|likely|bound|permitted|eligible|very|also|often|usually|generally)\b/i.test(b)) return false;
   if(/\b(let us|we call it|if we want|no need|as follows|table below|figure below|shown below|same as before|given below|in the following figures?)\b/i.test(b)) return false;
   if(/[×÷π√]/.test(b)) return false;                        // formula blocks
@@ -5792,9 +5926,9 @@ function goodSentence(P, si){
   if(/^\d{1,2}[).:]\s+\S/.test(x)) return false;                    // “4) Entrepreneurship …” list item
   if(/\b(take any two points|find the ratio|find the value|find the values|we will|we can|let us|in this section|try this|using points?|we get|the guidelines given|this problem|this example|in this example|the above)\b/i.test(x)) return false;
   /* Word problems and measured examples are not textbook explanations. */
-  if(/\b\d+(?:\.\d+)?\s*(?:cm|mm|km|m|ft|inch|kg|g|litres?|l|ml|sq|cu)\b/i.test(x)) return false;
+  if(/\b\d+(?:\.\d+)?\s*(?:cm|mm|km|m|ft|inch|kg|g|litres?|l|ml|sq|cu)\b/i.test(x) && (digitHeavy(x) || (x.match(/\b\d+(?:\.\d+)?\b/g) || []).length >= 2 || /\b(radius|height|perimeter|area of|volume of|melted|recast|rectangle|triangle|cylinder|cone|sphere)\b/i.test(x))) return false;
   if(/\b(is increased|is decreased|increased by|decreased by|melted|recast|is cut|are cut|metallic|word problem)\b/i.test(x)) return false;
-  if(/[π√]/.test(x) || /=/.test(x)) return false;              // formulas are not explanations
+  if(/[π√]/.test(x) || (/=/.test(x) && (digitHeavy(x) || /\b(find|solve|let|given|therefore|thus|hence)\b/i.test(x)))) return false;              // isolated working formulas are not explanations
   if(/\b(shown in the following|following figures?|as shown below)\b/i.test(x)) return false;
   if(/^[A-Z][A-Za-z ]{1,30}:\s/.test(x)) return false;           // “Converse Q: …”, “Geometric reasoning: …”
   if((x.match(/\b\d+(?:\.\d+)?\b/g) || []).length >= 3) return false;
@@ -5816,7 +5950,7 @@ function goodSentence(P, si){
   if(/^(let|suppose|assume)\b/i.test(x)) return false;               // worked example setup
   if(/\b(step \d|the (first|second|third|next|last) step)\b/i.test(x)) return false;
   if(/\b\d+\.\s+(let|if|for|while|return|add|set)\b/i.test(x)) return false;  // pseudocode lines
-  if(/[a-z][A-Z]/.test(x)) return false;                             // figure caption glued to sentence
+  if(/[a-z]{3,}[A-Z][a-z]{2,}/.test(x)) return false;                  // figure caption glued to sentence (allows pH, mRNA, NaCl)
   if(/^(once|as before|as we|we need|we must|we first)\b/i.test(x)) return false;
   if(/^to (write|find|solve|do|check|verify|draw|plot|locate|understand|see|learn|know|explore|show|prove|calculate|measure|construct)\b/i.test(x)) return false;
   if(/\b(method \d|as in method)\b/i.test(x)) return false;
@@ -7369,7 +7503,7 @@ function leastUsed(bank, n){
 var BANKSPEC = {
   mcq: "You are writing practice questions for a school student who has just read this chapter. Return ONLY a JSON array of 30 multiple-choice questions that test real understanding of THIS chapter (not general knowledge). Cover the whole chapter evenly and mix easy, medium and hard. Each item: {\"q\": string, \"options\": [exactly 4 different strings, no A/B/C/D prefixes, all plausible and of similar length], \"answer\": index 0-3 of the one correct option, \"why\": 1-2 sentences that explain the reasoning and teach the idea, not just restate the answer, \"topic\": the section name (2-4 words, reuse the same name for the same section), \"lvl\": \"easy\" or \"medium\" or \"hard\"}. Rules: every question must be answerable from the chapter text; ask about the concepts the chapter explains, not about names of people in examples, figure numbers, page numbers, the author or isolated working steps; the wrong options must be wrong for a clear reason (do not use 'all of the above' or 'none of the above'); options should be complete, grammatical statements of similar length, not fragments. Spread correct answers randomly.",
   flash: "You are making revision flashcards for a school student. Return ONLY a JSON array of 24 cards on the most important terms, definitions, processes and facts of THIS chapter, in the chapter's own wording where possible. Each item: {\"front\": a clear question that can be answered in 1-2 sentences (e.g. 'What is photosynthesis?' or 'Why is the cell membrane called selectively permeable?'), \"back\": the answer, correct and complete, at the student's grade level, \"topic\": the section name (2-4 words)}. Rules: the front must name the exact term or idea from the chapter; never write vague fronts like 'Tell me about this'; the back must answer exactly what the front asks in 1-2 sentences; do not ask about page numbers, figure numbers or the author; do not repeat the same card with different wording.",
-  qa: "You are a patient teacher preparing short-answer questions for a school student. Return ONLY a JSON array of 12 questions about THIS chapter, written like Maharashtra board paper questions: some short 2-mark ones (define, state, name), some 3-mark ones (explain briefly, differentiate, give reasons) and some 4-mark ones (explain in detail, discuss, with examples). Each item: {\"q\": a complete question that names the topic clearly, \"topic\": the section name (2-4 words)}. Rules: every question must be answerable from the chapter in 1-3 sentences; prefer 'why', 'how' and 'explain' questions that make the student think; do not ask for long lists, page numbers, figure numbers or the author; do not ask 'what does the chapter say about...' for every item.",
+  qa: "You are a patient teacher preparing short-answer questions for a school student. Return ONLY a JSON array of 12 questions about THIS chapter, written like {BOARD} board paper questions: some short 2-mark ones (define, state, name), some 3-mark ones (explain briefly, differentiate, give reasons) and some 4-mark ones (explain in detail, discuss, with examples). Each item: {\"q\": a complete question that names the topic clearly, \"topic\": the section name (2-4 words)}. Rules: every question must be answerable from the chapter in 1-3 sentences; prefer 'why', 'how' and 'explain' questions that make the student think; do not ask for long lists, page numbers, figure numbers or the author; do not ask 'what does the chapter say about...' for every item.",
   teach: "Pick 6 important concepts from THIS chapter that a student should be able to explain aloud. Return ONLY a JSON array of {\"q\": \"Explain <concept> in your own words, as if you are teaching a classmate who missed this lesson\", \"topic\": the section name (2-4 words)}. Choose concepts that carry real meaning in the chapter, not names, dates, labels or figure captions."
 };
 async function ideasFor(){
@@ -7419,7 +7553,9 @@ async function fillBank(kind, quiet){
     if(wk.length) extra += " Include extra questions on these weak topics: " + wk.join(", ") + ".";
     if(DB.paper) extra += " Match the style, wording, difficulty and format of these real board-exam sample questions, but write NEW questions about this chapter and never copy them: " + DB.paper;
   }
-  var d = await runJ(BANKSPEC[kind] + extra + (avoid.length ? " Do NOT repeat these: " + JSON.stringify(avoid) : ""), false, quiet);
+  var brd = (DB.pilot && DB.pilot.board) || "CBSE";
+  var spec = BANKSPEC[kind].replace(/\{BOARD\}/g, brd);
+  var d = await runJ(spec + extra + (avoid.length ? " Do NOT repeat these: " + JSON.stringify(avoid) : ""), false, quiet);
   if(!Array.isArray(d)){ if(!quiet && d !== null) setMsg("Couldn’t prepare the questions.", true, RETRY); return null; }
   var seen = {}, clean = function(s, n){ return String(s == null ? "" : s).replace(/\s+/g, " ").replace(/^\s*[A-Da-d][).]\s+/, "").trim().slice(0, n || 400); };
   var items = d.filter(function(x){
@@ -7577,7 +7713,10 @@ RENDER.mist = function(){
 };
 RENDER.tools = function(){
   var needBk = DB.history.length > 5 && (!DB.lastBackup || Date.now() - DB.lastBackup > 7 * 864e5);
+  var ai = aiCfg(), spk = speechPrefs();
   var h = "<h1>Settings</h1><p class='sub'>Everything here runs on this device. Nothing leaves your phone unless you choose AI.</p><div class='toolsGrid'>";
+  h += "<div class='card'><strong>AI connection</strong><p class='status'>" + (ai ? ("Connected to <b>" + esc(aiName(ai)) + "</b>.") : "Optional: connect a free Gemini, Groq or Puter AI key for smart packs and hints.") + "</p><button data-act='ai'>" + (ai ? "Manage AI connection" : "Connect AI") + "</button></div>";
+  h += "<div class='card'><strong>Read aloud &amp; voice</strong><p class='status'>Voice: <b>" + esc(spk.name || "Automatic") + "</b> · speed " + spk.rate.toFixed(2) + "×.</p><button data-act='voice'>Voice settings</button></div>";
   h += "<div class='card'><strong>Study plan</strong><p class='status'>Upload your syllabus and set a timetable with follow-up.</p><button data-v='plan'>Open study plan</button></div>";
   h += folderCardHtml();
   h += subCardHtml();
@@ -7585,9 +7724,9 @@ RENDER.tools = function(){
   h += "<div class='card'><strong>Print report</strong><p class='status'>A tidy progress report for a parent or teacher.</p><button data-act='pr'>Print report</button></div>";
   h += "<div class='card'><strong>Back up my data</strong><p class='status'>Save a copy of your progress to a file.</p><button data-act='bk'>Back up now</button>" + (needBk ? "<p class='status'>It has been a while since your last backup.</p>" : "") + "</div>";
   h += "<div class='card'><strong>Restore backup</strong><p class='status'>Bring back progress from a backup file.</p><button data-act='rs'>Choose backup file</button></div>";
-  h += "<div class='card'><strong>Class view</strong><p class='status'>For teachers: combine many students’ backups.</p><button data-act='cls'>Choose backup files</button></div>";
   h += "<div class='card'><strong>My details</strong><p class='status'>Name, class, password and clearing data.</p><button data-act='prof'>Open my details</button></div>";
   h += "</div>";
+  h += "<details class='card' style='margin-top:8px'><summary style='cursor:pointer;font-weight:700'>Organiser &amp; teacher tools</summary><div style='margin-top:10px'><strong>Class view</strong><p class='status'>For teachers &amp; organisers: combine multiple students’ JSON backup files on this device.</p><button data-act='cls'>Choose backup files</button></div></details>";
   $("tlIn").innerHTML = h;
   $("tlIn").querySelectorAll("[data-v]").forEach(function(n){ n.onclick = function(){ var v = n.dataset.v; if(v === "mindmap") openMindmap(); else show(v); }; });
 };
@@ -7882,6 +8021,7 @@ function backupData(){
 function restoreData(f){
   f.text().then(function(t){ var d = JSON.parse(t); if(!d || !d.chapters) throw 0;
     askYes("Replace this student’s study data with this backup?", function(){
+      d.profile = (d.profile && typeof d.profile === "object") ? d.profile : DB.profile;
       d.ai = DB.ai; d.history = d.history || []; d.facts = d.facts || {}; d.progress = d.progress || {}; d.cache = d.cache || {}; d.book = d.book || []; d.speech = d.speech || {};
       d.engine = d.ai ? (d.engine || "local") : "local";
       d.save = DB.save;   /* the save folder belongs to this device, not the backup */
@@ -7988,7 +8128,7 @@ function writeFolderNow(){
       FOLDER.pending = false; FOLDER.lasted = "";
       if(AUTH.session === sid && DB && DB.save){
         DB.save.at = Date.now();
-        try { if(DB.profile) localStorage.setItem(DATA_KEY + sid, JSON.stringify(studySnapshot(DB))); } catch(e){}
+        if(DB.profile) writeStudentLocal(sid, studySnapshot(DB));
       }
       refreshFolderChip();
       return true;
@@ -8109,13 +8249,7 @@ function folderWelcomeModal(){
 }
 function afterLoginFolders(){
   if(!DB.save) DB.save = {asked: false, enabled: false, name: "", file: "", at: 0};
-  if(!DB.save.asked){
-    /* ask once, for this student, on their first visit */
-    setTimeout(function(){
-      if(DB.profile && AUTH.session && DB.save && !DB.save.asked && !document.querySelector(".modal")) folderWelcomeModal();
-    }, 600);
-    return;
-  }
+  if(!DB.save.enabled) return;
   attachFolder().then(function(){
     if(FOLDER.pending && DB.save.enabled && !FOLDER.warned){ FOLDER.warned = true; toast("Open Settings to reconnect your save folder."); }
   });
@@ -8215,7 +8349,8 @@ function pilotFromForm(){
   var code = (inv && inv.code && inv.until && inv.until >= Date.now()) ? inv : parseInvite($("oCode") ? $("oCode").value : "");
   if(!PILOT_GATE && !code){
     var bDev = (req && req.board) || ($("oBoard") ? $("oBoard").value : "") || "CBSE";
-    return {ok: true, data: {code: "DEV-LOCAL", registered: true, issuedAt: Date.now(), validUntil: 0, revoked: false, consent: true, consentAt: Date.now(), board: bDev, guardian: {name: "", email: "", phone: ""}}};
+    var autoCode = PAYWALL_ACTIVE ? ("STU-" + Date.now().toString(36).toUpperCase().slice(-5) + Math.random().toString(36).slice(2, 5).toUpperCase()) : "DEV-LOCAL";
+    return {ok: true, data: {code: autoCode, registered: true, issuedAt: Date.now(), validUntil: 0, revoked: false, consent: true, consentAt: Date.now(), board: bDev, guardian: {name: "", email: "", phone: ""}}};
   }
   if(!code) return {ok: false, msg: "Please activate your invite code first."};
   if(code.until < Date.now()) return {ok: false, msg: "That invite code has ended. Please ask your organiser for a new one."};
@@ -8284,8 +8419,14 @@ function pilotCardHtml(){
   var p = DB.pilot || {}, d = pilotDaysLeft(), h = "<div class='card'><strong>My access</strong>";
   var repBtn = OWNER_COPY ? "<button data-act='plexp'>Download my report</button>" : "";
   if(!PILOT_GATE){
-    h += "<p class='status'>Development mode — the Step 2 invite-code gate is currently held so all sections, engines and reports can be tested locally." + (p.code && p.code !== "DEV-LOCAL" ? " Current code: <b>" + esc(p.code) + "</b>." : "") + "</p>";
-    h += "<div class='row' style='margin:8px 0 0'><button data-act='pltestreq'>Test access request</button><button data-act='plrenew'>Test invite code</button>" + repBtn + "<button data-act='plmail'>Email organiser</button></div>";
+    if(PAYWALL_ACTIVE){
+      var hasLic = !!(p.code && p.code !== "DEV-LOCAL" && p.code.indexOf("GURU-") === 0);
+      h += "<p class='status'>" + (hasLic ? ("License key <b>" + esc(p.code) + "</b>" + (p.validUntil ? " · valid until <b>" + fmtD(p.validUntil) + "</b>" : "") + ".") : ("Account ID: <code>" + esc(p.code || "FREEMIUM") + "</code>. Upgrade above or enter a school license key.")) + "</p>";
+      h += "<div class='row' style='margin:8px 0 0'><button data-act='subcode'>Enter license key</button>" + repBtn + "<button data-act='plmail'>Email organiser</button></div>";
+    } else {
+      h += "<p class='status'>Development mode — the Step 2 invite-code gate is currently held so all sections, engines and reports can be tested locally." + (p.code && p.code !== "DEV-LOCAL" ? " Current code: <b>" + esc(p.code) + "</b>." : "") + "</p>";
+      h += "<div class='row' style='margin:8px 0 0'><button data-act='pltestreq'>Test access request</button><button data-act='plrenew'>Test invite code</button>" + repBtn + "<button data-act='plmail'>Email organiser</button></div>";
+    }
   } else if(!p.registered){
     h += "<p class='status'>This account is not linked to an access code. If you are joining a class, ask your organiser for an invite code.</p><div class='row' style='margin:8px 0 0'><button data-act='plrenew'>Enter a code</button></div>";
   } else {
@@ -8339,7 +8480,7 @@ function anaInit(){
     var d = anaDay(); d.activeSec += 1; var v = curView || "home"; d.views[v] = (d.views[v] || 0) + 1;
   }, 1000);
   setInterval(function(){ anaPersist(); }, 15000);
-  setInterval(function(){ anaFlush(false); }, PILOT.flushEvery * 1000);
+  setInterval(function(){ anaFlush(false); if(navigator.onLine) anaUpload(); }, PILOT.flushEvery * 1000);
   window.addEventListener("error", function(e){ anaError((e.message || "Script error") + (e.lineno ? (" @" + e.lineno) : ""), e.error && e.error.stack); });
   window.addEventListener("unhandledrejection", function(e){ var r = e.reason; anaError("Promise: " + (r && (r.message || r)), r && r.stack); });
   document.addEventListener("visibilitychange", function(){ if(document.visibilityState === "hidden"){ anaFlush(true); anaBeacon(); } });
@@ -8457,7 +8598,7 @@ function qrSvg(text){
     else if(c < 2048) bytes.push(192 | (c >> 6), 128 | (c & 63));
     else bytes.push(224 | (c >> 12), 128 | ((c >> 6) & 63), 128 | (c & 63));
   }
-  var SPEC = [[1,19,7,1,[]],[2,34,10,1,[6,18]],[3,55,15,1,[6,22]],[4,80,20,1,[6,26]],[5,108,26,1,[6,30]],[6,136,18,2,[6,34]],[7,156,20,2,[6,22,38]],[8,194,24,2,[6,24,42]]];
+  var SPEC = [[1,19,7,1,[]],[2,34,10,1,[6,18]],[3,55,15,1,[6,22]],[4,80,20,1,[6,26]],[5,108,26,1,[6,30]],[6,136,18,2,[6,34]],[7,156,20,2,[6,22,38]],[8,194,24,2,[6,24,42]],[9,232,30,2,[6,26,46]]];
   var sp = null;
   for(k = 0; k < SPEC.length; k++){ if(bytes.length + 2 <= SPEC[k][1]){ sp = SPEC[k]; break; } }
   if(!sp) return "";
@@ -8521,7 +8662,7 @@ function qrSvg(text){
     if(i < 8){ setMod(8, size - 1 - i, 0); if(i < 7) setMod(size - 1 - i, 8, 0); }
   }
   if(ver >= 7){
-    var vbits = ver === 7 ? 0x07c94 : 0x085bc;
+    var vbits = ver === 7 ? 0x07c94 : ver === 8 ? 0x085bc : 0x09a99;
     for(i = 0; i < 18; i++){ var bt = (vbits >> i) & 1; setMod(Math.floor(i / 3), size - 11 + (i % 3), bt); setMod(size - 11 + (i % 3), Math.floor(i / 3), bt); }
   }
   var allBits = [];
@@ -8553,22 +8694,36 @@ function qrSvg(text){
     return g;
   }
   function penalty(g){
-    var pen = 0, r2, c2, run;
-    for(r2 = 0; r2 < size; r2++){ run = 1; for(c2 = 1; c2 < size; c2++){ if(g[r2][c2] === g[r2][c2 - 1]){ run++; if(run === 5) pen += 3; else if(run > 5) pen++; } else run = 1; } }
+    var pen = 0, r2, c2, run, dark = 0;
+    for(r2 = 0; r2 < size; r2++){
+      run = 1;
+      for(c2 = 0; c2 < size; c2++){
+        if(g[r2][c2]) dark++;
+        if(c2 > 0){
+          if(g[r2][c2] === g[r2][c2 - 1]){ run++; if(run === 5) pen += 3; else if(run > 5) pen++; } else run = 1;
+        }
+        if(r2 < size - 1 && c2 < size - 1){
+          var b = g[r2][c2];
+          if(b === g[r2][c2 + 1] && b === g[r2 + 1][c2] && b === g[r2 + 1][c2 + 1]) pen += 3;
+        }
+      }
+    }
     for(c2 = 0; c2 < size; c2++){ run = 1; for(r2 = 1; r2 < size; r2++){ if(g[r2][c2] === g[r2 - 1][c2]){ run++; if(run === 5) pen += 3; else if(run > 5) pen++; } else run = 1; } }
+    var pct = dark * 100 / (size * size);
+    pen += Math.floor(Math.abs(pct - 50) / 5) * 10;
     return pen;
   }
   var best = null, bestP = 1e9;
   for(var mk = 0; mk < 8; mk++){ var g2 = applyMask(m, mk), sc = penalty(g2); if(sc < bestP){ bestP = sc; best = g2; } }
-  var qz = 3, dim = size + qz * 2, d = "";
+  var qz = 4, dim = size + qz * 2, d = "";
   for(r = 0; r < size; r++) for(col = 0; col < size; col++) if(best[r][col]) d += "M" + (col + qz) + " " + (r + qz) + "h1v1h-1z";
-  return "<svg viewBox='0 0 " + dim + " " + dim + "' width='148' height='148' role='img' aria-label='Scan to pay via UPI' style='display:block;border-radius:10px;border:1px solid var(--bd);background:#fff'><rect width='" + dim + "' height='" + dim + "' fill='#fff'/><path d='" + d + "' fill='#111'/></svg>";
+  return "<svg viewBox='0 0 " + dim + " " + dim + "' width='156' height='156' role='img' aria-label='Scan to pay via UPI' style='display:block;border:1px solid var(--line);border-radius:6px;background:#fff'><rect width='" + dim + "' height='" + dim + "' fill='#fff'/><path d='" + d + "' fill='#111'/></svg>";
 }
 function subStatus(){
   var sub = (DB && DB.sub) || {}, p = (DB && DB.pilot) || {};
   var now = Date.now(), chCount = (DB && DB.chapters ? DB.chapters.length : 0);
-  var subActive = sub.tier === "pro" && (!sub.validUntil || sub.validUntil > now);
-  var pilotActive = !!(p.registered && p.code && p.code !== "DEV-LOCAL" && !p.revoked && (!p.validUntil || p.validUntil > now));
+  var subActive = sub.tier === "pro" && !!sub.validUntil && sub.validUntil > now;
+  var pilotActive = !!(p.registered && p.code && p.code !== "DEV-LOCAL" && !/^STU-/.test(p.code) && !p.revoked && (!p.validUntil || p.validUntil > now));
   var paidActive = subActive;
   var until = subActive ? sub.validUntil : (pilotActive ? p.validUntil : 0);
   var daysLeft = until ? Math.max(0, Math.ceil((until - now) / 86400000)) : null;
@@ -8651,10 +8806,11 @@ function recordPayment(rec){
   });
 }
 function subVerifyCode(code){
-  if(!PILOT.uploadUrl || !PILOT.uploadToken || !navigator.onLine) return Promise.resolve({ok: true, offline: true});
+  if(!PILOT.uploadUrl || !PILOT.uploadToken) return Promise.resolve({ok: true, offline: true});
+  if(!navigator.onLine) return Promise.resolve({ok: false, offline: true, error: "Connect to the internet so Gurukul can verify this license key."});
   return fetch(PILOT.uploadUrl, {method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify({token: PILOT.uploadToken, action: "verifyCode", code: code})})
     .then(function(r){ if(!r.ok) throw new Error("http " + r.status); return r.json(); })
-    .catch(function(){ return {ok: true, offline: true}; });
+    .catch(function(){ return {ok: false, offline: true, error: "Could not reach server to verify license key. Try again online."}; });
 }
 function subCheckStatus(silent){
   if(!PILOT.uploadUrl || !PILOT.uploadToken || !navigator.onLine){
@@ -8662,7 +8818,7 @@ function subCheckStatus(silent){
     return Promise.resolve({ok: false, offline: true});
   }
   var p = (DB && DB.pilot) || {}, sub = (DB && DB.sub) || {}, pend = sub.pendingPayment || {};
-  var code = (p.code && p.code !== "DEV-LOCAL") ? p.code : "";
+  var code = (p.code && p.code !== "DEV-LOCAL" && !/^STU-/.test(p.code)) ? p.code : "";
   var pid = pend.paymentId || sub.paymentId || "";
   var em = pend.email || (p.guardian && p.guardian.email) || "";
   if(!code && !pid && !em) return Promise.resolve({ok: true, none: true});
@@ -8670,9 +8826,15 @@ function subCheckStatus(silent){
     .then(function(r){ if(!r.ok) throw new Error("http " + r.status); return r.json(); })
     .then(function(res){
       if(!res || !res.ok) return res || {ok: false};
-      if(res.revoked && DB.pilot){
-        DB.pilot.revoked = true; save(); refreshPilotBar();
+      if(res.revoked){
+        if(DB.pilot) DB.pilot.revoked = true;
+        if(DB.sub && (DB.sub.method === "license" || (code && DB.sub.paymentId === code))){
+          DB.sub.tier = "free"; DB.sub.validUntil = 0;
+        }
+        save(); refreshPilotBar();
         if(PILOT_GATE) showPilotLock();
+        else if(!silent) toast("Your access key was revoked by the organiser.");
+        if(curView === "tools") RENDER.tools(); else if(curView === "home") RENDER.home();
         return res;
       }
       if(res.paymentStatus === "rejected" && DB.sub && DB.sub.pendingPayment){
@@ -8789,7 +8951,7 @@ function subCardHtml(){
         ? "Paywall is held in development mode (<code>PAYWALL_ACTIVE = false</code>). All Pro features are unlocked for local testing."
         : "Upgrade to <b>" + esc(SUB_PLAN.name) + "</b> (₹" + SUB_PLAN.priceInr + "/yr) for unlimited chapters, 5-Min Cram, Exam Mode &amp; AI Smart Packs.") + "</p>";
     if(s.pendingPayment){
-      h += "<p class='status' style='margin:6px 0;padding:8px 10px;border-radius:10px;border:1px solid var(--bd);background:rgba(82,101,218,.08)'><b>UTR submitted:</b> <code>" + esc(s.pendingPayment.paymentId) + "</code> — awaiting organiser confirmation. Pro unlocks automatically once verified.</p>";
+      h += "<p class='status' style='margin:6px 0;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:rgba(82,101,218,.08)'><b>UTR submitted:</b> <code>" + esc(s.pendingPayment.paymentId) + "</code> — awaiting organiser confirmation. Pro unlocks automatically once verified.</p>";
     }
     h += "<div class='row' style='margin:8px 0 0'><button class='primary' data-act='subup'>Upgrade (₹" + SUB_PLAN.priceInr + "/yr)</button><button data-act='subcode'>Enter license key</button>" +
       (s.pendingPayment ? "<button data-act='subchk'>Check payment status</button>" : "") +
@@ -8798,22 +8960,25 @@ function subCardHtml(){
   return h + "</div>";
 }
 function upgradeModal(reason, startTab){
-  var p = DB.profile || {}, tab = startTab || "rzp";
+  var p = DB.profile || {}, ss = subStatus();
+  var tab = startTab || (SUB_PLAN.razorpayKey ? "rzp" : (!PAYWALL_ACTIVE ? "rzp" : "upi"));
   var refNote = "Gurukul-" + ((p.name || "Student").replace(/\W+/g, "").slice(0, 12)) + "-" + pilotToday();
   var upiHref = SUB_PLAN.upiId ? ("upi://pay?pa=" + encodeURIComponent(SUB_PLAN.upiId) + "&pn=" + encodeURIComponent(SUB_PLAN.upiName) + "&am=" + SUB_PLAN.priceInr + "&cu=INR&tn=" + encodeURIComponent(refNote)) : "";
   var m = popup("<div style='max-width:520px'>" +
     "<span class='proBadge'>Gurukul Yearly Pass</span>" +
     "<h3 style='margin:8px 0 4px'>" + (reason ? "Unlock: " + esc(reason) : "Go Unlimited for Your Whole Academic Year") + "</h3>" +
     "<div class='subPrice'><b>₹" + SUB_PLAN.priceInr + "</b><s>₹" + SUB_PLAN.mrpInr + "</s><span class='status'>/ year · ~₹" + Math.max(1, Math.round(SUB_PLAN.priceInr / 12)) + "/mo · one-time payment</span></div>" +
+    (ss.pendingPayment ? "<div class='card' style='margin:6px 0;padding:10px;border-color:var(--acc);background:var(--accbg)'><p class='status' style='margin:0 0 6px'><b>UTR awaiting check:</b> <code>" + esc(ss.pendingPayment.paymentId) + "</code></p><button type='button' id='upPendChk'>Check payment status</button></div>" : "") +
     "<ul class='subPerk'>" +
     "<li><b>Unlimited chapters</b> across all subjects, classes &amp; semesters</li>" +
     "<li><b>⚡ 5-Min Cram</b> 1-page pre-exam sheets + mistake trap review</li>" +
     "<li><b>Timed Exam Mode</b> + board-paper pattern matching</li>" +
-    "<li><b>AI Smart Packs</b> + bulk Syllabus-to-Plan planner</li></ul>" +
+    "<li><b>AI Smart Packs &amp; Syllabus Planner</b> (connect your own optional free Gemini / Groq / Puter key)</li></ul>" +
     "<div class='subTabs'><button data-stab='rzp'>UPI / Card (Razorpay)</button><button data-stab='upi'>Direct UPI / UTR</button><button data-stab='code'>License Key</button></div>" +
     "<div id='subTabBody'></div><div id='subMsg' class='status' style='min-height:1.2em;margin-top:6px'></div>" +
     "<div class='row' style='margin-top:10px;justify-content:flex-end'><button data-close>Maybe later</button></div></div>");
 
+  if(m.el.querySelector("#upPendChk")) m.el.querySelector("#upPendChk").onclick = function(){ subCheckStatus(false).then(function(res){ if(res && res.paymentStatus === "paid" && m.el && m.el.parentNode) m.close(); }); };
   function setMsgSub(txt, isErr){ var el = m.el.querySelector("#subMsg"); if(el) el.innerHTML = txt ? ("<span class='" + (isErr ? "err" : "") + "'>" + esc(txt) + "</span>") : ""; }
   function drawTab(){
     m.el.querySelectorAll("[data-stab]").forEach(function(b){ b.classList.toggle("primary", b.getAttribute("data-stab") === tab); });
@@ -8840,18 +9005,24 @@ function upgradeModal(reason, startTab){
       box.innerHTML = "<div class='card' style='margin:6px 0'>" +
         (SUB_PLAN.upiId
           ? "<div style='display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:10px'>" +
-            (qrHtml ? "<div style='flex:0 0 auto'>" + qrHtml + "</div>" : "") +
+            (qrHtml ? "<div style='flex:0 0 auto'>" + qrHtml + "</div>" : "<p class='status' style='margin:0;flex-basis:100%'>UPI link is too long for a QR code — tap <b>Open UPI app</b> or <b>Copy UPI ID</b> below.</p>") +
             "<div style='flex:1;min-width:190px'><p class='status' style='margin:0 0 8px'>Scan QR or send <b>₹" + SUB_PLAN.priceInr + "</b> via GPay / PhonePe / Paytm to <code>" + esc(SUB_PLAN.upiId) + "</code></p>" +
             "<div class='row' style='margin:0'><a href='" + esc(upiHref) + "' style='text-decoration:none'><button type='button' class='primary'>Open UPI app (₹" + SUB_PLAN.priceInr + ")</button></a><button type='button' id='upiCopyId'>Copy UPI ID</button></div></div></div>"
           : "<p class='status' style='margin:0 0 8px'>Enter the 12-digit UTR / UPI Transaction ID after paying <b>₹" + SUB_PLAN.priceInr + "</b> to your organiser's UPI ID. Your Yearly Pass unlocks as soon as the organiser confirms the payment.</p>") +
         "<label style='margin-top:4px'>12-digit UTR / Transaction ID</label><input id='upiUtr' placeholder='e.g. 431612345678'>" +
         "<label style='margin-top:6px'>Parent email (for receipt &amp; license key)</label><input id='upiMail' type='email' placeholder='parent@example.com' value='" + esc((DB.pilot && DB.pilot.guardian && DB.pilot.guardian.email) || "") + "'>" +
         "<div class='row' style='margin-top:10px'><button class='primary' id='upiSubBtn'>Submit UTR for verification</button></div></div>";
-      if(m.el.querySelector("#upiCopyId")) m.el.querySelector("#upiCopyId").onclick = function(){ if(navigator.clipboard) navigator.clipboard.writeText(SUB_PLAN.upiId); toast("UPI ID copied"); };
+      if(m.el.querySelector("#upiCopyId")) m.el.querySelector("#upiCopyId").onclick = function(){ copyText(SUB_PLAN.upiId, "UPI ID copied"); };
       m.el.querySelector("#upiSubBtn").onclick = function(){
-        var utr = m.el.querySelector("#upiUtr").value.trim(), em = m.el.querySelector("#upiMail").value.trim();
-        if(utr.length < 6){ setMsgSub("Please enter a valid UTR / transaction reference.", true); return; }
+        var utr = m.el.querySelector("#upiUtr").value.trim().replace(/\s+/g, ""), em = m.el.querySelector("#upiMail").value.trim();
+        if(!/^[A-Za-z0-9]{10,35}$/.test(utr)){ setMsgSub("Enter a valid 12-digit UTR / UPI reference (10–35 letters or numbers).", true); return; }
+        if(!PILOT.uploadUrl || !PILOT.uploadToken){
+          setMsgSub("Online organiser verification is not configured in this copy — email UTR " + utr + " to " + PILOT.organiser + " or use a license key.", true);
+          return;
+        }
         var pid = "UTR-" + utr, pr = DB.profile || {}, g = (DB.pilot && DB.pilot.guardian) || {};
+        var btnU = m.el.querySelector("#upiSubBtn");
+        btnU.disabled = true; btnU.textContent = "Submitting…";
         DB.sub = DB.sub || blankDB().sub;
         DB.sub.pendingPayment = {paymentId: pid, amountInr: SUB_PLAN.priceInr, at: Date.now(), email: em};
         save();
@@ -8873,10 +9044,20 @@ function upgradeModal(reason, startTab){
           status: "pending-review",
           validUntil: 0,
           note: "UPI UTR submitted by student"
+        }).then(function(r){
+          btnU.disabled = false; btnU.textContent = "Submit UTR for verification";
+          var prInfo = r && r.res && Array.isArray(r.res.payments) ? r.res.payments.filter(function(x){ return x && x.paymentId === pid; })[0] : null;
+          if(prInfo && prInfo.status === "rejected"){
+            DB.sub.pendingPayment = null; save();
+            setMsgSub("That UTR was rejected (duplicate or mismatched account). Contact your organiser.", true);
+            return;
+          }
+          if(curView === "tools") RENDER.tools(); else if(curView === "home") RENDER.home();
+          m.close();
+          toast(r && r.ok
+            ? ("UTR submitted (" + pid + "). Pro unlocks once organiser verifies your payment.")
+            : ("Saved locally (" + pid + "). Will send to organiser once back online."));
         });
-        if(curView === "tools") RENDER.tools(); else if(curView === "home") RENDER.home();
-        m.close();
-        toast("UTR submitted (" + pid + "). Pro unlocks once organiser verifies your payment.");
       };
     } else {
       box.innerHTML = "<div class='card' style='margin:6px 0'><p class='status' style='margin:0 0 8px'>Already paid or received an annual key from Gurukul / your school?</p>" +
@@ -8890,7 +9071,7 @@ function upgradeModal(reason, startTab){
         btn.disabled = true; btn.textContent = "Checking…";
         subVerifyCode(c.code).then(function(res){
           btn.disabled = false; btn.textContent = "Activate license key";
-          if(res && res.ok === false){ setMsgSub(res.error || "This license key is invalid or revoked.", true); return; }
+          if(!res || res.ok === false){ setMsgSub((res && res.error) || "This license key is invalid or revoked.", true); return; }
           var validUntil = (res && res.validUntil) ? res.validUntil : c.until;
           activateProPass({method: "license", code: c.code, paymentId: c.code, validUntil: validUntil, amountInr: SUB_PLAN.priceInr, status: "paid", note: "Activated via license key"});
           m.close(); toast("Gurukul Yearly Pro activated!");
@@ -8916,16 +9097,41 @@ function startRazorpayCheckout(m, setMsgSub){
       notes: { student: p.name || "", cls: p.cls || "", school: p.school || "" },
       theme: { color: "#5265da" },
       handler: function(resp){
-        activateProPass({
-          method: "razorpay",
-          paymentId: (resp && resp.razorpay_payment_id) || ("RZP-" + Date.now()),
-          orderId: (resp && resp.razorpay_order_id) || "",
-          amountInr: SUB_PLAN.priceInr,
-          status: "paid",
-          note: "Razorpay checkout"
+        var pid = (resp && resp.razorpay_payment_id) || ("RZP-" + Date.now());
+        var oid = (resp && resp.razorpay_order_id) || "";
+        if(!PILOT.uploadUrl || !PILOT.uploadToken){
+          activateProPass({ method: "razorpay", paymentId: pid, orderId: oid, amountInr: SUB_PLAN.priceInr, status: "paid", note: "Razorpay checkout (local)", skipUpload: true });
+          if(m && m.el && m.el.parentNode) m.close();
+          toast("Payment successful — Gurukul Yearly Pro activated!");
+          return;
+        }
+        setMsgSub("Verifying payment with server…");
+        var rec = {
+          kind: "payment", studentId: AUTH.session || "", paymentId: pid, orderId: oid, at: Date.now(),
+          name: p.name || "Student", email: g.email || "", cls: p.cls || "", school: p.school || "",
+          method: "razorpay", amountInr: SUB_PLAN.priceInr, plan: SUB_PLAN.name, days: SUB_PLAN.days,
+          code: (DB.pilot && DB.pilot.code) || pid, status: "paid", validUntil: 0, note: "Razorpay checkout"
+        };
+        recordPayment(rec).then(function(r){
+          var prInfo = r && r.res && Array.isArray(r.res.payments) ? r.res.payments.filter(function(x){ return x && x.paymentId === pid; })[0] : null;
+          if(prInfo && prInfo.status === "rejected"){
+            setMsgSub("Payment " + pid + " could not be verified with Razorpay.", true);
+            if(btn){ btn.disabled = false; btn.textContent = "Pay ₹" + SUB_PLAN.priceInr + " securely now"; }
+            return;
+          }
+          if(r && r.ok && prInfo && prInfo.status === "paid"){
+            activateProPass({ method: "razorpay", paymentId: pid, orderId: oid, code: prInfo.code || "", validUntil: prInfo.validUntil || 0, amountInr: SUB_PLAN.priceInr, status: "paid", note: "Razorpay verified", skipUpload: true });
+            if(m && m.el && m.el.parentNode) m.close();
+            toast("Payment verified — Gurukul Yearly Pro activated!");
+          } else {
+            DB.sub = DB.sub || blankDB().sub;
+            DB.sub.pendingPayment = {paymentId: pid, amountInr: SUB_PLAN.priceInr, at: Date.now(), email: g.email || ""};
+            save();
+            if(curView === "tools") RENDER.tools(); else if(curView === "home") RENDER.home();
+            if(m && m.el && m.el.parentNode) m.close();
+            toast("Payment received (" + pid + "). Pro unlocks once your connection verifies it.");
+          }
         });
-        if(m && m.el && m.el.parentNode) m.close();
-        toast("Payment successful — Gurukul Yearly Pro activated!");
       },
       modal: { ondismiss: function(){ if(btn){ btn.disabled = false; btn.textContent = "Pay ₹" + SUB_PLAN.priceInr + " securely now"; } } }
     };
@@ -8977,7 +9183,7 @@ RENDER.note = function(){
       var idx = list.indexOf(x);
       return "<div class='nbItem'><div class='status'>" + (x.ch ? esc(x.ch) + " · " : "") + fmtD(x.t) + " · " + fmtT(x.t) + (x.label ? " · " + esc(x.label) : "") + "</div><div class='out'>" + md(x.text) + "</div><div class='row'><button data-copy='" + idx + "'>Copy</button><button data-del='" + idx + "'>Delete</button></div></div>";
     }).join("") : "<p class='status'>Nothing matches that search.</p>";
-    $("nbList").querySelectorAll("[data-copy]").forEach(function(b){ b.onclick = function(){ var x = list[+b.dataset.copy]; try { navigator.clipboard.writeText(x.text); toast("Copied"); } catch(e){ toast("Select the text and copy it"); } }; });
+    $("nbList").querySelectorAll("[data-copy]").forEach(function(b){ b.onclick = function(){ var x = list[+b.dataset.copy]; copyText(x.text, "Copied"); }; });
     $("nbList").querySelectorAll("[data-del]").forEach(function(b){ b.onclick = function(){ var x = list[+b.dataset.del]; askYes("Delete this saved note?", function(){ DB.book = (DB.book || []).filter(function(y){ return y !== x; }); save(); RENDER.note(); toast("Deleted"); }); }; });
   }
   $("nbFind").oninput = draw; $("nbCh").onchange = draw; draw();
@@ -9253,7 +9459,7 @@ function speechSettings(){
       }
     };
   }
-  document.addEventListener("click", function(e){ var b = e.target.closest && e.target.closest("[data-act]"); if(!b) return; var a = b.getAttribute("data-act"); if(a === "mist") mistakePractice(); else if(a === "bk") backupData(); else if(a === "rs") $("fRs").click(); else if(a === "pr") printReport(); else if(a === "cls") $("fCls").click(); else if(a === "prof") show("onb"); else if(a === "foldpick" || a === "foldchg") chooseFolder().then(function(){ if(curView === "tools") RENDER.tools(); }); else if(a === "foldrec") folderReconnect(); else if(a === "foldoff") folderTurnOff(); });
+  document.addEventListener("click", function(e){ var b = e.target.closest && e.target.closest("[data-act]"); if(!b) return; var a = b.getAttribute("data-act"); if(a === "mist") mistakePractice(); else if(a === "bk") backupData(); else if(a === "rs") $("fRs").click(); else if(a === "pr") printReport(); else if(a === "cls") $("fCls").click(); else if(a === "prof") show("onb"); else if(a === "ai") connectModal(); else if(a === "voice") speechSettings(); else if(a === "foldpick" || a === "foldchg") chooseFolder().then(function(){ if(curView === "tools") RENDER.tools(); }); else if(a === "foldrec") folderReconnect(); else if(a === "foldoff") folderTurnOff(); });
   document.addEventListener("change", function(e){ var t = e.target; if(t.id === "fRs" && t.files[0]) restoreData(t.files[0]); if(t.id === "fCls" && t.files.length) classView(t.files); });
 })();
 
@@ -9336,11 +9542,11 @@ function syllabusFromRows(rows){
 }
 function decodeXml(s){ return String(s).replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&#(\d+);/g, function(_, d){ return String.fromCharCode(+d); }).replace(/&amp;/g, "&"); }
 function inflateRaw(u8){
-  if(typeof DecompressionStream === "undefined") return Promise.resolve(null);
+  if(typeof DecompressionStream === "undefined") return Promise.reject(new Error("deflate-unsupported"));
   try {
     var stream = new Blob([u8]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
     return new Response(stream).arrayBuffer().then(function(b){ return new Uint8Array(b); });
-  } catch(e){ return Promise.resolve(null); }
+  } catch(e){ return Promise.reject(e); }
 }
 function zipFind(buf, name){
   var u8 = new Uint8Array(buf), dv = new DataView(buf), i = u8.length - 22;
@@ -9462,7 +9668,7 @@ function planMakeDialog(){
   DB.ttDone = DB.ttDone || {};
   var min = new Date(Date.now() + 864e5).toISOString().slice(0, 10);
   var sug = (DB.plan && DB.plan.exam) || new Date(Date.now() + 60 * 864e5).toISOString().slice(0, 10);
-  var h = "<h3 style='margin-top:0'>When must you finish?</h3><p class='status'>Give me your exam or target date. I will spread the chapters across the days so you finish comfortably in time.</p><div class='row'><div style='flex:1'><label for='plExam'>Target or exam date</label><input type='date' id='plExam' value='" + sug + "' min='" + min + "'></div></div><div class='row' style='margin-top:12px'><button class='primary' id='plExamGo'>Make my plan</button><button data-close>Not now</button></div>";
+  var h = "<h3 style='margin-top:0'>When must you finish?</h3><p class='status'>Give me your exam or target date. I will spread the chapters across the days so you finish comfortably in time.</p><div class='row'><div style='flex:1'><label for='plExam'>Target or exam date</label><input type='date' id='plExam' value='" + esc(sug) + "' min='" + min + "'></div></div><div class='row' style='margin-top:12px'><button class='primary' id='plExamGo'>Make my plan</button><button data-close>Not now</button></div>";
   var m = popup(h);
   m.el.querySelector("#plExamGo").onclick = function(){
     var v = m.el.querySelector("#plExam").value; m.close();
@@ -9556,53 +9762,63 @@ function ttForm(slot){
 RENDER.plan = function(){
   var el = $("spIn"); if(!el) return;
   DB.ttDone = DB.ttDone || {}; DB.tt = DB.tt || [];
-  var h = "<h1>Study plan</h1><p class='sub'>Upload your syllabus, make a plan that finishes in time, and set a timetable you can follow and edit.</p>";
+  var tab = PLN_TAB === "today" ? "today" : "syllabus";
+  var h = "<h1>Plan &amp; Schedule</h1><p class='sub'>Your daily focus, weekly timetable, syllabus and exam countdown in one place.</p>" +
+    "<div class='subTabs' style='margin:0 0 12px'>" +
+    "<button data-ptab='today'" + (tab === "today" ? " class='primary'" : "") + ">📅 Today &amp; Weekly</button>" +
+    "<button data-ptab='syllabus'" + (tab === "syllabus" ? " class='primary'" : "") + ">📚 Syllabus &amp; Timetable</button>" +
+    "</div><div id='spTabBody'></div>";
+  el.innerHTML = h;
+  el.querySelectorAll("[data-ptab]").forEach(function(b){ b.onclick = function(){ PLN_TAB = b.getAttribute("data-ptab"); RENDER.plan(); }; });
+  var body = $("spTabBody");
+  if(tab === "today"){ RENDER.rec(body); return; }
+  var sh = "";
   /* 1. syllabus */
   var syl = DB.syllabus;
-  h += "<div class='card'><h2 style='margin-top:0'>1 · My syllabus</h2>";
+  sh += "<div class='card'><h2 style='margin-top:0'>1 · My syllabus</h2>";
   if(!syl || !(syl.subjects || []).length){
-    h += "<p class='status'>Upload your syllabus as a <b>PDF</b>, <b>Excel (.xlsx)</b>, CSV or text file. I will read the subjects and chapters, then plan your study so you finish in time.</p><div class='row'><button class='primary' id='plSyl'>📋 Upload syllabus (PDF or Excel)</button></div>";
+    sh += "<p class='status'>Upload your syllabus as a <b>PDF</b>, <b>Excel (.xlsx)</b>, CSV or text file. I will read the subjects and chapters, then plan your study so you finish in time.</p><div class='row'><button class='primary' id='plSyl'>📋 Upload syllabus (PDF or Excel)</button></div>";
   } else {
     var nch = syl.subjects.reduce(function(a, s){ return a + s.chapters.length; }, 0);
-    h += "<p class='status'>Loaded " + (syl.at ? fmtD(syl.at) : "") + " · " + syl.subjects.length + " subject" + (syl.subjects.length === 1 ? "" : "s") + " · " + nch + " chapters.</p>";
-    h += "<div class='sylGrid'>" + syl.subjects.map(function(s){ return "<div class='card' style='margin:0;padding:10px'><strong>" + esc(s.name) + "</strong><div class='status'>" + s.chapters.length + " chapter" + (s.chapters.length === 1 ? "" : "s") + "</div><div class='status' style='max-height:130px;overflow:auto'>" + (s.chapters.slice(0, 50).map(function(c){ return "• " + esc(c); }).join("<br>") || "—") + "</div></div>"; }).join("") + "</div>";
-    h += "<div class='row' style='margin-top:10px'><button id='plSyl'>📋 Replace syllabus</button><button id='plArrange'>🤖 Verify &amp; arrange with AI</button><button id='plSylClear'>Clear</button></div><p class='status'>Verify &amp; arrange uses the internet and your AI to match your uploaded chapters to this syllabus, subject by subject and semester by semester, and to prepare study packs.</p>";
+    sh += "<p class='status'>Loaded " + (syl.at ? fmtD(syl.at) : "") + " · " + syl.subjects.length + " subject" + (syl.subjects.length === 1 ? "" : "s") + " · " + nch + " chapters.</p>";
+    sh += "<div class='sylGrid'>" + syl.subjects.map(function(s){ return "<div class='card' style='margin:0;padding:10px'><strong>" + esc(s.name) + "</strong><div class='status'>" + s.chapters.length + " chapter" + (s.chapters.length === 1 ? "" : "s") + "</div><div class='status' style='max-height:130px;overflow:auto'>" + (s.chapters.slice(0, 50).map(function(c){ return "• " + esc(c); }).join("<br>") || "—") + "</div></div>"; }).join("") + "</div>";
+    sh += "<div class='row' style='margin-top:10px'><button id='plSyl'>📋 Replace syllabus</button><button id='plArrange'>🤖 Verify &amp; arrange with AI</button><button id='plSylClear'>Clear</button></div><p class='status'>Verify &amp; arrange uses the internet and your AI to match your uploaded chapters to this syllabus, subject by subject and semester by semester, and to prepare study packs.</p>";
   }
-  h += "</div>";
+  sh += "</div>";
   /* 2. plan */
   var st = planStats();
-  h += "<div class='card'><h2 style='margin-top:0'>2 · My study plan</h2>";
+  sh += "<div class='card'><h2 style='margin-top:0'>2 · My study plan</h2>";
   if(!st.total){
-    h += "<p class='status'>No plan yet. " + ((syl && syl.subjects.length) ? "Make a plan from your syllabus." : "Upload a syllabus, or make a plan from the chapters you have added.") + "</p><div class='row'><button class='primary' id='plMake'>📅 Make my study plan</button><button id='plPacks'>⚡ Prepare all study packs (online)</button></div>";
+    sh += "<p class='status'>No plan yet. " + ((syl && syl.subjects.length) ? "Make a plan from your syllabus." : "Upload a syllabus, or make a plan from the chapters you have added.") + "</p><div class='row'><button class='primary' id='plMake'>📅 Make my study plan</button><button id='plPacks'>⚡ Prepare all study packs (online)</button></div>";
   } else {
-    h += "<p class='status'>Plan made " + (DB.plan.at ? fmtD(DB.plan.at) : "") + (DB.plan.exam ? " · finish by " + esc(DB.plan.exam) : "") + " · " + st.done + " of " + st.total + " done · " + st.due + " due or overdue.</p>";
-    h += "<div class='bar'><i style='width:" + Math.round(st.done * 100 / st.total) + "%'></i></div>";
-    h += "<div class='stat' style='margin-top:10px'>" + Object.keys(st.bySubj).map(function(k){ var b = st.bySubj[k]; return "<div><div class='big'>" + b.d + "/" + b.n + "</div>" + esc(k) + "</div>"; }).join("") + "</div>";
+    sh += "<p class='status'>Plan made " + (DB.plan.at ? fmtD(DB.plan.at) : "") + (DB.plan.exam ? " · finish by " + esc(DB.plan.exam) : "") + " · " + st.done + " of " + st.total + " done · " + st.due + " due or overdue.</p>";
+    sh += "<div class='bar'><i style='width:" + Math.round(st.done * 100 / st.total) + "%'></i></div>";
+    sh += "<div class='stat' style='margin-top:10px'>" + Object.keys(st.bySubj).map(function(k){ var b = st.bySubj[k]; return "<div><div class='big'>" + b.d + "/" + b.n + "</div>" + esc(k) + "</div>"; }).join("") + "</div>";
     var tk = dayKey(Date.now());
-    h += "<h3>What to study next</h3>";
-    h += todayPlan().slice().sort(function(a, b){ return String(a.date).localeCompare(String(b.date)); }).slice(0, 12).map(function(it){
+    sh += "<h3>What to study next</h3>";
+    sh += todayPlan().slice().sort(function(a, b){ return String(a.date).localeCompare(String(b.date)); }).slice(0, 12).map(function(it){
       var done = !!DB.ttDone[planDoneKey(it)], due = it.date <= tk && !done;
       return "<div class='planItem" + (due ? " due" : "") + (done ? " done" : "") + "'><span class='dt'>" + esc(it.date) + "</span><div class='nm' style='flex:1;min-width:0'><strong>" + esc(it.chapter) + "</strong><div class='status'>" + esc(it.subj) + (it.sem && it.sem !== "No semester" ? " · " + esc(it.sem) : "") + (it.book ? " · " + esc(it.book) : "") + "</div></div>" + (it.chId ? "<button data-plopen='" + esc(it.chId) + "'>Study</button>" : "") + "<button data-plsel='" + esc(it.id) + "'>" + (done ? "✓" : "Done") + "</button></div>";
     }).join("");
-    h += "<div class='row' style='margin-top:10px'><button id='plMake'>📅 Remake plan</button><button id='plPacks'>⚡ Prepare all study packs (online)</button><button id='plClear'>Clear plan</button></div>";
+    sh += "<div class='row' style='margin-top:10px'><button id='plMake'>📅 Remake plan</button><button id='plPacks'>⚡ Prepare all study packs (online)</button><button id='plClear'>Clear plan</button></div>";
   }
-  h += "</div>";
+  sh += "</div>";
   /* 3. timetable */
-  h += "<div class='card'><h2 style='margin-top:0'>3 · My timetable</h2>";
-  h += "<h3 style='margin-top:0'>Today · " + DAYNAMES[new Date().getDay()] + "</h3>";
+  sh += "<div class='card'><h2 style='margin-top:0'>3 · My timetable</h2>";
+  sh += "<h3 style='margin-top:0'>Today · " + DAYNAMES[new Date().getDay()] + "</h3>";
   var ts = ttToday();
-  if(!ts.length) h += "<p class='status'>No study slots for today yet. Add some below and I will follow up with you here and on your home screen.</p>";
-  else h += ts.map(function(s){ return ttSlotHtml(s, true); }).join("");
-  h += "<h3>My week</h3>";
+  if(!ts.length) sh += "<p class='status'>No study slots for today yet. Add some below and I will follow up with you here and on your home screen.</p>";
+  else sh += ts.map(function(s){ return ttSlotHtml(s, true); }).join("");
+  sh += "<h3>My week</h3>";
   var slots = (DB.tt || []).slice().sort(ttSort), d;
-  if(!slots.length) h += "<p class='status'>Build your week: add a slot for each subject or activity. You can edit or delete any slot later.</p>";
+  if(!slots.length) sh += "<p class='status'>Build your week: add a slot for each subject or activity. You can edit or delete any slot later.</p>";
   else for(d = 0; d < 7; d++){
     var ds = slots.filter(function(s){ return s.day === d; });
     if(!ds.length) continue;
-    h += "<div class='ttDay'><h4>" + DAYNAMES[d] + "</h4>" + ds.map(function(s){ return ttSlotHtml(s, false); }).join("") + "</div>";
+    sh += "<div class='ttDay'><h4>" + DAYNAMES[d] + "</h4>" + ds.map(function(s){ return ttSlotHtml(s, false); }).join("") + "</div>";
   }
-  h += "<div class='row' style='margin-top:10px'><button class='primary' id='ttAdd'>+ Add a slot</button></div></div>";
-  el.innerHTML = h;
+  sh += "<div class='row' style='margin-top:10px'><button class='primary' id='ttAdd'>+ Add a slot</button></div></div>";
+  body.innerHTML = sh;
   if($("plSyl")) $("plSyl").onclick = function(){ $("sylFile").click(); };
   if($("plSylClear")) $("plSylClear").onclick = function(){ askYes("Clear the saved syllabus? Your chapters stay.", function(){ DB.syllabus = null; DB.plan = null; save(); RENDER.plan(); }); };
   if($("plArrange")) $("plArrange").onclick = aiArrange;
@@ -9610,45 +9826,59 @@ RENDER.plan = function(){
   if($("plPacks")) $("plPacks").onclick = prepareAllPacks;
   if($("plClear")) $("plClear").onclick = function(){ askYes("Clear your study plan? Your chapters and study packs stay.", function(){ DB.plan = null; save(); RENDER.plan(); }); };
   if($("ttAdd")) $("ttAdd").onclick = function(){ ttForm(null); };
-  el.querySelectorAll("[data-plsel]").forEach(function(b){ b.onclick = function(){ var it = planItemById(b.getAttribute("data-plsel")); if(!it) return; var k = planDoneKey(it); if(DB.ttDone[k]) delete DB.ttDone[k]; else DB.ttDone[k] = 1; save(); RENDER.plan(); }; });
-  el.querySelectorAll("[data-plopen]").forEach(function(b){ b.onclick = function(){ var cid = b.getAttribute("data-plopen"); if(DB.chapters.some(function(c){ return c.id === cid; })){ DB.cur = cid; save(); show("study"); } else toast("This chapter is not uploaded yet"); }; });
-  el.querySelectorAll("[data-ttdone]").forEach(function(b){ b.onclick = function(){ var k = b.getAttribute("data-ttdone"); if(DB.ttDone[k]) delete DB.ttDone[k]; else DB.ttDone[k] = 1; save(); RENDER.plan(); }; });
-  el.querySelectorAll("[data-ttedit]").forEach(function(b){ b.onclick = function(){ var s = (DB.tt || []).filter(function(x){ return x.id === b.getAttribute("data-ttedit"); })[0]; if(s) ttForm(s); }; });
-  el.querySelectorAll("[data-ttdel]").forEach(function(b){ b.onclick = function(){ var id = b.getAttribute("data-ttdel"); DB.tt = (DB.tt || []).filter(function(x){ return x.id !== id; }); save(); RENDER.plan(); }; });
+  body.querySelectorAll("[data-plsel]").forEach(function(b){ b.onclick = function(){ var it = planItemById(b.getAttribute("data-plsel")); if(!it) return; var k = planDoneKey(it); if(DB.ttDone[k]) delete DB.ttDone[k]; else DB.ttDone[k] = 1; save(); RENDER.plan(); }; });
+  body.querySelectorAll("[data-plopen]").forEach(function(b){ b.onclick = function(){ var cid = b.getAttribute("data-plopen"); if(DB.chapters.some(function(c){ return c.id === cid; })){ DB.cur = cid; save(); show("study"); } else toast("This chapter is not uploaded yet"); }; });
+  body.querySelectorAll("[data-ttdone]").forEach(function(b){ b.onclick = function(){ var k = b.getAttribute("data-ttdone"); if(DB.ttDone[k]) delete DB.ttDone[k]; else DB.ttDone[k] = 1; save(); RENDER.plan(); }; });
+  body.querySelectorAll("[data-ttedit]").forEach(function(b){ b.onclick = function(){ var s = (DB.tt || []).filter(function(x){ return x.id === b.getAttribute("data-ttedit"); })[0]; if(s) ttForm(s); }; });
+  body.querySelectorAll("[data-ttdel]").forEach(function(b){ b.onclick = function(){ var id = b.getAttribute("data-ttdel"); DB.tt = (DB.tt || []).filter(function(x){ return x.id !== id; }); save(); RENDER.plan(); }; });
 };
 
-/* ---------- Progress ---------- */
+/* ---------- Progress (Overview | Performance | History | Reports) ---------- */
 RENDER.progress = function(){
-  var el = $("pgIn"), h = "<h1>Progress</h1><p class='sub'>Every practice helps your plant grow. Water it a little every day.</p>";
-  if(!DB.chapters.length){ el.innerHTML = h + noData("Upload your book and start practising. Your plant will grow here."); bindNo(); return; }
+  var el = $("pgIn"); if(!el) return;
+  var tab = ["overview","perf","hist","rep"].indexOf(PRG_TAB) >= 0 ? PRG_TAB : "overview";
+  var h = "<h1>Progress &amp; Reports</h1><p class='sub'>Track your growth, test scores, history and chapter reports in one view.</p>" +
+    "<div class='subTabs' style='margin:0 0 12px'>" +
+    "<button data-gtab='overview'" + (tab === "overview" ? " class='primary'" : "") + ">🌱 Overview</button>" +
+    "<button data-gtab='perf'" + (tab === "perf" ? " class='primary'" : "") + ">📊 Performance</button>" +
+    "<button data-gtab='hist'" + (tab === "hist" ? " class='primary'" : "") + ">🕒 History</button>" +
+    "<button data-gtab='rep'" + (tab === "rep" ? " class='primary'" : "") + ">📄 Reports</button>" +
+    "</div><div id='pgTabBody'></div>";
+  el.innerHTML = h;
+  el.querySelectorAll("[data-gtab]").forEach(function(b){ b.onclick = function(){ PRG_TAB = b.getAttribute("data-gtab"); RENDER.progress(); }; });
+  var body = $("pgTabBody");
+  if(tab === "perf"){ RENDER.perf(body); return; }
+  if(tab === "hist"){ RENDER.hist(body); return; }
+  if(tab === "rep"){ RENDER.rep(body); return; }
+  if(!DB.chapters.length){ body.innerHTML = noData("Upload your book and start practising. Your plant will grow here."); bindNo(); return; }
   var xp = totalXp(), st = ovStage(xp), nx = TH[st + 1], pr = nx ? Math.round((xp - TH[st]) * 100 / (nx - TH[st])) : 100, wk = 0, cnt = 0, touched = 0;
-  var dg = dailyGoalInfo(), bdg = scholarBadges();
+  var dg = dailyGoalInfo(), bdg = scholarBadges(), oh = "";
   DB.chapters.forEach(function(c){ var P = pracOf(c.id); if(P.length) touched++; P.forEach(function(x){ cnt++; if(x.d > Date.now() - 7 * 864e5) wk += Math.round(x.pct / 5); }); });
-  h += "<div class='card hero'><div class='row' style='flex-wrap:nowrap;gap:16px;margin:0'>" + plantSvg(st, 92) + "<div style='flex:1;min-width:0'><div class='status'>Your growth level</div><div class='big'>" + STAGES[st] + "</div><div class='bar'><i style='width:" + pr + "%'></i></div><div class='status'>" + xp + " growth points" + (nx ? " · " + (nx - xp) + " more to become a " + STAGES[st + 1] : " · top level reached") + "</div><p style='margin:6px 0 0'>" + (wk ? "<span class='tag s'><span class='mi'>" + svgIc("up") + "</span> +" + wk + " points this week</span>" : "Practise today to start growing!") + "</p></div></div></div>";
-  h += "<div class='stat'><div><div class='big'>" + touched + "/" + DB.chapters.length + "</div>Chapters practised</div><div><div class='big'>" + cnt + "</div>Practices done</div><div><div class='big'>" + dg.xp + "/" + dg.target + "</div>Today's XP</div><div><div class='big'>" + streak() + (dg.freezes ? " 🛡" + dg.freezes : "") + "</div>Day streak</div></div>";
-  h += "<div class='card'><strong>Scholar badges</strong><div class='badgeGrid'>" + bdg.map(function(b){ return "<span class='badgePill" + (b.on ? "" : " off") + "' title='" + esc(b.desc) + "'>" + b.ic + " " + esc(b.name) + "</span>"; }).join("") + "</div></div>";
+  oh += "<div class='card hero'><div class='row' style='flex-wrap:nowrap;gap:16px;margin:0'>" + plantSvg(st, 92) + "<div style='flex:1;min-width:0'><div class='status'>Your growth level</div><div class='big'>" + STAGES[st] + "</div><div class='bar'><i style='width:" + pr + "%'></i></div><div class='status'>" + xp + " growth points" + (nx ? " · " + (nx - xp) + " more to become a " + STAGES[st + 1] : " · top level reached") + "</div><p style='margin:6px 0 0'>" + (wk ? "<span class='tag s'><span class='mi'>" + svgIc("up") + "</span> +" + wk + " points this week</span>" : "Practise today to start growing!") + "</p></div></div></div>";
+  oh += "<div class='stat'><div><div class='big'>" + touched + "/" + DB.chapters.length + "</div>Chapters practised</div><div><div class='big'>" + cnt + "</div>Practices done</div><div><div class='big'>" + dg.xp + "/" + dg.target + "</div>Today's XP</div><div><div class='big'>" + streak() + (dg.freezes ? " 🛡" + dg.freezes : "") + "</div>Day streak</div></div>";
+  oh += "<div class='card'><strong>Scholar badges</strong><div class='badgeGrid'>" + bdg.map(function(b){ return "<span class='badgePill" + (b.on ? "" : " off") + "' title='" + esc(b.desc) + "'>" + b.ic + " " + esc(b.name) + "</span>"; }).join("") + "</div></div>";
   function chCard(c){
     var P = pracOf(c.id), sc = chScore(c.id), tr = trendOf(c.id), sg = chStage(c.id), d = (DB.progress[c.id] || {done: {}}).done, rv = reviewInfo(c.id), rd = readinessOf(c.id);
     var tg = tr === null ? "" : tr > 0 ? "<span class='tag s'><span class='mi'>" + svgIc("up") + "</span> +" + tr + "</span>" : tr < 0 ? "<span class='tag w'><span class='mi'>" + svgIc("down") + "</span> " + tr + "</span>" : "<span class='tag a'>steady</span>";
     var chips = ["mcq","exam","qa","teach","flash","cram"].map(function(k){ var L = P.filter(function(x){return x.kind === k}); if(!L.length){ return k === "cram" && d[k] ? "<span class='chip on'>" + mEmoji(k) + " cram ×" + d[k] + "</span>" : ""; } var a = Math.round(L.reduce(function(s, x){return s + x.pct}, 0) / L.length); return "<span class='chip on'>" + mEmoji(k) + " " + k + " ×" + L.length + " · avg " + a + "%</span>"; }).join("") + ["explain","notes","doubt"].map(function(k){ return d[k] ? "<span class='chip on'>" + mEmoji(k) + " " + k + " ×" + d[k] + "</span>" : ""; }).join("");
     return "<div class='card' style='margin:0'><div class='row' style='flex-wrap:nowrap;gap:12px;margin-bottom:6px'>" + plantSvg(sg, 64) + "<div style='flex:1;min-width:0'><strong>" + esc(c.name) + "</strong><div class='status'>" + STAGES[sg] + " · " + P.length + " practices</div></div><div style='text-align:right'><div class='big' style='font-size:1.5rem'>" + (sc === null ? "–" : sc + "%") + "</div>" + tg + "</div></div><div class='readinessRow'><span class='status'>Exam readiness</span><div class='bar' style='flex:1;margin:0'><i style='width:" + rd.pct + "%'></i></div><strong>" + rd.pct + "%</strong></div>" + (rv ? "<div class='status' style='margin:4px 0 0'>" + (rv.due ? "<span class='tag w'>Revision due</span>" : "Next review in " + rv.wait + " day" + (rv.wait === 1 ? "" : "s")) + "</div>" : "") + spark(P) + "<div>" + (chips || "<span class='status'>No practice yet</span>") + "</div><div class='row' style='margin:8px 0 0'><button data-open='" + c.id + "'>Continue this chapter</button></div></div>";
   }
-  h += "<h2>Chapter by chapter</h2>";
+  oh += "<h2>Chapter by chapter</h2>";
   uniq(DB.chapters.map(subjOf)).sort().forEach(function(sj){
     var inSubj = DB.chapters.filter(function(c){ return subjOf(c) === sj; });
     var sems = uniq(inSubj.map(semOf)).sort();
-    h += "<div class='orgTree'><h3>📘 " + esc(sj) + "</h3>";
+    oh += "<div class='orgTree'><h3>📘 " + esc(sj) + "</h3>";
     sems.forEach(function(sm){
       var books = uniq(inSubj.filter(function(c){ return semOf(c) === sm; }).map(bookOf)).sort();
-      if(!(sems.length === 1 && sm === "No semester")) h += "<div class='semHead'>" + esc(sm) + "</div>";
+      if(!(sems.length === 1 && sm === "No semester")) oh += "<div class='semHead'>" + esc(sm) + "</div>";
       books.forEach(function(bk){
         var list = inSubj.filter(function(c){ return semOf(c) === sm && bookOf(c) === bk; });
-        h += "<div class='status' style='margin:6px 0 2px;font-weight:600'>" + esc(bk) + "</div><div class='grid2'>" + list.map(chCard).join("") + "</div>";
+        oh += "<div class='status' style='margin:6px 0 2px;font-weight:600'>" + esc(bk) + "</div><div class='grid2'>" + list.map(chCard).join("") + "</div>";
       });
     });
-    h += "</div>";
+    oh += "</div>";
   });
-  el.innerHTML = h; el.querySelectorAll("[data-open]").forEach(function(b){ b.onclick = function(){ goStep(nextStep(b.dataset.open), b.dataset.open); }; });
+  body.innerHTML = oh; body.querySelectorAll("[data-open]").forEach(function(b){ b.onclick = function(){ goStep(nextStep(b.dataset.open), b.dataset.open); }; });
 };
 
 /* ---------- Performance ---------- */
@@ -9664,32 +9894,32 @@ function perfHtml(c){
   return h;
 }
 function weakTopics(id){ var TP = {}; allAttempts(id).slice(-3).forEach(function(a){ Object.keys(a.topics).forEach(function(k){ var t = TP[k] || (TP[k] = {c: 0, t: 0}); t.c += a.topics[k].c; t.t += a.topics[k].t; }); }); return Object.keys(TP).filter(function(k){ return TP[k].c / TP[k].t < 0.6; }); }
-RENDER.perf = function(){
-  var el = $("pfIn"), h = "<h1> Performance</h1>";
+RENDER.perf = function(host){
+  var el = host || $("pfIn"), h = host ? "" : "<h1> Performance</h1>";
   if(!DB.chapters.length){ el.innerHTML = h + noData("Your marks and strengths will appear here after your first test."); bindNo(); return; }
   el.innerHTML = h + pickHtml("pfSel") + "<div class='card' id='pfBody'></div>";
   var go = function(){ DB.cur = $("pfSel").value; save(); $("pfBody").innerHTML = perfHtml(cur()); }; $("pfSel").onchange = go; go();
 };
 
 /* ---------- History ---------- */
-RENDER.hist = function(){
-  var el = $("hsIn"), h = "<h1> History</h1><p class='sub'>A complete record of everything you have done.</p>";
+RENDER.hist = function(host){
+  var el = host || $("hsIn"), h = (host ? "" : "<h1> History</h1>") + "<p class='sub'>A complete record of everything you have done.</p>";
   if(!DB.history.length){ el.innerHTML = h + noData("Nothing here yet. Your journey starts with the first step!"); bindNo(); return; }
   var types = {}; DB.history.forEach(function(e){ types[e.type] = 1; });
-  el.innerHTML = h + "<div class='row'><select id='hsF'><option value=''>All activities</option>" + Object.keys(types).map(function(t){ return "<option value='" + t + "'>" + t + "</option>"; }).join("") + "</select></div><div id='hsL'></div>";
+  el.innerHTML = h + "<div class='row'><select id='hsF'><option value=''>All activities</option>" + Object.keys(types).map(function(t){ return "<option value='" + esc(t) + "'>" + esc(t) + "</option>"; }).join("") + "</select></div><div id='hsL'></div>";
   var draw = function(){ var f = $("hsF").value, day = "", out = ""; DB.history.slice().reverse().forEach(function(e){ if(f && e.type !== f) return; var d = fmtD(e.t); if(d !== day){ day = d; out += "<h3>" + d + "</h3>"; } out += "<div class='card' style='padding:10px 14px;margin-bottom:8px'>" + mEmoji(e.type) + " <strong>" + esc(e.text) + "</strong><div class='status'>" + fmtT(e.t) + (e.ch ? " · " + esc(e.ch) : "") + "</div></div>"; }); $("hsL").innerHTML = out || "<p class='status'>Nothing for this filter.</p>"; };
   $("hsF").onchange = draw; draw();
 };
 
 /* ---------- Reports ---------- */
-RENDER.rep = function(){
-  var el = $("rpIn"), h = "<h1> Reports</h1>";
+RENDER.rep = function(host){
+  var el = host || $("rpIn"), h = host ? "" : "<h1> Reports</h1>";
   if(!DB.chapters.length){ el.innerHTML = h + noData("Your chapter reports will be ready after you start studying."); bindNo(); return; }
   el.innerHTML = h + pickHtml("rpSel") + "<div class='card' id='rpBody'></div>";
   var go = function(){
     DB.cur = $("rpSel").value; save(); var c = cur(), A = allAttempts(c.id), d = prog().done, p = DB.profile;
-    var x = "<h2 style='margin-top:0'>" + esc(c.name) + "</h2><p class='status'>" + esc(p.name) + " · " + esc(p.cls) + (p.school ? " · " + esc(p.school) : "") + " · " + esc(subjOf(c)) + (semOf(c) !== "No semester" ? " · " + esc(semOf(c)) : "") + " · " + esc(bookOf(c)) + "</p><h3>Activities done</h3><div>" + METHODS.map(function(m){ return "<span class='chip" + (d[m.k] ? " on" : "") + "'>" + mEmoji(m.k) + " " + m.n + " ×" + (d[m.k] || 0) + "</span>"; }).join("") + "</div>";
-    if(A.length){ x += "<h3>All tests</h3><div style='overflow-x:auto'><table style='border-collapse:collapse;width:100%'><tr><th>Date</th><th>Type</th><th>Score</th><th>Grade</th></tr>" + A.map(function(a){ var q = Math.round(a.score * 100 / a.total); return "<tr><td>" + fmtD(a.d) + "</td><td>" + a.kind + "</td><td>" + a.score + "/" + a.total + " (" + q + "%)</td><td>" + gradeOf(q)[0] + "</td></tr>"; }).join("") + "</table></div>";
+    var x = "<h2 style='margin-top:0'>" + esc(c.name) + "</h2><p class='status'>" + esc(p.name) + " · " + esc(p.cls) + (p.school ? " · " + esc(p.school) : "") + " · " + esc(subjOf(c)) + (semOf(c) !== "No semester" ? " · " + esc(semOf(c)) : "") + " · " + esc(bookOf(c)) + "</p><h3>Activities done</h3><div>" + METHODS.map(function(m){ return "<span class='chip" + (d[m.k] ? " on" : "") + "'>" + mEmoji(m.k) + " " + esc(m.n) + " ×" + (d[m.k] || 0) + "</span>"; }).join("") + "</div>";
+    if(A.length){ x += "<h3>All tests</h3><div style='overflow-x:auto'><table style='border-collapse:collapse;width:100%'><tr><th>Date</th><th>Type</th><th>Score</th><th>Grade</th></tr>" + A.map(function(a){ var q = Math.round(a.score * 100 / a.total); return "<tr><td>" + fmtD(a.d) + "</td><td>" + esc(a.kind) + "</td><td>" + a.score + "/" + a.total + " (" + q + "%)</td><td>" + gradeOf(q)[0] + "</td></tr>"; }).join("") + "</table></div>";
       var miss = [], seen = {}; A.slice().reverse().forEach(function(a){ (a.qs || []).forEach(function(q){ if(!q.ok && !seen[q.q] && miss.length < 12){ seen[q.q] = 1; miss.push(q); } }); });
       if(miss.length) x += "<h3>Questions to revise</h3>" + miss.map(function(q){ return "<div class='q'><div class='status'>" + esc(q.topic) + "</div><div>" + inline(q.q) + "</div><div class='exp'> " + esc(q.mine || "-") + "<br> " + esc(q.ans) + "<br>" + inline(q.why) + "</div></div>"; }).join("");
     } else x += "<p class='status'>No tests taken yet.</p>";
@@ -9710,10 +9940,10 @@ var BAND = [
  [["","SQ3R","Survey, Question, Read, Recite, Review. A topper’s favourite for long chapters."],["","Past papers under time","Do full papers in exam time and check with the marking scheme, point by point."],["","Mark-wise answers","1 mark = one line, 3 marks = 3 points, 5 marks = intro, points, example, conclusion."],["","Mind maps","One page per chapter with keywords and arrows. Great for last-week revision."],["","Mistake notebook","Write every mistake and its correct answer. Revise it every weekend."]],
  [["","Cornell notes","Notes on the right, keywords on the left, summary at the bottom."],["","Spaced repetition","Revisit topics over growing gaps instead of cramming."],["","Study group","Teach each other. Explaining is the fastest way to learn."],["","Past papers","Solve earlier university papers and note repeated questions."]]
 ];
-RENDER.rec = function(){
-  var p = DB.profile, el = $("rcIn"), c = cur(), tasks = [];
+RENDER.rec = function(host){
+  var p = DB.profile, el = host || $("rcIn"), c = cur(), tasks = [];
   var dayName = new Date().toLocaleDateString("en-IN", {weekday: "long", day: "numeric", month: "short"});
-  var h = "<h1>Today's plan</h1><p class='sub'>" + dayName + " · made for " + esc(p.cls) + (p.age ? " · age " + p.age : "") + ".</p>";
+  var h = (host ? "<h2 style='margin-top:0'>Today · " + dayName + "</h2>" : "<h1>Today's plan</h1><p class='sub'>" + dayName + " · made for " + esc(p.cls) + (p.age ? " · age " + p.age : "") + ".</p>");
   if(c){
     var ns = nextStep(c.id);
     if(ns.done){
@@ -9739,7 +9969,7 @@ RENDER.rec = function(){
   var ts = ttToday(), tk = dayKey(Date.now());
   var planDue = todayPlan().filter(function(it){ return it.date <= tk && !DB.ttDone[planDoneKey(it)]; }).slice(0, 5);
   if(ts.length || planDue.length || todayPlan().length){
-    h += "<div class='card'><div class='row' style='justify-content:space-between;margin:0 0 4px'><strong>My timetable &amp; plan</strong><button data-view='plan'>Open plan</button></div>";
+    h += "<div class='card'><div class='row' style='justify-content:space-between;margin:0 0 4px'><strong>My timetable &amp; plan</strong><button id='rcOpenSyl'>Open syllabus &amp; timetable</button></div>";
     ts.forEach(function(s){ var k = ttDoneKey(s), done = !!DB.ttDone[k]; h += "<div class='planRow'><span class='planNo'>🕘</span><div style='flex:1;min-width:0'><strong" + (done ? " style='text-decoration:line-through;opacity:.6'" : "") + ">" + esc(s.start) + (s.end ? "–" + esc(s.end) : "") + " · " + esc(s.what) + "</strong>" + (s.subj ? "<div class='status'>" + esc(s.subj) + "</div>" : "") + "</div><button data-rctt='" + esc(k) + "'>" + (done ? "✓ Done" : "Done") + "</button></div>"; });
     planDue.forEach(function(it){ h += "<div class='planRow'><span class='planNo'>📖</span><div style='flex:1;min-width:0'><strong>" + esc(it.chapter) + "</strong><div class='status'>Study plan · " + esc(it.subj) + "</div></div><button data-rcpl='" + esc(it.id) + "'>" + (it.chId ? "Study" : "Done") + "</button></div>"; });
     if(!ts.length && !planDue.length) h += "<p class='status'>Nothing scheduled for today — a short revision keeps your streak going.</p>";
@@ -9747,8 +9977,9 @@ RENDER.rec = function(){
   }
   h += "<div class='card'><div class='row' style='margin:0'><button class='primary' id='rcAi'>Make my weekly plan</button><button data-resume='1'>Where I stopped</button></div><div class='out' id='rcOut'></div></div>";
   el.innerHTML = h; bindNext(el);
-  el.querySelectorAll("[data-rctt]").forEach(function(b){ b.onclick = function(){ var k = b.getAttribute("data-rctt"); if(DB.ttDone[k]) delete DB.ttDone[k]; else DB.ttDone[k] = 1; save(); RENDER.rec(); }; });
-  el.querySelectorAll("[data-rcpl]").forEach(function(b){ b.onclick = function(){ var it = planItemById(b.getAttribute("data-rcpl")); if(!it) return; if(it.chId && DB.chapters.some(function(c){ return c.id === it.chId; })){ DB.cur = it.chId; save(); show("study"); } else { var k = planDoneKey(it); if(DB.ttDone[k]) delete DB.ttDone[k]; else DB.ttDone[k] = 1; save(); RENDER.rec(); } }; });
+  if($("rcOpenSyl")) $("rcOpenSyl").onclick = function(){ PLN_TAB = "syllabus"; show("plan"); };
+  el.querySelectorAll("[data-rctt]").forEach(function(b){ b.onclick = function(){ var k = b.getAttribute("data-rctt"); if(DB.ttDone[k]) delete DB.ttDone[k]; else DB.ttDone[k] = 1; save(); RENDER.rec(host); }; });
+  el.querySelectorAll("[data-rcpl]").forEach(function(b){ b.onclick = function(){ var it = planItemById(b.getAttribute("data-rcpl")); if(!it) return; if(it.chId && DB.chapters.some(function(c){ return c.id === it.chId; })){ DB.cur = it.chId; save(); show("study"); } else { var k = planDoneKey(it); if(DB.ttDone[k]) delete DB.ttDone[k]; else DB.ttDone[k] = 1; save(); RENDER.rec(host); } }; });
   $("rcAi").onclick = function(){ var perf = DB.chapters.map(function(ch){ var m = mastery(ch.id); return ch.name + ": " + (m === null ? "not tested" : m + "%"); }).join("; "); run("The student is in " + p.cls + (p.age ? ", age " + p.age : "") + ". Chapter mastery: " + (perf || "no chapters yet") + ". Streak: " + streak() + " days. Suggest a simple weekly study plan with the most successful methods for this class (active recall, spaced revision, past papers, etc.), daily time slots, and a motivating closing line. Keep it short.", $("rcOut"), $("rcAi"), {general: true, ctx: "plan", local: function(){ return localWeekPlan(); }}); };
 };
 
@@ -9776,10 +10007,10 @@ window.addEventListener("resize", function(){
   setViewH();
   if(curView === "home" && (window.innerWidth < 620) !== homeNarrow) RENDER.home();
 });
-load(); anaInit(); pilotLoadPending(); setViewH(); if(aiCfg()) save(); if(DB.engine === "ai" && !aiCfg()){ DB.engine = "local"; save(); } refreshKeyBtn();
+load(); anaInit(); pilotLoadPending(); setViewH(); if(aiCfg() && !IDB_HYDRATING) save(); if(DB.engine === "ai" && !aiCfg()){ DB.engine = "local"; if(!IDB_HYDRATING) save(); } refreshKeyBtn();
 try { pilotRetryRequest(); subRetryQueue(); } catch(e){}
 try {
-  if(location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1"){
+  if(!OWNER_COPY && (location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1")){
     if(!document.querySelector("link[rel='manifest']")){
       var ml = document.createElement("link"); ml.rel = "manifest"; ml.href = "manifest.webmanifest"; document.head.appendChild(ml);
     }
@@ -9788,16 +10019,20 @@ try {
 } catch(e){}
 authMode = AUTH.users.length ? "login" : "create";
 if(DB.profile && AUTH.session){
+  var bootTok = AUTH_TOKEN;
   if(BOOT_IDB_STUB && typeof sdbGet === "function"){
     IDB_HYDRATING = true;
     var bootSid = AUTH.session;
     sdbGet(bootSid).then(function(idbD){
       IDB_HYDRATING = false;
-      if(idbD && AUTH.session === bootSid){ DB = normalizeStudy(idbD); DB.ai = AUTH.ai || null; PREP = {}; }
+      if(bootTok !== AUTH_TOKEN || AUTH.session !== bootSid) return;
+      if(idbD){ DB = normalizeStudy(idbD); DB.ai = AUTH.ai || null; PREP = {}; }
+      else toast("Large offline chapters could not be loaded from browser storage — restore from backup or save folder if missing.");
       if(!PILOT_GATE || (DB.pilot && DB.pilot.registered)){ LOCKED = false; reconcileFreeze(); show("home"); afterLoginFolders(); afterLoginPilot(); }
       else { LOCKED = true; show("activate"); }
     }, function(){
       IDB_HYDRATING = false;
+      if(bootTok !== AUTH_TOKEN || AUTH.session !== bootSid) return;
       if(!PILOT_GATE || (DB.pilot && DB.pilot.registered)){ LOCKED = false; reconcileFreeze(); show("home"); afterLoginFolders(); afterLoginPilot(); }
       else { LOCKED = true; show("activate"); }
     });
@@ -9807,7 +10042,7 @@ if(DB.profile && AUTH.session){
     if(typeof sdbGet === "function"){
       var bootSid2 = AUTH.session;
       sdbGet(bootSid2).then(function(idbD){
-        if(!idbD || AUTH.session !== bootSid2) return;
+        if(!idbD || bootTok !== AUTH_TOKEN || AUTH.session !== bootSid2) return;
         if((idbD.updatedAt || 0) > (DB.updatedAt || 0)){
           DB = normalizeStudy(idbD); DB.ai = AUTH.ai || null; PREP = {};
           if(!PILOT_GATE || (DB.pilot && DB.pilot.registered)){
