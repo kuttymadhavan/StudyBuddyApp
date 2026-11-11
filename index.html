@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#eef2fa" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#101625" media="(prefers-color-scheme: dark)">
 <title>Gurukul</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%235265da'/%3E%3Cpath d='M16 20h12a5 5 0 0 1 4 2 5 5 0 0 1 4-2h12v24H36a4 4 0 0 0-4 2 4 4 0 0 0-4-2H16z' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linejoin='round'/%3E%3Ccircle cx='46' cy='17' r='3.5' fill='%23ffd36b'/%3E%3C/svg%3E">
 <style>
 :root{--bg:#eef2fa;--card:#fbfcff;--ink:#26324a;--mute:#5d6a82;--line:#dce4f2;--acc:#5265da;--accbg:#e8ebff;--acc2:#24a99a;--acc2bg:#e1f6f2;--acc2ink:#14776c;--ok:#237a56;--okbg:#ddf4ea;--bad:#a8424f;--badbg:#fbe7ea;--onacc:#ffffff;--onacc2:#06352f;--glow1:rgba(82,101,218,.10);--glow2:rgba(36,169,154,.08);--shadow:0 12px 32px rgba(35,48,80,.07);--shadow-sm:0 5px 16px rgba(35,48,80,.10);--primary-shadow:0 6px 16px rgba(82,101,218,.24);--primary-shadow-hover:0 9px 22px rgba(82,101,218,.32);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101625;--card:#182034;--ink:#e7ecf8;--mute:#9fabc4;--line:#2a3550;--acc:#93a4ff;--accbg:#232c50;--acc2:#63d7c5;--acc2bg:#153a37;--acc2ink:#8ce3d5;--ok:#82d9ad;--okbg:#12332a;--bad:#f0a3ac;--badbg:#3a212d;--onacc:#111629;--onacc2:#082b27;--glow1:rgba(120,140,255,.14);--glow2:rgba(80,210,190,.08);--shadow:0 12px 32px rgba(0,0,0,.28);--shadow-sm:0 5px 16px rgba(0,0,0,.28);--primary-shadow:0 6px 16px rgba(0,0,0,.30);--primary-shadow-hover:0 9px 22px rgba(0,0,0,.38);color-scheme:dark}}
@@ -184,7 +185,7 @@ body.fit main{padding-bottom:12px}
  #v-study .mth.tile b{font-size:.84rem;line-height:1.2}
  #v-study .mth.tile .badge{position:static;margin:0}
  #v-study #chCard button{padding:6px 8px;font-size:.82rem}
- #v-study #chCard #engRow{display:none}
+ #v-study #chCard #engRow{flex-wrap:wrap;gap:6px}
  #v-study #chCard #info,#v-study #chCard #packInfo{font-size:.8rem}
  #rcIn h1{margin:0 0 2px}
  #rcIn .sub{display:none}
@@ -358,11 +359,124 @@ body.fit main{padding-bottom:12px}
 .planItem.due{background:var(--acc2bg);border-radius:10px;padding-left:8px}
 .planItem.done .nm{opacity:.6;text-decoration:line-through}
 @media (max-width:620px){#v-plan .cascade select{flex:1 1 100%}.planItem{flex-wrap:wrap}}
+/* ---- Gurukul pilot: access banner + guardian consent ---- */
+.pilotBar{position:sticky;top:0;z-index:40;padding:7px 14px;font-size:.85rem;font-weight:600;text-align:center;background:var(--accbg);color:var(--acc)}
+.pilotBar.warn{background:var(--acc2bg);color:var(--acc2ink)}
+.pilotBar.bad{background:var(--badbg);color:var(--bad)}
+.pilotBar.hidden{display:none}
+.consent{display:flex;align-items:flex-start;gap:8px;font-size:.86rem;line-height:1.4;color:var(--mute);margin:6px 0 0}
+.consent input{margin-top:3px;flex:0 0 auto}
+/* ---- student welcome, access request, activation ---- */
+.authWide{max-width:760px}
+.introHero{background:linear-gradient(160deg,var(--accbg),var(--card) 70%)}
+.introKicker{display:inline-block;font-size:.78rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--acc);margin-bottom:7px}
+.introGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:12px 0}
+.introCard{border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--card)}
+.introCard b{display:block;margin-bottom:4px}
+.introCard p{margin:0;font-size:.9rem;line-height:1.4;color:var(--mute)}
+.introActions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+.ownerOnly{border-style:dashed;border-color:var(--acc);background:var(--accbg)}
+.ownerOnly strong{color:var(--acc)}
+.requestGrid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.requestGrid .full{grid-column:1/-1}
+@media (max-width:620px){.requestGrid{grid-template-columns:1fr}.requestGrid .full{grid-column:auto}}
+/* ---- Phase 1: Today's Focus, Daily XP, Badges, Readiness, 5-Min Cram ---- */
+.focusCard{background:linear-gradient(135deg,var(--accbg),var(--card) 68%);border-color:color-mix(in srgb,var(--acc) 35%,var(--line))}
+.focusTop{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.xpRow{display:flex;align-items:center;gap:10px;margin:6px 0 10px}
+.xpBar{flex:1;height:10px;border-radius:99px;background:var(--line);overflow:hidden;min-width:120px}
+.xpBar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:99px;transition:width .5s}
+.badgeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:8px;margin-top:8px}
+.badgePill{border:1px solid var(--acc2);background:var(--acc2bg);border-radius:12px;padding:9px 10px;font-size:.86rem}
+.badgePill b{display:block;color:var(--acc2ink)}
+.badgePill small{display:block;color:var(--mute);font-size:.76rem;line-height:1.3;margin-top:2px}
+.badgePill.off{border-color:var(--line);background:var(--bg);opacity:.65}
+.badgePill.off b{color:var(--mute)}
+.readinessRow{display:flex;align-items:center;gap:10px;margin:6px 0}
+.readinessRow .bar{flex:1;margin:0}
+.cramSection{border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:10px 0;background:var(--card)}
+.cramSection h3{margin:0 0 8px;color:var(--acc)}
+.cramCheck{border:1px solid var(--line);border-radius:11px;padding:9px 11px;margin:6px 0;background:var(--bg)}
+.cramCheck summary{cursor:pointer;font-weight:600}
+.cramCheck p{margin:6px 0 0;color:var(--ink)}
+/* ---- Phase 2 & 3: Freemium Tier, Yearly Pro Pass, Razorpay / UPI Checkout ---- */
+.proBadge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:999px;font-size:.78rem;font-weight:800;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff}
+.proBadge.free{background:var(--accbg);color:var(--acc)}
+.subPrice{display:flex;align-items:baseline;gap:10px;margin:8px 0 10px;flex-wrap:wrap}
+.subPrice b{font-size:1.75rem;color:var(--acc);line-height:1}
+.subPrice s{color:var(--mute);font-size:1rem}
+.subTabs{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.subTabs button{flex:1 1 130px}
+.subPerk{margin:6px 0;padding-left:18px;font-size:.9rem;line-height:1.55}
 </style>
 </head>
 <body>
 <header id="top"><div class="bar1"><button id="bBack" class="pill hidden" title="Go back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg><span class="lbl">Back</span></button><button id="bFwd" class="pill hidden" title="Go forward"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg><span class="lbl">Forward</span></button><div class="barL"><span class="brand">Gurukul</span><span id="scTitle" class="hidden"></span></div><span id="whoChip" class="chip hidden"></span><span id="aiStat" class="chip hidden"></span><button id="bHome" class="pill" title="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 10l9-6 9 6z M5 10v8 M9 10v8 M15 10v8 M19 10v8 M3 20h18"/></svg><span class="lbl">Home</span></button><button id="bProf" class="avatar" title="My details" aria-label="My details"><svg viewBox="0 0 40 40"><rect width="40" height="40" fill="var(--accbg)"/><path d="M5 40c0-10 6-14 15-14s15 4 15 14z" fill="var(--acc)"/><circle cx="20" cy="21" r="7" fill="#f2c9a0"/><path d="M7 14l13-6 13 6-13 6z" fill="#2b3550"/><path d="M13 17v4c0 2 14 2 14 0v-4" fill="#2b3550"/><path d="M32 15v7" stroke="#24a99a" stroke-width="1.6"/></svg></button><button id="bKey" class="hidden">✦ Connect AI</button></div><div id="quote"></div></header>
+<div id="pilotBar" class="pilotBar hidden" role="status"></div>
 <main id="main">
+<section id="v-intro" class="hidden"><div class="center authWide">
+<!-- OWNER-COPY-START -->
+<div class="card ownerOnly" id="ownerNote">
+<strong>Owner copy — students never receive this file.</strong>
+<p class="status" style="margin:4px 0 10px">This is the readable student app. To review access requests and issue invite codes, open the owner console. It never asks for a student code.</p>
+<button type="button" id="inOwner">Open Gurukul - Owner.html</button>
+</div>
+<!-- OWNER-COPY-END -->
+<div class="card hero introHero">
+<span class="introKicker">Welcome to Gurukul</span>
+<h1>Your own study companion, on your device</h1>
+<p>Gurukul turns your textbook into notes, questions, flashcards, practice tests and a step-by-step maths workbench. It keeps working when the internet does not, and your work stays private to you.</p>
+<div class="introActions"><button class="primary" id="inReq">Request access</button><button id="inCode">I have an invite code</button></div>
+<p class="status" id="inLoginWrap" style="margin:12px 0 0"></p>
+</div>
+<div class="introGrid">
+<div class="introCard"><b>📚 Your book, made yours</b><p>Upload a chapter and get notes, explanations, Q&amp;A, flashcards and a test written around it.</p></div>
+<div class="introCard"><b>🧮 Practice that explains</b><p>The maths workbench shows one step at a time, with hints, a second method and a question for you to try.</p></div>
+<div class="introCard"><b>🌱 Progress you can see</b><p>A study galaxy, a daily plan, an error book and reports help you see what is improving and what needs another look.</p></div>
+<div class="introCard"><b>🔒 Private by design</b><p>Your books, notes and progress stay on this device. AI is optional. Nothing is sold or shown to advertisers.</p></div>
+</div>
+<div class="card" id="inHowJoin"><strong>How joining works</strong><p class="status" style="margin:6px 0 0">Ask for access with your details. Your organiser checks the request and emails you an invite code. Enter that code once to activate Gurukul, then create your local account and start studying.</p></div>
+</div></section>
+
+<section id="v-request" class="hidden"><div class="center authWide">
+<div class="card hero"><span class="introKicker">Step 1 of 2</span><h1>Ask for access</h1><p>Tell us who you are and who is giving consent. Your organiser will review the request and email you an invite code.</p></div>
+<div class="card form" id="rqForm">
+<div class="requestGrid">
+<div><label for="rqName">Student name</label><input type="text" id="rqName" autocomplete="name" placeholder="your full name"></div>
+<div><label for="rqEmail">Student email</label><input type="email" id="rqEmail" autocomplete="email" placeholder="name@example.com"></div>
+<div><label for="rqPhone">Student phone</label><input type="tel" id="rqPhone" autocomplete="tel" placeholder="mobile number"></div>
+<div><label for="rqCls">Class / Standard</label><select id="rqCls"></select></div>
+<div><label for="rqSch">School / College</label><input type="text" id="rqSch" autocomplete="organization"></div>
+<div><label for="rqBoard">Board / curriculum</label><select id="rqBoard"></select></div>
+<div><label for="rqGName">Parent / guardian name</label><input type="text" id="rqGName" autocomplete="name" placeholder="who is giving consent"></div>
+<div><label for="rqGEmail">Parent / guardian email</label><input type="email" id="rqGEmail" autocomplete="email" placeholder="name@example.com"></div>
+<div><label for="rqGPhone">Parent / guardian phone</label><input type="tel" id="rqGPhone" autocomplete="tel" placeholder="mobile number"></div>
+<div class="full"><label for="rqNote">Anything you want to tell the organiser? (optional)</label><input type="text" id="rqNote" placeholder="for example, the class or group you are joining"></div>
+<div class="full"><label class="consent"><input type="checkbox" id="rqConsent"><span>I am the parent or guardian and I agree that the organiser may collect the details above plus usage time, screens used and error reports, to improve Gurukul. Data is kept for 12 months and can be deleted on request. Contact neelareader@gmail.com.</span></label></div>
+</div>
+<div class="row" style="margin-top:14px;justify-content:center"><button class="primary" id="rqGo">Send my request</button><button id="rqBack">Back</button></div>
+<div id="rqMsg" class="status"></div>
+</div>
+<div class="card hidden" id="rqDone">
+<h2 style="margin-top:0" id="rqDoneTitle">Request saved</h2>
+<p id="rqDoneTxt">Your organiser will review it and send an invite code to your email.</p>
+<div class="row" style="margin-top:10px"><button class="primary" id="rqHave">I have my code</button><button id="rqRetry" class="hidden">Try sending again</button><button id="rqCopy">Copy request</button></div>
+<p class="status" id="rqDoneHint" style="margin-top:10px"></p>
+<p class="status" id="rqFallbackWrap" style="margin:8px 0 0"><button type="button" class="linkish" id="rqMail">Send by email instead</button></p>
+</div>
+</div></section>
+
+<section id="v-activate" class="hidden"><div class="center">
+<div class="card hero"><span class="introKicker">Step 2 of 2</span><h1>Activate Gurukul</h1><p>Enter the invite code from your organiser. It decides how long your access lasts and works without the internet.</p></div>
+<div class="card form">
+<label for="acCode">Invite code</label><input type="text" id="acCode" autocapitalize="characters" spellcheck="false" placeholder="GURU-260207-7F3K">
+<p class="status">Use the code exactly as it arrived. Spaces, dashes and capital letters do not matter.</p>
+<div class="row" style="margin-top:14px;justify-content:center"><button class="primary" id="acGo">Activate</button><button id="acBack">Back</button></div>
+<div id="acMsg" class="status"></div>
+<p class="status" style="margin-bottom:0;margin-top:10px">No code yet? <button type="button" class="linkish" id="acReq">Request access</button> · <button type="button" class="linkish" id="acLogout">Log out</button></p>
+</div>
+</div></section>
+
 <section id="v-onb" class="hidden"><div class="center">
 <div class="card hero"><h1 id="authTitle"> Namaste! I am Mitrādhyāyin</h1><p id="authSub">Your study companion. Create your account so your books, notes and progress stay yours.</p></div>
 <div class="card" id="loginCard">
@@ -370,11 +484,11 @@ body.fit main{padding-bottom:12px}
 <p class="status">Enter your username and password. Only your own books, notes and progress will open.</p>
 <label for="liUser">Username</label><input type="text" id="liUser" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="your username">
 <label for="liPass">Password</label><input type="password" id="liPass" autocomplete="current-password" placeholder="your password">
-<div class="row" style="margin-top:14px"><button class="primary" id="liGo">Log in</button></div>
+<div class="row" style="margin-top:14px"><button class="primary" id="liGo">Log in</button><button type="button" class="linkish" id="liForgot">Forgot password?</button></div>
 <div id="liMsg" class="status"></div>
 <p class="status" id="liHint" style="margin-bottom:6px"></p>
 <div id="liWhoChips" class="chips"></div>
-<p class="status" style="margin-bottom:0;margin-top:10px">New student on this device? <button type="button" class="linkish" id="toCreate">Create an account</button></p>
+<p class="status" style="margin-bottom:0;margin-top:10px" id="toCreateWrap">New student on this device? <button type="button" class="linkish" id="toCreate">Request access</button></p>
 </div>
 <div class="card form" id="createCard">
 <div id="authWho" class="authWho hidden"><span class="authAvatar" id="authInitial">S</span><div><b id="authWhoName">Student</b><span id="authWhoMeta">Class</span></div></div>
@@ -387,6 +501,18 @@ body.fit main{padding-bottom:12px}
 <label for="oLang">Language you prefer</label><select id="oLang"></select>
 <label for="oSch">School / College</label><input type="text" id="oSch" autocomplete="organization">
 <label for="oFrom">Where are you from?</label><input type="text" id="oFrom" placeholder="Town / district / state" autocomplete="address-level2">
+<div id="pilotFields">
+<div id="pilotCodeWrap">
+<label for="oCode">Invite code</label><input type="text" id="oCode" autocapitalize="characters" spellcheck="false" placeholder="GURU-260207-7F3K">
+<p class="status" id="oCodeHint">Use the code your organiser gave you. It sets how long your access lasts.</p>
+</div>
+<label for="oBoard">Board / curriculum</label><select id="oBoard"></select>
+<label for="oGName">Parent / guardian name</label><input type="text" id="oGName" autocomplete="name" placeholder="who is giving consent">
+<label for="oGEmail">Parent / guardian email</label><input type="email" id="oGEmail" autocomplete="email" placeholder="name@example.com">
+<label for="oGPhone">Parent / guardian phone</label><input type="tel" id="oGPhone" autocomplete="tel" placeholder="mobile number">
+<label class="consent"><input type="checkbox" id="oConsent"><span>I am the parent or guardian and I agree that the organiser may collect the details above plus usage time, screens used and error reports, to improve Gurukul. Data is kept for 12 months and can be deleted on request. Contact neelareader@gmail.com.</span></label>
+<p class="status" id="oConsentHint">Required for students under 18.</p>
+</div>
 <label for="oPicFile">Your photo (optional)</label>
 <div class="photoRow"><span class="photoPrev" id="oPicPrev" role="button" tabindex="0" title="Choose a photo">S</span><div class="row" style="margin:0"><button type="button" id="oPicPick">Choose photo</button><button type="button" id="oPicClear" class="hidden">Remove</button></div><input type="file" id="oPicFile" accept="image/*" class="filePicker"></div>
 <p class="status" style="margin:0 0 4px">Shown at the centre of your study galaxy and in the top bar. It stays on this device.</p>
@@ -402,9 +528,9 @@ body.fit main{padding-bottom:12px}
 <section id="v-home" class="hidden"><div id="homeIn"></div></section>
 
 <section id="v-study" class="hidden"><h1> Study</h1>
-<div class="card" id="chCard"><div class="cascade"><select id="selSubj" aria-label="Subject" title="Subject"></select><select id="selSem" aria-label="Semester" title="Semester"></select><select id="selBook" aria-label="Book" title="Book"></select><select id="chSel" aria-label="Chapter" title="Chapter"></select></div><div class="row" style="margin:8px 0 0"><button id="chAdd" class="primary">＋ Add book or chapter (PDF)</button><button id="chNcert" title="Official NCERT chapter PDFs, Classes 1–12">⬇ NCERT library</button><button id="chSyll" title="Upload your syllabus (PDF or Excel) so I can plan your study">📋 Syllabus</button><button id="chPack" class="hidden" title="Uses the internet and your AI. Press only when online.">⚡ Smart pack (online)</button><button id="chDel" class="hidden"> Delete</button></div><input type="file" id="file" accept="application/pdf" class="hidden"><input type="file" id="sylFile" accept=".pdf,.xlsx,.xls,.csv,.tsv,.txt,application/pdf" class="hidden"><div class="row" id="engRow" style="margin:8px 0 0"><span class="status">Prepare questions:</span><select id="engSel"><option value="local">On this device (instant, no limits)</option><option value="ai">With AI (smarter, needs internet)</option></select></div><div id="packInfo" class="status"></div><div id="info" class="status"></div></div>
+<div class="card" id="chCard"><div class="cascade"><select id="selSubj" aria-label="Subject" title="Subject"></select><select id="selSem" aria-label="Semester" title="Semester"></select><select id="selBook" aria-label="Book" title="Book"></select><select id="chSel" aria-label="Chapter" title="Chapter"></select></div><div class="row" style="margin:8px 0 0"><button id="chAdd" class="primary">＋ Add book or chapter (PDF)</button><button id="chPaste" title="Paste textbook text or notes without a PDF">📋 Paste text</button><button id="chNcert" title="Official NCERT chapter PDFs, Classes 1–12">⬇ NCERT library</button><button id="chSyll" title="Upload your syllabus (PDF or Excel) so I can plan your study">🗓 Syllabus</button><button id="chPack" class="hidden" title="Uses the internet and your AI. Press only when online.">⚡ Smart pack (online)</button><button id="chDel" class="hidden"> Delete</button></div><input type="file" id="file" accept="application/pdf" class="hidden"><input type="file" id="sylFile" accept=".pdf,.xlsx,.xls,.csv,.tsv,.txt,application/pdf" class="hidden"><div class="row" id="engRow" style="margin:8px 0 0"><span class="status">Prepare questions:</span><select id="engSel"><option value="local">On this device (instant, no limits)</option><option value="ai">With AI (smarter, needs internet)</option></select></div><div id="packInfo" class="status"></div><div id="info" class="status"></div></div>
 <div id="split" class="card hidden"></div>
-<div id="upl" class="card hero" style="text-align:center;padding:28px 16px"><div class="ic" style="width:64px;height:64px;margin:0 auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg></div><h2>Bring your book, I’ll do the rest!</h2><p>Upload your textbook (whole book or one chapter). I will split it into chapters and turn it into notes, questions, flashcards and tests. Let’s begin </p><button id="uplBtn" class="primary" style="font-size:1.05rem;padding:12px 22px">Choose my book (PDF)</button><button id="uplNcert" style="display:block;margin:8px auto 0">⬇ Download from NCERT (Classes 1–12)</button><button id="uplMaths" style="display:block;margin:8px auto 0">🧮 Open maths workbench</button><p class="status">or drop the PDF anywhere on this card</p></div>
+<div id="upl" class="card hero" style="text-align:center;padding:28px 16px"><div class="ic" style="width:64px;height:64px;margin:0 auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg></div><h2>Bring your book, I’ll do the rest!</h2><p>Upload your textbook (whole book or one chapter), paste notes, or try a built-in sample chapter. I will turn it into notes, flashcards, mind maps, tests and cram sheets.</p><div class="row" style="justify-content:center;margin:10px 0 6px"><button id="uplBtn" class="primary" style="font-size:1.05rem;padding:12px 22px">Choose my book (PDF)</button><button id="uplPaste" style="font-size:1.02rem;padding:11px 18px">📋 Paste chapter text</button></div><div class="row" style="justify-content:center;margin:4px 0 8px"><button id="uplSample">✨ Try a sample chapter</button><button id="uplNcert">⬇ Download from NCERT (Classes 1–12)</button><button id="uplMaths">🧮 Open maths workbench</button></div><p class="status">or drop the PDF anywhere on this card</p></div>
 <div id="stBody" class="hidden"><div id="path"></div><div id="vidAsk" class="card hero"></div><h3>How do you want to study today?</h3><div id="methods"></div><div class="card" id="mp" style="margin-top:14px"><p class="status">Pick a method above to start </p></div></div><div id="msg" class="status"></div></section>
 
 <section id="v-plan" class="hidden"><div id="spIn"></div></section>
@@ -443,11 +569,44 @@ var AUTH = {v: 1, users: [], session: null, last: null, ai: null, migrated: fals
 var authMode = "login", AUTH_MIGRATED = "";
 var FOLDER = {handle: null, pending: false, timer: null, writing: false, queued: false, lasted: "", warned: false};
 var FOLDER_DB = "gurukul_fs_v1", FOLDER_STORE = "handles";
+var STUDY_DB = "gurukul_data_v1", STUDY_STORE = "blobs", DAILY_TARGET = 20;
+/* ---------- Gurukul pilot: organiser settings (edit these before distributing) ---------- */
+var PILOT = {
+  organiser: "neelareader@gmail.com",
+  appVersion: "Gurukul Pilot R1",
+  schema: 1,
+  defaultDays: 90,
+  warnDays: 7,
+  idleSec: 45,
+  flushEvery: 60,
+  anaPrefix: "ocm_study_ana_",
+  retentionMonths: 12,
+  uploadUrl: "",        /* paste the Apps Script Web App URL after the one-time setup */
+  uploadToken: ""       /* paste the same shared token you put in the Apps Script */
+};
+var LOCKED = false, ANA = null;
+var OWNER_COPY = true;   /* build-student.sh rewrites this to false for the distributed file */
+var PILOT_GATE = false;  /* Development mode: holds Step 2 invite-code gate until ready to distribute (set to true before release) */
+var PAYWALL_ACTIVE = false; /* Development mode: holds hard Pro paywall until launch; use "Preview Free limits" in Settings to test locally */
+var FREE_CHAPTER_LIMIT = 3;
+var SUB_PLAN = {
+  name: "Gurukul Yearly Pass",
+  priceInr: 499,
+  mrpInr: 999,
+  days: 365,
+  razorpayKey: "",     /* optional Razorpay Key ID (baked via build-student.sh / gurukul-endpoint.txt) */
+  upiId: "",           /* optional direct UPI ID e.g. gurukul@okaxis */
+  upiName: "Gurukul Learning"
+};
+var PAY_Q_KEY = "ocm_study_pending_payments";
+var AUTH_VIEWS = ["intro", "request", "activate", "onb"];
+var REQ_KEY = "ocm_study_access_request", INV_KEY = "ocm_study_pending_invite";
+var PENDING_REQ = null, PENDING_INVITE = null;
 function blankDB(){
-  return {profile: null, chapters: [], progress: {}, history: [], facts: {}, cache: {}, book: [], engine: "local", cur: null, speech: {uri: "", name: "", rate: 0.95, pitch: 1}, syllabus: null, plan: null, tt: [], ttDone: {}, save: {asked: false, enabled: false, name: "", file: "", at: 0}};
+  return {profile: null, chapters: [], progress: {}, history: [], facts: {}, cache: {}, book: [], engine: "local", cur: null, speech: {uri: "", name: "", rate: 0.95, pitch: 1}, syllabus: null, plan: null, tt: [], ttDone: {}, daily: {}, freeze: {count: 0, used: {}, rewarded: {}}, badges: {}, updatedAt: 0, save: {asked: false, enabled: false, name: "", file: "", at: 0}, pilot: {code: "", registered: false, issuedAt: 0, validUntil: 0, revoked: false, consent: false, consentAt: 0, board: "", guardian: {name: "", email: "", phone: ""}}, sub: {tier: "free", plan: "free", paidAt: 0, validUntil: 0, amountInr: 0, paymentId: "", orderId: "", method: "", devPreviewFree: false, pendingPayment: null}};
 }
 function studyFields(){
-  return ["profile", "chapters", "progress", "history", "facts", "cache", "book", "cur", "last", "sess", "speech", "qaMarks", "paper", "mist", "lastBackup", "play", "syllabus", "plan", "tt", "ttDone", "save"];
+  return ["profile", "chapters", "progress", "history", "facts", "cache", "book", "cur", "last", "sess", "speech", "qaMarks", "paper", "mist", "lastBackup", "play", "syllabus", "plan", "tt", "ttDone", "daily", "freeze", "badges", "updatedAt", "save", "pilot", "sub"];
 }
 function normalizeStudy(d){
   d = d && typeof d === "object" ? d : {};
@@ -457,10 +616,35 @@ function normalizeStudy(d){
   d.engine = d.engine || "local";
   d.syllabus = d.syllabus || null; d.plan = d.plan || null;
   d.tt = Array.isArray(d.tt) ? d.tt : []; d.ttDone = d.ttDone || {};
+  d.daily = (d.daily && typeof d.daily === "object") ? d.daily : {};
+  d.freeze = (d.freeze && typeof d.freeze === "object") ? d.freeze : {};
+  d.freeze.count = Math.max(0, Math.min(2, parseInt(d.freeze.count, 10) || 0));
+  d.freeze.used = (d.freeze.used && typeof d.freeze.used === "object") ? d.freeze.used : {};
+  d.freeze.rewarded = (d.freeze.rewarded && typeof d.freeze.rewarded === "object") ? d.freeze.rewarded : {};
+  d.badges = (d.badges && typeof d.badges === "object") ? d.badges : {};
+  d.updatedAt = d.updatedAt || 0;
   d.save = (d.save && typeof d.save === "object") ? d.save : {};
   if(d.save.asked === undefined) d.save.asked = false;
   d.save.enabled = !!d.save.enabled; d.save.name = d.save.name || "";
   d.save.file = d.save.file || ""; d.save.at = d.save.at || 0;
+  d.pilot = (d.pilot && typeof d.pilot === "object") ? d.pilot : {};
+  d.pilot.code = d.pilot.code || ""; d.pilot.registered = !!d.pilot.registered;
+  d.pilot.issuedAt = d.pilot.issuedAt || 0; d.pilot.validUntil = d.pilot.validUntil || 0;
+  d.pilot.revoked = !!d.pilot.revoked; d.pilot.consent = !!d.pilot.consent; d.pilot.consentAt = d.pilot.consentAt || 0;
+  d.pilot.board = d.pilot.board || "";
+  d.pilot.guardian = (d.pilot.guardian && typeof d.pilot.guardian === "object") ? d.pilot.guardian : {name: "", email: "", phone: ""};
+  d.pilot.guardian.name = d.pilot.guardian.name || ""; d.pilot.guardian.email = d.pilot.guardian.email || ""; d.pilot.guardian.phone = d.pilot.guardian.phone || "";
+  d.sub = (d.sub && typeof d.sub === "object") ? d.sub : {};
+  d.sub.tier = d.sub.tier === "pro" ? "pro" : "free";
+  d.sub.plan = d.sub.plan || (d.sub.tier === "pro" ? "yearly" : "free");
+  d.sub.paidAt = d.sub.paidAt || 0;
+  d.sub.validUntil = d.sub.validUntil || 0;
+  d.sub.amountInr = d.sub.amountInr || 0;
+  d.sub.paymentId = d.sub.paymentId || "";
+  d.sub.orderId = d.sub.orderId || "";
+  d.sub.method = d.sub.method || "";
+  d.sub.devPreviewFree = !!d.sub.devPreviewFree;
+  d.sub.pendingPayment = (d.sub.pendingPayment && typeof d.sub.pendingPayment === "object" && d.sub.pendingPayment.paymentId) ? d.sub.pendingPayment : null;
   if(!d.cur || !d.chapters.some(function(c){ return c.id === d.cur; })) d.cur = d.chapters[0] ? d.chapters[0].id : null;
   return d;
 }
@@ -468,6 +652,66 @@ function studySnapshot(src){
   var d = {}, F = studyFields();
   F.forEach(function(k){ if(src && src[k] !== undefined) d[k] = src[k]; });
   return normalizeStudy(d);
+}
+/* ---------- Large study storage in IndexedDB (keeps localStorage light) ---------- */
+function sdbOpen(){
+  return new Promise(function(res, rej){
+    var idb = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB;
+    if(!idb) return rej(new Error("no-idb"));
+    var r = idb.open(STUDY_DB, 1);
+    r.onupgradeneeded = function(){ var db = r.result; if(!db.objectStoreNames.contains(STUDY_STORE)) db.createObjectStore(STUDY_STORE); };
+    r.onsuccess = function(){ res(r.result); };
+    r.onerror = function(){ rej(r.error || new Error("sdb")); };
+  });
+}
+function sdbGet(id){
+  if(!id) return Promise.resolve(null);
+  return sdbOpen().then(function(db){
+    return new Promise(function(res, rej){
+      var rq = db.transaction(STUDY_STORE, "readonly").objectStore(STUDY_STORE).get(id);
+      rq.onsuccess = function(){ res(rq.result || null); };
+      rq.onerror = function(){ rej(rq.error); };
+    });
+  }).catch(function(){ return null; });
+}
+function sdbPut(id, snap){
+  if(!id) return Promise.resolve(false);
+  return sdbOpen().then(function(db){
+    return new Promise(function(res, rej){
+      var rq = db.transaction(STUDY_STORE, "readwrite").objectStore(STUDY_STORE).put(snap, id);
+      rq.onsuccess = function(){ res(true); };
+      rq.onerror = function(){ rej(rq.error); };
+    });
+  }).catch(function(){ return false; });
+}
+function sdbDel(id){
+  if(!id) return Promise.resolve(false);
+  return sdbOpen().then(function(db){
+    return new Promise(function(res, rej){
+      var rq = db.transaction(STUDY_STORE, "readwrite").objectStore(STUDY_STORE).delete(id);
+      rq.onsuccess = function(){ res(true); };
+      rq.onerror = function(){ rej(rq.error); };
+    });
+  }).catch(function(){ return false; });
+}
+function sdbClear(){
+  return sdbOpen().then(function(db){
+    return new Promise(function(res, rej){
+      var rq = db.transaction(STUDY_STORE, "readwrite").objectStore(STUDY_STORE).clear();
+      rq.onsuccess = function(){ res(true); };
+      rq.onerror = function(){ rej(rq.error); };
+    });
+  }).catch(function(){ return false; });
+}
+function writeStudentLocal(id, snap){
+  var raw = JSON.stringify(snap);
+  if(raw.length <= 1400000){
+    try { localStorage.setItem(DATA_KEY + id, raw); return true; } catch(e){}
+  }
+  try {
+    localStorage.setItem(DATA_KEY + id, JSON.stringify({__idb: 1, updatedAt: snap.updatedAt || Date.now(), profile: snap.profile, pilot: snap.pilot, sub: snap.sub, cur: snap.cur, save: snap.save}));
+    return true;
+  } catch(e){ return false; }
 }
 function loadUsers(){
   try {
@@ -506,8 +750,9 @@ function migrateLegacy(){
   var d = null; try { d = JSON.parse(raw); } catch(e){ return false; }
   if(!d || !d.profile || !d.profile.name) return false;
   var id = uid(), snap = studySnapshot(d);
-  try { localStorage.setItem(DATA_KEY + id, JSON.stringify(snap)); }
-  catch(e){ return false; }
+  snap.updatedAt = Date.now();
+  sdbPut(id, snap);
+  if(!writeStudentLocal(id, snap)) return false;
   AUTH.users.push({id: id, name: d.profile.name, cls: d.profile.cls || "", user: slugUser(d.profile.name), age: d.profile.age || "", pin: "", salt: "", at: Date.now()});
   AUTH.ai = d.ai || AUTH.ai;
   if(!AUTH.ai && d.key) AUTH.ai = {provider: "anthropic", key: d.key, email: "", model: d.model || AI_PROVIDERS.anthropic.model};
@@ -516,15 +761,17 @@ function migrateLegacy(){
   saveUsers(); AUTH_MIGRATED = d.profile.name;
   return true;
 }
+var BOOT_IDB_STUB = false, IDB_HYDRATING = false;
 function load(){
   AUTH = {v: 1, users: [], session: null, last: null, ai: null, migrated: false};
   loadUsers();
   if(!AUTH.users.length) migrateLegacy();
-  DB = blankDB();
+  DB = blankDB(); BOOT_IDB_STUB = false;
   if(AUTH.session){
     var u = findUser(AUTH.session);
     if(u){
       var d = null; try { var raw = localStorage.getItem(DATA_KEY + u.id); if(raw) d = JSON.parse(raw); } catch(e){}
+      if(d && d.__idb) BOOT_IDB_STUB = true;
       DB = normalizeStudy(d);
       if(!DB.profile) DB.profile = {name: u.name, cls: u.cls || "Class 9", lang: "English", school: "", from: ""};
       AUTH.last = u.id;
@@ -534,13 +781,18 @@ function load(){
   if(AUTH.session) saveUsers();
 }
 function save(){
+  if(LOCKED || IDB_HYDRATING) return;
   try {
     if(AUTH.session && DB.profile) AUTH.ai = DB.ai || null;
     else if(DB.ai) AUTH.ai = DB.ai;
     if(AUTH.session && DB.profile){
-      var u = findUser(AUTH.session);
+      DB.updatedAt = Date.now();
+      var u = findUser(AUTH.session), snap = studySnapshot(DB), sid = AUTH.session;
       if(u){ u.name = DB.profile.name; u.cls = DB.profile.cls; }
-      localStorage.setItem(DATA_KEY + AUTH.session, JSON.stringify(studySnapshot(DB)));
+      var lsOk = writeStudentLocal(sid, snap);
+      sdbPut(sid, snap).then(function(idbOk){
+        if(!lsOk && !idbOk) setMsg("Could not save on this device, so progress may be lost when you close the page.", true);
+      });
     }
     saveUsers();
     if(typeof scheduleFolderSave === "function") scheduleFolderSave();
@@ -571,6 +823,7 @@ var METHODS = [
  {k:"exam", e:"", n:"Exam mode", d:"Timed test, real feel"},
  {k:"flash", e:"", n:"Flashcards", d:"Quick recall", sug:1},
  {k:"teach", e:"", n:"Teach it back", d:"Explain in your words", sug:1},
+ {k:"cram", e:"", n:"5-Min Cram", d:"Last-minute cheat sheet", sug:1},
  {k:"map", e:"", n:"Concept map", d:"See how ideas connect"},
  {k:"mindmap", e:"", n:"Mind map", d:"Explore the chapter as a galaxy"},
  {k:"maths", e:"", n:"Maths workbench", d:"See every step, tap to ask why"},
@@ -605,7 +858,8 @@ upload:"<path d='M12 16V4 M7 9l5-5 5 5 M4 20h16'/>", profile:"<circle cx='12' cy
  tools:"<path d='M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z'/>",
  game:"<rect x='3' y='6' width='18' height='12' rx='4'/><path d='M8 10v4 M6 12h4 M15 11h.01 M17.5 13h.01'/>",
  tips:"<path d='M9 18h6 M10 21h4 M12 3a6 6 0 0 0-4 10.4c.7.7 1 1.6 1 2.6h6c0-1 .3-1.9 1-2.6A6 6 0 0 0 12 3z M12 7v5 M9.5 9.5h5'/>",
- plan:"<rect x='3' y='4' width='18' height='17' rx='2'/><path d='M3 9h18 M8 2v4 M16 2v4 M8 13h3 M8 17h6'/>"
+ plan:"<rect x='3' y='4' width='18' height='17' rx='2'/><path d='M3 9h18 M8 2v4 M16 2v4 M8 13h3 M8 17h6'/>",
+ cram:"<path d='M13 2L4 14h7l-1 8 9-12h-7z'/>"
 };
 function svgIc(k){ return "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'>" + (ICON[k] || "") + "</svg>"; }
 var SEL = ".card,.q,.fact,.mth,.stat>div";
@@ -613,8 +867,42 @@ function aIn(el, i){ if(el.animate) el.animate([{opacity: 0, transform: "transla
 function replay(root){ if(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return; root.querySelectorAll(SEL).forEach(aIn); }
 new MutationObserver(function(ms){ if(muteObs) return; ms.forEach(function(m){ m.addedNodes.forEach(function(n){ if(n.nodeType !== 1 || (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) return; var l = []; if(n.matches(SEL)) l.push(n); if(n.querySelectorAll) n.querySelectorAll(SEL).forEach(function(x){ l.push(x); }); l.forEach(aIn); }); }); }).observe($("main"), {childList: true, subtree: true});
 function mEmoji(k){ return "<span class='mi'>" + svgIc(ICON[k] ? k : "notes") + "</span>"; }
-function logEv(type, text){ var c = cur(); DB.history.push({t: Date.now(), type: type, cid: c ? c.id : null, ch: c ? c.name : "", text: text}); if(DB.history.length > 600) DB.history.shift(); if(c) DB.last = {cid: c.id, method: type, text: text, t: Date.now()}; save(); }
-function markDone(k){ var d = prog().done; d[k] = (d[k] || 0) + 1; save(); if(k === "notes" || k === "explain" || k === "doubt") toast("+2 growth points"); if(curView === "study") renderPath(); }
+function todayKey(ms){
+  var d = ms ? new Date(ms) : new Date(), m = d.getMonth() + 1, dy = d.getDate();
+  return d.getFullYear() + "-" + (m < 10 ? "0" : "") + m + "-" + (dy < 10 ? "0" : "") + dy;
+}
+function dailyGoalInfo(){
+  DB.daily = DB.daily || {}; DB.freeze = DB.freeze || {count: 0, used: {}, rewarded: {}};
+  var k = todayKey(), xp = DB.daily[k] || 0;
+  return {xp: xp, target: DAILY_TARGET, pct: Math.min(100, Math.round(xp * 100 / DAILY_TARGET)), done: xp >= DAILY_TARGET, freezes: DB.freeze.count || 0};
+}
+function addDailyXp(pts){
+  if(!pts || LOCKED || !AUTH.session || !DB.profile) return;
+  DB.daily = DB.daily || {}; DB.freeze = DB.freeze || {count: 0, used: {}, rewarded: {}};
+  var k = todayKey(), before = DB.daily[k] || 0;
+  DB.daily[k] = before + pts;
+  /* prune daily log entries older than 120 days */
+  var ks = Object.keys(DB.daily).sort();
+  if(ks.length > 120){ ks.slice(0, ks.length - 120).forEach(function(oldK){ delete DB.daily[oldK]; }); }
+  if(before < DAILY_TARGET && DB.daily[k] >= DAILY_TARGET){
+    toast("Daily goal complete! (" + DAILY_TARGET + "+ XP today)");
+  }
+  var st = typeof streak === "function" ? streak() : 0;
+  if(st >= 7 && st % 7 === 0 && !DB.freeze.rewarded[st]){
+    DB.freeze.rewarded[st] = 1;
+    if((DB.freeze.count || 0) < 2){ DB.freeze.count = (DB.freeze.count || 0) + 1; toast("7-day milestone! Earned a Streak Freeze shield."); }
+  }
+  save();
+}
+function logEv(type, text){ var c = cur(); DB.history.push({t: Date.now(), type: type, cid: c ? c.id : null, ch: c ? c.name : "", text: text}); if(DB.history.length > 600) DB.history.shift(); if(c) DB.last = {cid: c.id, method: type, text: text, t: Date.now()}; if(typeof anaFeature === "function") anaFeature(type, text); save(); }
+function markDone(k){
+  var d = prog().done; d[k] = (d[k] || 0) + 1;
+  var pts = (k === "notes" || k === "explain" || k === "doubt" || k === "cram") ? 5 : (k === "flash" || k === "qa" || k === "teach") ? 8 : 2;
+  addDailyXp(pts);
+  save();
+  if(k === "notes" || k === "explain" || k === "doubt" || k === "cram") toast("+" + pts + " XP earned");
+  if(curView === "study") renderPath();
+}
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 function inline(s){return esc(s).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/(^|[^*])\*(?!\s)(.+?)\*/g,"$1<em>$2</em>").replace(/`(.+?)`/g,"<code>$1</code>")}
 function md(t){
@@ -641,7 +929,7 @@ function md(t){
 
 var errPop = null;
 function setMsg(t, bad, retry){
-  if(t && bad){ if(errPop && errPop.el.parentNode) errPop.close(); errPop = popup("<p>" + esc(t) + "</p><div class='row'>" + (retry ? "<button class='primary' id='erRt'>Try again</button>" : "") + "<button data-close>Close</button></div>"); var rb = errPop.el.querySelector("#erRt"); if(rb) rb.onclick = function(){ errPop.el.remove(); retry(); }; return; }
+  if(t && bad){ if(typeof anaError === "function") anaError(t); if(errPop && errPop.el.parentNode) errPop.close(); errPop = popup("<p>" + esc(t) + "</p><div class='row'>" + (retry ? "<button class='primary' id='erRt'>Try again</button>" : "") + "<button data-close>Close</button></div>"); var rb = errPop.el.querySelector("#erRt"); if(rb) rb.onclick = function(){ errPop.el.remove(); retry(); }; return; }
   var m = $("msg"); if(!m) return; m.textContent = t || ""; m.className = "status";
 }
 function toast(t){ var d = document.createElement("div"); d.className = "toast"; d.textContent = t; document.body.appendChild(d); setTimeout(function(){ d.remove(); }, 1800); }
@@ -876,7 +1164,7 @@ function connectModal(){
       ? "AI makes questions, flashcards, tests and fun facts sharper. Everything still works offline."
       : "AI makes questions, flashcards, tests and fun facts sharper. The free options work with just your email. Everything still works offline.";
     var fileNote = filePage
-      ? "<p class='status' style='font-size:.8rem;margin:0 0 8px'><b>Opened from a file.</b> Free AI email sign-in needs the app served from a local web address, so use a Gemini, Groq or OpenRouter key below. To enable Free AI, run <code>python3 -m http.server</code> in the app folder and open the local address.</p>"
+      ? "<p class='status' style='font-size:.8rem;margin:0 0 8px'><b>Opened directly from a file.</b> Email sign-in needs the web version of Gurukul; here you can paste a free Google Gemini, Groq, or OpenRouter key below.</p>"
       : "";
     o.innerHTML = "<div><h3 style='margin-top:0'>Connect AI</h3><p class='status' style='margin-top:4px'>" + intro + "</p>" + fileNote + "<div class='row' id='pvTabs' style='margin-top:12px'></div><div id='pvBody'></div><div id='kMsg' class='status err' style='min-height:18px'></div><div class='row' style='margin-top:8px'><button class='primary' id='kOk'>Connect</button><button id='kNo'>Not now</button>" + (old ? "<button id='kOff'>Disconnect</button>" : "") + "</div><p class='status' style='font-size:.76rem;margin:10px 0 0'>Your key and sign-in stay only in this browser. Text goes only to the AI provider you choose.</p></div>";
     document.body.appendChild(o);
@@ -1014,7 +1302,7 @@ function aiErr0(e){
   else if(code === "origin") setMsg("AI sign-in needs the page opened from a web address. Use the free Gemini or Groq key instead.", true);
   else if(code === "popup") setMsg("The sign-in window was blocked. Allow pop-ups for this page, then connect AI again.", true);
   else if(code === "bad_model") setMsg("That model name was not accepted. Connect AI again and pick another model.", true);
-  else if(code === "no_credit") setMsg("That AI key has no credit left. Try Free AI (email sign-in), Gemini or Groq instead.", true);
+  else if(code === "no_credit") setMsg("That AI key has no credit left. Try " + (location.protocol === "file:" ? "a free Gemini or Groq key" : "Free AI (email sign-in), Gemini or Groq") + " instead.", true);
   else if(code === "not_granted") setMsg("Permission was not given, so I can’t help yet. Please allow it and try again.", true);
   else if(code === "rate_limited") setMsg("Too many requests right now. Please wait a minute and try again.", true);
   else setMsg("Something went wrong. Please try again.", true);
@@ -1109,12 +1397,12 @@ function focusRegion(el, block){
   clearTimeout(el.__flashT); el.__flashT = setTimeout(function(){ el.classList.remove("focus-flash"); }, 1000);
 }
 function revealResult(el){ if(el) focusRegion(el, "nearest"); }
-var VIEWS = ["onb","home","study","plan","progress","perf","hist","rep","rec","fun","note","mist","tools","play","tips"], RENDER = {};
+var VIEWS = ["intro","request","activate","onb","home","study","plan","progress","perf","hist","rep","rec","fun","note","mist","tools","play","tips"], RENDER = {};
 
 /* ---------- frozen banner: back / home / current screen name ---------- */
 /* One screen at a time. The banner is always visible; a study method opens as
    its own screen so the working is not pushed below the method grid. */
-var SCREEN_NAMES = {onb:"", home:"", study:"Study", plan:"Study plan", progress:"Progress", perf:"Performance", hist:"History", rep:"Reports", rec:"Today's plan", fun:"Fun facts", note:"Notebook", mist:"My error book", tools:"Settings", play:"Let's Play", tips:"Tricks & Tips"};
+var SCREEN_NAMES = {intro:"", request:"", activate:"", onb:"", home:"", study:"Study", plan:"Study plan", progress:"Progress", perf:"Performance", hist:"History", rep:"Reports", rec:"Today's plan", fun:"Fun facts", note:"Notebook", mist:"My error book", tools:"Settings", play:"Let's Play", tips:"Tricks & Tips"};
 function methodLabel(k){ var m = (typeof METHODS !== "undefined" ? METHODS : []).filter(function(x){ return x.k === k; })[0]; return m ? m.n : "Study"; }
 function methodOpen(){ return document.body.classList.contains("method-open"); }
 function setScreenTitle(t){ var e = $("scTitle"); if(!e) return; e.textContent = t || ""; e.classList.toggle("hidden", !t); }
@@ -1125,7 +1413,7 @@ function navPush(v){
 }
 function updateBackBtn(){
   var b = $("bBack"), f = $("bFwd");
-  var authed = !!(DB.profile && AUTH.session) && curView !== "onb";
+  var authed = !!(DB.profile && AUTH.session) && AUTH_VIEWS.indexOf(curView) < 0;
   if(b) b.classList.toggle("hidden", !authed || (!methodOpen() && NIDX <= 0));
   if(f) f.classList.toggle("hidden", !authed || methodOpen() || NIDX >= NAV.length - 1);
 }
@@ -1149,8 +1437,10 @@ function closeMethod(){
   window.scrollTo(0, 0);
 }
 function show(v){
-  if(v !== "onb" && !(DB.profile && AUTH.session)) v = "onb";
-  if(v === "onb"){ NAV = []; NIDX = -1; } else navPush(v);
+  var authView = AUTH_VIEWS.indexOf(v) >= 0;
+  if(!authView && !(DB.profile && AUTH.session)) v = "intro";
+  if(PILOT_GATE && !authView && DB.profile && AUTH.session && (!DB.pilot || !DB.pilot.registered)) v = "activate";
+  if(authView){ NAV = []; NIDX = -1; } else navPush(v);
   showView(v);
 }
 function showView(v){
@@ -1158,10 +1448,13 @@ function showView(v){
   if(methodOpen()) setMethodOpen(false);
   VIEWS.forEach(function(x){ $("v-" + x).classList.toggle("hidden", x !== v); });
   var authed = !!(DB.profile && AUTH.session);
-  $("bHome").classList.toggle("hidden", v === "onb" && !authed);
-  $("bProf").classList.toggle("hidden", v === "onb" && !authed);
-  $("bKey").classList.toggle("hidden", HOSTED || !authed);
+  var hideNav = v === "intro" || v === "request" || v === "activate" || (v === "onb" && !authed);
+  $("bHome").classList.toggle("hidden", hideNav);
+  $("bProf").classList.toggle("hidden", hideNav);
+  $("bKey").classList.toggle("hidden", HOSTED || !authed || hideNav);
   setScreenTitle(SCREEN_NAMES[v] || "");
+  if(typeof anaView === "function") anaView(v);
+  if(typeof refreshPilotBar === "function") refreshPilotBar();
   document.body.classList.toggle("fit", ["study","progress","perf","hist","rep","rec","fun","note","mist","tools","play","tips"].indexOf(v) >= 0);
   refreshBanner(); updateBackBtn();
   muteObs = true; if(RENDER[v]) RENDER[v](); if(["progress","perf","hist","rep","fun","note"].indexOf(v) >= 0) addCta(v); newQuote(); setViewH(); window.scrollTo(0, 0); replay($("v-" + v)); setTimeout(function(){ muteObs = false; }, 0);
@@ -1215,7 +1508,7 @@ function refreshAvatar(){
   }
 }
 function refreshBanner(){
-  var w = $("whoChip"), onb = curView === "onb" || !DB.profile;
+  var w = $("whoChip"), onb = AUTH_VIEWS.indexOf(curView) >= 0 || !DB.profile;
   refreshAvatar();
   if(w){ w.textContent = DB.profile ? DB.profile.name : ""; w.classList.toggle("hidden", onb); }
   var a = $("aiStat");
@@ -1229,33 +1522,54 @@ function refreshBanner(){
 function startSession(u){
   if(!u) return;
   var d = null; try { var raw = localStorage.getItem(DATA_KEY + u.id); if(raw) d = JSON.parse(raw); } catch(e){}
-  resetRuntime();
-  DB = normalizeStudy(d);
-  if(!DB.profile) DB.profile = {name: u.name, cls: u.cls || "Class 9", age: u.age || "", user: u.user || slugUser(u.name), lang: "English", school: "", from: ""};
-  if(!DB.profile.user) DB.profile.user = u.user || slugUser(u.name);
-  if(!DB.profile.age && u.age) DB.profile.age = u.age;
-  DB.ai = AUTH.ai || null;
-  AUTH.session = u.id; AUTH.last = u.id; AUTH.migrated = false; AUTH_MIGRATED = "";
-  if(DB.profile){ u.name = DB.profile.name; u.cls = DB.profile.cls; u.user = DB.profile.user; u.age = DB.profile.age; }
-  save();
-  refreshWhoBtn(); refreshKeyBtn(); refreshBanner();
-  show("home");
-  afterLoginFolders();
-  toast(u.pin ? "Welcome, " + DB.profile.name : "Welcome, " + DB.profile.name + ". Add a password in My details.");
+  function finishStart(data){
+    resetRuntime();
+    DB = normalizeStudy(data);
+    if(!DB.profile) DB.profile = {name: u.name, cls: u.cls || "Class 9", age: u.age || "", user: u.user || slugUser(u.name), lang: "English", school: "", from: ""};
+    if(!DB.profile.user) DB.profile.user = u.user || slugUser(u.name);
+    if(!DB.profile.age && u.age) DB.profile.age = u.age;
+    DB.ai = AUTH.ai || null;
+    AUTH.session = u.id; AUTH.last = u.id; AUTH.migrated = false; AUTH_MIGRATED = "";
+    if(DB.profile){ u.name = DB.profile.name; u.cls = DB.profile.cls; u.user = DB.profile.user; u.age = DB.profile.age; }
+    save();
+    refreshWhoBtn(); refreshKeyBtn(); refreshBanner();
+    if(PILOT_GATE && (!DB.pilot || !DB.pilot.registered)){
+      LOCKED = true; show("activate");
+      toast("Enter your invite code to begin.");
+      return;
+    }
+    LOCKED = false;
+    reconcileFreeze();
+    show("home");
+    afterLoginFolders();
+    afterLoginPilot();
+    toast(u.pin ? "Welcome, " + DB.profile.name : "Welcome, " + DB.profile.name + ". Add a password in My details.");
+  }
+  if(d && d.__idb){
+    IDB_HYDRATING = true;
+    sdbGet(u.id).then(function(idbD){ IDB_HYDRATING = false; finishStart(idbD || d); }, function(){ IDB_HYDRATING = false; finishStart(d); });
+    return;
+  }
+  finishStart(d);
+  sdbGet(u.id).then(function(idbD){
+    if(idbD && AUTH.session === u.id && (idbD.updatedAt || 0) > (DB.updatedAt || 0)){
+      DB = normalizeStudy(idbD); DB.ai = AUTH.ai || null; PREP = {};
+      if(RENDER[curView]) RENDER[curView]();
+    }
+  });
 }
 function logOut(){
   if(DB.profile && AUTH.session) save();
   try { if(DB.save && DB.save.enabled && FOLDER.handle) writeFolderNow(); } catch(e){}
+  try { if(typeof anaStop === "function") anaStop(); } catch(e){}
   stopSpeech();
   resetRuntime();
   AUTH.last = AUTH.session || AUTH.last;
   AUTH.session = null;
   saveUsers();
   DB = blankDB();
-  authMode = AUTH.users.length ? "login" : "create";
-  refreshWhoBtn();
-  show("onb");
-  toast("Logged out. Another student can log in now.");
+  if(AUTH.users.length){ authMode = "login"; show("onb"); toast("Logged out. Another student can log in now."); }
+  else show("intro");
 }
 function onLogin(){
   var uname = $("liUser") ? $("liUser").value : "", pass = $("liPass") ? String($("liPass").value || "") : "";
@@ -1317,19 +1631,30 @@ function onProfileGo(){
   }
   if(p1.length < 4){ authError("oMsg", "Choose a password of at least 4 characters."); return; }
   if(p1 !== p2){ authError("oMsg", "The two passwords do not match."); return; }
+  var pilot = pilotFromForm();
+  if(!pilot.ok){ authError("oMsg", pilot.msg); return; }
   var u = {id: uid(), name: v.name, cls: v.cls, user: uname, age: v.age, pin: "", salt: "", at: Date.now()};
   u.salt = newSalt(); u.pin = pinHash(p1, u.salt);
   resetRuntime();
-  DB = blankDB(); DB.profile = v; DB.ai = AUTH.ai || null; pendPic = null;
+  DB = blankDB(); DB.profile = v; DB.pilot = pilot.data; DB.ai = AUTH.ai || null; pendPic = null;
   AUTH.users.push(u); AUTH.session = u.id; AUTH.last = u.id; AUTH.migrated = false; AUTH_MIGRATED = "";
-  save(); refreshWhoBtn(); refreshKeyBtn(); refreshBanner(); logEv("profile", "Joined Gurukul as " + v.cls);
-  show("home"); afterLoginFolders(); toast("Welcome, " + v.name);
+  save(); pilotClearPending(); refreshWhoBtn(); refreshKeyBtn(); refreshBanner(); logEv("profile", "Joined Gurukul as " + v.cls);
+  show("home"); afterLoginFolders(); afterLoginPilot(); toast("Welcome, " + v.name);
+}
+function setSelectValue(el, v){
+  if(!el || !v) return;
+  for(var i = 0; i < el.options.length; i++){
+    if(el.options[i].value === v || el.options[i].text === v){ el.selectedIndex = i; return; }
+  }
 }
 RENDER.onb = function(){
   var editing = !!(DB.profile && AUTH.session), has = AUTH.users.length > 0;
   var creating = !editing && (!has || authMode === "create");
+  if(PILOT_GATE && creating && !PENDING_INVITE) pilotLoadPending();
+  if(PILOT_GATE && creating && !PENDING_INVITE){ show("activate"); return; }
   if(editing){
     authMode = "edit";
+    if($("pilotFields")) $("pilotFields").classList.add("hidden");
     $("authTitle").textContent = "My details";
     $("authSub").textContent = "You are logged in as " + DB.profile.name + ". Your books, notes and progress are private to this account on this device.";
     $("loginCard").classList.add("hidden"); $("createCard").classList.remove("hidden");
@@ -1349,40 +1674,184 @@ RENDER.onb = function(){
     $("pinLabel").textContent = "New password (optional)";
     $("pinHint").textContent = (findUser(AUTH.session) && findUser(AUTH.session).pin) ? "At least 4 characters. Leave blank to keep the current password." : "This account has no password yet. Add at least 4 characters so only you can open it.";
   } else {
+    var req = PENDING_REQ || pilotReadJSON(REQ_KEY);
     $("authWho").classList.add("hidden");
-    $("authTitle").textContent = has ? "Welcome back" : " Namaste! I am Mitrādhyāyin";
+    $("authTitle").textContent = has ? "Welcome back" : "Welcome to Gurukul";
     $("authSub").textContent = has ? "Log in with your username and password. Only your own books, notes and progress will open." : "Your study companion. Create your account so your books, notes and progress stay yours.";
     $("loginCard").classList.toggle("hidden", !has || creating);
     $("createCard").classList.toggle("hidden", has && !creating);
-    $("createTitle").textContent = "Create your account";
-    $("createSub").textContent = "One account per student on this device. Your chapters, notes and progress stay separate.";
-    $("oName").value = ""; $("oUser").value = ""; $("oAge").value = ""; $("oSch").value = ""; $("oFrom").value = ""; $("oPin").value = ""; $("oPin2").value = "";
-    setPicPreview("");
-    $("oCls").selectedIndex = 0; $("oLang").selectedIndex = 0;
-    $("oGo").textContent = "Create my account";
-    $("oBack").classList.toggle("hidden", !has || !creating);
-    $("oLogout").classList.add("hidden"); $("oDanger").classList.add("hidden");
-    $("pinLabel").textContent = "Create a password";
-    $("pinHint").textContent = "At least 4 characters. You will use this password to log in.";
-    if(has){
+    if(creating){
+      $("createTitle").textContent = PILOT_GATE ? "Finish your account" : "Create your student account";
+      $("createSub").textContent = PILOT_GATE ? "Your invite code is confirmed. Choose a username and password so your books, notes and progress stay yours." : "Set up your local profile so your books, notes and progress stay private to you on this device.";
+      $("oName").value = req ? (req.name || "") : "";
+      $("oUser").value = ""; $("oAge").value = ""; $("oPin").value = ""; $("oPin2").value = "";
+      $("oSch").value = req ? (req.school || "") : "";
+      $("oFrom").value = "";
+      setSelectValue($("oCls"), req ? req.cls : "");
+      $("oLang").selectedIndex = 0;
+      if($("oCode")) $("oCode").value = PENDING_INVITE ? PENDING_INVITE.code : "";
+      if(!PILOT_GATE || req){
+        if($("pilotFields")) $("pilotFields").classList.add("hidden");
+        if(req){
+          if($("oBoard")) setSelectValue($("oBoard"), req.board);
+          if($("oGName")) $("oGName").value = (req.guardian && req.guardian.name) || "";
+          if($("oGEmail")) $("oGEmail").value = (req.guardian && req.guardian.email) || "";
+          if($("oGPhone")) $("oGPhone").value = (req.guardian && req.guardian.phone) || "";
+          if($("oConsent")) $("oConsent").checked = !!req.consent;
+        }
+      } else {
+        if($("pilotFields")) $("pilotFields").classList.remove("hidden");
+        if($("pilotCodeWrap")) $("pilotCodeWrap").classList.add("hidden");
+        if($("oGName")) $("oGName").value = ""; if($("oGEmail")) $("oGEmail").value = ""; if($("oGPhone")) $("oGPhone").value = ""; if($("oConsent")) $("oConsent").checked = false;
+      }
+      setPicPreview("");
+      $("oGo").textContent = "Create my account";
+      $("oBack").classList.toggle("hidden", !has);
+      $("oLogout").classList.add("hidden"); $("oDanger").classList.add("hidden");
+      $("pinLabel").textContent = "Create a password";
+      $("pinHint").textContent = "At least 4 characters. You will use this password to log in.";
+    } else {
+      $("createTitle").textContent = "Create your account";
+      $("createSub").textContent = "One account per student on this device. Your chapters, notes and progress stay separate.";
+      $("oName").value = ""; $("oUser").value = ""; $("oAge").value = ""; $("oSch").value = ""; $("oFrom").value = ""; $("oPin").value = ""; $("oPin2").value = "";
+      if($("oCode")) $("oCode").value = ""; if($("oGName")) $("oGName").value = ""; if($("oGEmail")) $("oGEmail").value = ""; if($("oGPhone")) $("oGPhone").value = ""; if($("oConsent")) $("oConsent").checked = false;
+      if($("pilotFields")) $("pilotFields").classList.add("hidden");
+      setPicPreview("");
+      $("oCls").selectedIndex = 0; $("oLang").selectedIndex = 0;
+      $("oGo").textContent = "Create my account";
+      $("oBack").classList.add("hidden");
+      $("oLogout").classList.add("hidden"); $("oDanger").classList.add("hidden");
+      $("pinLabel").textContent = "Create a password";
+      $("pinHint").textContent = "At least 4 characters. You will use this password to log in.";
       renderLoginChips();
+      if($("toCreate")) $("toCreate").textContent = PILOT_GATE ? "Request access" : "Create account";
       if(AUTH_MIGRATED){ var mu = AUTH.users.filter(function(u){ return u.name === AUTH_MIGRATED; })[0]; authError("liMsg", "Your earlier study data is ready. Log in with the username " + esc(mu ? mu.user : AUTH_MIGRATED) + "."); }
     }
   }
   refreshWhoBtn(); refreshBanner(); authError("oMsg", "");
 };
+RENDER.intro = function(){
+  var wrap = $("inLoginWrap");
+  if(wrap){
+    wrap.innerHTML = AUTH.users.length
+      ? "Already have an account on this device? <button type='button' class='linkish' id='inLogin'>Log in</button>"
+      : (PILOT_GATE ? "Invite-only for this pilot. Your details are used only to review your access request." : "Development mode: invite code is held so you can test all features on this device.");
+  }
+  if($("inReq")) $("inReq").textContent = PILOT_GATE ? "Request access" : "Create student account";
+  if($("inCode")) $("inCode").classList.toggle("hidden", !PILOT_GATE);
+  if($("inHowJoin")) $("inHowJoin").classList.toggle("hidden", !PILOT_GATE);
+  var lb = $("inLogin");
+  if(lb) lb.onclick = function(){ authMode = "login"; show("onb"); };
+  var note = $("ownerNote");
+  if(note) note.classList.toggle("hidden", !OWNER_COPY);
+  var ow = $("inOwner");
+  if(ow) ow.onclick = function(){ location.href = "Gurukul - Owner.html"; };
+};
+RENDER.request = function(){
+  if($("rqForm")) $("rqForm").classList.remove("hidden");
+  if($("rqDone")) $("rqDone").classList.add("hidden");
+  $("rqMsg").textContent = "";
+  if($("rqDoneTitle")) $("rqDoneTitle").textContent = "Request saved";
+  if($("rqRetry")) $("rqRetry").classList.add("hidden");
+  if($("rqFallbackWrap")) $("rqFallbackWrap").classList.remove("hidden");
+  var req = PENDING_REQ || pilotReadJSON(REQ_KEY);
+  if(req){
+    if(req.status === "sent" && req.sentAt) $("rqMsg").textContent = "Your request was sent on " + fmtD(req.sentAt) + ". Change anything below and send it again.";
+    $("rqName").value = req.name || ""; $("rqEmail").value = req.email || ""; $("rqPhone").value = req.phone || "";
+    $("rqSch").value = req.school || ""; $("rqNote").value = req.note || "";
+    setSelectValue($("rqCls"), req.cls); setSelectValue($("rqBoard"), req.board);
+    var g = req.guardian || {};
+    $("rqGName").value = g.name || ""; $("rqGEmail").value = g.email || ""; $("rqGPhone").value = g.phone || "";
+    $("rqConsent").checked = !!req.consent;
+  }
+};
+RENDER.activate = function(){
+  if($("acLogout")) $("acLogout").classList.toggle("hidden", !AUTH.session);
+  $("acMsg").textContent = "";
+  if(PENDING_INVITE && $("acCode")) $("acCode").value = PENDING_INVITE.code;
+};
+function pilotRequestId(){ return "REQ-" + Date.now().toString(36).toUpperCase() + "-" + Math.random().toString(36).slice(2, 6).toUpperCase(); }
+function pilotSubmitRequest(){
+  var name = $("rqName").value.trim(), email = $("rqEmail").value.trim(), phone = $("rqPhone").value.trim();
+  var cls = $("rqCls").value, school = $("rqSch").value.trim(), board = $("rqBoard").value, note = $("rqNote").value.trim();
+  var gname = $("rqGName").value.trim(), gemail = $("rqGEmail").value.trim(), gphone = $("rqGPhone").value.trim();
+  if(!name){ $("rqMsg").textContent = "Please add the student's name."; return; }
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ $("rqMsg").textContent = "Please add a valid student email."; return; }
+  if(String(phone).replace(/\D/g, "").length < 8){ $("rqMsg").textContent = "Please add a student phone number."; return; }
+  if(!school){ $("rqMsg").textContent = "Please add the school or college."; return; }
+  if(!gname){ $("rqMsg").textContent = "Please add the parent or guardian's name."; return; }
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(gemail)){ $("rqMsg").textContent = "Please add a valid parent or guardian email."; return; }
+  if(String(gphone).replace(/\D/g, "").length < 8){ $("rqMsg").textContent = "Please add a parent or guardian phone number."; return; }
+  if(!$("rqConsent").checked){ $("rqMsg").textContent = "A parent or guardian needs to tick the consent box."; return; }
+  var old = PENDING_REQ || pilotReadJSON(REQ_KEY);
+  var req = {kind: "access-request", requestId: (old && old.requestId) || pilotRequestId(), at: (old && old.at) || Date.now(), app: "Gurukul", schema: PILOT.schema, v: PILOT.appVersion,
+    name: name, email: email, phone: phone, cls: cls, school: school, board: board, note: note,
+    guardian: {name: gname, email: gemail, phone: gphone}, consent: true, consentAt: Date.now()};
+  req.sentAt = 0; req.status = "sending";
+  pilotSetRequest(req);
+  $("rqGo").disabled = true;
+  $("rqMsg").textContent = "Sending your request…";
+  pilotSendRequest(req).then(function(res){
+    $("rqGo").disabled = false;
+    $("rqMsg").textContent = "";
+    req.status = res.ok ? "sent" : "queued";
+    req.sentAt = res.ok ? Date.now() : 0;
+    req.lastTry = Date.now();
+    pilotSetRequest(req);
+    pilotShowRequestDone(req, res);
+  });
+}
+function pilotShowRequestDone(req, res){
+  if(!$("rqDone")) return;
+  $("rqForm").classList.add("hidden");
+  $("rqDone").classList.remove("hidden");
+  var sent = !!(res && res.ok);
+  $("rqDoneTitle").textContent = sent ? "Request sent" : "Request saved";
+  $("rqDoneTxt").textContent = sent
+    ? "Your request reached your organiser on " + fmtD(req.sentAt || Date.now()) + ". When it is approved you will receive an invite code by email."
+    : "Your request is saved on this device. It will be sent automatically as soon as the app can reach your organiser.";
+  $("rqDoneHint").textContent = sent
+    ? "Request ID " + req.requestId + ". Enter the code on the next screen when it arrives."
+    : "Request ID " + req.requestId + ". You can close the app; it will retry when you are online.";
+  $("rqRetry").classList.toggle("hidden", sent || !PILOT.uploadUrl);
+  $("rqFallbackWrap").classList.toggle("hidden", sent);
+}
+function pilotRetryRequest(){
+  var req = PENDING_REQ || pilotReadJSON(REQ_KEY);
+  if(!req || req.status === "sent" || req.sentAt) return Promise.resolve(false);
+  if(!PILOT.uploadUrl || !navigator.onLine) return Promise.resolve(false);
+  req.status = "sending";
+  pilotSetRequest(req);
+  return pilotSendRequest(req).then(function(res){
+    if(res.ok){ req.status = "sent"; req.sentAt = Date.now(); pilotSetRequest(req); if(curView === "request") pilotShowRequestDone(req, res); }
+    else { req.status = "queued"; pilotSetRequest(req); }
+    return res.ok;
+  });
+}
+function pilotCopyRequest(){
+  var req = PENDING_REQ || pilotReadJSON(REQ_KEY); if(!req) return;
+  var txt = JSON.stringify(req, null, 1);
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){ toast("Request copied"); }, function(){ toast("Could not copy"); });
+  } else { toast("Copy is not available in this browser"); }
+}
 function eraseMe(){
   if(!AUTH.session) return;
   var nm = DB.profile ? DB.profile.name : "this student";
   askYes("Erase all study data for " + nm + "? Books, notes, progress and history will be deleted, and the account will be removed. This cannot be undone.", function(){
     var id = AUTH.session;
+    try { if(typeof anaStop === "function") anaStop(); } catch(e){}
     try { localStorage.removeItem(DATA_KEY + id); } catch(e){}
+    try { localStorage.removeItem("ocm_study_ana_" + id); } catch(e){}
+    try { subSaveQueue(subLoadQueue().filter(function(q){ return q && q.studentId && q.studentId !== id; })); } catch(e){}
     try { if(typeof fdbDel === "function") fdbDel("folder_" + id); } catch(e){}
+    try { if(typeof sdbDel === "function") sdbDel(id); } catch(e){}
     AUTH.users = AUTH.users.filter(function(x){ return x.id !== id; });
     AUTH.session = null; AUTH.last = AUTH.users[0] ? AUTH.users[0].id : null;
     saveUsers(); resetRuntime(); DB = blankDB();
-    authMode = AUTH.users.length ? "login" : "create";
-    refreshWhoBtn(); refreshBanner(); show("onb"); toast("Study data erased");
+    refreshWhoBtn(); refreshBanner();
+    if(AUTH.users.length){ authMode = "login"; show("onb"); } else show("intro");
+    toast("Study data erased");
   });
 }
 function eraseAll(){
@@ -1391,11 +1860,23 @@ function eraseAll(){
       var keys = []; for(var i = 0; i < localStorage.length; i++){ keys.push(localStorage.key(i)); }
       keys.forEach(function(k){ if(k && k.indexOf("ocm_study") === 0) localStorage.removeItem(k); });
     } catch(e){}
-    try { if(typeof fdbClear === "function") fdbClear().then(function(){ location.reload(); }, function(){ location.reload(); }); else location.reload(); }
+    try {
+      var tasks = [];
+      if(typeof fdbClear === "function") tasks.push(fdbClear());
+      if(typeof sdbClear === "function") tasks.push(sdbClear());
+      if(tasks.length) Promise.all(tasks).then(function(){ location.reload(); }, function(){ location.reload(); });
+      else location.reload();
+    }
     catch(e){ location.reload(); }
   });
 }
 $("liGo").onclick = onLogin;
+if($("liForgot")) $("liForgot").onclick = function(){
+  popup("<h3 style='margin-top:0'>Forgot your password?</h3>" +
+    "<p class='status'>Your study data is stored privately on this device (there is no server password reset). If you can't remember the password for a local profile, you can erase all local profiles on this browser and start fresh (back up any other student's data first).</p>" +
+    "<div class='row' style='margin-top:12px'><button class='bad' id='fgEraseAll'>Reset this device</button><button data-close>Back to login</button></div>");
+  if($("fgEraseAll")) $("fgEraseAll").onclick = function(){ document.querySelectorAll("[data-close]").forEach(function(b){ b.click(); }); eraseAll(); };
+};
 $("liPass").onkeydown = function(e){ if(e.key === "Enter") onLogin(); };
 $("liUser").onkeydown = function(e){ if(e.key === "Enter") $("liPass").focus(); };
 $("oUser").oninput = function(){ this.value = this.value.replace(/[^a-zA-Z0-9._-]/g, "").slice(0, 20); };
@@ -1410,7 +1891,7 @@ $("oPicFile").onchange = function(){
   if(!f) return;
   shrinkPhoto(f, function(pic){ if(pic === null) return; pendPic = pic; setPicPreview(pic); toast(pic ? "Photo ready — press Save to keep it." : "Could not use that picture."); });
 };
-$("toCreate").onclick = function(){ authMode = "create"; RENDER.onb(); };
+$("toCreate").onclick = function(){ authMode = "create"; show(PILOT_GATE ? "request" : "onb"); };
 $("oBack").onclick = function(){ authMode = "login"; RENDER.onb(); };
 $("oGo").onclick = onProfileGo;
 $("oLogout").onclick = function(){
@@ -1418,6 +1899,30 @@ $("oLogout").onclick = function(){
 };
 $("oEraseMe").onclick = eraseMe;
 $("oEraseAll").onclick = eraseAll;
+$("inReq").onclick = function(){ if(PILOT_GATE) show("request"); else { authMode = "create"; show("onb"); } };
+$("inCode").onclick = function(){ show("activate"); };
+$("rqBack").onclick = function(){ show("intro"); };
+$("rqGo").onclick = pilotSubmitRequest;
+$("rqHave").onclick = function(){ show("activate"); };
+$("rqRetry").onclick = function(){
+  $("rqRetry").disabled = true;
+  pilotRetryRequest().then(function(ok){
+    $("rqRetry").disabled = false;
+    if(ok){ toast("Request sent to your organiser"); }
+    else { toast(PILOT.uploadUrl ? "Still offline — it will retry automatically." : "This copy is not connected to the organiser yet."); }
+  });
+};
+$("rqMail").onclick = function(){ pilotRequestMailto(PENDING_REQ || pilotReadJSON(REQ_KEY)); };
+$("rqCopy").onclick = pilotCopyRequest;
+window.addEventListener("online", function(){ try { pilotRetryRequest(); subRetryQueue(); } catch(e){} });
+$("acBack").onclick = function(){ show(AUTH.session ? "onb" : "intro"); };
+$("acGo").onclick = function(){
+  var r = pilotActivate($("acCode").value);
+  if(!r.ok){ $("acMsg").textContent = r.msg; return; }
+  authMode = "create"; show("onb");
+};
+$("acReq").onclick = function(){ show("request"); };
+$("acLogout").onclick = function(){ askYes("Log out of this account?", logOut); };
 
 /* ---------- Home: the study galaxy ---------- */
 var SECS = [{k:"study",e:"",n:"Study"},{k:"progress",e:"",n:"Progress"},{k:"perf",e:"",n:"Performance"},{k:"hist",e:"",n:"History"},{k:"rep",e:"",n:"Reports"},{k:"rec",e:"",n:"Today's plan"},{k:"fun",e:"",n:"Fun facts"},{k:"note",e:"",n:"Notebook"}];
@@ -1567,23 +2072,112 @@ function bindGalaxy(root){
     }
   }
 }
+function studyDaysMap(){
+  var days = {};
+  (DB.history || []).forEach(function(e){ if(e && e.t) days[fmtD(e.t)] = 1; });
+  var dl = DB.daily || {};
+  Object.keys(dl).forEach(function(k){
+    if(!(dl[k] > 0)) return;
+    var p = k.split("-");
+    if(p.length === 3){
+      var dt = new Date(+p[0], +p[1] - 1, +p[2], 12, 0, 0);
+      if(!isNaN(dt.getTime())) days[fmtD(dt.getTime())] = 1;
+    }
+  });
+  var fr = DB.freeze && DB.freeze.used ? DB.freeze.used : {};
+  Object.keys(fr).forEach(function(k){ if(fr[k]) days[k] = 1; });
+  return days;
+}
+function reconcileFreeze(){
+  if(LOCKED || !AUTH.session || !DB.profile) return;
+  DB.freeze = DB.freeze || {count: 0, used: {}, rewarded: {}};
+  DB.freeze.used = DB.freeze.used || {};
+  DB.freeze.rewarded = DB.freeze.rewarded || {};
+  var days = studyDaysMap();
+  var d1 = new Date(); d1.setDate(d1.getDate() - 1);
+  var d2 = new Date(); d2.setDate(d2.getDate() - 2);
+  var k1 = fmtD(d1), k2 = fmtD(d2);
+  if(!days[k1] && days[k2] && (DB.freeze.count || 0) > 0){
+    DB.freeze.count--;
+    DB.freeze.used[k1] = 1;
+    save();
+    toast("Streak Freeze shield saved your streak for yesterday!");
+  }
+}
 function streak(){
-  var days = {}; DB.history.forEach(function(e){ days[fmtD(e.t)] = 1; });
+  var days = studyDaysMap();
   var n = 0, d = new Date(); if(!days[fmtD(d)]) d.setDate(d.getDate() - 1);
   while(days[fmtD(d)]){ n++; d.setDate(d.getDate() - 1); } return n;
 }
 function mastery(id){ var A = (DB.progress[id] || {attempts: []}).attempts.slice(-3); if(!A.length) return null; return Math.round(A.reduce(function(a, x){return a + x.score * 100 / x.total}, 0) / A.length); }
+function chapterMistakeCount(id){
+  var seen = {}, n = 0; DB.mist = DB.mist || {};
+  allAttempts(id).slice().reverse().forEach(function(a){
+    (a.qs || []).forEach(function(x){
+      var h = hash(x.q); if(seen[h]) return; seen[h] = 1;
+      if(!x.ok && x.o && (DB.mist[h] || 0) < 2) n++;
+    });
+  });
+  return n;
+}
+function readinessOf(id){
+  var d = (DB.progress[id] || {done: {}}).done || {};
+  var learnPts = (d.explain || d.cram ? 15 : 0) + (d.notes || d.map || d.mindmap || d.doubt ? 10 : 0);
+  var recallPts = (d.flash || d.qa || d.teach) ? 25 : 0;
+  var A = allAttempts(id), sc = chScore(id);
+  var testPts = sc !== null ? Math.round(Math.min(100, sc) * 0.4) : 0;
+  var mistN = A.length ? chapterMistakeCount(id) : 0;
+  var errPts = A.length && mistN === 0 ? 10 : 0;
+  return {pct: Math.min(100, learnPts + recallPts + testPts + errPts), sc: sc, mist: mistN};
+}
+function scholarBadges(){
+  var st = streak(), dl = DB.daily || {}, chs = DB.chapters || [];
+  var anyDailyGoal = Object.keys(dl).some(function(k){ return (dl[k] || 0) >= DAILY_TARGET; });
+  var any80 = chs.some(function(c){ var s = chScore(c.id); return s !== null && s >= 80; });
+  var anyCram = chs.some(function(c){ var d = (DB.progress[c.id] || {done: {}}).done || {}; return (d.cram || 0) > 0 || ((d.flash || 0) + (d.teach || 0) >= 2); });
+  DB.badges = DB.badges || {};
+  var list = [
+    {id: "first", ic: "🌱", name: "First Step", desc: "Added a chapter & started studying", on: !!(chs.length && (DB.history || []).length)},
+    {id: "daily", ic: "🎯", name: "Daily Goal", desc: "Earned " + DAILY_TARGET + "+ XP in a day", on: anyDailyGoal},
+    {id: "streak3", ic: "🔥", name: "3-Day Spark", desc: "Studied 3 days in a row", on: st >= 3},
+    {id: "streak7", ic: "🛡️", name: "Week Warrior", desc: "7-day streak milestone", on: st >= 7},
+    {id: "quiz80", ic: "🏆", name: "Quiz Whiz", desc: "Scored 80%+ on a chapter", on: any80},
+    {id: "crammer", ic: "⚡", name: "Rapid Reviser", desc: "Used 5-Min Cram or Flashcards", on: anyCram}
+  ];
+  list.forEach(function(b){ if(b.on && !DB.badges[b.id]) DB.badges[b.id] = Date.now(); if(DB.badges[b.id]) b.on = true; });
+  return list;
+}
 RENDER.home = function(){
   var p = DB.profile, hello = HELLO[p.lang] || "Namaste", narrow = window.innerWidth < 620; homeNarrow = narrow;
-  var h = "<div class='card hero homeWish'><h1>" + hello + ", " + esc(p.name) + "!</h1><p>I am <strong>Mitrādhyāyin</strong>, your study companion. Tap a planet in your galaxy to begin. " + esc(p.cls) + (p.age ? " · age " + p.age : "") + ".</p></div>";
+  var dg = dailyGoalInfo(), st = streak(), c = cur(), due = dueReviews()[0];
+  var h = "<div class='card hero homeWish'><h1>" + hello + ", " + esc(p.name) + "!</h1><p>I am <strong>Mitrādhyāyin</strong>, your study companion. " + esc(p.cls) + (p.age ? " · age " + p.age : "") + ".</p></div>";
+  h += "<div class='card focusCard'><div class='focusTop'><strong>Today's Focus</strong><div class='row' style='margin:0;gap:6px'><span class='chip" + (st ? "" : " local") + "'>🔥 " + st + "-day streak</span>" + (dg.freezes ? "<span class='chip' title='Streak Freeze shields protect your streak if you miss 1 day'>🛡️ " + dg.freezes + "</span>" : "") + "</div></div>";
+  h += "<div class='xpRow'><span class='status'>" + (dg.done ? "✓ Daily goal done!" : "Daily goal: " + dg.xp + " / " + dg.target + " XP") + "</span><div class='xpBar'><i style='width:" + dg.pct + "%'></i></div><strong style='font-size:.82rem'>" + dg.pct + "%</strong></div>";
+  if(c){
+    var ns = nextStep(c.id), rd = readinessOf(c.id);
+    h += "<div class='row' style='margin:10px 0 0'>" +
+      (due ? "<button class='primary' data-rev='" + due.c.id + "'>Revise due: " + esc(due.c.name.slice(0, 24)) + "</button>" : "<button class='primary' id='hmContinue'>Continue: " + esc(c.name.slice(0, 22)) + " (" + rd.pct + "% ready)</button>") +
+      "<button id='hmCram'>⚡ 5-Min Cram</button><button id='hmExam'>⏱ Quick Exam</button><button id='hmMaths'>Maths Solver</button></div>";
+  } else {
+    h += "<div class='row' style='margin:10px 0 0'><button class='primary' id='hmSample'>✨ Try a sample chapter</button><button data-v='study'>＋ Add book / paste text</button><button id='hmMaths'>Maths practice</button></div>";
+  }
+  var ss = subStatus();
+  if(!ss.paidActive){
+    h += "<div class='row' style='margin:8px 0 0;align-items:center'><span class='proBadge free'>" + (ss.devBypass ? "Dev Preview" : (ss.pilotActive ? "Pilot Pass" : "Free · " + ss.chaptersUsed + "/" + FREE_CHAPTER_LIMIT + " ch")) + "</span><button type='button' class='linkish' id='hmUpgrade'>Upgrade to Yearly Pro (₹" + SUB_PLAN.priceInr + "/yr)</button></div>";
+  }
+  h += "</div>";
   h += "<div class='card galaxyCard'>" + galaxySvg(narrow) + "</div>";
   h += "<div class='homeSecs'>" + SECS.map(function(s){ return "<button class='mth tile' data-v='" + s.k + "'><span class='ic'>" + svgIc(s.k) + "</span><b>" + s.n + "</b></button>"; }).join("") + "<button class='mth tile' data-v='plan'><span class='ic'>" + svgIc("plan") + "</span><b>Study plan</b></button><button class='mth tile' data-v='mindmap'><span class='ic'>" + svgIc("map") + "</span><b>Mind map</b></button><button class='mth tile' data-v='maths'><span class='ic'>" + svgIc("maths") + "</span><b>Maths</b></button><button class='mth tile' data-v='play'><span class='ic'>" + svgIc("game") + "</span><b>Let's play</b></button><button class='mth tile' data-v='tips'><span class='ic'>" + svgIc("tips") + "</span><b>Tricks &amp; tips</b></button><button class='mth tile' data-v='mist'><span class='ic'>" + svgIc("mist") + "</span><b>My error book</b></button><button class='mth tile' data-v='tools'><span class='ic'>" + svgIc("tools") + "</span><b>Settings</b></button></div>";
-  h += "<div id='homeToday'></div>";
   $("homeIn").innerHTML = h;
   $("homeIn").querySelectorAll("[data-v]").forEach(function(n){ n.onclick = function(){ var v = n.dataset.v; if(v === "mindmap") openMindmap(); else if(v === "maths") openMaths(); else show(v); }; });
+  $("homeIn").querySelectorAll("[data-rev]").forEach(function(n){ n.onclick = function(){ reviewChapter(n.getAttribute("data-rev")); }; });
+  if($("hmContinue")) $("hmContinue").onclick = function(){ show("study"); };
+  if($("hmCram")) $("hmCram").onclick = function(){ show("study"); goMethod("cram", "", c ? c.id : ""); };
+  if($("hmExam")) $("hmExam").onclick = function(){ show("study"); goMethod("exam", "", c ? c.id : ""); };
+  if($("hmSample")) $("hmSample").onclick = function(){ show("study"); sampleChapterModal(); };
+  if($("hmMaths")) $("hmMaths").onclick = openMaths;
+  if($("hmUpgrade")) $("hmUpgrade").onclick = function(){ upgradeModal(""); };
   bindGalaxy($("homeIn"));
-  var c = cur();
-  if(c){ $("homeToday").innerHTML = "<div class='row' style='justify-content:center;margin-top:10px'><button class='primary' id='goStudy'>Continue: " + esc(c.name.slice(0, 32)) + " →</button></div>"; $("goStudy").onclick = function(){ show("study"); }; }
 };
 
 /* ---------- Study: subject / semester / book / chapter ---------- */
@@ -1658,7 +2252,8 @@ function fillSel(){
 function clearOut(){ $("mp").innerHTML = "<p class='status'>Pick a method above to start </p>"; document.querySelectorAll("#methods .mth").forEach(function(b){ b.classList.remove("on"); }); setMethodOpen(false); setMsg(""); renderMethods(); renderPath(); askVideo(); }
 RENDER.study = function(){
   var narrow = window.innerWidth < 620;
-  if($("chAdd")) $("chAdd").textContent = narrow ? "＋ Book" : "＋ Add book or chapter (PDF)";
+  if($("chAdd")) $("chAdd").textContent = narrow ? "＋ PDF" : "＋ Add book or chapter (PDF)";
+  if($("chPaste")) $("chPaste").textContent = narrow ? "✎ Paste" : "✎ Paste text";
   if($("chNcert")) $("chNcert").textContent = narrow ? "⬇ NCERT" : "⬇ NCERT library";
   if($("chSyll")) $("chSyll").textContent = narrow ? "📋 Syllabus" : "📋 Syllabus & plan";
   $("engSel").value = DB.engine; fillSel();
@@ -1675,9 +2270,78 @@ if($("selSubj")) $("selSubj").onchange = function(){ fillSel(); clearOut(); };
 if($("selSem")) $("selSem").onchange = function(){ fillSel(); clearOut(); };
 if($("selBook")) $("selBook").onchange = function(){ fillSel(); clearOut(); };
 $("chAdd").onclick = $("uplBtn").onclick = function(){ askBookMeta(false, function(){ $("file").click(); }); };
+if($("chPaste")) $("chPaste").onclick = function(){ pasteChapterModal(); };
+if($("uplPaste")) $("uplPaste").onclick = function(){ pasteChapterModal(); };
+if($("uplSample")) $("uplSample").onclick = function(){ sampleChapterModal(); };
 $("chSyll").onclick = function(){ show("plan"); };
 $("chNcert").onclick = ncertOpen; $("uplNcert").onclick = ncertOpen;
 $("uplMaths").onclick = openMaths;
+
+var SAMPLE_CHAPTERS = [
+  {
+    subject: "Science", sem: "", book: "Sample · Class 7 Science", name: "Nutrition in Plants", pages: 6,
+    text: "All living organisms require food. Carbohydrates, proteins, fats, vitamins and minerals are components of food and are necessary for our body; these are called nutrients.\n\nModes of Nutrition\nPlants are the only organisms that can prepare food for themselves by using water, carbon dioxide and minerals. Nutrition is the mode of taking food by an organism and its utilisation by the body. Autotrophic nutrition is the mode of nutrition in which organisms make food themselves from simple substances. Therefore, plants are called autotrophs. Animals and most other organisms take in food prepared by plants and are called heterotrophs.\n\nPhotosynthesis — Food Making Process in Plants\nLeaves are the food factories of plants. Therefore, all the raw materials must reach the leaf. Water and minerals present in the soil are absorbed by the roots and transported to the leaves by vessels which run like pipes throughout the root, the stem, the branches and the leaves. Carbon dioxide from air is taken in through the tiny pores present on the surface of leaves called stomata. Each stoma is surrounded by guard cells.\n\nThe leaves have a green pigment called chlorophyll. It helps leaves to capture the energy of sunlight. This energy is used to synthesise food from carbon dioxide and water. Since the synthesis of food occurs in the presence of sunlight, it is called photosynthesis. Chlorophyll, sunlight, carbon dioxide and water are necessary to carry out the process of photosynthesis. During photosynthesis, chlorophyll-containing cells of leaves use carbon dioxide and water to synthesise carbohydrates and release oxygen.\n\nOther Modes of Nutrition in Plants\nSome plants do not have chlorophyll and cannot synthesise food. Cuscuta (Amarbel) climbs on another plant called the host and deprives it of valuable nutrients; Cuscuta is called a parasite. A few plants trap insects and digest them; such insect-eating plants like pitcher plant are called insectivorous plants.\n\nSaprotrophs\nFungi like mushrooms grow on dead and decaying matter. Saprotrophic nutrition is the mode of nutrition in which organisms take in nutrients from dead and decaying matter. Organisms with saprotrophic mode of nutrition are called saprotrophs.\n\nSymbiosis and Replenishing Soil Nutrients\nSome organisms live together and share both shelter and nutrients. This relationship is called symbiosis. In lichens, an alga and a fungus live together. Bacterium Rhizobium lives in the roots of leguminous plants such as gram, peas and beans, converts atmospheric nitrogen into a usable soluble form, and in return the plants provide food and shelter to the bacteria."
+  },
+  {
+    subject: "Mathematics", sem: "", book: "Sample · Class 10 Maths", name: "Quadratic Equations", pages: 6,
+    text: "A quadratic polynomial is a polynomial of degree 2 in one variable x, written as a x^2 + b x + c, where a, b, c are real numbers and a is not equal to 0.\n\nStandard Form of a Quadratic Equation\nA quadratic equation in the variable x is an equation of the form a x^2 + b x + c = 0, where a, b, c are real numbers and a ≠ 0. It is called the standard form of a quadratic equation. For example, 2 x^2 + x - 300 = 0 is a quadratic equation.\n\nRoots of a Quadratic Equation\nA real number α is called a root (or solution) of the quadratic equation a x^2 + b x + c = 0 if a α^2 + b α + c = 0. Zeroes of the quadratic polynomial a x^2 + b x + c and roots of the equation a x^2 + b x + c = 0 are the same.\n\nSolution by Factorisation\nIf a x^2 + b x + c can be factorised into two linear factors (p x + q)(r x + s) = 0, then setting each linear factor equal to zero gives the roots x = -q/p and x = -s/r. For example, x^2 - 5x + 6 = 0 factors as (x - 2)(x - 3) = 0, so the roots are x = 2 and x = 3.\n\nQuadratic Formula and Discriminant\nFor any quadratic equation a x^2 + b x + c = 0 with a ≠ 0, the discriminant is defined as D = b^2 - 4ac. When D >= 0, the roots are given by the quadratic formula: x = (-b ± √(b^2 - 4ac)) / (2a).\n\nNature of Roots\nThe discriminant D = b^2 - 4ac determines the nature of the roots of a quadratic equation with real coefficients:\n1. If D > 0 (b^2 - 4ac > 0), the equation has two distinct real roots.\n2. If D = 0 (b^2 - 4ac = 0), the equation has two equal real roots (coincident roots), both equal to -b / (2a).\n3. If D < 0 (b^2 - 4ac < 0), the equation has no real roots.\n\nKey Applications\nQuadratic equations model areas of rectangles, consecutive integer problems, speed-distance-time relationships, and projectile height problems. Always check whether negative or fractional roots make sense for the word problem context."
+  }
+];
+function addChapterRecord(opts){
+  if(!subStatus().pro && (DB.chapters || []).length >= FREE_CHAPTER_LIMIT){
+    upgradeModal("You've used all " + FREE_CHAPTER_LIMIT + " free chapter slots. Upgrade to Yearly Pro for unlimited books and chapters.");
+    return;
+  }
+  var raw = String(opts.text || "").trim(), cut = raw.length > LIM;
+  var id = "c" + Date.now() + "_" + Math.floor(Math.random() * 1000);
+  DB.chapters.push({
+    id: id,
+    subject: String(opts.subject || "General").trim() || "General",
+    sem: String(opts.sem || "").trim(),
+    book: String(opts.book || "My notes").trim() || "My notes",
+    name: String(opts.name || "Untitled chapter").trim() || "Untitled chapter",
+    text: cut ? raw.slice(0, LIM) : raw,
+    pages: opts.pages || Math.max(1, Math.round(raw.length / 2200)),
+    cut: cut
+  });
+  DB.cur = id;
+  logEv("upload", "Added chapter “" + (opts.name || "Untitled") + "” under " + (opts.subject || "General"));
+  save();
+  if(curView !== "study") show("study");
+  else { fillSel(); clearOut(); }
+  toast("Chapter ready!");
+}
+function pasteChapterModal(){
+  var m = popup("<h3 style='margin-top:0'>Paste chapter text or notes</h3><p class='status'>Paste text from a textbook, website, or typed notes — works 100% offline.</p>" +
+    "<div class='row'><input id='ptSubj' placeholder='Subject (e.g. Science)' value='" + esc(cur() ? subjOf(cur()) : "Science") + "' style='flex:1;min-width:130px'><input id='ptBook' placeholder='Book name' value='" + esc(cur() ? bookOf(cur()) : "My Textbook") + "' style='flex:1;min-width:130px'></div>" +
+    "<input id='ptName' placeholder='Chapter title (e.g. Photosynthesis)' style='margin-top:6px'>" +
+    "<textarea id='ptTxt' rows='7' placeholder='Paste chapter paragraphs, definitions or revision notes here (at least 120 characters)…' style='margin-top:8px'></textarea>" +
+    "<div id='ptMsg' class='status'></div>" +
+    "<div class='row' style='margin-top:10px'><button class='primary' id='ptSave'>Save chapter</button><button data-close>Cancel</button></div>");
+  m.el.querySelector("#ptSave").onclick = function(){
+    var nm = m.el.querySelector("#ptName").value.trim(), txt = m.el.querySelector("#ptTxt").value.trim();
+    var sj = m.el.querySelector("#ptSubj").value.trim() || "General", bk = m.el.querySelector("#ptBook").value.trim() || "My Notes";
+    if(!nm){ m.el.querySelector("#ptMsg").innerHTML = "<span class='err'>Please enter a chapter title.</span>"; return; }
+    if(txt.length < 120){ m.el.querySelector("#ptMsg").innerHTML = "<span class='err'>Please paste at least 120 characters so Mitra can build questions and notes.</span>"; return; }
+    m.close();
+    addChapterRecord({subject: sj, book: bk, name: nm, text: txt});
+  };
+}
+function sampleChapterModal(){
+  var h = "<h3 style='margin-top:0'>Try a built-in sample chapter</h3><p class='status'>Test notes, quizzes, flashcards and 5-Min Cram right away — nothing is added unless you pick one.</p>";
+  SAMPLE_CHAPTERS.forEach(function(s, i){
+    h += "<div class='card' style='margin:8px 0'><strong>" + esc(s.name) + "</strong><div class='status'>" + esc(s.book) + " · " + s.text.length.toLocaleString() + " characters</div><div class='row' style='margin:8px 0 0'><button class='primary' data-smp='" + i + "'>Load this sample</button></div></div>";
+  });
+  h += "<div class='row' style='margin-top:8px'><button data-close>Close</button></div>";
+  var m = popup(h);
+  m.el.querySelectorAll("[data-smp]").forEach(function(b){
+    b.onclick = function(){
+      var s = SAMPLE_CHAPTERS[+b.getAttribute("data-smp")]; if(!s) return;
+      m.close();
+      addChapterRecord(s);
+    };
+  });
+}
 
 /* ---------- smart pack: build once online, then use it offline ---------- */
 function cleanPack(d){
@@ -1729,6 +2393,7 @@ function packPrompt(c){
     "Rules: 12-24 concepts; 12-18 qa; 6-10 facts; no duplicates; no markdown; no extra keys.";
 }
 function buildPack(){
+  if(!requirePro("AI Smart Packs")) return;
   var c = cur(); if(!c) return;
   if(!navigator.onLine){
     setMsg("You are offline. The smart pack needs the internet — press it only when you are online. The chapter, notes and questions still work offline.", true);
@@ -1875,7 +2540,7 @@ function fixSplitWords(pages){
     return lines.join("\n");
   });
 }
-var pend = null, LIM = 60000;
+var pend = null, LIM = 300000;
 $("file").onchange = async function(){
   var f = this.files[0]; this.value = ""; if(!f) return;
   $("split").classList.add("hidden"); setMsg("");
@@ -2001,19 +2666,27 @@ async function aiSplit(){
   } catch(e){ aiErr(e); btn.disabled = false; btn.textContent = " Detect chapters with AI"; }
 }
 function saveSplit(){
+  var isPro = subStatus().pro, curCount = (DB.chapters || []).length;
+  if(!isPro && curCount >= FREE_CHAPTER_LIMIT){
+    upgradeModal("Free plan supports up to " + FREE_CHAPTER_LIMIT + " chapters. Unlock Yearly Pro for unlimited chapters.");
+    return;
+  }
   var n = pend.pages.length, rows = pend.rows.slice().sort(function(a, b){return a.start - b.start}), starts = {}, ok = true;
   rows.forEach(function(r){ if(starts[r.start] || !r.name.trim()) ok = false; starts[r.start] = 1; });
   if(!ok || !rows.length){ $("spMsg").innerHTML = "<span class='err'>Each chapter needs a name and a different starting page.</span>"; return; }
-  var firstId = null, skipped = 0, stamp = Date.now();
+  var firstId = null, skipped = 0, capped = 0, added = 0, stamp = Date.now(), room = isPro ? rows.length : Math.max(0, FREE_CHAPTER_LIMIT - curCount);
   rows.forEach(function(r, i){
     var end = i + 1 < rows.length ? rows[i+1].start - 1 : n, text = pend.pages.slice(r.start - 1, end).join("\n").trim();
     if(text.length < 100){ skipped++; return; }
+    if(added >= room){ capped++; return; }
     var cut = text.length > LIM, id = "c" + stamp + "_" + i; if(!firstId) firstId = id;
     DB.chapters.push({id: id, subject: pend.subject || "General", sem: pend.sem || "", book: pend.book, name: r.name.trim(), text: cut ? text.slice(0, LIM) : text, pages: end - r.start + 1, cut: cut});
+    added++;
   });
   if(!firstId){ $("spMsg").innerHTML = "<span class='err'>No readable text in these page ranges.</span>"; return; }
   logEv("upload", "Added chapters from “" + pend.book + "” under " + (pend.subject || "General") + (pend.sem ? " · " + pend.sem : "")); DB.cur = firstId; pend = null; save(); $("split").classList.add("hidden"); fillSel(); clearOut();
-  if(skipped) setMsg(skipped + " empty section(s) were skipped.");
+  if(capped){ upgradeModal("Added " + added + " chapter(s) up to the " + FREE_CHAPTER_LIMIT + "-chapter Free limit (" + capped + " skipped). Upgrade to Yearly Pro for full multi-chapter books."); }
+  else if(skipped) setMsg(skipped + " empty section(s) were skipped.");
 }
 
 
@@ -2243,7 +2916,7 @@ async function vids(){ RETRY = vids;
 }
 
 /* ---------- Study: methods ---------- */
-var GROUPS = [["Learn the chapter", ["explain","notes","map","mindmap","maths","doubt"]], ["Practise and test", ["solve","qa","mcq","exam"]], ["Mitra suggests", ["flash","teach"]]];
+var GROUPS = [["Learn the chapter", ["explain","notes","map","mindmap","maths","doubt"]], ["Practise and test", ["solve","qa","mcq","exam"]], ["Mitra suggests", ["cram","flash","teach"]]];
 function renderMethods(){ var nc = cur(), nsx = nc ? nextStep(nc.id) : null, nsK = nsx && !nsx.done ? nsx.k : "";
   var all = [].concat.apply([], GROUPS.map(function(g){ return g[1]; }));
   $("methods").innerHTML = "<div class='grid methodsGrid'>" + all.map(function(k){ var m = METHODS.filter(function(x){return x.k === k})[0]; return "<button class='mth tile' data-m='" + k + "' title='" + esc(m.d) + "'>" + (nsK === k ? "<span class='badge'>Next</span>" : "") + "<span class='ic'>" + svgIc(k) + "</span><b>" + m.n + "</b><small>" + m.d + "</small></button>"; }).join("") + "<button class='mth tile' data-video='1' title='Find explanatory videos for this chapter'><span class='ic'>" + svgIc("play") + "</span><b>Watch videos</b><small>Khan Academy channel, YouTube and more</small></button></div>";
@@ -2257,7 +2930,7 @@ function openMethod(k){
   /* A paused Q&A or test belongs to its own method. Switching to another
      method must not make “Resume” reopen the wrong thing. */
   if(DB.sess && DB.sess.kind !== k) DB.sess = null;
-  if(!c && ["explain","notes","doubt","qa","teach","flash","mcq","exam","map","mindmap"].indexOf(k) >= 0){
+  if(!c && ["explain","notes","doubt","qa","teach","flash","cram","mcq","exam","map","mindmap"].indexOf(k) >= 0){
     mp.innerHTML = "<div class='card hero' style='text-align:center'><p>Add your book or a chapter first. Then I can prepare this for you.</p><button class='primary' id='noChBtn'>＋ Add a book (PDF)</button></div>";
     var nb = $("noChBtn"); if(nb) nb.onclick = function(){ $("file").click(); };
     focusRegion(mp, "start");
@@ -2293,7 +2966,13 @@ function openMethod(k){
   else if(k === "solve"){ solveStart(); }
   else if(k === "qa" || k === "teach"){ qaStart(k); }
   else if(k === "flash"){ flashStart(); }
+  else if(k === "cram"){ cramStart(); }
   else if(k === "mcq" || k === "exam"){
+    if(k === "exam" && !subStatus().pro){
+      mp.innerHTML = "<div class='card hero' style='text-align:center'><span class='proBadge'>Yearly Pro</span><h3 style='margin:8px 0 4px'>Timed Exam Mode</h3><p class='status'>Simulate real timed board exams with answer review. Unlock with Gurukul Yearly Pass.</p><button class='primary' id='upExBtn'>Unlock Yearly Pro (₹" + SUB_PLAN.priceInr + "/yr)</button></div>";
+      if($("upExBtn")) $("upExBtn").onclick = function(){ upgradeModal("Timed Exam Mode"); };
+      focusRegion(mp, "start"); return;
+    }
     var ex = k === "exam";
     mp.innerHTML = "<h3 style='margin-top:0'>" + (ex ? " Exam mode" : " MCQ practice") + "</h3><p class='status'>" + (ex ? "Timed test, one minute per question. Answers are shown only after you submit, just like the real exam." : "You get feedback after every answer. A wrong answer opens a small window explaining it.") + "</p><div class='row'><select id='qzN'><option value='5'>5 questions</option><option value='10' selected>10 questions</option><option value='15'>15 questions</option>" + (ex ? "<option value='20'>20 questions</option>" : "") + "</select><select id='qzD'><option value='a mix of easy, medium and tricky'>Mixed</option><option value='easy, to build basics'>Easy</option><option value='hard, application-based and exam-tricky'>Hard</option></select></div><button class='primary' id='qzGo'>" + (ex ? "Start exam " : "Start practice ") + "</button><div id='qzScore' class='status' style='margin-top:10px'></div><div id='qzOut'></div><div id='qzRes'></div>";
     $("qzGo").onclick = function(){ startTest(k); }; paperUi();
@@ -4048,7 +4727,7 @@ function mwTryCheck(){
   if(!nums.length){ fb.textContent = "I could not read that. Type a number such as 4, -2 or 1/2."; return; }
   var want = t.ans.slice().sort(function(a, b){ return a - b; }), got = nums.slice().sort(function(a, b){ return a - b; });
   var ok = want.length === got.length && want.every(function(w, i){ return Math.abs(w - got[i]) < 1e-6; });
-  if(ok){ fb.innerHTML = "<span style='color:var(--ok)'>✓ Correct! Well done — that is exactly right.</span>"; logEv("maths", "Maths practice: correct"); }
+  if(ok){ fb.innerHTML = "<span style='color:var(--ok)'>✓ Correct! Well done — that is exactly right.</span>"; logEv("maths", "Maths practice: correct"); addDailyXp(5); }
   else if(got.length === 1 && want.length === 2) fb.innerHTML = "<span style='color:var(--bad)'>A quadratic can have two answers. List both, separated by a comma.</span>";
   else fb.innerHTML = "<span style='color:var(--bad)'>Not quite. Try again, or press the Hint button above.</span>";
 }
@@ -4412,7 +5091,7 @@ function esc2(t){ return String(t).replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
 function shuf(a){ var b = a.slice(); for(var i = b.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)), t = b[i]; b[i] = b[j]; b[j] = t; } return b; }
 function capw(w){ return w.charAt(0).toUpperCase() + w.slice(1); }
 function trunc(t, n){ t = String(t); if(t.length <= n) return t; var c = t.slice(0, n), k = c.lastIndexOf(" "); return (k > 20 ? c.slice(0, k) : c) + "…"; }
-function noText(){ return "I couldn’t read enough clear text from this chapter to build good questions on the device.\n\n- If the PDF is **scanned** (photos of pages), the text cannot be read. Try a PDF with selectable text.\n- Or switch **Prepare questions** to **With Claude AI** in the Study screen, which works with less text.\n- You can also try another chapter of the book."; }
+function noText(){ return "I couldn’t read enough clear text from this chapter to build good questions on the device.\n\n- If the PDF is **scanned** (photos of pages), the text cannot be read. Try a PDF with selectable text.\n- Or switch **Prepare questions** to **With AI** in the Study screen, which works with less text.\n- You can also try another chapter of the book."; }
 
 function cleanText(t){
   t = String(t || "");
@@ -6291,6 +6970,88 @@ function localNotes(idx){
   if(extra.length){ out.push("## Most important points for exams"); extra.slice(0, 5).forEach(function(x){ out.push(x); }); }
   return out.join("\n");
 }
+function localCram(c){
+  var P = prep(c), ideas = [], seen = {}, formulas = [], terms = [], checks = [];
+  if(P.pack && (P.pack.concepts || []).length){
+    P.pack.concepts.slice(0, 8).forEach(function(x){
+      var k = txtKey(x.t); if(!k || seen[k]) return; seen[k] = 1;
+      ideas.push({t: x.t, d: trunc(sentenceCap(x.d), 180)});
+    });
+  }
+  if(ideas.length < 6){
+    P.defs.forEach(function(d){
+      if(ideas.length >= 8) return;
+      var k = txtKey(d.term), body = defText(d); if(!k || !body || seen[k]) return; seen[k] = 1;
+      ideas.push({t: d.term, d: trunc(sentenceCap(body), 180)});
+    });
+  }
+  if(ideas.length < 4){
+    topIn(P, allIdx(P), 6).forEach(function(i){
+      var s = bs(P, i), k = txtKey(s); if(!k || seen[k] || ideas.length >= 6) return; seen[k] = 1;
+      ideas.push({t: "Key point", d: trunc(s, 180)});
+    });
+  }
+  P.sents.forEach(function(s){
+    if(formulas.length >= 5) return;
+    if(/[=±√²³]|\b(formula|law|theorem|equation|rule)\b/i.test(s) && s.length < 180){
+      var k = txtKey(s); if(!seen[k]){ seen[k] = 1; formulas.push(sentenceCap(s)); }
+    }
+  });
+  terms = keyTerms(P, 12, 2).map(function(t){ return t.t; });
+  var mistakes = mistakeItems(c.id).slice(0, 5);
+  if(P.pack && (P.pack.qa || []).length){
+    P.pack.qa.slice(0, 3).forEach(function(q){ checks.push({q: q.q, a: q.a}); });
+  }
+  if(checks.length < 3){
+    var lq = []; try { lq = genQaLocal("qa", 4); } catch(e){}
+    lq.forEach(function(x){ if(checks.length < 3 && x.q && x.a) checks.push({q: x.q, a: x.a}); });
+  }
+  if(checks.length < 3){
+    ideas.slice(0, 3).forEach(function(it){
+      if(checks.length < 3) checks.push({q: "What is meant by " + it.t + "?", a: it.d});
+    });
+  }
+  var mdLines = ["# 5-Min Cram: " + c.name, "", "## Must-Know Concepts"];
+  ideas.forEach(function(x){ mdLines.push("- **" + x.t + ":** " + x.d); });
+  if(formulas.length){ mdLines.push("", "## Formulas & Rules"); formulas.forEach(function(f){ mdLines.push("- " + f); }); }
+  if(mistakes.length){ mdLines.push("", "## Past Mistakes to Avoid"); mistakes.forEach(function(m){ mdLines.push("- **Q:** " + m.q + " -> **Answer:** " + m.options[m.answer]); }); }
+  if(checks.length){ mdLines.push("", "## Quick Self-Check"); checks.forEach(function(q, i){ mdLines.push((i + 1) + ". **" + q.q + "** — " + q.a); }); }
+  return {ideas: ideas, formulas: formulas, terms: terms, mistakes: mistakes, checks: checks, md: mdLines.join("\n")};
+}
+function cramStart(){
+  var c = cur(), mp = $("mp"); if(!c || !mp) return;
+  if(!subStatus().pro){
+    mp.innerHTML = "<div class='card hero' style='text-align:center'><span class='proBadge'>Yearly Pro</span><h3 style='margin:8px 0 4px'>⚡ 5-Min Cram</h3><p class='status'>Pre-exam 1-page cheat sheets combining key formulas, mistake traps, and rapid self-checks.</p><button class='primary' id='upCrBtn'>Unlock Yearly Pro (₹" + SUB_PLAN.priceInr + "/yr)</button></div>";
+    if($("upCrBtn")) $("upCrBtn").onclick = function(){ upgradeModal("5-Min Cram pre-exam sheets"); };
+    return;
+  }
+  var d = localCram(c);
+  var h = "<h3 style='margin-top:0'>⚡ 5-Min Cram — " + esc(c.name) + "</h3>" +
+    "<p class='status'>1-page pre-exam cheat sheet: core ideas, past error traps and 3 rapid recall checks.</p>" +
+    "<div class='row'><button id='crSaveNb'>☆ Save to notebook</button><button id='crSaveFile'>⬇ Save .md</button><button id='crRead'>🔊 Read aloud</button>" +
+    (aiCfg() ? "<button class='primary' id='crAi'>✦ Enhance with AI</button>" : "") + "</div>";
+  h += "<div class='cramSection'><h4>1. Core concepts</h4>";
+  h += d.ideas.length ? "<ul>" + d.ideas.map(function(x){ return "<li><strong>" + esc(x.t) + ":</strong> " + inline(x.d) + "</li>"; }).join("") + "</ul>" : "<p class='status'>Add a little more text or build a Smart pack for richer definitions.</p>";
+  if(d.formulas.length){ h += "<h4>Formulas &amp; rules</h4><ul>" + d.formulas.map(function(f){ return "<li>" + inline(f) + "</li>"; }).join("") + "</ul>"; }
+  if(d.terms.length){ h += "<div style='margin-top:6px'>" + d.terms.map(function(t){ return "<span class='tag'>" + esc(t) + "</span>"; }).join(" ") + "</div>"; }
+  h += "</div>";
+  h += "<div class='cramSection'><h4>2. Mistakes to avoid from your error book</h4>";
+  h += d.mistakes.length ? "<ul>" + d.mistakes.map(function(m){ return "<li><strong>" + inline(m.q) + "</strong><br><span class='status'>Remember: <strong style='color:var(--ok)'>" + esc(m.options[m.answer]) + "</strong></span></li>"; }).join("") + "</ul>" : "<p class='status'>No unresolved mistakes saved for this chapter — great job!</p>";
+  h += "</div>";
+  h += "<div class='cramSection'><h4>3. 3-Question quick self-check (tap to reveal)</h4>";
+  h += d.checks.length ? d.checks.map(function(q, i){ return "<details class='cramCheck'><summary>Q" + (i + 1) + ". " + inline(q.q) + "</summary><div class='status' style='margin-top:6px'><strong>Answer:</strong> " + inline(q.a) + "</div></details>"; }).join("") : "<p class='status'>Add more text to generate quick recall questions.</p>";
+  h += "</div><div class='out' id='crAiOut'></div>" + nextBar("cram");
+  mp.innerHTML = h;
+  bindNext(mp);
+  $("crSaveNb").onclick = function(){ saveNote(d.md, "5-Min Cram · " + c.name); };
+  $("crSaveFile").onclick = function(){ saveFile(c.name.replace(/[^\w\- ]+/g, "") + "-5min-cram.md", d.md); };
+  $("crRead").onclick = function(){ speakText(d.md.replace(/[#*_`]/g, ""), {max: 1200}); };
+  if($("crAi")) $("crAi").onclick = function(){
+    run("Prepare a punchy 1-page 5-Minute Cram cheat sheet for this chapter for a student about to walk into an exam: 6 crisp key concepts/formulas, 3 common exam mistakes to avoid, and 3 quick recall Q&As.", $("crAiOut"), $("crAi"), {ctx: "cram", key: "cram|" + c.id, local: function(){ return d.md; }});
+  };
+  markDone("cram");
+  logEv("cram", "5-Min Cram revision");
+}
 /* ---------- online knowledge pack: stored with the chapter ---------- */
 function txtKey(x){
   return normQ(String(x || "").replace(/^\s*\(?\d{1,2}[).:]\s*/, ""));
@@ -6545,8 +7306,8 @@ function addCta(v){
 }
 function renderPath(){
   var c = cur(), el = $("path"); if(!c || !el) return;
-  var d = prog().done, ns = nextStep(c.id), nc = ns.done ? nextChapterAfter(c.id) : null, others = DB.chapters.map(chInfo).filter(function(x){ return x.c.id !== c.id && x.la && !x.complete; });
-  var h = "<div class='card'><strong>Your path for this chapter</strong><div class='path'>" + LOOP.map(function(x, i){ return "<div class='step " + (d[x[0]] ? "ok" : (!ns.done && ns.k === x[0] ? "now" : "")) + "'><span>" + (d[x[0]] ? "✓" : i + 1) + "</span><small>" + x[1] + "</small></div>"; }).join("") + "</div>";
+  var d = prog().done, ns = nextStep(c.id), nc = ns.done ? nextChapterAfter(c.id) : null, others = DB.chapters.map(chInfo).filter(function(x){ return x.c.id !== c.id && x.la && !x.complete; }), rd = readinessOf(c.id);
+  var h = "<div class='card'><strong>Your path for this chapter</strong><div class='readinessRow'><span class='status'>Exam readiness</span><div class='bar' style='flex:1;margin:0'><i style='width:" + rd.pct + "%'></i></div><strong>" + rd.pct + "%</strong></div><div class='path'>" + LOOP.map(function(x, i){ return "<div class='step " + (d[x[0]] ? "ok" : (!ns.done && ns.k === x[0] ? "now" : "")) + "'><span>" + (d[x[0]] ? "✓" : i + 1) + "</span><small>" + x[1] + "</small></div>"; }).join("") + "</div>";
   h += "<p style='margin:8px 0 4px'><strong>" + (ns.done ? "Chapter complete!" : "Next: " + esc(ns.label)) + "</strong><br><span class='status'>" + esc(ns.why) + "</span></p><div class='row'>" + (ns.done ? (nc ? "<button class='primary' id='pathGo'>Go to next chapter: " + esc(nc.name.slice(0, 36)) + "</button>" : "<button class='primary' id='pathGo'>Revise with a mock exam</button>") : "<button class='primary' id='pathGo'>Do this now</button>") + "<button id='pathAudio'>🎧 Listen to an overview</button></div>";
   if(others.length) h += "<div class='status' style='margin-top:6px'>Also waiting for you:</div><div class='row'>" + others.slice(0, 3).map(function(x){ return "<button " + goAttr(x) + ">" + esc(x.c.name.slice(0, 28)) + " (" + x.n + "/6)</button>"; }).join("") + "</div>";
   el.innerHTML = h + "</div>"; $("pathGo").onclick = function(){ goStep(ns, c.id); }; if($("pathAudio")) $("pathAudio").onclick = audioOverview; bindNext(el);
@@ -6571,41 +7332,6 @@ function reviewChapter(cid){
   goMethod("mcq", weakTopics(cid).join(", "), cid);
   var b = $("qzGo"); if(b) setTimeout(function(){ if($("qzGo")) $("qzGo").click(); }, 80);
 }
-function todayCard(){
-  var c = cur(), ns = c ? nextStep(c.id) : null, due = dueReviews(), h = "<div class='card hero' style='text-align:left'><div class='status'>Today · " + fmtD(Date.now()) + "</div><h2 style='margin:4px 0'>A small plan for today</h2>";
-  var tasks = [];
-  if(!DB.chapters.length) tasks.push("<button class='primary' data-view='study'>Upload my first book</button>");
-  else if(c && ns && !ns.done) tasks.push("<button class='primary' data-go='" + ns.k + "' data-chap='" + c.id + "' data-focus='" + esc(ns.focus || "").replace(/'/g, "&#39;") + "'>Continue: " + esc(ns.label) + "</button>");
-  else if(c && ns && ns.done){
-    var nc = nextChapterAfter(c.id);
-    tasks.push(nc ? "<button class='primary' data-go='path' data-chap='" + nc.id + "'>Start " + esc(nc.name.slice(0, 30)) + "</button>" : "<button class='primary' data-go='exam' data-chap='" + c.id + "'>Revise with a mock exam</button>");
-  }
-  if(due.length) tasks.push("<button data-review='" + due[0].c.id + "'>Revise “" + esc(due[0].c.name.slice(0, 28)) + "”</button>");
-  if(c) tasks.push("<button data-go='flash' data-chap='" + c.id + "'>5-minute recall</button>");
-  h += "<div class='row' style='margin:8px 0'>" + tasks.join("") + "</div>";
-  h += "<p class='status' style='margin:0'>" + (due.length ? due.length + " chapter" + (due.length > 1 ? "s" : "") + " due for revision. " : "Nothing overdue — a short practice today keeps it that way. ") + "Streak: " + streak() + " day" + (streak() === 1 ? "" : "s") + " · " + totalXp() + " growth points.</p></div>";
-  return h;
-}
-function homeFlow(){
-  var h = todayCard(), L1 = DB.last, lc = L1 && DB.chapters.filter(function(c){ return c.id === L1.cid; })[0];
-  if(lc) h += "<div class='card hero'><div class='status'>Where you stopped</div><h2 style='margin:2px 0'>" + esc(lc.name) + "</h2><p>" + esc(L1.text) + " · " + ago(L1.t) + "</p><div class='row'><button class='primary' data-resume='1'>Resume from here</button></div></div>";
-  var info = DB.chapters.map(chInfo), started = info.filter(function(x){ return x.la; });
-  var due = started.filter(function(x){ return x.complete ? x.days >= revGap(x.c.id) : x.days >= 2; }).sort(function(a, b){ return b.days - a.days; });
-  if(started.length){
-    started.sort(function(a, b){ return (a.complete - b.complete) || (b.days - a.days); });
-    h += "<h2>Your chapters</h2><div class='grid2'>" + started.slice(0, 6).map(function(x){
-      var tag = x.complete ? (x.days >= revGap(x.c.id) ? "<span class='tag a'>Revision due</span>" : "<span class='tag s'>Complete</span>") : (x.days >= 2 ? "<span class='tag w'>Not practised for " + x.days + " days</span>" : "<span class='tag s'>" + ago(x.la) + "</span>");
-      return "<div class='card' style='margin:0'><strong>" + esc(x.c.name) + "</strong> " + tag + "<div class='bar'><i style='width:" + Math.round(x.n * 100 / 6) + "%'></i></div><div class='status'>" + x.n + " of 6 steps done · " + (x.complete ? "Chapter complete" : "Next: " + esc(x.ns.label)) + "</div><div class='row' style='margin:8px 0 0'><button class='primary' " + goAttr(x) + ">" + (x.complete ? "Revise" : "Continue") + "</button></div></div>";
-    }).join("") + "</div>";
-  }
-  var fresh = info.filter(function(x){ return !x.la; })[0];
-  if(fresh) h += "<div class='card'><strong>Ready to begin</strong><p class='status' style='margin:2px 0 8px'>" + esc(fresh.c.name) + "</p><button class='primary' data-go='path' data-chap='" + fresh.c.id + "'>Start this chapter</button></div>";
-  if(!DB.chapters.length) h += "<div class='card'><strong>Upload your first book</strong><p class='status'>I will split it into chapters and guide you step by step.</p><button class='primary' data-view='study'>Upload my book</button></div>";
-  var needBk = DB.history.length > 5 && (!DB.lastBackup || Date.now() - DB.lastBackup > 7 * 864e5);
-  h += "<div class='card'><strong>More actions</strong><div class='row' style='margin:8px 0 0'><button data-act='mist'>Practise my mistakes</button><button data-act='pr'>Print report</button><button data-act='bk'>Back up my data</button><button data-act='rs'>Restore backup</button><button data-act='cls'>Class view (teacher)</button></div>" + (needBk ? "<p class='status'>It has been a while since your last backup. Back up now so nothing is lost.</p>" : "") + "<input type='file' id='fRs' accept='.json' class='hidden'><input type='file' id='fCls' accept='.json' multiple class='hidden'></div>";
-  return h;
-}
-
 /* ---------- MCQ practice and exam ---------- */
 var T = null;
 function gradeOf(p){ return p >= 90 ? ["A+","Outstanding"] : p >= 75 ? ["A","Very good"] : p >= 60 ? ["B","Good, keep practising"] : p >= 40 ? ["C","Needs more practice"] : ["D","Weak: revise the chapter first"]; }
@@ -6672,7 +7398,7 @@ function paperUi(){
   var w = document.createElement("div"); w.className = "row";
   w.innerHTML = "<button id='ppBtn'>" + (DB.paper ? "Board paper added ✓ (change)" : "Match my board paper") + "</button>" + (DB.paper ? "<button id='ppDel'>Remove</button>" : "") + "<input type='file' id='ppFile' accept='application/pdf,.pdf,.txt' class='hidden'><span class='status'>Upload an old question paper so new questions follow your exam pattern.</span>";
   go.parentNode.insertBefore(w, go);
-  $("ppBtn").onclick = function(){ $("ppFile").click(); };
+  $("ppBtn").onclick = function(){ requirePro("Board paper pattern matching", function(){ $("ppFile").click(); }); };
   if($("ppDel")) $("ppDel").onclick = function(){ DB.paper = ""; save(); w.remove(); paperUi(); };
   $("ppFile").onchange = async function(){
     var f = this.files[0]; if(!f) return;
@@ -6791,7 +7517,7 @@ function finishTest(defer){
   items.forEach(function(it){ var t = topics[it.topic] || (topics[it.topic] = {c: 0, t: 0}); t.t++; if(it.pick === it.answer) t.c++; });
   var pa = prog().attempts, same = pa.filter(function(a){return a.kind === T.kind}), prev = same.length ? Math.round(same[same.length - 1].score * 100 / same[same.length - 1].total) : null;
   pa.push({d: Date.now(), kind: T.kind, score: right, total: n, topics: topics, qs: items.map(function(it){ return {q: it.q, ok: it.pick === it.answer, topic: it.topic, ans: it.options[it.answer], mine: it.pick === null ? "(not answered)" : it.options[it.pick], why: it.why, o: it.options, a: it.answer}; })});
-  DB.mist = DB.mist || {}; items.forEach(function(it){ if(it.m){ var h = hash(it.q); DB.mist[h] = it.pick === it.answer ? (DB.mist[h] || 0) + 1 : 0; } }); if(pa.length > 30) pa.shift(); markDone(T.kind); var gr = recordPrac(T.kind, p);
+  DB.mist = DB.mist || {}; items.forEach(function(it){ if(it.m){ var h = hash(it.q); DB.mist[h] = it.pick === it.answer ? (DB.mist[h] || 0) + 1 : 0; } }); if(pa.length > 30) pa.shift(); markDone(T.kind); var gr = recordPrac(T.kind, p); addDailyXp(p >= 75 ? 15 : 10);
   logEv(T.kind, (T.kind === "exam" ? "Exam" : "MCQ practice") + ": " + right + "/" + n + " (" + p + "%), grade " + g[0]);
   var wk = Object.keys(topics).filter(function(k){return topics[k].c < topics[k].t}), cmp = prev === null ? "This is your first " + (T.kind === "exam" ? "exam" : "practice") + " on this chapter. Take more to see your improvement." : p > prev ? "Up by " + (p - prev) + " points from last time (" + prev + "%). Great work!" : p < prev ? "Down by " + (prev - p) + " points from last time (" + prev + "%). Revise the weak topics and try again." : "Same as last time (" + prev + "%).";
   var rev = T.kind === "exam" ? "<h3>Review of your mistakes</h3>" + items.filter(function(i){return i.pick !== i.answer}).map(function(i){ return "<div class='q'><div>" + inline(i.q) + "</div><div class='exp'>Your answer: " + esc(i.pick === null ? "(not answered)" : i.options[i.pick]) + "<br>Correct: " + esc(i.options[i.answer]) + "<br>" + inline(i.why) + "</div></div>"; }).join("") : "";
@@ -6846,7 +7572,7 @@ RENDER.mist = function(){
   el.innerHTML = h;
   $("miPrac").onclick = function(){ mistakePractice("*"); };
   el.querySelectorAll("[data-know]").forEach(function(b){
-    b.onclick = function(){ DB.mist = DB.mist || {}; var k = b.getAttribute("data-know"); DB.mist[k] = Math.max(2, (DB.mist[k] || 0) + 1); save(); RENDER.mist(); toast("Removed from your error book"); };
+    b.onclick = function(){ DB.mist = DB.mist || {}; var k = b.getAttribute("data-know"); DB.mist[k] = Math.max(2, (DB.mist[k] || 0) + 1); addDailyXp(4); save(); RENDER.mist(); toast("Removed from your error book (+4 XP)"); };
   });
 };
 RENDER.tools = function(){
@@ -6854,6 +7580,8 @@ RENDER.tools = function(){
   var h = "<h1>Settings</h1><p class='sub'>Everything here runs on this device. Nothing leaves your phone unless you choose AI.</p><div class='toolsGrid'>";
   h += "<div class='card'><strong>Study plan</strong><p class='status'>Upload your syllabus and set a timetable with follow-up.</p><button data-v='plan'>Open study plan</button></div>";
   h += folderCardHtml();
+  h += subCardHtml();
+  h += pilotCardHtml();
   h += "<div class='card'><strong>Print report</strong><p class='status'>A tidy progress report for a parent or teacher.</p><button data-act='pr'>Print report</button></div>";
   h += "<div class='card'><strong>Back up my data</strong><p class='status'>Save a copy of your progress to a file.</p><button data-act='bk'>Back up now</button>" + (needBk ? "<p class='status'>It has been a while since your last backup.</p>" : "") + "</div>";
   h += "<div class='card'><strong>Restore backup</strong><p class='status'>Bring back progress from a backup file.</p><button data-act='rs'>Choose backup file</button></div>";
@@ -6951,6 +7679,7 @@ function saveMatch(moves, total, st){
   var b = playDB().best;
   if(!b.match || moves < b.match){ b.match = moves; save(); toast("New best — " + moves + " moves!"); }
   else toast("All pairs found in " + moves + " moves.");
+  addDailyXp(8);
   drawMatch(st);
 }
 function matchPraise(moves, total){ return moves <= total + 2 ? "Superb memory! Every pair found in " + moves + " moves." : "You found every pair in " + moves + " moves. Beat it next time!"; }
@@ -6987,6 +7716,7 @@ function rapidWriteQ(st){
   var it = s.qs[s.at];
   if(s.phase === "end" || !it){
     var b = playDB().best, msg = (!b.rapid || s.right > b.rapid) ? ((b.rapid = s.right, save()), "New best! " + s.right + " correct.") : "You scored " + s.right + " of " + s.qs.length + ".";
+    if(!s.xpDone){ s.xpDone = true; addDailyXp(8); }
     box.innerHTML = "<p class='status' style='font-weight:700'>Time up! " + esc(msg) + "</p>" +
       (s.right >= 6 ? "<p class='status'>Brilliant — that is strong recall. Keep it up!</p>" : "<p class='status'>Good start. Play again to beat your score.</p>") +
       "<div class='row' style='margin-top:8px'><button class='primary' id='plAgain'>Play again</button><button id='plBack'>Other games</button></div>";
@@ -7069,8 +7799,9 @@ function scrambleReveal(st){
 }
 function scrambleEnd(box){
   var s = PS, b = playDB().best, msg = (!b.scramble || s.right > b.scramble) ? ((b.scramble = s.right, save()), "New best! " + s.right + " of " + s.total + ".") : "You got " + s.right + " of " + s.total + ".";
+  addDailyXp(8);
   box.innerHTML = "<p class='status' style='font-weight:700'>" + esc(msg) + "</p><div class='row' style='margin-top:8px'><button class='primary' id='plAgain'>Play again</button><button id='plBack'>Other games</button></div>";
-  $("plAgain").onclick = function(){ startScramble(st); };
+  $("plAgain").onclick = function(){ startScramble($("plStage")); };
   $("plBack").onclick = function(){ RENDER.play(); };
 }
 
@@ -7154,8 +7885,12 @@ function restoreData(f){
       d.ai = DB.ai; d.history = d.history || []; d.facts = d.facts || {}; d.progress = d.progress || {}; d.cache = d.cache || {}; d.book = d.book || []; d.speech = d.speech || {};
       d.engine = d.ai ? (d.engine || "local") : "local";
       d.save = DB.save;   /* the save folder belongs to this device, not the backup */
+      d.pilot = DB.pilot; /* access code and validity belong to this device too */
+      d.sub = DB.sub;     /* subscription entitlement belongs to this device, not the backup JSON */
       if(!d.cur || !d.chapters.some(function(c){ return c.id === d.cur; })) d.cur = d.chapters[0] ? d.chapters[0].id : null;
-      DB = d; save(); location.reload();
+      DB = normalizeStudy(d); save();
+      if(AUTH.session) sdbPut(AUTH.session, studySnapshot(DB)).then(function(){ location.reload(); }, function(){ location.reload(); });
+      else location.reload();
     });
   }).catch(function(){ toast("That is not a Gurukul backup file"); });
 }
@@ -7228,6 +7963,7 @@ function folderSnapshot(){
   return d;
 }
 function scheduleFolderSave(){
+  if(LOCKED) return;
   if(typeof DB === "undefined" || !DB || !DB.save || !DB.save.enabled || !FOLDER.handle) return;
   if(FOLDER.timer) clearTimeout(FOLDER.timer);
   FOLDER.timer = setTimeout(function(){
@@ -7237,6 +7973,7 @@ function scheduleFolderSave(){
   }, 800);
 }
 function writeFolderNow(){
+  if(LOCKED) return Promise.resolve(false);
   if(typeof DB === "undefined" || !DB || !DB.save || !DB.save.enabled || !FOLDER.handle) return Promise.resolve(false);
   if(FOLDER.writing){ FOLDER.queued = true; return Promise.resolve(false); }
   FOLDER.writing = true;
@@ -7387,6 +8124,823 @@ try {
   document.addEventListener("visibilitychange", function(){ if(document.visibilityState === "hidden" && typeof DB !== "undefined" && DB && DB.save && DB.save.enabled) writeFolderNow(); });
   window.addEventListener("pagehide", function(){ if(typeof DB !== "undefined" && DB && DB.save && DB.save.enabled) writeFolderNow(); });
 } catch(e){}
+/* ---------- Gurukul Pilot: invite codes, validity, consent, usage reports ----------
+   One code per student. The code carries its own end date (GURU-YYMMDD-XXXX), so
+   validity works offline. Usage is counted only while the screen is visible and
+   the student is active; it is stored per student in localStorage and sent in the
+   background to the organiser's Google Sheet. No chapter text, notes or photos
+   ever leave the device. */
+var BOARDS = ["CBSE", "ICSE", "State board", "IB", "IGCSE", "Other"];
+var B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
+function pilotToday(){ return new Date().toISOString().slice(0, 10); }
+function codeTag(date6, r2){
+  var s = "GRK26:" + date6 + ":" + r2, h1 = 2166136261, h2 = 5381, i;
+  for(i = 0; i < s.length; i++){
+    h1 ^= s.charCodeAt(i); h1 = Math.imul(h1, 16777619);
+    h2 = ((h2 << 5) + h2) ^ s.charCodeAt(i);
+  }
+  return B32.charAt((h1 >>> 0) % 32) + B32.charAt((h2 >>> 0) % 32);
+}
+function parseInvite(raw){
+  var s = String(raw || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+  if(s.indexOf("GURU") === 0) s = s.slice(4);
+  if(s.length !== 10) return null;
+  var yy = parseInt(s.slice(0, 2), 10), mm = parseInt(s.slice(2, 4), 10), dd = parseInt(s.slice(4, 6), 10), rnd = s.slice(6), i;
+  if(!(yy >= 0 && mm >= 1 && mm <= 12 && dd >= 1 && dd <= 31)) return null;
+  var d = new Date(2000 + yy, mm - 1, dd, 23, 59, 59, 999);
+  if(isNaN(d.getTime()) || d.getFullYear() !== 2000 + yy || d.getMonth() !== mm - 1 || d.getDate() !== dd) return null;
+  for(i = 0; i < rnd.length; i++){ if(B32.indexOf(rnd.charAt(i)) < 0) return null; }
+  if(rnd.slice(2) !== codeTag(s.slice(0, 6), rnd.slice(0, 2))) return null;
+  return { code: "GURU-" + s.slice(0, 6) + "-" + rnd, until: d.getTime() };
+}
+function pilotDaysLeft(){ var p = DB.pilot || {}; if(!p.validUntil) return null; return Math.ceil((p.validUntil - Date.now()) / 86400000); }
+function pilotExpired(){ var p = DB.pilot || {}; return !!(p.registered && (p.revoked || (p.validUntil && Date.now() > p.validUntil))); }
+function pilotReadJSON(k){ try { var raw = localStorage.getItem(k); return raw ? JSON.parse(raw) : null; } catch(e){ return null; } }
+function pilotLoadPending(){
+  PENDING_REQ = pilotReadJSON(REQ_KEY) || null;
+  PENDING_INVITE = pilotReadJSON(INV_KEY) || null;
+  if(PENDING_INVITE && (!PENDING_INVITE.code || !PENDING_INVITE.until)) PENDING_INVITE = null;
+}
+function pilotSetInvite(inv){ PENDING_INVITE = inv; try { localStorage.setItem(INV_KEY, JSON.stringify(inv)); } catch(e){} }
+function pilotSetRequest(req){ PENDING_REQ = req; try { localStorage.setItem(REQ_KEY, JSON.stringify(req)); } catch(e){} }
+function pilotClearPending(){
+  PENDING_REQ = null; PENDING_INVITE = null;
+  try { localStorage.removeItem(REQ_KEY); localStorage.removeItem(INV_KEY); } catch(e){}
+}
+function pilotRequestMailto(req){
+  if(!req) return;
+  var g = req.guardian || {};
+  var lines = [
+    "Gurukul access request",
+    "Request ID: " + req.requestId,
+    "Student: " + req.name,
+    "Email: " + req.email,
+    "Phone: " + req.phone,
+    "Class: " + req.cls,
+    "School: " + req.school,
+    "Board: " + req.board,
+    "Guardian: " + g.name,
+    "Guardian email: " + g.email,
+    "Guardian phone: " + g.phone,
+    "Consent: yes",
+    req.note ? "Note: " + req.note : ""
+  ].filter(function(x){ return x; }).join("\n");
+  location.href = "mailto:" + PILOT.organiser + "?subject=" + encodeURIComponent("Gurukul access request — " + req.name) + "&body=" + encodeURIComponent(lines);
+}
+function pilotSendRequest(req){
+  if(!PILOT.uploadUrl || !PILOT.uploadToken) return Promise.resolve({ok: false, reason: "unconfigured"});
+  if(!navigator.onLine) return Promise.resolve({ok: false, reason: "offline"});
+  var clean = {};
+  Object.keys(req).forEach(function(k){ if(k !== "status" && k !== "sentAt" && k !== "lastTry" && k !== "reason") clean[k] = req[k]; });
+  return fetch(PILOT.uploadUrl, {method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify({token: PILOT.uploadToken, batch: [clean]})})
+    .then(function(r){ if(!r.ok) throw new Error("http " + r.status); return r.text(); })
+    .then(function(txt){
+      var res = null;
+      try { res = txt ? JSON.parse(txt) : null; } catch(e){}
+      if(res && res.ok === false) throw new Error(res.error || "rejected");
+      return {ok: true};
+    })
+    .catch(function(e){ return {ok: false, reason: "network", error: String(e && e.message || e)}; });
+}
+function pilotActivate(raw){
+  var c = parseInvite(raw);
+  if(!c) return {ok: false, msg: "That code does not look right. Check the code and try again."};
+  if(c.until < Date.now()) return {ok: false, msg: "That code has ended. Please ask your organiser for a new one."};
+  pilotSetInvite({code: c.code, until: c.until});
+  return {ok: true, code: c.code};
+}
+function pilotFromForm(){
+  var req = PENDING_REQ || pilotReadJSON(REQ_KEY);
+  var inv = PENDING_INVITE || pilotReadJSON(INV_KEY);
+  var code = (inv && inv.code && inv.until && inv.until >= Date.now()) ? inv : parseInvite($("oCode") ? $("oCode").value : "");
+  if(!PILOT_GATE && !code){
+    var bDev = (req && req.board) || ($("oBoard") ? $("oBoard").value : "") || "CBSE";
+    return {ok: true, data: {code: "DEV-LOCAL", registered: true, issuedAt: Date.now(), validUntil: 0, revoked: false, consent: true, consentAt: Date.now(), board: bDev, guardian: {name: "", email: "", phone: ""}}};
+  }
+  if(!code) return {ok: false, msg: "Please activate your invite code first."};
+  if(code.until < Date.now()) return {ok: false, msg: "That invite code has ended. Please ask your organiser for a new one."};
+  var board = (req && req.board) || ($("oBoard") ? $("oBoard").value : "");
+  if(!board) return {ok: false, msg: "Please choose your board or curriculum."};
+  var g = (req && req.guardian) || {};
+  var gname = g.name || ($("oGName") ? $("oGName").value.trim() : "");
+  var gemail = g.email || ($("oGEmail") ? $("oGEmail").value.trim() : "");
+  var gphone = g.phone || ($("oGPhone") ? $("oGPhone").value.trim() : "");
+  if(!gname) return {ok: false, msg: "Please add your parent or guardian’s name."};
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(gemail)) return {ok: false, msg: "Please add a valid parent or guardian email."};
+  if(String(gphone).replace(/\D/g, "").length < 8) return {ok: false, msg: "Please add a parent or guardian phone number."};
+  var consent = (req && req.consent) || !!($("oConsent") && $("oConsent").checked);
+  if(!consent) return {ok: false, msg: "A parent or guardian needs to tick the consent box."};
+  return {ok: true, data: {code: code.code, registered: true, issuedAt: Date.now(), validUntil: code.until, revoked: false, consent: true, consentAt: (req && req.consentAt) || Date.now(), board: board, guardian: {name: gname, email: gemail, phone: gphone}}};
+}
+function afterLoginPilot(){
+  if(!DB.pilot) DB.pilot = blankDB().pilot;
+  refreshPilotBar();
+  if(PILOT_GATE && !DB.pilot.registered){ LOCKED = true; show("activate"); return; }
+  LOCKED = false;
+  anaStart();
+  try { pilotSendRegistration(); } catch(e){}
+  try { if(typeof subCheckStatus === "function") subCheckStatus(true); } catch(e){}
+  if(PILOT_GATE){
+    if(pilotExpired()){ showPilotLock(); return; }
+    var d = pilotDaysLeft();
+    if(d !== null && d >= 0 && d <= PILOT.warnDays) toast("Your access ends in " + d + " day" + (d === 1 ? "" : "s") + ".");
+  }
+}
+function showPilotLock(){
+  LOCKED = true;
+  var p = DB.pilot || {}, why = p.revoked ? "Your access was stopped by the organiser." : "Your access ended on " + (p.validUntil ? fmtD(p.validUntil) : "an earlier date") + ".";
+  var m = popup("<h3 style='margin-top:0'>Access ended</h3><p>" + esc(why) + " Your work is safe and stays on this device.</p>" +
+    "<p class='status'>You can still open the app in read-only mode, back up your work, or enter a new code from your organiser.</p>" +
+    "<div class='row' style='margin-top:12px'><button class='primary' id='plRead'>Open read-only</button><button id='plBk'>Back up my data</button></div>" +
+    "<div class='row' style='margin-top:8px'><button id='plRenew'>Enter a new code</button><button id='plMail'>Email organiser</button></div>");
+  m.el.querySelector("#plRead").onclick = function(){ m.close(); refreshPilotBar(); };
+  m.el.querySelector("#plBk").onclick = function(){ try { backupData(); } catch(e){} };
+  m.el.querySelector("#plRenew").onclick = function(){ m.close(); pilotRenewPrompt(); };
+  m.el.querySelector("#plMail").onclick = function(){ mailOrganiser(); };
+}
+function pilotRenewPrompt(){
+  var m = popup("<h3 style='margin-top:0'>Enter a new invite code</h3><p class='status'>Your organiser can give you a new code to continue.</p>" +
+    "<input id='plCode' autocapitalize='characters' spellcheck='false' placeholder='GURU-260207-7F3K'>" +
+    "<div class='row' style='margin-top:12px'><button class='primary' id='plGo2'>Continue</button><button data-close>Cancel</button></div><p id='plMsg' class='status'></p>");
+  m.el.querySelector("#plGo2").onclick = function(){
+    var c = parseInvite(m.el.querySelector("#plCode").value);
+    if(!c){ m.el.querySelector("#plMsg").textContent = "That code does not look right."; return; }
+    if(c.until < Date.now()){ m.el.querySelector("#plMsg").textContent = "That code has also ended."; return; }
+    DB.pilot.code = c.code; DB.pilot.validUntil = c.until; DB.pilot.revoked = false; DB.pilot.registered = true;
+    LOCKED = false; save(); m.close(); refreshPilotBar(); toast("Access renewed"); anaStart();
+  };
+}
+function refreshPilotBar(){
+  var bar = $("pilotBar"); if(!bar) return;
+  if(!PILOT_GATE || AUTH_VIEWS.indexOf(curView) >= 0 || !AUTH.session || !DB.profile){ bar.className = "pilotBar hidden"; bar.textContent = ""; return; }
+  var p = DB.pilot || {}, txt = "", cls = "pilotBar";
+  if(!p.registered){ bar.className = "pilotBar hidden"; bar.textContent = ""; return; }
+  if(p.revoked || (p.validUntil && Date.now() > p.validUntil)){ txt = "Access ended — contact your organiser to renew."; cls += " bad"; }
+  else { var d = pilotDaysLeft(); if(d !== null && d <= PILOT.warnDays){ txt = "Your access ends " + (d <= 0 ? "today" : "in " + d + " day" + (d === 1 ? "" : "s")); cls += " warn"; } }
+  bar.className = cls + (txt ? "" : " hidden");
+  bar.textContent = txt;
+}
+function pilotCardHtml(){
+  var p = DB.pilot || {}, d = pilotDaysLeft(), h = "<div class='card'><strong>My access</strong>";
+  var repBtn = OWNER_COPY ? "<button data-act='plexp'>Download my report</button>" : "";
+  if(!PILOT_GATE){
+    h += "<p class='status'>Development mode — the Step 2 invite-code gate is currently held so all sections, engines and reports can be tested locally." + (p.code && p.code !== "DEV-LOCAL" ? " Current code: <b>" + esc(p.code) + "</b>." : "") + "</p>";
+    h += "<div class='row' style='margin:8px 0 0'><button data-act='pltestreq'>Test access request</button><button data-act='plrenew'>Test invite code</button>" + repBtn + "<button data-act='plmail'>Email organiser</button></div>";
+  } else if(!p.registered){
+    h += "<p class='status'>This account is not linked to an access code. If you are joining a class, ask your organiser for an invite code.</p><div class='row' style='margin:8px 0 0'><button data-act='plrenew'>Enter a code</button></div>";
+  } else {
+    h += "<p class='status'>Code <b>" + esc(p.code) + "</b>" + (p.board ? " · " + esc(p.board) : "") + " · valid until <b>" + (p.validUntil ? fmtD(p.validUntil) : "—") + "</b>" + (d !== null && d >= 0 ? " (" + d + " day" + (d === 1 ? "" : "s") + " left)" : "") + ".</p>";
+    h += "<div class='row' style='margin:8px 0 0'><button data-act='plrenew'>Enter a new code</button>" + repBtn + "<button data-act='plmail'>Email organiser</button></div>";
+  }
+  h += "</div>";
+  return h;
+}
+function mailOrganiser(){
+  var p = DB.pilot || {}, sub = "Gurukul pilot — " + ((DB.profile && DB.profile.name) || "student") + (p.code ? " (" + p.code + ")" : "");
+  location.href = "mailto:" + PILOT.organiser + "?subject=" + encodeURIComponent(sub) + "&body=" + encodeURIComponent("Hello, I need help with my Gurukul access." + (p.code ? "\nMy code: " + p.code : ""));
+}
+/* ---- usage analytics: local first, sent in the background ---- */
+function anaKey(){ return PILOT.anaPrefix + (AUTH.session || "anon"); }
+function anaDevice(){
+  var ua = navigator.userAgent || "";
+  var os = /Android/i.test(ua) ? "Android" : /iPhone|iPad|iPod/i.test(ua) ? "iOS" : /Windows/i.test(ua) ? "Windows" : /Mac OS X/i.test(ua) ? "macOS" : /Linux/i.test(ua) ? "Linux" : "Other";
+  var br = /Edg\//.test(ua) ? "Edge" : /Chrome\//.test(ua) ? "Chrome" : /Firefox\//.test(ua) ? "Firefox" : /Safari\//.test(ua) ? "Safari" : "Other";
+  var tz = ""; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch(e){}
+  return {os: os, browser: br, screen: window.screen ? (window.screen.width + "x" + window.screen.height) : "", lang: navigator.language || "", tz: tz};
+}
+function anaNew(){ return {v: 1, __user: AUTH.session || "", code: (DB.pilot && DB.pilot.code) || "", firstSeen: Date.now(), lastSeen: Date.now(), lastAct: Date.now(), device: anaDevice(), days: {}, queue: [], lastUpload: 0}; }
+function anaLoad(){
+  try { var raw = localStorage.getItem(anaKey()); if(raw){ var a = JSON.parse(raw); if(a && a.v === 1){ a.days = a.days || {}; a.queue = a.queue || []; a.device = a.device || anaDevice(); return a; } } } catch(e){}
+  return anaNew();
+}
+function anaPersist(){
+  if(!ANA || !AUTH.session) return;
+  try {
+    var ks = Object.keys(ANA.days).sort();
+    while(ks.length > 150){ delete ANA.days[ks[0]]; ks.shift(); }
+    if(ANA.queue && ANA.queue.length > 200) ANA.queue = ANA.queue.slice(-200);
+    localStorage.setItem(anaKey(), JSON.stringify(ANA));
+  } catch(e){}
+}
+function anaDay(){
+  var day = pilotToday();
+  if(!ANA.days[day]) ANA.days[day] = {activeSec: 0, sessions: 0, views: {}, features: {}, errors: []};
+  var d = ANA.days[day]; d.views = d.views || {}; d.features = d.features || {}; d.errors = d.errors || [];
+  return d;
+}
+function anaInit(){
+  if(ANA) return;
+  ANA = anaLoad();
+  var act = function(){ if(ANA) ANA.lastAct = Date.now(); };
+  ["pointerdown", "keydown", "scroll", "touchstart"].forEach(function(ev){ try { window.addEventListener(ev, act, {passive: true}); } catch(e){ window.addEventListener(ev, act); } });
+  setInterval(function(){
+    if(!ANA || document.visibilityState !== "visible") return;
+    if(Date.now() - (ANA.lastAct || 0) >= PILOT.idleSec * 1000) return;
+    var d = anaDay(); d.activeSec += 1; var v = curView || "home"; d.views[v] = (d.views[v] || 0) + 1;
+  }, 1000);
+  setInterval(function(){ anaPersist(); }, 15000);
+  setInterval(function(){ anaFlush(false); }, PILOT.flushEvery * 1000);
+  window.addEventListener("error", function(e){ anaError((e.message || "Script error") + (e.lineno ? (" @" + e.lineno) : ""), e.error && e.error.stack); });
+  window.addEventListener("unhandledrejection", function(e){ var r = e.reason; anaError("Promise: " + (r && (r.message || r)), r && r.stack); });
+  document.addEventListener("visibilitychange", function(){ if(document.visibilityState === "hidden"){ anaFlush(true); anaBeacon(); } });
+  window.addEventListener("pagehide", function(){ anaFlush(true); anaBeacon(); });
+}
+function anaStart(){
+  if(!AUTH.session) return;
+  if(!ANA || ANA.__user !== AUTH.session){ ANA = anaLoad(); }
+  ANA.__user = AUTH.session;
+  ANA.code = (DB.pilot && DB.pilot.code) || ANA.code || "";
+  ANA.lastSeen = Date.now(); ANA.lastAct = Date.now();
+  anaDay().sessions = (anaDay().sessions || 0) + 1;
+  anaPersist();
+  anaFlush(true);
+  anaUpload();
+}
+function anaStop(){ if(ANA){ anaFlush(true); anaBeacon(); anaPersist(); } ANA = null; }
+function anaView(v){ if(ANA){ ANA.lastView = v; } }
+function anaBuildBundle(all){
+  if(!ANA) ANA = anaLoad();
+  var base = {app: "Gurukul", schema: PILOT.schema, v: PILOT.appVersion, code: (DB.pilot && DB.pilot.code) || "", at: Date.now(), device: ANA.device || anaDevice(), profile: {name: (DB.profile && DB.profile.name) || "", cls: (DB.profile && DB.profile.cls) || ""}};
+  if(all){ base.kind = "usage-all"; base.days = ANA.days || {}; base.validUntil = (DB.pilot && DB.pilot.validUntil) || 0; return base; }
+  var d = anaDay();
+  base.kind = "usage"; base.day = pilotToday(); base.activeSec = d.activeSec || 0; base.sessions = d.sessions || 0;
+  base.views = d.views || {}; base.features = d.features || {}; base.errors = (d.errors || []).slice(-40);
+  return base;
+}
+function anaFlush(force){
+  if(!ANA || !AUTH.session) return;
+  var d = anaDay();
+  if(!force && !(d.activeSec > 0)) return;
+  var bundle = anaBuildBundle(false);
+  ANA.queue = (ANA.queue || []).filter(function(x){ return !(x && x.kind === "usage" && x.day === bundle.day); });
+  ANA.queue.push(bundle);
+  anaPersist();
+}
+function anaBeacon(){
+  if(!ANA || !PILOT.uploadUrl || !ANA.queue || !ANA.queue.length) return;
+  try { var blob = new Blob([JSON.stringify({token: PILOT.uploadToken, batch: ANA.queue})], {type: "text/plain;charset=utf-8"}); navigator.sendBeacon(PILOT.uploadUrl, blob); } catch(e){}
+}
+function anaUpload(){
+  if(!ANA || !PILOT.uploadUrl || ANA.uploading) return;
+  var queue = (ANA.queue || []).filter(function(x){ return x && x.kind; });
+  if(!queue.length) return;
+  var batch = queue.slice(0, 20);
+  ANA.uploading = true;
+  fetch(PILOT.uploadUrl, {method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify({token: PILOT.uploadToken, batch: batch})})
+    .then(function(r){ if(!r.ok) throw new Error("http " + r.status); return r.text(); })
+    .then(function(){ ANA.queue = (ANA.queue || []).filter(function(x){ return batch.indexOf(x) < 0; }); ANA.lastUpload = Date.now(); anaPersist(); })
+    .catch(function(){})
+    .then(function(){ if(ANA) ANA.uploading = false; });
+}
+function anaError(msg, stack){
+  if(!ANA || !AUTH.session) return;
+  var d = anaDay(), key = String(msg || "").slice(0, 120), last = d.errors[d.errors.length - 1];
+  if(last && last.msg === key && Date.now() - last.ts < 60000) return;
+  d.errors.push({ts: Date.now(), view: curView || "", msg: String(msg || "").slice(0, 300), stack: String(stack || "").slice(0, 1500)});
+  if(d.errors.length > 40) d.errors.shift();
+  anaPersist();
+}
+function anaFeature(type, text){
+  if(!ANA || !AUTH.session) return;
+  var d = anaDay(), k = String(type || "event");
+  d.features[k] = (d.features[k] || 0) + 1;
+}
+function pilotSendRegistration(){
+  if(!DB.pilot || !DB.pilot.registered) return;
+  if(!ANA) ANA = anaLoad();
+  var rec = {app: "Gurukul", schema: PILOT.schema, v: PILOT.appVersion, kind: "registration", code: DB.pilot.code, at: Date.now(),
+    profile: {name: (DB.profile && DB.profile.name) || "", cls: (DB.profile && DB.profile.cls) || "", board: DB.pilot.board || "", age: (DB.profile && DB.profile.age) || "", lang: (DB.profile && DB.profile.lang) || "", school: (DB.profile && DB.profile.school) || "", city: (DB.profile && DB.profile.from) || ""},
+    guardian: DB.pilot.guardian || {}, consent: !!DB.pilot.consent, consentAt: DB.pilot.consentAt || 0,
+    issuedAt: DB.pilot.issuedAt || 0, validUntil: DB.pilot.validUntil || 0, device: ANA.device || anaDevice()};
+  ANA.queue = (ANA.queue || []).filter(function(x){ return x && x.kind !== "registration"; });
+  ANA.queue.push(rec);
+  anaPersist();
+  anaUpload();
+}
+function exportPilotReport(){
+  var b = anaBuildBundle(true);
+  var nm = ((DB.profile && DB.profile.name) || "student").replace(/\W+/g, "_");
+  saveFile("Gurukul report - " + nm + " - " + pilotToday() + ".json", JSON.stringify(b, null, 1));
+  toast("Report downloaded");
+}
+if($("oBoard")) $("oBoard").innerHTML = BOARDS.map(function(b){ return "<option>" + b + "</option>"; }).join("");
+if($("rqBoard")) $("rqBoard").innerHTML = BOARDS.map(function(b){ return "<option>" + b + "</option>"; }).join("");
+if($("rqCls")) $("rqCls").innerHTML = CLASSES.map(function(c){ return "<option>" + c + "</option>"; }).join("");
+document.addEventListener("click", function(e){
+  var b = e.target && e.target.closest ? e.target.closest("[data-act]") : null; if(!b) return;
+  var a = b.getAttribute("data-act");
+  if(a === "plrenew") pilotRenewPrompt();
+  else if(a === "pltestreq") show("request");
+  else if(a === "plexp"){ if(OWNER_COPY) exportPilotReport(); }
+  else if(a === "plmail") mailOrganiser();
+  else if(a === "subup") upgradeModal("");
+  else if(a === "subcode") upgradeModal("", "code");
+  else if(a === "subrec") downloadSubReceipt();
+  else if(a === "subchk") subCheckStatus(false);
+  else if(a === "subprev"){
+    DB.sub = DB.sub || blankDB().sub;
+    DB.sub.devPreviewFree = !DB.sub.devPreviewFree;
+    save();
+    if(curView === "tools") RENDER.tools(); else if(curView === "home") RENDER.home();
+    toast(DB.sub.devPreviewFree ? "Previewing Free-tier limits (3 chapters)" : "Restored Development Pro preview");
+  }
+});
+window.addEventListener("online", function(){ try { subRetryQueue(); subCheckStatus(true); } catch(e){} });
+
+/* ---------- Phase 2 & 3: Freemium Tier, Yearly Pro Pass & Razorpay / UPI Checkout ---------- */
+var RZP_P = null;
+function qrSvg(text){
+  var bytes = [], i, c, b, r, col, j, k;
+  for(i = 0; i < text.length; i++){
+    c = text.charCodeAt(i);
+    if(c < 128) bytes.push(c);
+    else if(c < 2048) bytes.push(192 | (c >> 6), 128 | (c & 63));
+    else bytes.push(224 | (c >> 12), 128 | ((c >> 6) & 63), 128 | (c & 63));
+  }
+  var SPEC = [[1,19,7,1,[]],[2,34,10,1,[6,18]],[3,55,15,1,[6,22]],[4,80,20,1,[6,26]],[5,108,26,1,[6,30]],[6,136,18,2,[6,34]],[7,156,20,2,[6,22,38]],[8,194,24,2,[6,24,42]]];
+  var sp = null;
+  for(k = 0; k < SPEC.length; k++){ if(bytes.length + 2 <= SPEC[k][1]){ sp = SPEC[k]; break; } }
+  if(!sp) return "";
+  var ver = sp[0], cap = sp[1], ecLen = sp[2], nb = sp[3], aligns = sp[4], size = 17 + 4 * ver;
+  var bits = [0, 1, 0, 0];
+  for(b = 7; b >= 0; b--) bits.push((bytes.length >> b) & 1);
+  for(j = 0; j < bytes.length; j++) for(b = 7; b >= 0; b--) bits.push((bytes[j] >> b) & 1);
+  for(i = 0; i < 4 && bits.length < cap * 8; i++) bits.push(0);
+  while(bits.length % 8 !== 0) bits.push(0);
+  var cw = [], p, v;
+  for(p = 0; p < bits.length; p += 8){ v = 0; for(b = 0; b < 8; b++) v = (v << 1) | bits[p + b]; cw.push(v); }
+  var padB = [0xec, 0x11], pi = 0;
+  while(cw.length < cap) cw.push(padB[(pi++) % 2]);
+  var EXP = new Array(512), LOG = new Array(256), x = 1;
+  for(i = 0; i < 255; i++){ EXP[i] = x; EXP[i + 255] = x; LOG[x] = i; x <<= 1; if(x & 256) x ^= 0x11d; }
+  function gfMul(a, b2){ return a && b2 ? EXP[LOG[a] + LOG[b2]] : 0; }
+  function rsGen(deg){
+    var poly = [1], a2, b2;
+    for(var d2 = 0; d2 < deg; d2++){
+      var q = [1, EXP[d2]], np = [];
+      for(a2 = 0; a2 < poly.length + 1; a2++) np.push(0);
+      for(a2 = 0; a2 < poly.length; a2++) for(b2 = 0; b2 < q.length; b2++) np[a2 + b2] ^= gfMul(poly[a2], q[b2]);
+      poly = np;
+    }
+    return poly;
+  }
+  function rsRem(data, gen){
+    var res = data.slice(), i2, j2;
+    for(i2 = 0; i2 < gen.length - 1; i2++) res.push(0);
+    for(i2 = 0; i2 < data.length; i2++){ var coef = res[i2]; if(coef) for(j2 = 0; j2 < gen.length; j2++) res[i2 + j2] ^= gfMul(gen[j2], coef); }
+    return res.slice(data.length);
+  }
+  var gen = rsGen(ecLen), blocks = [], ecs = [], bs = Math.floor(cap / nb), extra = cap % nb, idx = 0;
+  for(b = 0; b < nb; b++){
+    var len = bs + (b >= nb - extra ? 1 : 0), blk = cw.slice(idx, idx + len); idx += len;
+    blocks.push(blk); ecs.push(rsRem(blk, gen));
+  }
+  var inter = [];
+  for(i = 0; i < bs + 1; i++) for(b = 0; b < nb; b++) if(i < blocks[b].length) inter.push(blocks[b][i]);
+  for(i = 0; i < ecLen; i++) for(b = 0; b < nb; b++) inter.push(ecs[b][i]);
+  var m = [], fn = [];
+  for(r = 0; r < size; r++){ var mr = [], fr = []; for(col = 0; col < size; col++){ mr.push(-1); fr.push(false); } m.push(mr); fn.push(fr); }
+  function setMod(r2, c2, val){ m[r2][c2] = val ? 1 : 0; fn[r2][c2] = true; }
+  function finder(r0, c0){
+    for(var r2 = -1; r2 <= 7; r2++) for(var c2 = -1; c2 <= 7; c2++){
+      var rr = r0 + r2, cc = c0 + c2; if(rr < 0 || rr >= size || cc < 0 || cc >= size) continue;
+      var in7 = r2 >= 0 && r2 <= 6 && c2 >= 0 && c2 <= 6;
+      setMod(rr, cc, in7 && (r2 === 0 || r2 === 6 || c2 === 0 || c2 === 6 || (r2 >= 2 && r2 <= 4 && c2 >= 2 && c2 <= 4)));
+    }
+  }
+  finder(0, 0); finder(0, size - 7); finder(size - 7, 0);
+  for(i = 0; i < aligns.length; i++) for(j = 0; j < aligns.length; j++){
+    var ar = aligns[i], ac = aligns[j];
+    if((ar < 9 && ac < 9) || (ar < 9 && ac > size - 10) || (ar > size - 10 && ac < 9)) continue;
+    for(var dr = -2; dr <= 2; dr++) for(var dc = -2; dc <= 2; dc++) setMod(ar + dr, ac + dc, Math.abs(dr) === 2 || Math.abs(dc) === 2 || (dr === 0 && dc === 0));
+  }
+  for(i = 8; i < size - 8; i++){ setMod(6, i, i % 2 === 0); setMod(i, 6, i % 2 === 0); }
+  setMod(size - 8, 8, 1);
+  for(i = 0; i < 9; i++){
+    if(!fn[8][i]) setMod(8, i, 0); if(!fn[i][8]) setMod(i, 8, 0);
+    if(i < 8){ setMod(8, size - 1 - i, 0); if(i < 7) setMod(size - 1 - i, 8, 0); }
+  }
+  if(ver >= 7){
+    var vbits = ver === 7 ? 0x07c94 : 0x085bc;
+    for(i = 0; i < 18; i++){ var bt = (vbits >> i) & 1; setMod(Math.floor(i / 3), size - 11 + (i % 3), bt); setMod(size - 11 + (i % 3), Math.floor(i / 3), bt); }
+  }
+  var allBits = [];
+  for(i = 0; i < inter.length; i++) for(b = 7; b >= 0; b--) allBits.push((inter[i] >> b) & 1);
+  var bi = 0, up = true;
+  for(col = size - 1; col > 0; col -= 2){
+    if(col === 6) col--;
+    for(k = 0; k < size; k++){
+      r = up ? size - 1 - k : k;
+      for(var dc2 = 0; dc2 < 2; dc2++){ var cc2 = col - dc2; if(!fn[r][cc2]) m[r][cc2] = bi < allBits.length ? allBits[bi++] : 0; }
+    }
+    up = !up;
+  }
+  function fmtBits(mask){ var data = (1 << 3) | mask, d = data << 10; for(var i2 = 14; i2 >= 10; i2--) if((d >> i2) & 1) d ^= 0x537 << (i2 - 10); return ((data << 10) | d) ^ 0x5412; }
+  function applyMask(grid, mask){
+    var g = [], r2, c2; for(r2 = 0; r2 < size; r2++) g.push(grid[r2].slice());
+    for(r2 = 0; r2 < size; r2++) for(c2 = 0; c2 < size; c2++) if(!fn[r2][c2]){
+      var inv = mask === 0 ? (r2 + c2) % 2 === 0 : mask === 1 ? r2 % 2 === 0 : mask === 2 ? c2 % 3 === 0 :
+        mask === 3 ? (r2 + c2) % 3 === 0 : mask === 4 ? (Math.floor(r2 / 2) + Math.floor(c2 / 3)) % 2 === 0 :
+        mask === 5 ? ((r2 * c2) % 2 + (r2 * c2) % 3) === 0 : mask === 6 ? (((r2 * c2) % 2 + (r2 * c2) % 3) % 2) === 0 :
+        (((r2 + c2) % 2 + (r2 * c2) % 3) % 2) === 0;
+      if(inv) g[r2][c2] ^= 1;
+    }
+    var fb = fmtBits(mask), hCols = [0,1,2,3,4,5,7,8], vRows = [7,5,4,3,2,1,0];
+    for(i = 0; i < 8; i++) g[8][hCols[i]] = (fb >> (14 - i)) & 1;
+    for(i = 0; i < 7; i++) g[vRows[i]][8] = (fb >> (6 - i)) & 1;
+    for(i = 0; i < 7; i++) g[size - 1 - i][8] = (fb >> (14 - i)) & 1;
+    for(i = 0; i < 8; i++) g[8][size - 8 + i] = (fb >> (7 - i)) & 1;
+    return g;
+  }
+  function penalty(g){
+    var pen = 0, r2, c2, run;
+    for(r2 = 0; r2 < size; r2++){ run = 1; for(c2 = 1; c2 < size; c2++){ if(g[r2][c2] === g[r2][c2 - 1]){ run++; if(run === 5) pen += 3; else if(run > 5) pen++; } else run = 1; } }
+    for(c2 = 0; c2 < size; c2++){ run = 1; for(r2 = 1; r2 < size; r2++){ if(g[r2][c2] === g[r2 - 1][c2]){ run++; if(run === 5) pen += 3; else if(run > 5) pen++; } else run = 1; } }
+    return pen;
+  }
+  var best = null, bestP = 1e9;
+  for(var mk = 0; mk < 8; mk++){ var g2 = applyMask(m, mk), sc = penalty(g2); if(sc < bestP){ bestP = sc; best = g2; } }
+  var qz = 3, dim = size + qz * 2, d = "";
+  for(r = 0; r < size; r++) for(col = 0; col < size; col++) if(best[r][col]) d += "M" + (col + qz) + " " + (r + qz) + "h1v1h-1z";
+  return "<svg viewBox='0 0 " + dim + " " + dim + "' width='148' height='148' role='img' aria-label='Scan to pay via UPI' style='display:block;border-radius:10px;border:1px solid var(--bd);background:#fff'><rect width='" + dim + "' height='" + dim + "' fill='#fff'/><path d='" + d + "' fill='#111'/></svg>";
+}
+function subStatus(){
+  var sub = (DB && DB.sub) || {}, p = (DB && DB.pilot) || {};
+  var now = Date.now(), chCount = (DB && DB.chapters ? DB.chapters.length : 0);
+  var subActive = sub.tier === "pro" && (!sub.validUntil || sub.validUntil > now);
+  var pilotActive = !!(p.registered && p.code && p.code !== "DEV-LOCAL" && !p.revoked && (!p.validUntil || p.validUntil > now));
+  var paidActive = subActive;
+  var until = subActive ? sub.validUntil : (pilotActive ? p.validUntil : 0);
+  var daysLeft = until ? Math.max(0, Math.ceil((until - now) / 86400000)) : null;
+  var previewFree = !!sub.devPreviewFree;
+  var pro = paidActive || pilotActive || (!PAYWALL_ACTIVE && !previewFree);
+  var devBypass = !paidActive && !pilotActive && !PAYWALL_ACTIVE && !previewFree;
+  return {
+    pro: pro,
+    paidActive: paidActive,
+    pilotActive: pilotActive,
+    devBypass: devBypass,
+    previewFree: previewFree,
+    daysLeft: daysLeft,
+    validUntil: until,
+    chaptersUsed: chCount,
+    chaptersLeft: Math.max(0, FREE_CHAPTER_LIMIT - chCount),
+    method: sub.method || (pilotActive ? "license" : ""),
+    paymentId: sub.paymentId || (pilotActive ? p.code : ""),
+    pendingPayment: (!paidActive && sub.pendingPayment) ? sub.pendingPayment : null
+  };
+}
+function requirePro(featureName, cb){
+  if(subStatus().pro){ if(cb) cb(); return true; }
+  upgradeModal(featureName);
+  return false;
+}
+function loadRazorpay(){
+  if(window.Razorpay) return Promise.resolve(window.Razorpay);
+  if(RZP_P) return RZP_P;
+  RZP_P = new Promise(function(res, rej){
+    var s = document.createElement("script");
+    s.src = "https://checkout.razorpay.com/v1/checkout.js";
+    s.onload = function(){ if(window.Razorpay) res(window.Razorpay); else rej(new Error("Razorpay failed to load")); };
+    s.onerror = function(){ RZP_P = null; rej(new Error("Could not load Razorpay checkout. Check your internet connection.")); };
+    document.head.appendChild(s);
+  });
+  return RZP_P;
+}
+function subLoadQueue(){
+  try { var raw = localStorage.getItem(PAY_Q_KEY); var a = raw ? JSON.parse(raw) : []; return Array.isArray(a) ? a : []; }
+  catch(e){ return []; }
+}
+function subSaveQueue(q){
+  try { localStorage.setItem(PAY_Q_KEY, JSON.stringify((q || []).slice(-30))); } catch(e){}
+}
+function subSendPayment(rec){
+  if(!PILOT.uploadUrl || !PILOT.uploadToken || !navigator.onLine) return Promise.resolve({ok: false, offline: true});
+  return fetch(PILOT.uploadUrl, {method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify({token: PILOT.uploadToken, batch: [rec]})})
+    .then(function(r){ if(!r.ok) throw new Error("http " + r.status); return r.text(); })
+    .then(function(txt){
+      var res = null; try { res = txt ? JSON.parse(txt) : null; } catch(e){}
+      if(res && res.ok === false) throw new Error(res.error || "rejected");
+      return {ok: true, res: res};
+    })
+    .catch(function(e){ return {ok: false, error: String(e && e.message || e)}; });
+}
+function subRetryQueue(){
+  var q = subLoadQueue(); if(!q.length || !PILOT.uploadUrl || !PILOT.uploadToken || !navigator.onLine) return Promise.resolve(false);
+  var sentAny = false;
+  return q.reduce(function(p, rec){
+    return p.then(function(){
+      return subSendPayment(rec).then(function(r){
+        if(r.ok){ rec.__sent = true; sentAny = true; }
+      });
+    });
+  }, Promise.resolve()).then(function(){
+    subSaveQueue(q.filter(function(x){ return !x.__sent; }));
+    return sentAny;
+  });
+}
+function recordPayment(rec){
+  var q = subLoadQueue();
+  q.push(rec);
+  subSaveQueue(q);
+  return subSendPayment(rec).then(function(r){
+    if(r.ok){
+      subSaveQueue(subLoadQueue().filter(function(x){ return x.paymentId !== rec.paymentId; }));
+    }
+    return r;
+  });
+}
+function subVerifyCode(code){
+  if(!PILOT.uploadUrl || !PILOT.uploadToken || !navigator.onLine) return Promise.resolve({ok: true, offline: true});
+  return fetch(PILOT.uploadUrl, {method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify({token: PILOT.uploadToken, action: "verifyCode", code: code})})
+    .then(function(r){ if(!r.ok) throw new Error("http " + r.status); return r.json(); })
+    .catch(function(){ return {ok: true, offline: true}; });
+}
+function subCheckStatus(silent){
+  if(!PILOT.uploadUrl || !PILOT.uploadToken || !navigator.onLine){
+    if(!silent) toast("Connect to the internet to check payment or access status.");
+    return Promise.resolve({ok: false, offline: true});
+  }
+  var p = (DB && DB.pilot) || {}, sub = (DB && DB.sub) || {}, pend = sub.pendingPayment || {};
+  var code = (p.code && p.code !== "DEV-LOCAL") ? p.code : "";
+  var pid = pend.paymentId || sub.paymentId || "";
+  var em = pend.email || (p.guardian && p.guardian.email) || "";
+  if(!code && !pid && !em) return Promise.resolve({ok: true, none: true});
+  return fetch(PILOT.uploadUrl, {method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify({token: PILOT.uploadToken, action: "status", code: code, paymentId: pid, email: em})})
+    .then(function(r){ if(!r.ok) throw new Error("http " + r.status); return r.json(); })
+    .then(function(res){
+      if(!res || !res.ok) return res || {ok: false};
+      if(res.revoked && DB.pilot){
+        DB.pilot.revoked = true; save(); refreshPilotBar();
+        if(PILOT_GATE) showPilotLock();
+        return res;
+      }
+      if(res.paymentStatus === "rejected" && DB.sub && DB.sub.pendingPayment){
+        DB.sub.pendingPayment = null; save();
+        if(curView === "tools") RENDER.tools(); else if(curView === "home") RENDER.home();
+        if(!silent) toast("Payment reference could not be verified — please check the UTR and try again.");
+        return res;
+      }
+      if(res.paymentStatus === "paid" && res.validUntil && res.validUntil > Date.now()){
+        activateProPass({
+          method: res.method || "upi",
+          paymentId: res.paymentId || pid || res.code,
+          code: res.code || code,
+          validUntil: res.validUntil,
+          amountInr: res.amountInr || SUB_PLAN.priceInr,
+          status: "paid",
+          skipUpload: true
+        });
+        toast("Yearly Pro confirmed and unlocked!");
+      } else if(!silent){
+        toast(res.paymentStatus ? ("Payment status: " + res.paymentStatus) : "Still awaiting organiser confirmation.");
+      }
+      return res;
+    }).catch(function(e){
+      if(!silent) toast("Could not reach server right now.");
+      return {ok: false, error: String(e && e.message || e)};
+    });
+}
+function activateProPass(opts){
+  opts = opts || {};
+  var now = Date.now();
+  var base = (DB.sub && DB.sub.validUntil && DB.sub.validUntil > now) ? DB.sub.validUntil : now;
+  var until = opts.validUntil || (base + SUB_PLAN.days * 86400000);
+  DB.sub = DB.sub || blankDB().sub;
+  DB.sub.tier = "pro";
+  DB.sub.plan = "yearly";
+  DB.sub.paidAt = now;
+  DB.sub.validUntil = until;
+  DB.sub.amountInr = opts.amountInr != null ? opts.amountInr : SUB_PLAN.priceInr;
+  DB.sub.paymentId = opts.paymentId || ("PASS-" + now.toString(36).toUpperCase());
+  DB.sub.orderId = opts.orderId || "";
+  DB.sub.method = opts.method || "license";
+  DB.sub.devPreviewFree = false;
+  DB.sub.pendingPayment = null;
+  DB.pilot = DB.pilot || blankDB().pilot;
+  DB.pilot.registered = true;
+  if(!DB.pilot.validUntil || until > DB.pilot.validUntil) DB.pilot.validUntil = until;
+  if(opts.code) DB.pilot.code = opts.code;
+  LOCKED = false;
+  logEv("sub", "Activated " + SUB_PLAN.name + " (" + DB.sub.method + ")");
+  save();
+  refreshPilotBar();
+  if(!opts.skipUpload){
+    var p = DB.profile || {}, g = (DB.pilot && DB.pilot.guardian) || {};
+    recordPayment({
+      kind: "payment",
+      studentId: AUTH.session || "",
+      paymentId: DB.sub.paymentId,
+      orderId: DB.sub.orderId,
+      at: now,
+      name: p.name || "Student",
+      email: opts.email || g.email || "",
+      cls: p.cls || "",
+      school: p.school || "",
+      method: DB.sub.method,
+      amountInr: DB.sub.amountInr,
+      plan: SUB_PLAN.name,
+      days: SUB_PLAN.days,
+      code: DB.pilot.code || DB.sub.paymentId,
+      status: opts.status || "paid",
+      validUntil: until,
+      note: opts.note || ""
+    });
+  }
+  if(curView === "home") RENDER.home();
+  else if(curView === "tools") RENDER.tools();
+  else if(curView === "study") RENDER.study();
+}
+function downloadSubReceipt(){
+  if(!subStatus().paidActive){ toast("Receipt is available after activating a Yearly Pass."); return; }
+  var s = subStatus(), sub = DB.sub || {}, p = DB.profile || {};
+  var id = sub.paymentId || (DB.pilot && DB.pilot.code) || "GURUKUL-PASS";
+  var paidDt = sub.paidAt ? fmtD(sub.paidAt) : fmtD(Date.now());
+  var expDt = s.validUntil ? fmtD(s.validUntil) : "—";
+  var html = "<!doctype html><html><head><meta charset='utf-8'><title>Gurukul Receipt - " + esc(id) + "</title>" +
+    "<style>body{font:15px/1.55 system-ui,sans-serif;max-width:620px;margin:28px auto;padding:0 18px;color:#172033}" +
+    ".box{border:1px solid #d5dce9;border-radius:14px;padding:22px}.h{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid #d5dce9;padding-bottom:12px;margin-bottom:14px}" +
+    "table{width:100%;border-collapse:collapse}td{padding:7px 0;border-bottom:1px solid #eef2f8}td:last-child{text-align:right;font-weight:600}" +
+    ".tot td{font-size:1.1rem;border-top:2px solid #172033;border-bottom:none;padding-top:12px}</style></head><body>" +
+    "<div class='box'><div class='h'><div><h2 style='margin:0'>Gurukul</h2><small>Digital Learning Companion</small></div><div style='text-align:right'><b>Payment Receipt</b><br><small>" + esc(paidDt) + "</small></div></div>" +
+    "<table><tr><td>Student Name</td><td>" + esc(p.name || "Student") + "</td></tr>" +
+    "<tr><td>Class / Grade</td><td>" + esc(p.cls || "—") + "</td></tr>" +
+    (p.school ? "<tr><td>School</td><td>" + esc(p.school) + "</td></tr>" : "") +
+    "<tr><td>Plan</td><td>" + esc(SUB_PLAN.name) + " (365 days)</td></tr>" +
+    "<tr><td>Payment Method</td><td>" + esc(String(sub.method || "Yearly License").toUpperCase()) + "</td></tr>" +
+    "<tr><td>Reference / Code</td><td>" + esc(id) + "</td></tr>" +
+    "<tr><td>Valid Until</td><td>" + esc(expDt) + "</td></tr>" +
+    "<tr class='tot'><td>Total Paid</td><td>INR ₹" + esc(String(sub.amountInr || SUB_PLAN.priceInr)) + ".00</td></tr></table>" +
+    "<p style='color:#5b6478;font-size:.86rem;margin:16px 0 0'>All study material and progress stay stored offline on this device. Thank you for learning with Gurukul.</p></div></body></html>";
+  saveFile("Gurukul-Receipt-" + ((p.name || "Student").replace(/\W+/g, "_")) + "-" + pilotToday() + ".html", html);
+  toast("Receipt downloaded");
+}
+function subCardHtml(){
+  var s = subStatus(), h = "<div class='card'><strong>Subscription &amp; Yearly Pass</strong>";
+  if(s.paidActive){
+    h += "<p style='margin:6px 0'><span class='proBadge'>✓ Yearly Pro Active</span></p>" +
+      "<p class='status'>Plan: <b>" + esc(SUB_PLAN.name) + "</b>" +
+      (s.validUntil ? " · valid until <b>" + fmtD(s.validUntil) + "</b> (" + s.daysLeft + " days left)" : "") +
+      (s.paymentId ? "<br>Ref: <code>" + esc(s.paymentId) + "</code>" : "") + ".</p>" +
+      "<div class='row' style='margin:8px 0 0'><button data-act='subrec'>⬇ Parent receipt</button><button data-act='subup'>Extend 1 year</button></div>";
+  } else {
+    h += "<p style='margin:6px 0'><span class='proBadge free'>" + (s.devBypass ? "Development Pro Preview" : (s.pilotActive ? "Pilot Pass · " + s.daysLeft + "d left" : "Free Plan · " + s.chaptersUsed + "/" + FREE_CHAPTER_LIMIT + " chapters")) + "</span></p>" +
+      "<p class='status'>" + (s.devBypass
+        ? "Paywall is held in development mode (<code>PAYWALL_ACTIVE = false</code>). All Pro features are unlocked for local testing."
+        : "Upgrade to <b>" + esc(SUB_PLAN.name) + "</b> (₹" + SUB_PLAN.priceInr + "/yr) for unlimited chapters, 5-Min Cram, Exam Mode &amp; AI Smart Packs.") + "</p>";
+    if(s.pendingPayment){
+      h += "<p class='status' style='margin:6px 0;padding:8px 10px;border-radius:10px;border:1px solid var(--bd);background:rgba(82,101,218,.08)'><b>UTR submitted:</b> <code>" + esc(s.pendingPayment.paymentId) + "</code> — awaiting organiser confirmation. Pro unlocks automatically once verified.</p>";
+    }
+    h += "<div class='row' style='margin:8px 0 0'><button class='primary' data-act='subup'>Upgrade (₹" + SUB_PLAN.priceInr + "/yr)</button><button data-act='subcode'>Enter license key</button>" +
+      (s.pendingPayment ? "<button data-act='subchk'>Check payment status</button>" : "") +
+      (!PAYWALL_ACTIVE ? "<button data-act='subprev'>" + (s.previewFree ? "Exit Free preview" : "Preview Free limits") + "</button>" : "") + "</div>";
+  }
+  return h + "</div>";
+}
+function upgradeModal(reason, startTab){
+  var p = DB.profile || {}, tab = startTab || "rzp";
+  var refNote = "Gurukul-" + ((p.name || "Student").replace(/\W+/g, "").slice(0, 12)) + "-" + pilotToday();
+  var upiHref = SUB_PLAN.upiId ? ("upi://pay?pa=" + encodeURIComponent(SUB_PLAN.upiId) + "&pn=" + encodeURIComponent(SUB_PLAN.upiName) + "&am=" + SUB_PLAN.priceInr + "&cu=INR&tn=" + encodeURIComponent(refNote)) : "";
+  var m = popup("<div style='max-width:520px'>" +
+    "<span class='proBadge'>Gurukul Yearly Pass</span>" +
+    "<h3 style='margin:8px 0 4px'>" + (reason ? "Unlock: " + esc(reason) : "Go Unlimited for Your Whole Academic Year") + "</h3>" +
+    "<div class='subPrice'><b>₹" + SUB_PLAN.priceInr + "</b><s>₹" + SUB_PLAN.mrpInr + "</s><span class='status'>/ year · ~₹" + Math.max(1, Math.round(SUB_PLAN.priceInr / 12)) + "/mo · one-time payment</span></div>" +
+    "<ul class='subPerk'>" +
+    "<li><b>Unlimited chapters</b> across all subjects, classes &amp; semesters</li>" +
+    "<li><b>⚡ 5-Min Cram</b> 1-page pre-exam sheets + mistake trap review</li>" +
+    "<li><b>Timed Exam Mode</b> + board-paper pattern matching</li>" +
+    "<li><b>AI Smart Packs</b> + bulk Syllabus-to-Plan planner</li></ul>" +
+    "<div class='subTabs'><button data-stab='rzp'>UPI / Card (Razorpay)</button><button data-stab='upi'>Direct UPI / UTR</button><button data-stab='code'>License Key</button></div>" +
+    "<div id='subTabBody'></div><div id='subMsg' class='status' style='min-height:1.2em;margin-top:6px'></div>" +
+    "<div class='row' style='margin-top:10px;justify-content:flex-end'><button data-close>Maybe later</button></div></div>");
+
+  function setMsgSub(txt, isErr){ var el = m.el.querySelector("#subMsg"); if(el) el.innerHTML = txt ? ("<span class='" + (isErr ? "err" : "") + "'>" + esc(txt) + "</span>") : ""; }
+  function drawTab(){
+    m.el.querySelectorAll("[data-stab]").forEach(function(b){ b.classList.toggle("primary", b.getAttribute("data-stab") === tab); });
+    var box = m.el.querySelector("#subTabBody"); setMsgSub("");
+    if(tab === "rzp"){
+      var hasKey = !!SUB_PLAN.razorpayKey;
+      box.innerHTML = "<div class='card' style='margin:6px 0'>" +
+        (hasKey
+          ? "<p class='status' style='margin:0 0 10px'>Instant activation via Razorpay — accepts Google Pay, PhonePe, Paytm, UPI, Debit/Credit Card &amp; Netbanking.</p><button class='primary' id='rzpPayBtn' style='width:100%'>Pay ₹" + SUB_PLAN.priceInr + " securely now</button>"
+          : (!PAYWALL_ACTIVE
+              ? "<p class='status' style='margin:0 0 8px'><b>Online card checkout not configured</b> (development mode).</p>" +
+                "<p class='status' style='margin:0 0 10px'>Simulate a local test payment to preview the Yearly Pass and parent receipt:</p>" +
+                "<button class='primary' id='rzpTestBtn' style='width:100%'>Simulate ₹" + SUB_PLAN.priceInr + " Test Payment &amp; Unlock</button>"
+              : "<p class='status' style='margin:0'>Card/UPI gateway checkout is currently offline. Please use <b>Direct UPI / UTR</b> or enter a <b>License Key</b> from your school/organiser.</p>")) +
+        "</div>";
+      if(m.el.querySelector("#rzpPayBtn")) m.el.querySelector("#rzpPayBtn").onclick = function(){ startRazorpayCheckout(m, setMsgSub); };
+      if(!PAYWALL_ACTIVE && m.el.querySelector("#rzpTestBtn")) m.el.querySelector("#rzpTestBtn").onclick = function(){
+        var pid = "pay_test_" + Date.now().toString(36).toUpperCase();
+        activateProPass({method: "razorpay-test", paymentId: pid, amountInr: SUB_PLAN.priceInr, status: "paid", note: "Local test checkout"});
+        m.close(); toast("Yearly Pro activated (Test Mode)!");
+      };
+    } else if(tab === "upi"){
+      var qrHtml = upiHref ? qrSvg(upiHref) : "";
+      box.innerHTML = "<div class='card' style='margin:6px 0'>" +
+        (SUB_PLAN.upiId
+          ? "<div style='display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:10px'>" +
+            (qrHtml ? "<div style='flex:0 0 auto'>" + qrHtml + "</div>" : "") +
+            "<div style='flex:1;min-width:190px'><p class='status' style='margin:0 0 8px'>Scan QR or send <b>₹" + SUB_PLAN.priceInr + "</b> via GPay / PhonePe / Paytm to <code>" + esc(SUB_PLAN.upiId) + "</code></p>" +
+            "<div class='row' style='margin:0'><a href='" + esc(upiHref) + "' style='text-decoration:none'><button type='button' class='primary'>Open UPI app (₹" + SUB_PLAN.priceInr + ")</button></a><button type='button' id='upiCopyId'>Copy UPI ID</button></div></div></div>"
+          : "<p class='status' style='margin:0 0 8px'>Enter the 12-digit UTR / UPI Transaction ID after paying <b>₹" + SUB_PLAN.priceInr + "</b> to your organiser's UPI ID. Your Yearly Pass unlocks as soon as the organiser confirms the payment.</p>") +
+        "<label style='margin-top:4px'>12-digit UTR / Transaction ID</label><input id='upiUtr' placeholder='e.g. 431612345678'>" +
+        "<label style='margin-top:6px'>Parent email (for receipt &amp; license key)</label><input id='upiMail' type='email' placeholder='parent@example.com' value='" + esc((DB.pilot && DB.pilot.guardian && DB.pilot.guardian.email) || "") + "'>" +
+        "<div class='row' style='margin-top:10px'><button class='primary' id='upiSubBtn'>Submit UTR for verification</button></div></div>";
+      if(m.el.querySelector("#upiCopyId")) m.el.querySelector("#upiCopyId").onclick = function(){ if(navigator.clipboard) navigator.clipboard.writeText(SUB_PLAN.upiId); toast("UPI ID copied"); };
+      m.el.querySelector("#upiSubBtn").onclick = function(){
+        var utr = m.el.querySelector("#upiUtr").value.trim(), em = m.el.querySelector("#upiMail").value.trim();
+        if(utr.length < 6){ setMsgSub("Please enter a valid UTR / transaction reference.", true); return; }
+        var pid = "UTR-" + utr, pr = DB.profile || {}, g = (DB.pilot && DB.pilot.guardian) || {};
+        DB.sub = DB.sub || blankDB().sub;
+        DB.sub.pendingPayment = {paymentId: pid, amountInr: SUB_PLAN.priceInr, at: Date.now(), email: em};
+        save();
+        recordPayment({
+          kind: "payment",
+          studentId: AUTH.session || "",
+          paymentId: pid,
+          orderId: "",
+          at: Date.now(),
+          name: pr.name || "Student",
+          email: em || g.email || "",
+          cls: pr.cls || "",
+          school: pr.school || "",
+          method: "upi",
+          amountInr: SUB_PLAN.priceInr,
+          plan: SUB_PLAN.name,
+          days: SUB_PLAN.days,
+          code: (DB.pilot && DB.pilot.code) || pid,
+          status: "pending-review",
+          validUntil: 0,
+          note: "UPI UTR submitted by student"
+        });
+        if(curView === "tools") RENDER.tools(); else if(curView === "home") RENDER.home();
+        m.close();
+        toast("UTR submitted (" + pid + "). Pro unlocks once organiser verifies your payment.");
+      };
+    } else {
+      box.innerHTML = "<div class='card' style='margin:6px 0'><p class='status' style='margin:0 0 8px'>Already paid or received an annual key from Gurukul / your school?</p>" +
+        "<input id='subKeyIn' autocapitalize='characters' spellcheck='false' placeholder='GURU-271231-7F2B'>" +
+        "<div class='row' style='margin-top:10px'><button class='primary' id='subKeyGo'>Activate license key</button></div></div>";
+      m.el.querySelector("#subKeyGo").onclick = function(){
+        var btn = m.el.querySelector("#subKeyGo");
+        var c = parseInvite(m.el.querySelector("#subKeyIn").value);
+        if(!c){ setMsgSub("That license code does not look right.", true); return; }
+        if(c.until < Date.now()){ setMsgSub("That license code has expired.", true); return; }
+        btn.disabled = true; btn.textContent = "Checking…";
+        subVerifyCode(c.code).then(function(res){
+          btn.disabled = false; btn.textContent = "Activate license key";
+          if(res && res.ok === false){ setMsgSub(res.error || "This license key is invalid or revoked.", true); return; }
+          var validUntil = (res && res.validUntil) ? res.validUntil : c.until;
+          activateProPass({method: "license", code: c.code, paymentId: c.code, validUntil: validUntil, amountInr: SUB_PLAN.priceInr, status: "paid", note: "Activated via license key"});
+          m.close(); toast("Gurukul Yearly Pro activated!");
+        });
+      };
+    }
+  }
+  m.el.querySelectorAll("[data-stab]").forEach(function(b){ b.onclick = function(){ tab = b.getAttribute("data-stab"); drawTab(); }; });
+  drawTab();
+}
+function startRazorpayCheckout(m, setMsgSub){
+  if(!navigator.onLine){ setMsgSub("Go online to open Razorpay checkout, or activate an offline license key.", true); return; }
+  var btn = m.el.querySelector("#rzpPayBtn"); if(btn){ btn.disabled = true; btn.textContent = "Opening Razorpay…"; }
+  loadRazorpay().then(function(Rzp){
+    var p = DB.profile || {}, g = (DB.pilot && DB.pilot.guardian) || {};
+    var opts = {
+      key: SUB_PLAN.razorpayKey,
+      amount: SUB_PLAN.priceInr * 100,
+      currency: "INR",
+      name: "Gurukul",
+      description: SUB_PLAN.name + " (365 Days)",
+      prefill: { name: p.name || "", email: g.email || "", contact: g.phone || "" },
+      notes: { student: p.name || "", cls: p.cls || "", school: p.school || "" },
+      theme: { color: "#5265da" },
+      handler: function(resp){
+        activateProPass({
+          method: "razorpay",
+          paymentId: (resp && resp.razorpay_payment_id) || ("RZP-" + Date.now()),
+          orderId: (resp && resp.razorpay_order_id) || "",
+          amountInr: SUB_PLAN.priceInr,
+          status: "paid",
+          note: "Razorpay checkout"
+        });
+        if(m && m.el && m.el.parentNode) m.close();
+        toast("Payment successful — Gurukul Yearly Pro activated!");
+      },
+      modal: { ondismiss: function(){ if(btn){ btn.disabled = false; btn.textContent = "Pay ₹" + SUB_PLAN.priceInr + " securely now"; } } }
+    };
+    var rzp = new Rzp(opts);
+    rzp.on("payment.failed", function(r){
+      setMsgSub((r && r.error && r.error.description) || "Payment failed. Please try again.", true);
+      if(btn){ btn.disabled = false; btn.textContent = "Pay ₹" + SUB_PLAN.priceInr + " securely now"; }
+    });
+    rzp.open();
+  }).catch(function(e){
+    setMsgSub(e.message || "Could not open Razorpay.", true);
+    if(btn){ btn.disabled = false; btn.textContent = "Pay ₹" + SUB_PLAN.priceInr + " securely now"; }
+  });
+}
+
 /* ---------- notebook: keep the explanations that matter ---------- */
 function saveNote(text, label){
   text = String(text || "").trim();
@@ -7923,6 +9477,7 @@ function arrangePrompt(){
   return "You organise a student's study material.\n\nSYLLABUS:\n" + JSON.stringify(syllabus) + "\n\nUPLOADED CHAPTERS:\n" + JSON.stringify(chs) + "\n\nTASK: Match each uploaded chapter to one subject and one semester from the syllabus where possible, and a sensible book name. Return ONLY a JSON array [{\"id\": the chapter id exactly as given, \"subject\": \"...\", \"sem\": \"...\", \"book\": \"...\", \"chapter\": \"cleaned chapter name\"}]. Keep subject names consistent with the syllabus. If a chapter cannot be matched, keep its current subject and semester. Do not invent chapter ids.";
 }
 async function aiArrange(){
+  if(!subStatus().pro){ upgradeModal("AI Syllabus verification & auto-arrange"); return; }
   if(!navigator.onLine){ setMsg("Verifying and arranging needs the internet. Please go online and try again.", true); return; }
   if(!aiCfg()){ await connectModal(); if(!aiCfg()){ toast("Connect AI first, then verify"); return; } }
   var s = await getSample(); if(!s) return;
@@ -7947,6 +9502,7 @@ async function aiArrange(){
   finally { if(btn){ btn.disabled = false; btn.textContent = old; } }
 }
 async function prepareAllPacks(){
+  if(!subStatus().pro){ upgradeModal("Bulk Smart Pack builder"); return; }
   if(!navigator.onLine){ setMsg("You are offline. Preparing study packs needs the internet.", true); return; }
   var todo = DB.chapters.filter(function(c){ return !(c.pack && c.pack.concepts && c.pack.concepts.length); });
   if(!todo.length){ toast("Every chapter already has a saved study pack"); return; }
@@ -8066,14 +9622,16 @@ RENDER.progress = function(){
   var el = $("pgIn"), h = "<h1>Progress</h1><p class='sub'>Every practice helps your plant grow. Water it a little every day.</p>";
   if(!DB.chapters.length){ el.innerHTML = h + noData("Upload your book and start practising. Your plant will grow here."); bindNo(); return; }
   var xp = totalXp(), st = ovStage(xp), nx = TH[st + 1], pr = nx ? Math.round((xp - TH[st]) * 100 / (nx - TH[st])) : 100, wk = 0, cnt = 0, touched = 0;
+  var dg = dailyGoalInfo(), bdg = scholarBadges();
   DB.chapters.forEach(function(c){ var P = pracOf(c.id); if(P.length) touched++; P.forEach(function(x){ cnt++; if(x.d > Date.now() - 7 * 864e5) wk += Math.round(x.pct / 5); }); });
   h += "<div class='card hero'><div class='row' style='flex-wrap:nowrap;gap:16px;margin:0'>" + plantSvg(st, 92) + "<div style='flex:1;min-width:0'><div class='status'>Your growth level</div><div class='big'>" + STAGES[st] + "</div><div class='bar'><i style='width:" + pr + "%'></i></div><div class='status'>" + xp + " growth points" + (nx ? " · " + (nx - xp) + " more to become a " + STAGES[st + 1] : " · top level reached") + "</div><p style='margin:6px 0 0'>" + (wk ? "<span class='tag s'><span class='mi'>" + svgIc("up") + "</span> +" + wk + " points this week</span>" : "Practise today to start growing!") + "</p></div></div></div>";
-  h += "<div class='stat'><div><div class='big'>" + touched + "/" + DB.chapters.length + "</div>Chapters practised</div><div><div class='big'>" + cnt + "</div>Practices done</div><div><div class='big'>" + xp + "</div>Growth points</div><div><div class='big'>" + streak() + "</div>Day streak</div></div>";
+  h += "<div class='stat'><div><div class='big'>" + touched + "/" + DB.chapters.length + "</div>Chapters practised</div><div><div class='big'>" + cnt + "</div>Practices done</div><div><div class='big'>" + dg.xp + "/" + dg.target + "</div>Today's XP</div><div><div class='big'>" + streak() + (dg.freezes ? " 🛡" + dg.freezes : "") + "</div>Day streak</div></div>";
+  h += "<div class='card'><strong>Scholar badges</strong><div class='badgeGrid'>" + bdg.map(function(b){ return "<span class='badgePill" + (b.on ? "" : " off") + "' title='" + esc(b.desc) + "'>" + b.ic + " " + esc(b.name) + "</span>"; }).join("") + "</div></div>";
   function chCard(c){
-    var P = pracOf(c.id), sc = chScore(c.id), tr = trendOf(c.id), sg = chStage(c.id), d = (DB.progress[c.id] || {done: {}}).done, rv = reviewInfo(c.id);
+    var P = pracOf(c.id), sc = chScore(c.id), tr = trendOf(c.id), sg = chStage(c.id), d = (DB.progress[c.id] || {done: {}}).done, rv = reviewInfo(c.id), rd = readinessOf(c.id);
     var tg = tr === null ? "" : tr > 0 ? "<span class='tag s'><span class='mi'>" + svgIc("up") + "</span> +" + tr + "</span>" : tr < 0 ? "<span class='tag w'><span class='mi'>" + svgIc("down") + "</span> " + tr + "</span>" : "<span class='tag a'>steady</span>";
-    var chips = ["mcq","exam","qa","teach","flash"].map(function(k){ var L = P.filter(function(x){return x.kind === k}); if(!L.length) return ""; var a = Math.round(L.reduce(function(s, x){return s + x.pct}, 0) / L.length); return "<span class='chip on'>" + mEmoji(k) + " " + k + " ×" + L.length + " · avg " + a + "%</span>"; }).join("") + ["explain","notes","doubt"].map(function(k){ return d[k] ? "<span class='chip on'>" + mEmoji(k) + " " + k + " ×" + d[k] + "</span>" : ""; }).join("");
-    return "<div class='card' style='margin:0'><div class='row' style='flex-wrap:nowrap;gap:12px;margin-bottom:6px'>" + plantSvg(sg, 64) + "<div style='flex:1;min-width:0'><strong>" + esc(c.name) + "</strong><div class='status'>" + STAGES[sg] + " · " + P.length + " practices</div></div><div style='text-align:right'><div class='big' style='font-size:1.5rem'>" + (sc === null ? "–" : sc + "%") + "</div>" + tg + "</div></div>" + (rv ? "<div class='status' style='margin:4px 0 0'>" + (rv.due ? "<span class='tag w'>Revision due</span>" : "Next review in " + rv.wait + " day" + (rv.wait === 1 ? "" : "s")) + "</div>" : "") + spark(P) + "<div>" + (chips || "<span class='status'>No practice yet</span>") + "</div><div class='row' style='margin:8px 0 0'><button data-open='" + c.id + "'>Continue this chapter</button></div></div>";
+    var chips = ["mcq","exam","qa","teach","flash","cram"].map(function(k){ var L = P.filter(function(x){return x.kind === k}); if(!L.length){ return k === "cram" && d[k] ? "<span class='chip on'>" + mEmoji(k) + " cram ×" + d[k] + "</span>" : ""; } var a = Math.round(L.reduce(function(s, x){return s + x.pct}, 0) / L.length); return "<span class='chip on'>" + mEmoji(k) + " " + k + " ×" + L.length + " · avg " + a + "%</span>"; }).join("") + ["explain","notes","doubt"].map(function(k){ return d[k] ? "<span class='chip on'>" + mEmoji(k) + " " + k + " ×" + d[k] + "</span>" : ""; }).join("");
+    return "<div class='card' style='margin:0'><div class='row' style='flex-wrap:nowrap;gap:12px;margin-bottom:6px'>" + plantSvg(sg, 64) + "<div style='flex:1;min-width:0'><strong>" + esc(c.name) + "</strong><div class='status'>" + STAGES[sg] + " · " + P.length + " practices</div></div><div style='text-align:right'><div class='big' style='font-size:1.5rem'>" + (sc === null ? "–" : sc + "%") + "</div>" + tg + "</div></div><div class='readinessRow'><span class='status'>Exam readiness</span><div class='bar' style='flex:1;margin:0'><i style='width:" + rd.pct + "%'></i></div><strong>" + rd.pct + "%</strong></div>" + (rv ? "<div class='status' style='margin:4px 0 0'>" + (rv.due ? "<span class='tag w'>Revision due</span>" : "Next review in " + rv.wait + " day" + (rv.wait === 1 ? "" : "s")) + "</div>" : "") + spark(P) + "<div>" + (chips || "<span class='status'>No practice yet</span>") + "</div><div class='row' style='margin:8px 0 0'><button data-open='" + c.id + "'>Continue this chapter</button></div></div>";
   }
   h += "<h2>Chapter by chapter</h2>";
   uniq(DB.chapters.map(subjOf)).sort().forEach(function(sj){
@@ -8218,9 +9776,52 @@ window.addEventListener("resize", function(){
   setViewH();
   if(curView === "home" && (window.innerWidth < 620) !== homeNarrow) RENDER.home();
 });
-load(); setViewH(); if(aiCfg()) save(); if(DB.engine === "ai" && !aiCfg()){ DB.engine = "local"; save(); } refreshKeyBtn();
+load(); anaInit(); pilotLoadPending(); setViewH(); if(aiCfg()) save(); if(DB.engine === "ai" && !aiCfg()){ DB.engine = "local"; save(); } refreshKeyBtn();
+try { pilotRetryRequest(); subRetryQueue(); } catch(e){}
+try {
+  if(location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1"){
+    if(!document.querySelector("link[rel='manifest']")){
+      var ml = document.createElement("link"); ml.rel = "manifest"; ml.href = "manifest.webmanifest"; document.head.appendChild(ml);
+    }
+    if("serviceWorker" in navigator){ navigator.serviceWorker.register("sw.js").catch(function(){}); }
+  }
+} catch(e){}
 authMode = AUTH.users.length ? "login" : "create";
-if(DB.profile && AUTH.session){ show("home"); afterLoginFolders(); } else show("onb");
+if(DB.profile && AUTH.session){
+  if(BOOT_IDB_STUB && typeof sdbGet === "function"){
+    IDB_HYDRATING = true;
+    var bootSid = AUTH.session;
+    sdbGet(bootSid).then(function(idbD){
+      IDB_HYDRATING = false;
+      if(idbD && AUTH.session === bootSid){ DB = normalizeStudy(idbD); DB.ai = AUTH.ai || null; PREP = {}; }
+      if(!PILOT_GATE || (DB.pilot && DB.pilot.registered)){ LOCKED = false; reconcileFreeze(); show("home"); afterLoginFolders(); afterLoginPilot(); }
+      else { LOCKED = true; show("activate"); }
+    }, function(){
+      IDB_HYDRATING = false;
+      if(!PILOT_GATE || (DB.pilot && DB.pilot.registered)){ LOCKED = false; reconcileFreeze(); show("home"); afterLoginFolders(); afterLoginPilot(); }
+      else { LOCKED = true; show("activate"); }
+    });
+  } else {
+    if(!PILOT_GATE || (DB.pilot && DB.pilot.registered)){ LOCKED = false; reconcileFreeze(); show("home"); afterLoginFolders(); afterLoginPilot(); }
+    else { LOCKED = true; show("activate"); }
+    if(typeof sdbGet === "function"){
+      var bootSid2 = AUTH.session;
+      sdbGet(bootSid2).then(function(idbD){
+        if(!idbD || AUTH.session !== bootSid2) return;
+        if((idbD.updatedAt || 0) > (DB.updatedAt || 0)){
+          DB = normalizeStudy(idbD); DB.ai = AUTH.ai || null; PREP = {};
+          if(!PILOT_GATE || (DB.pilot && DB.pilot.registered)){
+            LOCKED = false; reconcileFreeze();
+            if(AUTH_VIEWS.indexOf(curView) >= 0) show("home");
+            else if(RENDER[curView]) RENDER[curView]();
+            afterLoginFolders(); afterLoginPilot();
+          }
+        }
+      });
+    }
+  }
+} else if(AUTH.users.length) show("onb");
+else show("intro");
 </script>
 </body>
 </html>
