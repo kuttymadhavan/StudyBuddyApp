@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#eef2fa" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#101625" media="(prefers-color-scheme: dark)">
-<title>Gurukul</title>
+<title>ENGRAMOS</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%235265da'/%3E%3Cpath d='M16 20h12a5 5 0 0 1 4 2 5 5 0 0 1 4-2h12v24H36a4 4 0 0 0-4 2 4 4 0 0 0-4-2H16z' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linejoin='round'/%3E%3Ccircle cx='46' cy='17' r='3.5' fill='%23ffd36b'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="icon-192.png">
 <style>
@@ -16,8 +16,13 @@ html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
 body{margin:0;background-color:var(--bg);background-image:radial-gradient(900px 520px at 8% -10%,var(--glow1),transparent 62%),radial-gradient(760px 420px at 100% 0%,var(--glow2),transparent 58%);background-repeat:no-repeat;background-attachment:fixed;color:var(--ink);font:16px/1.62 Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari","Noto Sans Malayalam","Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
 ::selection{background:var(--accbg);color:var(--ink)}
 header{position:sticky;top:0;z-index:5;background:var(--bg);background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:8px 14px}
-.bar1{display:flex;align-items:center;gap:8px;max-width:960px;margin:0 auto}.brand{font-weight:700;font-size:1.1rem;letter-spacing:-.02em;flex:1}
+.bar1{display:flex;align-items:center;gap:10px;max-width:960px;margin:0 auto}.brand{font-weight:800;font-size:1.78rem;letter-spacing:-.02em;line-height:1.05}.brandTag{font-size:.9rem;font-weight:700;color:var(--mute);letter-spacing:.01em;white-space:nowrap;align-self:center;min-width:0;overflow:hidden;text-overflow:ellipsis}
 .homeQuote{margin:6px 0 0;font-size:.86rem;color:var(--mute);font-style:italic;background:var(--acc2bg);border-radius:10px;padding:6px 10px}
+.greetWord{display:inline-block}
+.greetPop{animation:greetPop .5s ease}
+@keyframes greetPop{0%{opacity:0;transform:translateY(-6px) scale(.96)}60%{opacity:1;transform:translateY(0) scale(1.04)}100%{opacity:1;transform:none}}
+.greetNote{margin:2px 0 0;font-size:.86rem;color:var(--mute)}
+.tagline{margin:6px 0 0;font-size:.9rem;font-weight:600;color:var(--acc2ink);letter-spacing:.01em}
 main{max-width:960px;margin:0 auto;padding:16px 14px 70px}h1{font-size:1.5rem;margin:6px 0;letter-spacing:-.02em}h2{font-size:1.2rem;margin:14px 0 6px;letter-spacing:-.01em}h3{font-size:1.05rem;margin:12px 0 4px;letter-spacing:-.01em}
 .sub,.status{color:var(--mute);font-size:.93rem}.err{color:var(--bad)}.hidden{display:none!important}
 .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
@@ -43,7 +48,7 @@ input[type=text]{flex:1;min-width:150px}textarea{width:100%;min-height:90px}labe
 .flip{min-height:160px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:1.15rem;padding:20px;cursor:pointer;border:2px solid var(--acc);border-radius:18px;background:var(--accbg);animation:pop .4s}
 .node{cursor:pointer;transform-box:fill-box;transform-origin:center;transition:transform .2s}.node:hover{transform:scale(1.1)}svg text{font-family:inherit}
 .fact{border-left:5px solid var(--acc2);padding:10px 12px;margin:10px 0;background:var(--acc2bg);border-radius:10px}
-#v-onb{min-height:68vh;flex-direction:column;justify-content:center}#v-onb:not(.hidden){display:flex}.center{width:100%;max-width:520px;margin:0 auto}.center .hero{text-align:center}.center .form button{width:100%}@media (max-width:600px){h1{font-size:1.3rem}button{padding:9px 11px}.stat>div{min-width:90px}.grid{grid-template-columns:1fr 1fr;gap:8px}.mth{padding:10px}.brand{font-size:1rem}}
+#v-onb{min-height:68vh;flex-direction:column;justify-content:center}#v-onb:not(.hidden){display:flex}.center{width:100%;max-width:520px;margin:0 auto}.center .hero{text-align:center}.center .form button{width:100%}@media (max-width:600px){h1{font-size:1.3rem}button{padding:9px 11px}.stat>div{min-width:90px}.grid{grid-template-columns:1fr 1fr;gap:8px}.mth{padding:10px}.brand{font-size:1.32rem}}
 .pill{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:8px 16px;border-color:var(--acc2);border-width:2px}.pill svg{width:18px;height:18px;flex:none}.avatar{width:42px;height:42px;padding:0;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;overflow:hidden;border:2px solid var(--acc)}.avatar svg{width:100%;height:100%;display:block}
 .gh{margin:18px 0 8px;font-size:.82rem;color:var(--mute);text-transform:uppercase;letter-spacing:.08em}
 .grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.mth.tile{flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;gap:6px;padding:16px 10px;min-height:132px}.tile .ic{width:50px;height:50px;padding:11px;border-radius:50%;background:var(--accbg)}.tile b{font-size:1rem}.mth.tile.on .ic{background:var(--acc);color:var(--onacc)}
@@ -78,6 +83,13 @@ input[type=range]{width:100%;accent-color:var(--acc);margin:8px 0 2px}
 .speechWrap{position:fixed;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:6;display:flex;gap:6px;align-items:center}
 .speechWrap button{box-shadow:var(--shadow-sm)}
 .speechWrap .cfg{padding:9px 11px;font-size:1.02rem;line-height:1}
+#navFab{position:fixed;left:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:6;display:flex;gap:8px;align-items:center}
+#navFab.hidden{display:none}
+.navFabBtn{height:46px;padding:0 16px;flex:none;border-radius:999px;border:2px solid var(--acc2);background:var(--card);color:var(--ink);display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;box-shadow:var(--shadow-sm)}
+.navFabBtn svg{width:20px;height:20px;flex:none}
+.navFabBtn .lbl{font-size:.95rem}
+#navFab #bBack{border-color:var(--acc);color:var(--acc)}
+#navFab #bFwd{border-color:var(--acc2);color:var(--acc2)}
 .linkish{background:none;border:0;box-shadow:none;color:var(--acc);padding:0;font:inherit;text-decoration:underline;cursor:pointer}
 .authWho{display:flex;align-items:center;gap:10px;margin:4px 0 12px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--accbg)}
 .authWho b{display:block;color:var(--ink)}
@@ -143,20 +155,8 @@ input[type=range]{width:100%;accent-color:var(--acc);margin:8px 0 2px}
 .svVerdict{margin-top:10px;padding:9px 12px;border-radius:12px;background:var(--okbg);border:1px solid var(--ok);color:var(--ok);font-weight:700;line-height:1.4}
 .svFoot .saveNb{margin-top:10px}
 @media (max-width:760px){.svParts{max-height:148px;overflow:auto}.svPart{flex:1 1 45%}}
-/* NCERT library */
-.ncChapters{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:6px;max-height:250px;overflow:auto;padding:4px 2px;margin:6px 0 10px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.ncChapters a.ncCh{display:block;border:1px solid var(--line);border-radius:11px;padding:7px 9px;text-decoration:none;color:var(--ink);background:var(--card);font-size:.84rem;transition:border-color .15s,background .15s}
-.ncChapters a.ncCh:hover{border-color:var(--acc);background:var(--accbg)}
-.ncChapters a.ncCh.on{border-color:var(--acc);background:var(--accbg);box-shadow:0 0 0 2px var(--accbg)}
-.ncChapters a.ncCh b{display:block;font-size:.8rem}
-.ncChapters a.ncCh small{display:block;color:var(--mute);font-size:.72rem;line-height:1.3;margin-top:2px}
-.ncLink{display:inline-block;border:1px solid var(--line);border-radius:11px;padding:7px 11px;text-decoration:none;color:var(--ink);font-size:.88rem;background:var(--card)}
-.ncLink:hover{border-color:var(--acc);background:var(--accbg)}
-@media (max-width:760px){.mwGrid{grid-template-columns:1fr}.mwSide{order:2}.mwEq{white-space:normal;overflow-wrap:anywhere}.mwTools button{flex:1 1 auto}.ncChapters{max-height:200px}}
-/* frozen banner: back / home / current screen name */
-#scTitle{font-weight:600;font-size:.92rem;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:24vw}
-#bBack{border-color:var(--acc);border-width:2px}
-#bFwd{border-color:var(--line)}
+/* constant brand banner: wordmark + tagline + current screen name (back/forward moved to the floating #navFab) */
+#scTitle{font-weight:700;font-size:1.02rem;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:24vw}
 .barL{flex:1;min-width:0;display:flex;align-items:center;gap:8px;overflow:hidden}
 .brand{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .chip{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 10px;white-space:nowrap;max-width:24vw;overflow:hidden;text-overflow:ellipsis}
@@ -168,8 +168,9 @@ input[type=range]{width:100%;accent-color:var(--acc);margin:8px 0 2px}
 .chips button{font-size:.8rem;padding:5px 10px;border-radius:999px}
 #oDanger{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
 body.method-open #v-study>h1{display:none}
-body.fit main{padding-bottom:12px}
-@media (max-width:620px){#scTitle{display:none!important}.brand{display:none}#bBack .lbl,#bFwd .lbl,#bHome .lbl{display:none}#whoChip{max-width:30vw}.bar1{gap:6px}
+body.fit main{padding-bottom:78px}
+@media (max-width:560px){.brandTag{display:none}}
+@media (max-width:620px){#scTitle{display:none!important}#bHome .lbl{display:none}#whoChip{max-width:30vw}.bar1{gap:6px}
  #bKey{display:none!important}
  .cta{padding:10px 12px}
  .cta .status{display:none}
@@ -247,6 +248,9 @@ body.fit main{padding-bottom:12px}
 }
 #v-study>#stBody{display:flex;flex-direction:column}
 #v-study>#stBody>#mp{flex:1;min-height:0;overflow:auto}
+body:not(.method-open) #v-study>#stBody>#mp{flex:0 0 auto;padding:8px 12px}
+#v-study>#stBody>#mp>p.status:only-child{margin:0;padding:2px 0}
+#v-study>#stBody>#vidAsk:empty{display:none}
 #v-study>#chCard,#v-study>#upl,#v-study>#split{flex:none}
 @media (min-width:621px){#v-study .methodsGrid{grid-template-columns:repeat(auto-fit,minmax(108px,1fr));gap:8px}}
 #v-study .mth.tile{min-height:0;padding:8px 6px;gap:4px}
@@ -279,7 +283,7 @@ body.fit main{padding-bottom:12px}
 .planTipsWrap[open] summary{margin-bottom:6px}
 .planTips{display:grid;gap:6px}
 .planTip{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:.92rem}
-/* ---- my error book + more tools ---- */
+/* ---- My Error Ledger + more tools ---- */
 #v-mist .card,#v-tools .card{padding:14px;margin-bottom:10px}
 #v-mist h1,#v-tools h1{font-size:1.25rem;margin:2px 0 8px}
 #v-mist h2,#v-tools h2{font-size:1.05rem;margin:10px 0 4px}
@@ -295,7 +299,7 @@ body.fit main{padding-bottom:12px}
 .photoPrev img{width:100%;height:100%;object-fit:cover}
 .filePicker{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;opacity:0}
 .photoPrev[role="button"]{cursor:pointer}
-/* ---- Let's Play ---- */
+/* ---- Play ---- */
 #v-play .card,#v-tips .card{padding:14px;margin-bottom:10px}
 #v-play h1,#v-tips h1{font-size:1.25rem;margin:2px 0 8px}
 .playGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
@@ -314,7 +318,7 @@ body.fit main{padding-bottom:12px}
 .playOpt:not(:disabled):hover{border-color:var(--acc2)}
 .playOpt.right{background:var(--okbg);border-color:var(--ok)}
 .playOpt.wrong{background:var(--badbg);border-color:var(--bad)}
-/* ---- Tricks & Tips ---- */
+/* ---- Hacks & Tips ---- */
 .tipsList{display:grid;gap:10px;margin-top:8px}
 .tipItem{padding-left:12px;border-left:3px solid var(--acc2)}
 .tipItem b{display:block;font-size:.97rem}
@@ -361,7 +365,7 @@ body.fit main{padding-bottom:12px}
 .planItem.due{background:var(--acc2bg);border-radius:10px;padding-left:8px}
 .planItem.done .nm{opacity:.6;text-decoration:line-through}
 @media (max-width:620px){#v-plan .cascade select{flex:1 1 100%}.planItem{flex-wrap:wrap}}
-/* ---- Gurukul pilot: access banner + guardian consent ---- */
+/* ---- ENGRAMOS pilot: access banner + guardian consent ---- */
 .pilotBar{position:sticky;top:0;z-index:40;padding:7px 14px;font-size:.85rem;font-weight:600;text-align:center;background:var(--accbg);color:var(--acc)}
 .pilotBar.warn{background:var(--acc2bg);color:var(--acc2ink)}
 .pilotBar.bad{background:var(--badbg);color:var(--bad)}
@@ -382,7 +386,7 @@ body.fit main{padding-bottom:12px}
 .requestGrid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
 .requestGrid .full{grid-column:1/-1}
 @media (max-width:620px){.requestGrid{grid-template-columns:1fr}.requestGrid .full{grid-column:auto}}
-/* ---- Phase 1: Today's Focus, Daily XP, Badges, Readiness, 5-Min Cram ---- */
+/* ---- Phase 1: Today's One More, Daily XP, Badges, Readiness, 5-Min Cram ---- */
 .focusCard{background:linear-gradient(135deg,var(--accbg),var(--card) 68%);border-color:color-mix(in srgb,var(--acc) 35%,var(--line))}
 .focusTop{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:8px}
 .xpRow{display:flex;align-items:center;gap:10px;margin:6px 0 10px}
@@ -413,7 +417,8 @@ body.fit main{padding-bottom:12px}
 </style>
 </head>
 <body>
-<header id="top"><div class="bar1"><button id="bBack" class="pill hidden" title="Go back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg><span class="lbl">Back</span></button><button id="bFwd" class="pill hidden" title="Go forward"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg><span class="lbl">Forward</span></button><div class="barL"><span class="brand">Gurukul</span><span id="scTitle" class="hidden"></span></div><span id="whoChip" class="chip hidden"></span><span id="aiStat" class="chip hidden"></span><button id="bHome" class="pill" title="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 10l9-6 9 6z M5 10v8 M9 10v8 M15 10v8 M19 10v8 M3 20h18"/></svg><span class="lbl">Home</span></button><button id="bProf" class="avatar" title="My details" aria-label="My details"><svg viewBox="0 0 40 40"><rect width="40" height="40" fill="var(--accbg)"/><path d="M5 40c0-10 6-14 15-14s15 4 15 14z" fill="var(--acc)"/><circle cx="20" cy="21" r="7" fill="#f2c9a0"/><path d="M7 14l13-6 13 6-13 6z" fill="#2b3550"/><path d="M13 17v4c0 2 14 2 14 0v-4" fill="#2b3550"/><path d="M32 15v7" stroke="#24a99a" stroke-width="1.6"/></svg></button><button id="bKey" class="hidden">✦ Connect AI</button></div></header>
+<header id="top"><div class="bar1"><div class="barL"><span class="brand">ENGRAMOS</span><span class="brandTag">Memory, engineered.</span><span id="scTitle" class="hidden"></span></div><span id="whoChip" class="chip hidden"></span><span id="aiStat" class="chip hidden"></span><button id="bHome" class="pill" title="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 10l9-6 9 6z M5 10v8 M9 10v8 M15 10v8 M19 10v8 M3 20h18"/></svg><span class="lbl">Home</span></button><button id="bProf" class="avatar" title="My details" aria-label="My details"><svg viewBox="0 0 40 40"><rect width="40" height="40" fill="var(--accbg)"/><path d="M5 40c0-10 6-14 15-14s15 4 15 14z" fill="var(--acc)"/><circle cx="20" cy="21" r="7" fill="#f2c9a0"/><path d="M7 14l13-6 13 6-13 6z" fill="#2b3550"/><path d="M13 17v4c0 2 14 2 14 0v-4" fill="#2b3550"/><path d="M32 15v7" stroke="#24a99a" stroke-width="1.6"/></svg></button><button id="bKey" class="hidden">✦ Connect AI</button></div></header>
+<div id="navFab" class="hidden"><button id="bBack" class="navFabBtn" title="Go back to the previous screen" aria-label="Go back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg><span class="lbl">Back</span></button><button id="bFwd" class="navFabBtn" title="Go forward" aria-label="Go forward"><span class="lbl">Forward</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button></div>
 <div id="pilotBar" class="pilotBar hidden" role="status"></div>
 <main id="main">
 <section id="v-intro" class="hidden"><div class="center authWide">
@@ -421,23 +426,23 @@ body.fit main{padding-bottom:12px}
 <div class="card ownerOnly" id="ownerNote">
 <strong>Owner copy — students never receive this file.</strong>
 <p class="status" style="margin:4px 0 10px">This is the readable student app. To review access requests and issue invite codes, open the owner console. It never asks for a student code.</p>
-<button type="button" id="inOwner">Open Gurukul - Owner.html</button>
+<button type="button" id="inOwner">Open ENGRAMOS - Owner.html</button>
 </div>
 <!-- OWNER-COPY-END -->
 <div class="card hero introHero">
-<span class="introKicker">Welcome to Gurukul</span>
-<h1>Your own study companion, on your device</h1>
-<p>Gurukul turns your textbook into notes, questions, flashcards, practice tests and a step-by-step maths workbench. It keeps working when the internet does not, and your work stays private to you.</p>
+<span class="introKicker">Welcome to ENGRAMOS</span>
+<h1>Drop a book. Remember everything.</h1>
+<p>ENGRAMOS turns your textbook into notes, flashcards, recall drills, fire drills and a step-by-step maths coach. It keeps working when the internet doesn't, and your work stays private — on your device.</p>
 <div class="introActions"><button class="primary" id="inReq">Request access</button><button id="inCode">I have an invite code</button></div>
 <p class="status" id="inLoginWrap" style="margin:12px 0 0"></p>
 </div>
 <div class="introGrid">
-<div class="introCard"><b>📚 Your book, made yours</b><p>Upload a chapter and get notes, explanations, Q&amp;A, flashcards and a test written around it.</p></div>
+<div class="introCard"><b>📚 Your book, made yours</b><p>Add a book or chapter and get notes, explanations, recall drills, flashcards and a test built around it.</p></div>
 <div class="introCard"><b>🧮 Practice that explains</b><p>The maths workbench shows one step at a time, with hints, a second method and a question for you to try.</p></div>
-<div class="introCard"><b>🌱 Progress you can see</b><p>A study galaxy, a daily plan, an error book and reports help you see what is improving and what needs another look.</p></div>
+<div class="introCard"><b>🌱 Progress you can see</b><p>A study galaxy, a daily One More, an error ledger and debriefs show what's improving and what needs another pass.</p></div>
 <div class="introCard"><b>🔒 Private by design</b><p>Your books, notes and progress stay on this device. AI is optional. Nothing is sold or shown to advertisers.</p></div>
 </div>
-<div class="card" id="inHowJoin"><strong>How joining works</strong><p class="status" style="margin:6px 0 0">Ask for access with your details. Your organiser checks the request and emails you an invite code. Enter that code once to activate Gurukul, then create your local account and start studying.</p></div>
+<div class="card" id="inHowJoin"><strong>How joining works</strong><p class="status" style="margin:6px 0 0">Ask for access with your details. Your organiser checks the request and emails you an invite code. Enter that code once to activate ENGRAMOS, then create your local account and start studying.</p></div>
 </div></section>
 
 <section id="v-request" class="hidden"><div class="center authWide">
@@ -454,7 +459,7 @@ body.fit main{padding-bottom:12px}
 <div><label for="rqGEmail">Parent / guardian email</label><input type="email" id="rqGEmail" autocomplete="email" placeholder="name@example.com"></div>
 <div><label for="rqGPhone">Parent / guardian phone</label><input type="tel" id="rqGPhone" autocomplete="tel" placeholder="mobile number"></div>
 <div class="full"><label for="rqNote">Anything you want to tell the organiser? (optional)</label><input type="text" id="rqNote" placeholder="for example, the class or group you are joining"></div>
-<div class="full"><label class="consent"><input type="checkbox" id="rqConsent"><span>I am the parent or guardian and I agree that the organiser may collect the details above plus usage time, screens used and error reports, to improve Gurukul. Data is kept for 12 months and can be deleted on request. Contact neelareader@gmail.com.</span></label></div>
+<div class="full"><label class="consent"><input type="checkbox" id="rqConsent"><span>I am the parent or guardian and I agree that the organiser may collect the details above plus usage time, screens used and error reports, to improve ENGRAMOS. Data is kept for 12 months and can be deleted on request. Contact neelareader@gmail.com.</span></label></div>
 </div>
 <div class="row" style="margin-top:14px;justify-content:center"><button class="primary" id="rqGo">Send my request</button><button id="rqBack">Back</button></div>
 <div id="rqMsg" class="status"></div>
@@ -469,9 +474,9 @@ body.fit main{padding-bottom:12px}
 </div></section>
 
 <section id="v-activate" class="hidden"><div class="center">
-<div class="card hero"><span class="introKicker">Step 2 of 2</span><h1>Activate Gurukul</h1><p>Enter the invite code from your organiser. It decides how long your access lasts and works without the internet.</p></div>
+<div class="card hero"><span class="introKicker">Step 2 of 2</span><h1>Activate ENGRAMOS</h1><p>Enter the invite code from your organiser. It decides how long your access lasts and works without the internet.</p></div>
 <div class="card form">
-<label for="acCode">Invite code</label><input type="text" id="acCode" autocapitalize="characters" spellcheck="false" placeholder="GURU-260207-7F3K">
+<label for="acCode">Invite code</label><input type="text" id="acCode" autocapitalize="characters" spellcheck="false" placeholder="ENGM-260207-7F3K">
 <p class="status">Use the code exactly as it arrived. Spaces, dashes and capital letters do not matter.</p>
 <div class="row" style="margin-top:14px;justify-content:center"><button class="primary" id="acGo">Activate</button><button id="acBack">Back</button></div>
 <div id="acMsg" class="status"></div>
@@ -480,7 +485,7 @@ body.fit main{padding-bottom:12px}
 </div></section>
 
 <section id="v-onb" class="hidden"><div class="center">
-<div class="card hero"><h1 id="authTitle"> Namaste! I am Mitrādhyāyin</h1><p id="authSub">Your study companion. Create your account so your books, notes and progress stay yours.</p></div>
+<div class="card hero"><h1 id="authTitle">Welcome to ENGRAMOS</h1><p id="authSub">Make it yours. Your books, notes and progress stay private to you on this device.</p></div>
 <div class="card" id="loginCard">
 <h2 style="margin-top:0">Welcome back</h2>
 <p class="status">Enter your username and password. Only your own books, notes and progress will open.</p>
@@ -494,25 +499,22 @@ body.fit main{padding-bottom:12px}
 </div>
 <div class="card form" id="createCard">
 <div id="authWho" class="authWho hidden"><span class="authAvatar" id="authInitial">S</span><div><b id="authWhoName">Student</b><span id="authWhoMeta">Class</span></div></div>
-<h2 id="createTitle" style="margin-top:0">Create your account</h2>
-<p id="createSub" class="status">One account per student on this device. Your chapters, notes and progress stay separate.</p>
-<label for="oName">Your name</label><input type="text" id="oName" autocomplete="name">
-<label for="oUser">Username (used to log in)</label><input type="text" id="oUser" autocapitalize="none" spellcheck="false" autocomplete="username" placeholder="letters and numbers, no spaces">
-<label for="oCls">Class / Standard</label><select id="oCls"></select>
-<label for="oAge">Age</label><input type="number" id="oAge" min="3" max="100" inputmode="numeric" placeholder="your age in years">
+<h2 id="createTitle" style="margin-top:0">Make it yours</h2>
+<p id="createSub" class="status">Just your name, city, a username and a password. Your books and notes stay on this device.</p>
+<label for="oName">Your name</label><input type="text" id="oName" autocomplete="name" placeholder="what should I call you?">
+<label for="oUser">Username (how you log in)</label><input type="text" id="oUser" autocapitalize="none" spellcheck="false" autocomplete="username" placeholder="letters and numbers, no spaces">
+<label for="oFrom">Your city</label><input type="text" id="oFrom" placeholder="city / town" autocomplete="address-level2">
 <label for="oLang">Language you prefer</label><select id="oLang"></select>
-<label for="oSch">School / College</label><input type="text" id="oSch" autocomplete="organization">
-<label for="oFrom">Where are you from?</label><input type="text" id="oFrom" placeholder="Town / district / state" autocomplete="address-level2">
 <div id="pilotFields">
 <div id="pilotCodeWrap">
-<label for="oCode">Invite code</label><input type="text" id="oCode" autocapitalize="characters" spellcheck="false" placeholder="GURU-260207-7F3K">
+<label for="oCode">Invite code</label><input type="text" id="oCode" autocapitalize="characters" spellcheck="false" placeholder="ENGM-260207-7F3K">
 <p class="status" id="oCodeHint">Use the code your organiser gave you. It sets how long your access lasts.</p>
 </div>
 <label for="oBoard">Board / curriculum</label><select id="oBoard"></select>
 <label for="oGName">Parent / guardian name</label><input type="text" id="oGName" autocomplete="name" placeholder="who is giving consent">
 <label for="oGEmail">Parent / guardian email</label><input type="email" id="oGEmail" autocomplete="email" placeholder="name@example.com">
 <label for="oGPhone">Parent / guardian phone</label><input type="tel" id="oGPhone" autocomplete="tel" placeholder="mobile number">
-<label class="consent"><input type="checkbox" id="oConsent"><span>I am the parent or guardian and I agree that the organiser may collect the details above plus usage time, screens used and error reports, to improve Gurukul. Data is kept for 12 months and can be deleted on request. Contact neelareader@gmail.com.</span></label>
+<label class="consent"><input type="checkbox" id="oConsent"><span>I am the parent or guardian and I agree that the organiser may collect the details above plus usage time, screens used and error reports, to improve ENGRAMOS. Data is kept for 12 months and can be deleted on request. Contact neelareader@gmail.com.</span></label>
 <p class="status" id="oConsentHint">Required for students under 18.</p>
 </div>
 <label for="oPicFile">Your photo (optional)</label>
@@ -530,10 +532,10 @@ body.fit main{padding-bottom:12px}
 <section id="v-home" class="hidden"><div id="homeIn"></div></section>
 
 <section id="v-study" class="hidden"><h1> Study</h1>
-<div class="card" id="chCard"><div class="cascade"><select id="selSubj" aria-label="Subject" title="Subject"></select><select id="selSem" aria-label="Semester" title="Semester"></select><select id="selBook" aria-label="Book" title="Book"></select><select id="chSel" aria-label="Chapter" title="Chapter"></select></div><div class="row" style="margin:8px 0 0"><button id="chAdd" class="primary">＋ Add book or chapter (PDF)</button><button id="chPaste" title="Paste textbook text or notes without a PDF">📋 Paste text</button><button id="chNcert" title="Official NCERT chapter PDFs, Classes 1–12">⬇ NCERT library</button><button id="chSyll" title="Upload your syllabus (PDF or Excel) so I can plan your study">🗓 Syllabus</button><button id="chPack" class="hidden" title="Uses the internet and your AI. Press only when online.">⚡ Smart pack (online)</button><button id="chDel" class="hidden"> Delete</button></div><input type="file" id="file" accept="application/pdf" class="hidden"><input type="file" id="sylFile" accept=".pdf,.xlsx,.xls,.csv,.tsv,.txt,application/pdf" class="hidden"><div class="row" id="engRow" style="margin:8px 0 0"><span class="status">Prepare questions:</span><select id="engSel"><option value="local">On this device (instant, no limits)</option><option value="ai">With AI (smarter, needs internet)</option></select></div><div id="packInfo" class="status"></div><div id="info" class="status"></div></div>
+<div class="card" id="chCard"><div class="cascade"><select id="selSubj" aria-label="Subject" title="Subject"></select><select id="selSem" aria-label="Semester" title="Semester"></select><select id="selBook" aria-label="Book" title="Book"></select><select id="chSel" aria-label="Chapter" title="Chapter"></select></div><div class="row" style="margin:8px 0 0"><button id="chAdd" class="primary">＋ Add book or chapter (PDF)</button><button id="chPaste" title="Paste textbook text or notes without a PDF">📋 Paste text</button><button id="chSyll" title="Upload your syllabus (PDF or Excel) so I can plan your study">🗓 Syllabus</button><button id="chPack" class="hidden" title="Uses the internet and your AI. Press only when online.">⚡ Smart pack (online)</button><button id="chDel" class="hidden"> Delete</button></div><input type="file" id="file" accept="application/pdf" class="hidden"><input type="file" id="sylFile" accept=".pdf,.xlsx,.xls,.csv,.tsv,.txt,application/pdf" class="hidden"><div class="row" id="engRow" style="margin:8px 0 0"><span class="status">Prepare questions:</span><select id="engSel"><option value="local">On this device (instant, no limits)</option><option value="ai">With AI (smarter, needs internet)</option></select></div><div id="packInfo" class="status"></div><div id="info" class="status"></div></div>
 <div id="split" class="card hidden"></div>
-<div id="upl" class="card hero" style="text-align:center;padding:28px 16px"><div class="ic" style="width:64px;height:64px;margin:0 auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg></div><h2>Bring your book, I’ll do the rest!</h2><p>Upload your textbook (whole book or one chapter), paste notes, or try a built-in sample chapter. I will turn it into notes, flashcards, mind maps, tests and cram sheets.</p><div class="row" style="justify-content:center;margin:10px 0 6px"><button id="uplBtn" class="primary" style="font-size:1.05rem;padding:12px 22px">Choose my book (PDF)</button><button id="uplPaste" style="font-size:1.02rem;padding:11px 18px">📋 Paste chapter text</button></div><div class="row" style="justify-content:center;margin:4px 0 8px"><button id="uplSample">✨ Try a sample chapter</button><button id="uplNcert">⬇ Download from NCERT (Classes 1–12)</button><button id="uplMaths">🧮 Open maths workbench</button></div><p class="status">or drop the PDF anywhere on this card</p></div>
-<div id="stBody" class="hidden"><div id="path"></div><div id="vidAsk" class="card hero"></div><h3>How do you want to study today?</h3><div id="methods"></div><div class="card" id="mp" style="margin-top:14px"><p class="status">Pick a method above to start </p></div></div><div id="msg" class="status"></div></section>
+<div id="upl" class="card hero" style="text-align:center;padding:28px 16px"><div class="ic" style="width:64px;height:64px;margin:0 auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg></div><h2>Drop your book. I’ve got the rest.</h2><p>Add your textbook (whole book or one chapter), paste notes, or try a built-in sample. I’ll turn it into notes, flashcards, mind maps, recall drills and cram sheets.</p><div class="row" style="justify-content:center;margin:10px 0 6px"><button id="uplBtn" class="primary" style="font-size:1.05rem;padding:12px 22px">Choose my book (PDF)</button><button id="uplPaste" style="font-size:1.02rem;padding:11px 18px">📋 Paste chapter text</button></div><div class="row" style="justify-content:center;margin:4px 0 8px"><button id="uplSample">✨ Try a sample chapter</button><button id="uplMaths">🧮 Open Maths Workbench</button></div><p class="status">or drop the PDF anywhere on this card</p></div>
+<div id="stBody" class="hidden"><div id="path"></div><div id="vidAsk" class="card hero"></div><h3>How do you want to study today?</h3><div id="methods"></div><div class="card" id="mp" style="margin-top:14px"><p class="status">Pick a method to start </p></div></div><div id="msg" class="status"></div></section>
 
 <section id="v-plan" class="hidden"><div id="spIn"></div></section>
 <section id="v-progress" class="hidden"><div id="pgIn"></div></section>
@@ -572,10 +574,10 @@ var authMode = "login", AUTH_MIGRATED = "";
 var FOLDER = {handle: null, pending: false, timer: null, writing: false, queued: false, lasted: "", warned: false};
 var FOLDER_DB = "gurukul_fs_v1", FOLDER_STORE = "handles";
 var STUDY_DB = "gurukul_data_v1", STUDY_STORE = "blobs", DAILY_TARGET = 20;
-/* ---------- Gurukul pilot: organiser settings (edit these before distributing) ---------- */
+/* ---------- ENGRAMOS pilot: organiser settings (edit these before distributing) ---------- */
 var PILOT = {
   organiser: "neelareader@gmail.com",
-  appVersion: "Gurukul Pilot R1",
+  appVersion: "ENGRAMOS R1",
   schema: 1,
   defaultDays: 90,
   warnDays: 7,
@@ -591,14 +593,17 @@ var OWNER_COPY = true;   /* build-student.sh rewrites this to false for the dist
 var PILOT_GATE = false;  /* Development mode: holds Step 2 invite-code gate until ready to distribute (set to true before release) */
 var PAYWALL_ACTIVE = false; /* Development mode: holds hard Pro paywall until launch; use "Preview Free limits" in Settings to test locally */
 var FREE_CHAPTER_LIMIT = 3;
+var DEV_UNLOCKED = true; /* Developer build: every option is open on every screen (no Pro upsell / no locks). Set to false to restore the ENGRAMOS Pro paywall later. */
 var SUB_PLAN = {
-  name: "Gurukul Yearly Pass",
-  priceInr: 499,
-  mrpInr: 999,
+  name: "ENGRAMOS Pro",
+  priceInr: 999,        /* ₹ per year */
+  monthlyInr: 99,       /* ₹ per month */
+  mrpInr: 1999,         /* strike-through anchor for the yearly plan */
   days: 365,
-  razorpayKey: "",     /* optional Razorpay Key ID (baked via build-student.sh / gurukul-endpoint.txt) */
-  upiId: "",           /* optional direct UPI ID e.g. gurukul@okaxis */
-  upiName: "Gurukul Learning"
+  monthDays: 30,
+  razorpayKey: "",     /* optional Razorpay Key ID (baked via build-student.sh / engramos-endpoint.txt) */
+  upiId: "",           /* optional direct UPI ID e.g. engramos@okaxis */
+  upiName: "ENGRAMOS"
 };
 var PAY_Q_KEY = "ocm_study_pending_payments";
 var AUTH_VIEWS = ["intro", "request", "activate", "onb"];
@@ -636,7 +641,7 @@ function normalizeStudy(d){
   d.pilot.board = d.pilot.board || "";
   d.pilot.guardian = (d.pilot.guardian && typeof d.pilot.guardian === "object") ? d.pilot.guardian : {name: "", email: "", phone: ""};
   d.pilot.guardian.name = d.pilot.guardian.name || ""; d.pilot.guardian.email = d.pilot.guardian.email || ""; d.pilot.guardian.phone = d.pilot.guardian.phone || "";
-  d.sub = (d.sub && typeof d.sub === "object") ? d.sub : {};
+  d.sub = (d.sub && typeof d.sub === "object") ? Object.assign({}, d.sub) : {}; /* clone: normalizeStudy must never mutate the live DB.sub */
   d.sub.tier = d.sub.tier === "pro" ? "pro" : "free";
   d.sub.plan = d.sub.plan || (d.sub.tier === "pro" ? "yearly" : "free");
   d.sub.paidAt = d.sub.paidAt || 0;
@@ -645,7 +650,7 @@ function normalizeStudy(d){
   d.sub.paymentId = d.sub.paymentId || "";
   d.sub.orderId = d.sub.orderId || "";
   d.sub.method = d.sub.method || "";
-  d.sub.devPreviewFree = !!d.sub.devPreviewFree;
+  d.sub.devPreviewFree = PAYWALL_ACTIVE ? !!d.sub.devPreviewFree : false; /* dev build: always fully unlocked; use "Preview Free limits" in Settings to test gates */
   d.sub.pendingPayment = (d.sub.pendingPayment && typeof d.sub.pendingPayment === "object" && d.sub.pendingPayment.paymentId) ? d.sub.pendingPayment : null;
   if(!d.cur || !d.chapters.some(function(c){ return c.id === d.cur; })) d.cur = d.chapters[0] ? d.chapters[0].id : null;
   return d;
@@ -779,7 +784,7 @@ function load(){
       var d = null; try { var raw = localStorage.getItem(DATA_KEY + u.id); if(raw) d = JSON.parse(raw); } catch(e){}
       if(d && d.__idb){ BOOT_IDB_STUB = true; IDB_HYDRATING = true; }
       DB = normalizeStudy(d);
-      if(!DB.profile) DB.profile = {name: u.name, cls: u.cls || "Class 9", lang: "English", school: "", from: ""};
+      if(!DB.profile) DB.profile = {name: u.name, cls: u.cls || "", lang: "English", school: "", from: ""};
       AUTH.last = u.id;
     } else AUTH.session = null;
   }
@@ -809,7 +814,7 @@ function resetRuntime(){
   clearInterval(examTimer); examTimer = null;
   clearPlayTimer(); PS = null;
   PREP = {}; QA = null; T = null; pend = null; VA = {}; sample = null;
-  RETRY = null; FOCUS = ""; EXQ = ""; lastDoubtQ = ""; MWB = null; SVS = null; NCERT_PICK = null; PENDMETA = null;
+  RETRY = null; FOCUS = ""; EXQ = ""; lastDoubtQ = ""; MWB = null; SVS = null; PENDMETA = null;
   FOLDER.handle = null; FOLDER.pending = false; FOLDER.warned = false;
   if(FOLDER.timer){ clearTimeout(FOLDER.timer); FOLDER.timer = null; }
   FOLDER.writing = false; FOLDER.queued = false; FOLDER.lasted = "";
@@ -822,19 +827,19 @@ function prog(id){ id = id || DB.cur; return DB.progress[id] || (DB.progress[id]
 function fmtD(t){ return new Date(t).toLocaleDateString("en-GB", {day: "2-digit", month: "short", year: "2-digit"}).replace(/ /g, "-"); }
 function fmtT(t){ return new Date(t).toLocaleTimeString("en-IN", {hour: "2-digit", minute: "2-digit"}); }
 var METHODS = [
- {k:"qa", e:"", n:"Q&A coach", d:"I ask, you answer, I guide"},
- {k:"notes", e:"", n:"Short notes", d:"Simple points to remember"},
- {k:"explain", e:"", n:"Explain concepts", d:"Easy, with examples"},
- {k:"mcq", e:"", n:"MCQ practice", d:"Instant feedback"},
- {k:"exam", e:"", n:"Exam mode", d:"Timed test, real feel"},
+ {k:"qa", e:"", n:"Recall", d:"I ask, you answer, I guide"},
+ {k:"notes", e:"", n:"Quick Notes", d:"Simple points to remember"},
+ {k:"explain", e:"", n:"Explain it", d:"Easy, with examples"},
+ {k:"mcq", e:"", n:"Recall Drill", d:"Instant feedback"},
+ {k:"exam", e:"", n:"Fire Drill", d:"Timed test, real feel"},
  {k:"flash", e:"", n:"Flashcards", d:"Quick recall", sug:1},
  {k:"teach", e:"", n:"Teach it back", d:"Explain in your words", sug:1},
  {k:"cram", e:"", n:"5-Min Cram", d:"Last-minute cheat sheet", sug:1},
- {k:"map", e:"", n:"Concept map", d:"See how ideas connect"},
- {k:"mindmap", e:"", n:"Mind map", d:"Explore the chapter as a galaxy"},
- {k:"maths", e:"", n:"Maths workbench", d:"See every step, tap to ask why"},
- {k:"solve", e:"", n:"Solve a problem", d:"Step-by-step help"},
- {k:"doubt", e:"", n:"Ask a doubt", d:"Ask me anything"}
+ {k:"map", e:"", n:"Concept Map", d:"See how ideas connect"},
+ {k:"mindmap", e:"", n:"Mind Map", d:"Explore the chapter as a galaxy"},
+ {k:"maths", e:"", n:"Maths Workbench", d:"See every step, tap to ask why"},
+ {k:"solve", e:"", n:"Solve It", d:"Step-by-step help"},
+ {k:"doubt", e:"", n:"Ask Anything", d:"Ask me anything"}
 ];
 var ICON = {
  study:"<path d='M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z'/>",
@@ -896,7 +901,7 @@ function addDailyXp(pts){
   var st = typeof streak === "function" ? streak() : 0;
   if(st >= 7 && st % 7 === 0 && !DB.freeze.rewarded[st]){
     DB.freeze.rewarded[st] = 1;
-    if((DB.freeze.count || 0) < 2){ DB.freeze.count = (DB.freeze.count || 0) + 1; toast("7-day milestone! Earned a Streak Freeze shield."); }
+    if((DB.freeze.count || 0) < 2){ DB.freeze.count = (DB.freeze.count || 0) + 1; toast("7-day milestone! Earned a Stasis shield."); }
   }
   save();
 }
@@ -965,21 +970,82 @@ function askYes(msg, yes){ var m = popup("<h3 style='margin-top:0'>" + esc(msg) 
 
 /* ---------- profile, language, AI ---------- */
 var CLASSES = ["Class 5","Class 6","Class 7","Class 8","Class 9","Class 10","Class 11","Class 12","College – 1st year","College – 2nd year","College – 3rd year","Other"];
+var LEVELS = [["Not sure — keep it general", 1], ["Younger (up to Class 7)", 0], ["School (Class 8–10)", 1], ["Senior (Class 11–12)", 2], ["College / University", 3]];
 var LANGS = ["English","Hindi","Marathi","Malayalam","Tamil","Telugu","Kannada","Gujarati","Hinglish (Hindi + English mix)"];
 var HELLO = {Hindi:"नमस्ते", Marathi:"नमस्कार", Malayalam:"നമസ്കാരം", Tamil:"வணக்கம்", Telugu:"నమస్కారం", Kannada:"ನಮಸ್ಕಾರ", Gujarati:"નમસ્તે"};
+/* ---------- multilingual greeting (iPhone-style hello, rotating languages) ---------- */
+var GREETINGS = [
+  {w:"नमस्ते", l:"Hindi"},
+  {w:"नमस्कार", l:"Marathi"},
+  {w:"નમસ્તે", l:"Gujarati"},
+  {w:"ਸਤ ਸ੍ਰੀ ਅਕਾਲ", l:"Punjabi"},
+  {w:"নমস্কার", l:"Bengali"},
+  {w:"வணக்கம்", l:"Tamil"},
+  {w:"నమస్కారం", l:"Telugu"},
+  {w:"ನಮಸ್ಕಾರ", l:"Kannada"},
+  {w:"നമസ്കാരം", l:"Malayalam"},
+  {w:"آداب", l:"Urdu"},
+  {w:"Hello", l:"English"},
+  {w:"Hola", l:"Spanish"},
+  {w:"Bonjour", l:"French"},
+  {w:"Hallo", l:"German"},
+  {w:"こんにちは", l:"Japanese"},
+  {w:"你好", l:"Chinese"},
+  {w:"مرحبا", l:"Arabic"},
+  {w:"नमस्ते", l:"Sanskrit"}
+];
+var greetTimer = null, greetPool = null, greetAt = 0;
+function greetingOwnLang(){
+  var own = String(((DB && DB.profile) || {}).lang || "").split(/[\s(]/)[0];
+  return ({Hindi:"Hindi", Marathi:"Marathi", Gujarati:"Gujarati", Tamil:"Tamil", Telugu:"Telugu", Kannada:"Kannada", Malayalam:"Malayalam", English:"English"})[own] || "";
+}
+function greetingPool(){
+  var own = greetingOwnLang();
+  var mine = own ? GREETINGS.filter(function(g){ return g.l === own; }) : [];
+  var rest = GREETINGS.filter(function(g){ return mine.indexOf(g) < 0; });
+  for(var i = rest.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)), t = rest[i]; rest[i] = rest[j]; rest[j] = t; }
+  return mine.concat(rest);
+}
+function applyGreeting(){
+  var el = $("greetWord"), note = $("greetNote");
+  if(!el || !greetPool || !greetPool.length) return;
+  var g = greetPool[greetAt % greetPool.length];
+  el.textContent = g.w;
+  el.title = "Hello in " + g.l;
+  if(note) note.innerHTML = "\uD83D\uDC4B Wishing you in <b>" + esc(g.l) + "</b>";
+  el.classList.remove("greetPop"); void el.offsetWidth; el.classList.add("greetPop");
+}
+function startGreeting(pool){
+  stopGreeting();
+  greetPool = pool || greetingPool(); greetAt = 0; applyGreeting();
+  greetTimer = setInterval(function(){ greetAt = (greetAt + 1) % greetPool.length; applyGreeting(); }, 2800);
+}
+function stopGreeting(){ if(greetTimer){ clearInterval(greetTimer); greetTimer = null; } }
 function L(){ var p = DB.profile; return "Reply in " + p.lang + ". Use simple, warm, human and to-the-point words, like a friendly elder sibling. Where it helps understanding, use everyday colloquial words a student from " + p.from + " would use. Keep technical terms in English with a short meaning. Be encouraging."; }
 function ageOf(){ var a = parseInt(DB.profile && DB.profile.age, 10); return isFinite(a) && a > 0 ? a : null; }
 function levelHint(){
-  var a = ageOf(), c = (DB.profile && DB.profile.cls) || "school";
-  if(a === null) return "a student in " + c;
-  if(a <= 8) return "a very young learner (about " + a + " years old, " + c + "), so use the shortest sentences and no exam jargon";
-  if(a <= 11) return "a primary-school child (about " + a + " years old, " + c + "), so stay concrete and use everyday examples";
-  if(a <= 14) return "a middle-school student (about " + a + " years old, " + c + "), so define every new term";
-  if(a <= 17) return "a senior-school student (about " + a + " years old, " + c + "), so include exam wording and worked examples";
-  return "a college-level student (about " + a + " years old, " + c + ")";
+  var a = ageOf();
+  if(a !== null){
+    if(a <= 8) return "a very young learner (about " + a + " years old), so use the shortest sentences and no exam jargon";
+    if(a <= 11) return "a primary-school child (about " + a + " years old), so stay concrete and use everyday examples";
+    if(a <= 14) return "a middle-school student (about " + a + " years old), so define every new term";
+    if(a <= 17) return "a senior-school student (about " + a + " years old), so include exam wording and worked examples";
+    return "a college-level student (about " + a + " years old)";
+  }
+  switch(bandOf((DB.profile && DB.profile.cls) || "")){
+    case 0: return "a younger student, so use the shortest sentences, everyday examples and no exam jargon";
+    case 1: return "a school student, so stay concrete and define every new term";
+    case 2: return "a senior-school student, so include exam wording and worked examples";
+    default: return "a college-level student, so stay rigorous and example-driven";
+  }
 }
-function who(){ var p = DB.profile; return p.name + " (" + p.cls + (p.age ? ", age " + p.age : "") + ", " + p.school + ", from " + p.from + ")"; }
-function persona(){ return "You are Mitrādhyāyin, a warm study companion for " + who() + ". " + L() + " Pitch every explanation for " + levelHint() + ". Go deeper than a textbook summary: explain why each idea matters, how it connects to the ones before it, and give one worked or real-life example. Explain ideas in short, clear sentences (usually 1–3), using the chapter’s own terms and examples; define any new word you use. Do not invent facts, do not pad answers, and do not mention page numbers, figure numbers or the author. Never end your reply with a question or an offer such as ‘Want me to…’, because the app shows buttons for the next step. End with one short encouraging line instead. "; }
+function who(){ var p = DB.profile || {}, bits = []; if(p.from) bits.push("from " + p.from); if(p.lang) bits.push("studies in " + p.lang); return p.name + (bits.length ? " (" + bits.join(", ") + ")" : ""); }
+function levelName(){
+  var a = ageOf();
+  if(a !== null){ if(a <= 8) return "a young learner"; if(a <= 11) return "a primary-school student"; if(a <= 14) return "a middle-school student"; if(a <= 17) return "a senior-school student"; return "a college student"; }
+  return ["a younger student","a school student","a senior-school student","a college student"][bandOf((DB.profile && DB.profile.cls) || "")];
+}
+function persona(){ return "You are the ENGRAMOS study companion, a warm older-sibling tutor for " + who() + ". " + L() + " Pitch every explanation for " + levelHint() + ". Go deeper than a textbook summary: explain why each idea matters, how it connects to the ones before it, and give one worked or real-life example. Explain ideas in short, clear sentences (usually 1–3), using the chapter’s own terms and examples; define any new word you use. Do not invent facts, do not pad answers, and do not mention page numbers, figure numbers or the author. Never end your reply with a question or an offer such as ‘Want me to…’, because the app shows buttons for the next step. End with one short encouraging line instead. "; }
 function base(q){ var c = cur(); q = q || EXQ; EXQ = ""; var ct = q ? excerpt(q, 4) : c.text; return persona() + "Stay faithful to the textbook text below; never contradict it. Use its wording and examples where they help. If the text does not contain the answer, say briefly what the chapter does cover instead of guessing.\n\nBOOK: " + c.book + "\nCHAPTER: " + c.name + "\nCHAPTER TEXT:\n" + ct + "\n\nTASK:\n"; }
 /* ---------- AI providers: free models, email sign-in, or your own key ---------- */
 var AI_PROVIDERS = {
@@ -1043,7 +1109,7 @@ function mkOpenAI(ai){
   var call = async function(prompt, opts){
     opts = opts || {}; if(!navigator.onLine) throw aierr("no_net");
     var h = {"content-type":"application/json", "authorization":"Bearer " + ai.key};
-    if(ai.provider === "openrouter"){ h["HTTP-Referer"] = location.href; h["X-Title"] = "Gurukul"; }
+    if(ai.provider === "openrouter"){ h["HTTP-Referer"] = location.href; h["X-Title"] = "ENGRAMOS"; }
     var r;
     try { r = await fetchWithTimeout(P.api, {method:"POST", headers:h, body: JSON.stringify({model: ai.model || P.model, max_tokens: 8000, stream: !!opts.onText, messages:[{role:"user", content: prompt}]})}, 25000); }
     catch(e){ throw aierr("no_net", e); }
@@ -1230,7 +1296,7 @@ function connectModal(){
       ? "AI makes questions, flashcards, tests and fun facts sharper. Everything still works offline."
       : "AI makes questions, flashcards, tests and fun facts sharper. The free options work with just your email. Everything still works offline.";
     var fileNote = filePage
-      ? "<p class='status' style='font-size:.8rem;margin:0 0 8px'><b>Opened directly from a file.</b> Email sign-in needs the web version of Gurukul; here you can paste a free Google Gemini, Groq, or OpenRouter key below.</p>"
+      ? "<p class='status' style='font-size:.8rem;margin:0 0 8px'><b>Opened directly from a file.</b> Email sign-in needs the web version of ENGRAMOS; here you can paste a free Google Gemini, Groq, or OpenRouter key below.</p>"
       : "";
     o.innerHTML = "<div><h3 style='margin-top:0'>Connect AI</h3><p class='status' style='margin-top:4px'>" + intro + "</p>" + fileNote + "<div class='row' id='pvTabs' style='margin-top:12px'></div><div id='pvBody'></div><div id='kMsg' class='status err' style='min-height:18px'></div><div class='row' style='margin-top:8px'><button class='primary' id='kOk'>Connect</button><button id='kNo'>Not now</button>" + (old ? "<button id='kOff'>Disconnect</button>" : "") + "</div><p class='status' style='font-size:.76rem;margin:10px 0 0'>Your key and sign-in stay only in this browser. Text goes only to the AI provider you choose.</p></div>";
     document.body.appendChild(o);
@@ -1476,7 +1542,7 @@ var VIEWS = ["intro","request","activate","onb","home","study","plan","progress"
 /* ---------- frozen banner: back / home / current screen name ---------- */
 /* One screen at a time. The banner is always visible; a study method opens as
    its own screen so the working is not pushed below the method grid. */
-var SCREEN_NAMES = {intro:"", request:"", activate:"", onb:"", home:"", study:"Study", plan:"Study plan", progress:"Progress", perf:"Performance", hist:"History", rep:"Reports", rec:"Today's plan", fun:"Fun facts", note:"Notebook", mist:"My error book", tools:"Settings", play:"Let's Play", tips:"Tricks & Tips"};
+var SCREEN_NAMES = {intro:"", request:"", activate:"", onb:"", home:"", study:"Study", plan:"Study plan", progress:"Neural Map", perf:"Engram Score", hist:"Trace history", rep:"Debrief", rec:"Today's One More", fun:"Fun facts", note:"Notebook", mist:"Error ledger", tools:"Settings", play:"Play", tips:"Hacks & Tips"};
 function methodLabel(k){ var m = (typeof METHODS !== "undefined" ? METHODS : []).filter(function(x){ return x.k === k; })[0]; return m ? m.n : "Study"; }
 function methodOpen(){ return document.body.classList.contains("method-open"); }
 function setScreenTitle(t){ var e = $("scTitle"); if(!e) return; e.textContent = t || ""; e.classList.toggle("hidden", !t); }
@@ -1486,10 +1552,16 @@ function navPush(v){
   NAV = NAV.slice(0, NIDX + 1); NAV.push(v); NIDX = NAV.length - 1;
 }
 function updateBackBtn(){
-  var b = $("bBack"), f = $("bFwd");
-  var authed = !!(DB.profile && AUTH.session) && AUTH_VIEWS.indexOf(curView) < 0;
-  if(b) b.classList.toggle("hidden", !authed || (!methodOpen() && NIDX <= 0));
-  if(f) f.classList.toggle("hidden", !authed || methodOpen() || NIDX >= NAV.length - 1);
+  /* Back is offered on every screen except Home (and the very first welcome screen),
+     so the student can always step back to the screen they came from. */
+  var b = $("bBack"), f = $("bFwd"), wrap = $("navFab");
+  var loggedIn = !!(DB.profile && AUTH.session);
+  var firstScreen = curView === "intro" || ((curView === "request" || curView === "activate") && !loggedIn);
+  var showB = !firstScreen && curView !== "home";
+  var showF = loggedIn && !methodOpen() && NIDX >= 0 && NIDX < NAV.length - 1;
+  if(b) b.classList.toggle("hidden", !showB);
+  if(f) f.classList.toggle("hidden", !showF);
+  if(wrap) wrap.classList.toggle("hidden", !(showB || showF));
 }
 function setMethodOpen(on, name){
   document.body.classList.toggle("method-open", on);
@@ -1524,7 +1596,7 @@ function show(v){
 function showView(v){
   if(v === "perf" || v === "hist" || v === "rep"){ PRG_TAB = v; v = "progress"; }
   if(v === "rec"){ PLN_TAB = "today"; v = "plan"; }
-  clearInterval(examTimer); clearPlayTimer(); PS = null; curView = v;
+  clearInterval(examTimer); clearPlayTimer(); stopGreeting(); PS = null; curView = v;
   if(methodOpen()) setMethodOpen(false);
   VIEWS.forEach(function(x){ $("v-" + x).classList.toggle("hidden", x !== v); });
   var authed = !!(DB.profile && AUTH.session);
@@ -1547,7 +1619,7 @@ $("bBack").onclick = function(){
 $("bFwd").onclick = function(){ if(NIDX >= 0 && NIDX < NAV.length - 1){ NIDX++; showView(NAV[NIDX]); } };
 $("bProf").onclick = function(){ if(DB.profile) show("onb"); };
 $("bKey").onclick = function(){ connectModal(); };
-$("oCls").innerHTML = CLASSES.map(function(c){return "<option>" + c + "</option>"}).join("");
+/* Class/Standard is no longer collected — students build their own books and chapters across subjects and semesters. */
 $("oLang").innerHTML = LANGS.map(function(c){return "<option>" + c + "</option>"}).join("");
 
 /* ---------- student accounts: log in, log out, switch student ---------- */
@@ -1607,7 +1679,7 @@ function startSession(u){
     if(tok !== AUTH_TOKEN) return;
     resetRuntime();
     DB = normalizeStudy(data);
-    if(!DB.profile) DB.profile = {name: u.name, cls: u.cls || "Class 9", age: u.age || "", user: u.user || slugUser(u.name), lang: "English", school: "", from: ""};
+    if(!DB.profile) DB.profile = {name: u.name, cls: u.cls || "", age: u.age || "", user: u.user || slugUser(u.name), lang: "English", school: "", from: ""};
     if(!DB.profile.user) DB.profile.user = u.user || slugUser(u.name);
     if(!DB.profile.age && u.age) DB.profile.age = u.age;
     DB.ai = AUTH.ai || null;
@@ -1705,10 +1777,9 @@ function shrinkPhoto(file, cb){
 }
 function onProfileGo(){
   var editing = !!(DB.profile && AUTH.session);
-  var v = {name: $("oName").value.trim(), cls: $("oCls").value, age: readAge(), lang: $("oLang").value, school: $("oSch").value.trim(), from: $("oFrom").value.trim(), pic: pendPic === null ? ((DB.profile && DB.profile.pic) || "") : pendPic};
+  var v = {name: $("oName").value.trim(), cls: (DB.profile && DB.profile.cls) || "", age: (DB.profile && DB.profile.age) || "", lang: $("oLang").value, school: (DB.profile && DB.profile.school) || "", from: $("oFrom").value.trim(), band: (DB.profile && typeof DB.profile.band === "number") ? DB.profile.band : undefined, level: (DB.profile && typeof DB.profile.level === "number") ? DB.profile.level : undefined, pic: pendPic === null ? ((DB.profile && DB.profile.pic) || "") : pendPic};
   var uname = slugUser($("oUser").value);
-  if(!v.name || !v.school || !v.from){ authError("oMsg", "Please fill in your name, school and place."); return; }
-  if(!v.age){ authError("oMsg", "Please enter your age (3 to 100)."); return; }
+  if(!v.name || !v.from){ authError("oMsg", "Please add your name and city."); return; }
   if(!uname){ authError("oMsg", "Please choose a username using letters and numbers, with no spaces."); return; }
   var dupe = AUTH.users.filter(function(u){ return u.id !== AUTH.session && String(u.user || "").toLowerCase() === uname; })[0];
   if(dupe){ authError("oMsg", "That username is already used on this device. Please choose another."); return; }
@@ -1733,7 +1804,7 @@ function onProfileGo(){
   resetRuntime();
   DB = blankDB(); DB.profile = v; DB.pilot = pilot.data; DB.ai = AUTH.ai || null; pendPic = null;
   AUTH.users.push(u); AUTH.session = u.id; AUTH.last = u.id; AUTH.migrated = false; AUTH_MIGRATED = "";
-  save(); pilotClearPending(); refreshWhoBtn(); refreshKeyBtn(); refreshBanner(); logEv("profile", "Joined Gurukul as " + v.cls);
+  save(); pilotClearPending(); refreshWhoBtn(); refreshKeyBtn(); refreshBanner(); logEv("profile", "Joined ENGRAMOS as " + v.cls);
   show("home"); afterLoginFolders(); afterLoginPilot(); toast("Welcome, " + v.name);
 }
 function setSelectValue(el, v){
@@ -1756,12 +1827,12 @@ RENDER.onb = function(){
     $("authWho").classList.remove("hidden");
     $("authInitial").textContent = (DB.profile.name || "S").trim().charAt(0).toUpperCase();
     $("authWhoName").textContent = DB.profile.name;
-    $("authWhoMeta").textContent = DB.profile.cls + (DB.profile.age ? " · age " + DB.profile.age : "") + (DB.profile.school ? " · " + DB.profile.school : "");
+    $("authWhoMeta").textContent = [DB.profile.from, DB.profile.lang].filter(function(x){ return x; }).join(" · ");
     $("createTitle").textContent = "My account";
     $("createSub").textContent = "Change your details here. Leave both password boxes empty to keep your current password.";
-    $("oName").value = DB.profile.name; $("oCls").value = DB.profile.cls; $("oLang").value = DB.profile.lang;
-    $("oUser").value = DB.profile.user || slugUser(DB.profile.name); $("oAge").value = DB.profile.age || "";
-    $("oSch").value = DB.profile.school; $("oFrom").value = DB.profile.from;
+    $("oName").value = DB.profile.name; $("oLang").value = DB.profile.lang;
+    $("oUser").value = DB.profile.user || slugUser(DB.profile.name);
+    $("oFrom").value = DB.profile.from || "";
     setPicPreview(DB.profile.pic || "");
     $("oPin").value = ""; $("oPin2").value = "";
     $("oGo").textContent = "Save my details";
@@ -1771,18 +1842,16 @@ RENDER.onb = function(){
   } else {
     var req = PENDING_REQ || pilotReadJSON(REQ_KEY);
     $("authWho").classList.add("hidden");
-    $("authTitle").textContent = has ? "Welcome back" : "Welcome to Gurukul";
-    $("authSub").textContent = has ? "Log in with your username and password. Only your own books, notes and progress will open." : "Your study companion. Create your account so your books, notes and progress stay yours.";
+    $("authTitle").textContent = has ? "Good to see you again" : "Welcome to ENGRAMOS";
+    $("authSub").textContent = has ? "Log in with your username and password. Only your own books, notes and progress will open." : "Make it yours. Your books, notes and progress stay private to you on this device.";
     $("loginCard").classList.toggle("hidden", !has || creating);
     $("createCard").classList.toggle("hidden", has && !creating);
     if(creating){
-      $("createTitle").textContent = PILOT_GATE ? "Finish your account" : "Create your student account";
-      $("createSub").textContent = PILOT_GATE ? "Your invite code is confirmed. Choose a username and password so your books, notes and progress stay yours." : "Set up your local profile so your books, notes and progress stay private to you on this device.";
+      $("createTitle").textContent = PILOT_GATE ? "Finish your account" : "Make it yours";
+      $("createSub").textContent = PILOT_GATE ? "Your invite code is confirmed. Choose a username and password so your books, notes and progress stay yours." : "Just your name, city, a username and a password. Your books and notes stay on this device.";
       $("oName").value = req ? (req.name || "") : "";
-      $("oUser").value = ""; $("oAge").value = ""; $("oPin").value = ""; $("oPin2").value = "";
-      $("oSch").value = req ? (req.school || "") : "";
+      $("oUser").value = ""; $("oPin").value = ""; $("oPin2").value = "";
       $("oFrom").value = "";
-      setSelectValue($("oCls"), req ? req.cls : "");
       $("oLang").selectedIndex = 0;
       if($("oCode")) $("oCode").value = PENDING_INVITE ? PENDING_INVITE.code : "";
       if(!PILOT_GATE || req){
@@ -1808,11 +1877,11 @@ RENDER.onb = function(){
     } else {
       $("createTitle").textContent = "Create your account";
       $("createSub").textContent = "One account per student on this device. Your chapters, notes and progress stay separate.";
-      $("oName").value = ""; $("oUser").value = ""; $("oAge").value = ""; $("oSch").value = ""; $("oFrom").value = ""; $("oPin").value = ""; $("oPin2").value = "";
+      $("oName").value = ""; $("oUser").value = ""; $("oFrom").value = ""; $("oPin").value = ""; $("oPin2").value = "";
       if($("oCode")) $("oCode").value = ""; if($("oGName")) $("oGName").value = ""; if($("oGEmail")) $("oGEmail").value = ""; if($("oGPhone")) $("oGPhone").value = ""; if($("oConsent")) $("oConsent").checked = false;
       if($("pilotFields")) $("pilotFields").classList.add("hidden");
       setPicPreview("");
-      $("oCls").selectedIndex = 0; $("oLang").selectedIndex = 0;
+      $("oLang").selectedIndex = 0;
       $("oGo").textContent = "Create my account";
       $("oBack").classList.add("hidden");
       $("oLogout").classList.add("hidden"); $("oDanger").classList.add("hidden");
@@ -1833,7 +1902,7 @@ RENDER.intro = function(){
       : (PILOT_GATE
           ? "Invite-only for this pilot. Your details are used only to review your access request."
           : (PAYWALL_ACTIVE
-              ? "Start with 3 free chapters, flashcard previews, MCQ practice and the maths workbench — upgrade anytime for unlimited chapters and exams."
+              ? "Start with 3 free books, flashcard previews, recall drills and the Maths Workbench — go Pro anytime for unlimited chapters and fire drills."
               : "Development mode: invite code is held so you can test all features on this device."));
   }
   if($("inReq")) $("inReq").textContent = PILOT_GATE ? "Request access" : "Create student account";
@@ -1844,7 +1913,7 @@ RENDER.intro = function(){
   var note = $("ownerNote");
   if(note) note.classList.toggle("hidden", !OWNER_COPY);
   var ow = $("inOwner");
-  if(ow) ow.onclick = function(){ location.href = "Gurukul - Owner.html"; };
+  if(ow) ow.onclick = function(){ location.href = "ENGRAMOS - Owner.html"; };
 };
 RENDER.request = function(){
   if($("rqForm")) $("rqForm").classList.remove("hidden");
@@ -1883,7 +1952,7 @@ function pilotSubmitRequest(){
   if(String(gphone).replace(/\D/g, "").length < 8){ $("rqMsg").textContent = "Please add a parent or guardian phone number."; return; }
   if(!$("rqConsent").checked){ $("rqMsg").textContent = "A parent or guardian needs to tick the consent box."; return; }
   var old = PENDING_REQ || pilotReadJSON(REQ_KEY);
-  var req = {kind: "access-request", requestId: (old && old.requestId) || pilotRequestId(), at: (old && old.at) || Date.now(), app: "Gurukul", schema: PILOT.schema, v: PILOT.appVersion,
+  var req = {kind: "access-request", requestId: (old && old.requestId) || pilotRequestId(), at: (old && old.at) || Date.now(), app: "ENGRAMOS", schema: PILOT.schema, v: PILOT.appVersion,
     name: name, email: email, phone: phone, cls: cls, school: school, board: board, note: note,
     guardian: {name: gname, email: gemail, phone: gphone}, consent: true, consentAt: Date.now()};
   req.sentAt = 0; req.status = "sending";
@@ -1978,7 +2047,7 @@ if($("liForgot")) $("liForgot").onclick = function(){
 $("liPass").onkeydown = function(e){ if(e.key === "Enter") onLogin(); };
 $("liUser").onkeydown = function(e){ if(e.key === "Enter") $("liPass").focus(); };
 $("oUser").oninput = function(){ this.value = this.value.replace(/[^a-zA-Z0-9._-]/g, "").slice(0, 20); };
-$("oAge").oninput = function(){ this.value = this.value.replace(/[^0-9]/g, "").slice(0, 3); };
+if($("oAge")) $("oAge").oninput = function(){ this.value = this.value.replace(/[^0-9]/g, "").slice(0, 3); };
 $("oName").oninput = function(){ if(pendPic === null && !((DB.profile && DB.profile.pic))) setPicPreview(""); };
 $("oPicPick").onclick = function(){ $("oPicFile").click(); };
 $("oPicPrev").onclick = function(){ $("oPicFile").click(); };
@@ -2027,10 +2096,10 @@ var SECS = [{k:"study",e:"",n:"Study"},{k:"progress",e:"",n:"Progress"},{k:"perf
 var HOME_NODES = [
   {k:"study", n:"Study", view:"study", icon:"study", ring:0, c:"#4f7dff"},
   {k:"plan", n:"Plan", view:"plan", icon:"plan", ring:0, c:"#f0abfc"},
-  {k:"resume", n:"Continue", resume:1, icon:"hist", ring:0, c:"#38bdf8"},
-  {k:"progress", n:"Progress", view:"progress", icon:"progress", ring:1, c:"#4ade80"},
+  {k:"resume", n:"Pick up", resume:1, icon:"hist", ring:0, c:"#38bdf8"},
+  {k:"progress", n:"Neural Map", view:"progress", icon:"progress", ring:1, c:"#4ade80"},
   {k:"maths", n:"Maths", tool:"maths", icon:"maths", ring:1, c:"#2dd4bf"},
-  {k:"mist", n:"Mistakes", view:"mist", icon:"mist", ring:1, c:"#ff5d73"},
+  {k:"mist", n:"Errors", view:"mist", icon:"mist", ring:1, c:"#ff5d73"},
   {k:"note", n:"Notebook", view:"note", icon:"note", ring:1, c:"#ff9f43"},
   {k:"tools", n:"Settings", view:"tools", icon:"tools", ring:1, c:"#94a3b8"}
 ];
@@ -2130,7 +2199,7 @@ function galaxySvg(compact){
   h += "<g transform='translate(" + (W * .1).toFixed(0) + "," + (H * .1).toFixed(0) + ")'>";
   h += "<g class='shoot' style='--sx:" + (compact ? 190 : 330) + "px;--sy:" + (compact ? 100 : 172) + "px'>";
   h += "<path d='M0 0 L150 78' stroke='url(#gShoot)' stroke-width='2.4' stroke-linecap='round' fill='none'/><circle cx='150' cy='78' r='2.6' fill='#fff'/></g></g>";
-  h += "<text x='" + cx + "' y='" + (cy + (compact ? 62 : 80)) + "' text-anchor='middle' font-size='" + (compact ? 12 : 14) + "' font-weight='700' fill='#b9bff0'>Mitrādhyāyin</text>";
+  /* Sun label intentionally removed — the sun stands on its own as an encouraging centre. */
   return h + "</svg>";
 }
 function openMindmap(){ if(!cur()){ show("study"); toast("Add a chapter first, then open the mind map."); return; } show("study"); goMethod("mindmap", "", DB.cur); }
@@ -2191,7 +2260,7 @@ function reconcileFreeze(){
     DB.freeze.count--;
     DB.freeze.used[k1] = 1;
     save();
-    toast("Streak Freeze shield saved your streak for yesterday!");
+    toast("Stasis shield saved your streak for yesterday!");
   }
 }
 function streak(){
@@ -2238,38 +2307,40 @@ function scholarBadges(){
   return list;
 }
 RENDER.home = function(){
-  var p = DB.profile, hello = HELLO[p.lang] || "Namaste", narrow = window.innerWidth < 620; homeNarrow = narrow;
+  var p = DB.profile, narrow = window.innerWidth < 620; homeNarrow = narrow;
+  var gp = greetingPool(), g0 = gp[0] || {w: "Namaste", l: "English"};
   var dg = dailyGoalInfo(), st = streak(), c = cur(), due = dueReviews()[0];
-  var h = "<div class='card hero homeWish'><h1>" + hello + ", " + esc(p.name) + "!</h1><p>I am <strong>Mitrādhyāyin</strong>, your study companion. " + esc(p.cls) + (p.age ? " · age " + p.age : "") + ".</p><div id='homeQuote' class='homeQuote'>" + pickQuote(false) + "</div></div>";
-  h += "<div class='card focusCard'><div class='focusTop'><strong>Today's Focus</strong><div class='row' style='margin:0;gap:6px'><span class='chip" + (st ? "" : " local") + "'>🔥 " + st + "-day streak</span>" + (dg.freezes ? "<span class='chip' title='Streak Freeze shields protect your streak if you miss 1 day'>🛡️ " + dg.freezes + "</span>" : "") + "</div></div>";
-  h += "<div class='xpRow'><span class='status'>" + (dg.done ? "✓ Daily goal done!" : "Daily goal: " + dg.xp + " / " + dg.target + " XP") + "</span><div class='xpBar'><i style='width:" + dg.pct + "%'></i></div><strong style='font-size:.82rem'>" + dg.pct + "%</strong></div>";
+  var h = "<div class='card hero homeWish'><h1><span id='greetWord' class='greetWord'>" + esc(g0.w) + "</span>, " + esc(p.name) + "!</h1><p class='greetNote' id='greetNote'>\uD83D\uDC4B Wishing you in <b>" + esc(g0.l) + "</b></p><p class='tagline'>A Trace Your Brain Leaves When It Learns &mdash; Memory Engineered.</p><p>Let&rsquo;s stack today&rsquo;s One More.</p><div id='homeQuote' class='homeQuote'>" + pickQuote(false) + "</div></div>";
+  h += "<div class='card focusCard'><div class='focusTop'><strong>Today's One More</strong><div class='row' style='margin:0;gap:6px'><span class='chip" + (st ? "" : " local") + "'>🔥 Unbroken · " + st + " day" + (st === 1 ? "" : "s") + "</span>" + (dg.freezes ? "<span class='chip' title='Stasis shields protect your streak if you miss 1 day'>🛡️ " + dg.freezes + "</span>" : "") + "</div></div>";
+  h += "<div class='xpRow'><span class='status'>" + (dg.done ? "✓ One More done!" : "One More: " + dg.xp + " / " + dg.target + " XP") + "</span><div class='xpBar'><i style='width:" + dg.pct + "%'></i></div><strong style='font-size:.82rem'>" + dg.pct + "%</strong></div>";
   if(c){
     var rd = readinessOf(c.id);
     h += "<div class='row' style='margin:10px 0 0'>" +
-      (due ? "<button class='primary' data-rev='" + due.c.id + "'>Revise due: " + esc(due.c.name.slice(0, 24)) + "</button>" : "<button class='primary' id='hmContinue'>Continue: " + esc(c.name.slice(0, 22)) + " (" + rd.pct + "% ready)</button>") +
-      "<button id='hmCram'>⚡ 5-Min Cram</button><button id='hmExam'>⏱ Quick Exam</button><button id='hmMaths'>Maths Solver</button></div>";
+      (due ? "<button class='primary' data-rev='" + due.c.id + "'>Fade check: " + esc(due.c.name.slice(0, 24)) + "</button>" : "<button class='primary' id='hmContinue'>Pick up: " + esc(c.name.slice(0, 22)) + " (" + rd.pct + "% locked in)</button>") +
+      "<button id='hmCram'>⚡ 5-Min Cram</button><button id='hmExam'>⏱ Fire Drill</button><button id='hmMaths'>Maths Solver</button></div>";
   } else {
     h += "<div class='row' style='margin:10px 0 0'><button class='primary' id='hmSample'>✨ Try a sample chapter</button><button data-v='study'>＋ Add book / paste text</button><button id='hmMaths'>Maths practice</button></div>";
   }
   var ss = subStatus();
   if(ss.pendingPayment){
     h += "<div class='row' style='margin:8px 0 0;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:rgba(82,101,218,.08);align-items:center'><span class='status' style='flex:1;min-width:170px'><b>Payment pending:</b> <code>" + esc(ss.pendingPayment.paymentId) + "</code> — awaiting organiser confirmation.</span><button data-act='subchk'>Check payment status</button></div>";
-  } else if(!ss.paidActive && !ss.pilotActive){
-    h += "<div class='row' style='margin:8px 0 0;align-items:center'><span class='proBadge free'>" + (ss.devBypass ? "Dev Preview" : ("Free · " + ss.chaptersUsed + "/" + FREE_CHAPTER_LIMIT + " ch")) + "</span><button type='button' class='linkish' id='hmUpgrade'>Upgrade to Yearly Pro (₹" + SUB_PLAN.priceInr + "/yr)</button></div>";
+  } else if(!ss.unlocked && !ss.paidActive && !ss.pilotActive){
+    h += "<div class='row' style='margin:8px 0 0;align-items:center'><span class='proBadge free'>Free · " + ss.chaptersUsed + "/" + FREE_CHAPTER_LIMIT + " books</span><button type='button' class='linkish' id='hmUpgrade'>Go Pro · ₹" + SUB_PLAN.priceInr + "/yr or ₹" + SUB_PLAN.monthlyInr + "/mo</button></div>";
   }
   h += "</div>";
   h += "<div class='card galaxyCard'>" + galaxySvg(narrow) + "</div>";
   var HOME_CORE = [
     {v:"study", ic:"study", n:"Study"},
-    {v:"plan", ic:"plan", n:"Plan & Schedule"},
-    {v:"progress", ic:"progress", n:"Progress & Reports"},
+    {v:"plan", ic:"plan", n:"Plan"},
+    {v:"progress", ic:"progress", n:"Neural Map"},
     {v:"maths", ic:"maths", n:"Maths"},
-    {v:"mist", ic:"mist", n:"Mistakes"},
+    {v:"mist", ic:"mist", n:"Errors"},
     {v:"tools", ic:"tools", n:"Settings"}
   ];
   h += "<div class='homeSecs'>" + HOME_CORE.map(function(s){ return "<button class='mth tile' data-v='" + s.v + "'><span class='ic'>" + svgIc(s.ic) + "</span><b>" + s.n + "</b></button>"; }).join("") + "</div>";
-  h += "<div class='homeExtras'><button data-v='note'>📓 Notebook</button><button data-v='play'>🎮 Let's Play</button><button data-v='fun'>✨ Fun Facts</button><button data-v='tips'>💡 Tricks &amp; Tips</button></div>";
+  h += "<div class='homeExtras'><button data-v='note'>📓 Notebook</button><button data-v='play'>🎮 Play</button><button data-v='fun'>✨ Fun Facts</button><button data-v='tips'>💡 Hacks &amp; Tips</button></div>";
   $("homeIn").innerHTML = h;
+  startGreeting(gp);
   $("homeIn").querySelectorAll("[data-v]").forEach(function(n){ n.onclick = function(){ var v = n.dataset.v; if(v === "mindmap") openMindmap(); else if(v === "maths") openMaths(); else show(v); }; });
   $("homeIn").querySelectorAll("[data-rev]").forEach(function(n){ n.onclick = function(){ reviewChapter(n.getAttribute("data-rev")); }; });
   if($("hmContinue")) $("hmContinue").onclick = function(){ show("study"); };
@@ -2357,7 +2428,6 @@ RENDER.study = function(){
   var narrow = window.innerWidth < 620;
   if($("chAdd")) $("chAdd").textContent = narrow ? "＋ PDF" : "＋ Add book or chapter (PDF)";
   if($("chPaste")) $("chPaste").textContent = narrow ? "✎ Paste" : "✎ Paste text";
-  if($("chNcert")) $("chNcert").textContent = narrow ? "⬇ NCERT" : "⬇ NCERT library";
   if($("chSyll")) $("chSyll").textContent = narrow ? "📋 Syllabus" : "📋 Syllabus & plan";
   $("engSel").value = DB.engine; fillSel();
   if(narrow && $("chPack")) $("chPack").textContent = /^✓/.test($("chPack").textContent) ? $("chPack").textContent.replace("✓ Smart pack", "✓ Pack") : "⚡ Pack";
@@ -2377,7 +2447,6 @@ if($("chPaste")) $("chPaste").onclick = function(){ pasteChapterModal(); };
 if($("uplPaste")) $("uplPaste").onclick = function(){ pasteChapterModal(); };
 if($("uplSample")) $("uplSample").onclick = function(){ sampleChapterModal(); };
 $("chSyll").onclick = function(){ show("plan"); };
-$("chNcert").onclick = ncertOpen; $("uplNcert").onclick = ncertOpen;
 $("uplMaths").onclick = openMaths;
 
 var SAMPLE_CHAPTERS = [
@@ -2392,7 +2461,7 @@ var SAMPLE_CHAPTERS = [
 ];
 function addChapterRecord(opts){
   if(!subStatus().pro && (DB.chapters || []).length >= FREE_CHAPTER_LIMIT){
-    upgradeModal("You've used all " + FREE_CHAPTER_LIMIT + " free chapter slots. Upgrade to Yearly Pro for unlimited books and chapters.");
+    upgradeModal("You've used all " + FREE_CHAPTER_LIMIT + " free book slots. Go Pro for unlimited books and chapters.");
     return;
   }
   var raw = String(opts.text || "").trim(), cut = raw.length > LIM;
@@ -2425,7 +2494,7 @@ function pasteChapterModal(){
     var nm = m.el.querySelector("#ptName").value.trim(), txt = m.el.querySelector("#ptTxt").value.trim();
     var sj = m.el.querySelector("#ptSubj").value.trim() || "General", bk = m.el.querySelector("#ptBook").value.trim() || "My Notes";
     if(!nm){ m.el.querySelector("#ptMsg").innerHTML = "<span class='err'>Please enter a chapter title.</span>"; return; }
-    if(txt.length < 120){ m.el.querySelector("#ptMsg").innerHTML = "<span class='err'>Please paste at least 120 characters so Mitra can build questions and notes.</span>"; return; }
+    if(txt.length < 120){ m.el.querySelector("#ptMsg").innerHTML = "<span class='err'>Please paste at least 120 characters so I can build your questions and notes.</span>"; return; }
     m.close();
     addChapterRecord({subject: sj, book: bk, name: nm, text: txt});
   };
@@ -2489,7 +2558,7 @@ function packPrompt(c){
   if(txt.length > 24000) txt = txt.slice(0, 21000) + "\n…\n" + txt.slice(-3000);
   var a = ageOf();
   return "Build a deep, well-researched offline knowledge pack for one student.\n\n" +
-    "STUDENT: " + (DB.profile.cls || "school") + (a ? ", age " + a : "") + ", studying in " + (DB.profile.lang || "English") + ". Pitch everything for " + levelHint() + ".\n" +
+    "STUDENT: " + levelName() + (a ? ", age " + a : "") + ", studying in " + (DB.profile.lang || "English") + ". Pitch everything for " + levelHint() + ".\n" +
     "BOOK: " + c.book + "\nCHAPTER: " + c.name + "\n\nCHAPTER TEXT (may be partial):\n" + txt + "\n\n" +
     "TASK: Go beyond a summary. Use the chapter as the base, then add the standard concepts, worked examples, connections and exam questions a strong teacher would cover. For each concept give a precise definition, why it matters, how it links to the ideas before it, and a concrete example or worked step. Cover every important term in the chapter first, then the essential ideas the chapter assumes. Match the depth to the student's age and standard: younger students get concrete, everyday examples and short sentences; older students get precise definitions, derivations, edge cases and exam-style wording. Be accurate; do not invent names, dates, numbers or examples. Use simple Indian everyday examples where a standard example is needed. Do not copy long sentences from the chapter.\n\n" +
     "Return JSON exactly in this shape: {\"concepts\":[{\"t\":\"term\",\"d\":\"clear 2-3 sentence definition, with why it matters\",\"ex\":\"one worked or real-life example\"}],\"qa\":[{\"q\":\"exam-style question\",\"a\":\"model answer in 2-4 sentences\"}],\"facts\":[\"one memorable, accurate fact with a reason\"]}\n" +
@@ -2663,26 +2732,12 @@ $("file").onchange = async function(){
       if(total < 200){ $("info").innerHTML = "<span class='err'>This PDF looks scanned and I could not read the page images. Check your internet connection and try again, or use a PDF with selectable text.</span>"; return; }
     }
     pages = fixSplitWords(pages);
-    var pick = NCERT_PICK; NCERT_PICK = null;
-    var fresh = pick && pick.at && (Date.now() - pick.at < 20 * 60 * 1000);
-    if(fresh && pick.single){
-      /* An NCERT chapter PDF contains exactly one chapter. Trust the link the
-         student tapped instead of guessing from page headings. */
-      var label = "Chapter " + pick.ch + (pick.title ? " — " + pick.title : "");
-      pend = {book: "NCERT Class " + pick.cls + " — " + pick.name, pages: pages, rows: [{name: label, start: 1}]};
-    } else {
-      var book = f.name.replace(/\.pdf$/i, "");
-      if(fresh && pick.full) book = "NCERT Class " + pick.cls + " — " + pick.name;
-      var rows = await outlineRows(pdf, pages.length);
-      if(rows.length < 2) rows = headingRows(pages);
-      if(!rows.length) rows = [{name: book, start: 1}];
-      pend = {book: book, pages: pages, rows: rows};
-    }
+    var book = f.name.replace(/\.pdf$/i, "");
+    var rows = await outlineRows(pdf, pages.length);
+    if(rows.length < 2) rows = headingRows(pages);
+    if(!rows.length) rows = [{name: book, start: 1}];
+    pend = {book: book, pages: pages, rows: rows};
     var meta = PENDMETA; PENDMETA = null;
-    if(fresh && pick && pick.code){
-      var nb = NCERT_BOOKS.filter(function(b){ return b[3] === pick.code; })[0];
-      if(nb){ pend.subject = nb[1]; pend.sem = nb[0] >= 11 ? "Semester 1" : ""; }
-    }
     if(meta){
       pend.subject = meta.subject || "General";
       pend.sem = meta.sem || "";
@@ -2690,7 +2745,6 @@ $("file").onchange = async function(){
       if(meta.chapter){ pend.rows = [{name: meta.chapter, start: 1}]; pend.single = true; }
     }
     fillSel(); showSplit();
-    if(fresh) setMsg(pick.single ? "NCERT chapter ready. Check the name, then save it." : "NCERT book ready. Check the chapters found, then save them.");
   } catch(e){
     $("info").innerHTML = "<span class='err'>" + (/pdf-load|fetch|network/i.test(String(e && e.message)) ? "The PDF reader could not be loaded. Connect to the internet once, then try again. The rest of the app works offline." : "Could not read this PDF. Try another file with selectable text.") + "</span>";
   }
@@ -2771,7 +2825,7 @@ async function aiSplit(){
 function saveSplit(){
   var isPro = subStatus().pro, curCount = (DB.chapters || []).length;
   if(!isPro && curCount >= FREE_CHAPTER_LIMIT){
-    upgradeModal("Free plan supports up to " + FREE_CHAPTER_LIMIT + " chapters. Unlock Yearly Pro for unlimited chapters.");
+    upgradeModal("Free plan supports up to " + FREE_CHAPTER_LIMIT + " chapters. Go Pro for unlimited chapters.");
     return;
   }
   var n = pend.pages.length, rows = pend.rows.slice().sort(function(a, b){return a.start - b.start}), starts = {}, ok = true;
@@ -2788,242 +2842,61 @@ function saveSplit(){
   });
   if(!firstId){ $("spMsg").innerHTML = "<span class='err'>No readable text in these page ranges.</span>"; return; }
   logEv("upload", "Added chapters from “" + pend.book + "” under " + (pend.subject || "General") + (pend.sem ? " · " + pend.sem : "")); DB.cur = firstId; pend = null; save(); $("split").classList.add("hidden"); fillSel(); clearOut();
-  if(capped){ upgradeModal("Added " + added + " chapter(s) up to the " + FREE_CHAPTER_LIMIT + "-chapter Free limit (" + capped + " skipped). Upgrade to Yearly Pro for full multi-chapter books."); }
+  if(capped){ upgradeModal("Added " + added + " chapter(s) up to the " + FREE_CHAPTER_LIMIT + "-chapter Free limit (" + capped + " skipped). Go Pro for full multi-chapter books."); }
   else if(skipped) setMsg(skipped + " empty section(s) were skipped.");
 }
 
 
-/* ---------- NCERT library: official PDFs for Classes 1–12 ---------- */
-/* Tuples are [class, subject, book name, book code, chapter count]. The code is
-   the one NCERT uses in its own PDF URLs. */
-var NCERT_BOOKS = [
-  [1,"Maths","Joyful Mathematics","aejm1",13],
-  [1,"English","Mridang","aemr1",9],
-  [1,"Hindi","Sarangi","ahsr1",19],
-  [2,"Maths","Joyful Mathematics","bejm1",11],
-  [2,"English","Mridang","bemr1",13],
-  [2,"Hindi","Sarangi","bhsr1",26],
-  [3,"Maths","Maths Mela","cemm1",14],
-  [3,"EVS","Looking Around","ceev1",12],
-  [3,"English","Santoor","cesa1",12],
-  [3,"Hindi","Veena","chve1",18],
-  [4,"Maths","Math-Mela","demm1",14],
-  [4,"EVS","Looking Around","deap1",27],
-  [4,"English","Santoor","desa1",12],
-  [4,"Hindi","Veena","dhve1",13],
-  [5,"Maths","Math-Magic","eemh1",14],
-  [5,"EVS","Looking Around","eeap1",22],
-  [5,"English","Santoor","eesa1",10],
-  [5,"Hindi","Veena","ehve1",12],
-  [6,"Maths","Ganita Prakash","fegp1",10],
-  [6,"Science","Curiosity","fecu1",12],
-  [6,"English","Poorvi","fepr1",5],
-  [6,"Hindi","Malhar","fhml1",13],
-  [6,"Social Science","Exploring Society","fees1",14],
-  [7,"Maths","Ganita Prakash I","gegp1",8],
-  [7,"Maths","Ganita Prakash II","gegp2",7],
-  [7,"Science","Curiosity","gecu1",12],
-  [7,"English","Poorvi","gepr1",5],
-  [7,"Hindi","Malhar","ghml1",10],
-  [7,"Social Science","Exploring Society I","gees1",12],
-  [7,"Social Science","Exploring Society II","gees2",8],
-  [8,"Maths","Mathematics","hemh1",13],
-  [8,"Science","Science","hesc1",13],
-  [8,"English","Honeydew","hehd1",8],
-  [8,"English","It So Happened","heih1",8],
-  [8,"Hindi","Vasant","hhvs1",13],
-  [8,"Social Science","History","hess2",8],
-  [8,"Social Science","Geography","hess4",5],
-  [8,"Social Science","Civics","hess3",8],
-  [9,"Maths","Ganita Manjari I","iemh1",8],
-  [9,"Maths","Ganita Manjari II","iemh2",6],
-  [9,"Science","Exploration","iesc1",13],
-  [9,"English","Kaveri","iebe1",8],
-  [9,"Hindi","Ganga","ihga1",12],
-  [9,"Social Science","History","iest1",9],
-  [9,"Social Science","Geography","iest2",6],
-  [10,"Maths","Mathematics","jemh1",14],
-  [10,"Science","Science","jesc1",13],
-  [10,"English","First Flight","jeff1",9],
-  [10,"English","Footprints Without Feet","jefp1",9],
-  [10,"Hindi","Kshitij","jhks1",12],
-  [10,"Social Science","History","jess3",5],
-  [10,"Social Science","Geography","jess1",7],
-  [10,"Social Science","Economics","jess2",5],
-  [10,"Social Science","Civics","jess4",5],
-  [11,"Maths","Mathematics","kemh1",14],
-  [11,"Physics","Physics I","keph1",7],
-  [11,"Physics","Physics II","keph2",7],
-  [11,"Chemistry","Chemistry I","kech1",6],
-  [11,"Chemistry","Chemistry II","kech2",3],
-  [11,"Biology","Biology","kebo1",19],
-  [11,"English","Hornbill","kehb1",14],
-  [11,"Economics","Indian Economic Development","keec1",8],
-  [11,"Economics","Statistics for Economics","kest1",8],
-  [11,"Accountancy","Accountancy I","keac1",7],
-  [11,"Business Studies","Business Studies","kebs1",11],
-  [11,"Hindi","Aroh","khar1",16],
-  [12,"Maths","Mathematics I","lemh1",6],
-  [12,"Maths","Mathematics II","lemh2",7],
-  [12,"Physics","Physics I","leph1",8],
-  [12,"Physics","Physics II","leph2",6],
-  [12,"Chemistry","Chemistry I","lech1",5],
-  [12,"Chemistry","Chemistry II","lech2",5],
-  [12,"Biology","Biology","lebo1",13],
-  [12,"English","Flamingo","lefl1",13],
-  [12,"English","Vistas","levt1",6],
-  [12,"Economics","Macroeconomics","leec1",6],
-  [12,"Economics","Microeconomics","leec2",5],
-  [12,"Accountancy","Accountancy I","leac1",4],
-  [12,"Accountancy","Accountancy II","leac2",6],
-  [12,"Business Studies","Business Studies I","lebs1",8],
-  [12,"Business Studies","Business Studies II","lebs2",3],
-  [12,"Hindi","Aroh","lhar1",15]
-];
-/* Chapter names are included only where they are stable and verified. Other
-   books still work; their chapters are shown as “Chapter 1”, “Chapter 2”… */
-var NCERT_TITLES = {
-  fegp1: ["Patterns in Mathematics","Lines and Angles","Number Play","Data Handling and Presentation","Prime Time","Perimeter and Area","Fractions","Playing with Constructions","Symmetry","The Other Side of Zero"],
-  hemh1: ["Rational Numbers","Linear Equations in One Variable","Understanding Quadrilaterals","Data Handling","Squares and Square Roots","Cubes and Cube Roots","Comparing Quantities","Algebraic Expressions and Identities","Mensuration","Exponents and Powers","Direct and Inverse Proportions","Factorisation","Introduction to Graphs"],
-  jemh1: ["Real Numbers","Polynomials","Pair of Linear Equations in Two Variables","Quadratic Equations","Arithmetic Progressions","Triangles","Coordinate Geometry","Introduction to Trigonometry","Some Applications of Trigonometry","Circles","Areas Related to Circles","Surface Areas and Volumes","Statistics","Probability"],
-  kemh1: ["Sets","Relations and Functions","Trigonometric Functions","Principle of Mathematical Induction","Complex Numbers and Quadratic Equations","Linear Inequalities","Permutations and Combinations","Binomial Theorem","Sequences and Series","Straight Lines","Conic Sections","Introduction to Three Dimensional Geometry","Limits and Derivatives","Mathematical Reasoning"],
-  lemh1: ["Relations and Functions","Inverse Trigonometric Functions","Matrices","Determinants","Continuity and Differentiability","Application of Derivatives"],
-  lemh2: ["Integrals","Application of Integrals","Differential Equations","Vector Algebra","Three Dimensional Geometry","Linear Programming","Probability"]
-};
-var NCERT_PICK = null;
-
-function ncertChapterTitle(code, ch){
-  var a = NCERT_TITLES[code];
-  return a && a[ch - 1] ? a[ch - 1] : "";
+/* ---------- videos (YouTube only — subject-aware, most-viewed first) ---------- */
+function ytSearch(q){
+  /* sp=CAM%3D sorts YouTube results by view count, so the most-watched show first */
+  return "https://www.youtube.com/results?search_query=" + encodeURIComponent(q) + "&sp=CAM%253D";
 }
-function ncertChapterUrl(code, ch){
-  return "https://ncert.nic.in/textbook/pdf/" + code + (ch < 10 ? "0" : "") + ch + ".pdf";
-}
-function ncertOpen(){
-  var cls = mwClassNum(), bookIdx = 0;
-  function books(){ return NCERT_BOOKS.filter(function(b){ return b[0] === cls; }); }
-  function currentBook(){ var bs = books(); if(bookIdx >= bs.length) bookIdx = 0; return bs[bookIdx] || bs[0]; }
-  var m = popup("<div id='ncWrap'></div>");
-  function fullHtml(){
-    var bs = books(), bk = currentBook(), h = "";
-    var clsSel = "";
-    for(var i = 1; i <= 12; i++) clsSel += "<option value='" + i + "'" + (i === cls ? " selected" : "") + ">Class " + i + "</option>";
-    var subs = [], bySub = {};
-    bs.forEach(function(b, k){
-      if(!bySub[b[1]]){ bySub[b[1]] = []; subs.push(b[1]); }
-      bySub[b[1]].push({b: b, k: k});
-    });
-    var bookSel = subs.map(function(s){
-      return "<optgroup label='" + esc(s) + "'>" + bySub[s].map(function(x){
-        return "<option value='" + x.k + "'" + (x.k === bookIdx ? " selected" : "") + ">" + esc(x.b[2]) + "</option>";
-      }).join("") + "</optgroup>";
-    }).join("");
-    var chs = "";
-    for(var c = 1; c <= bk[4]; c++){
-      var title = ncertChapterTitle(bk[3], c);
-      chs += "<a class='ncCh' href='" + ncertChapterUrl(bk[3], c) + "' target='_blank' rel='noopener' data-ch='" + c + "'><b>Chapter " + c + "</b>" + (title ? "<small>" + esc(title) + "</small>" : "") + "</a>";
-    }
-    h += "<h3 style='margin-top:0'>📚 NCERT library</h3>";
-    h += "<p class='status'>Official, free PDFs from ncert.nic.in. Choose a chapter, let it open, save it on your device, then use <b>Choose downloaded PDF</b>. Your books, notes and progress stay on this device.</p>";
-    h += "<div class='row'><div style='flex:1;min-width:120px'><label for='ncCls'>Class</label><select id='ncCls'>" + clsSel + "</select></div><div style='flex:2;min-width:160px'><label for='ncBook'>Book</label><select id='ncBook'>" + bookSel + "</select></div></div>";
-    h += "<p class='status' style='margin:0 0 4px'>" + esc(bk[1]) + " · " + bk[4] + " chapters · code " + esc(bk[3]) + "</p>";
-    h += "<div class='ncChapters'>" + chs + "</div>";
-    h += "<div class='row'><a class='ncLink' id='ncFull' href='https://ncert.nic.in/textbook/pdf/" + bk[3] + "dd.zip' target='_blank' rel='noopener'>Full book (ZIP)</a><a class='ncLink' href='https://ncert.nic.in/textbook.php?" + bk[3] + "=0-" + bk[4] + "' target='_blank' rel='noopener'>Official NCERT page</a></div>";
-    h += "<p class='status' id='ncSel'>Tap a chapter link above, then choose the PDF you saved.</p>";
-    h += "<div class='row'><button class='primary' id='ncPick'>Choose downloaded PDF</button><button data-close>Close</button></div>";
-    h += "<p class='status' style='font-size:.82rem'>The full book is a large ZIP. Unzip it first, then choose the PDF inside. NCERT does not let a web page read its files directly, so this one save step is needed.</p>";
-    return h;
-  }
-  function selectChapter(a){
-    var bk = currentBook(), ch = parseInt(a.getAttribute("data-ch"), 10), title = ncertChapterTitle(bk[3], ch);
-    NCERT_PICK = {cls: cls, name: bk[2], code: bk[3], ch: ch, title: title, single: true, at: Date.now()};
-    m.el.querySelectorAll(".ncCh").forEach(function(x){ x.classList.toggle("on", x === a); });
-    var s = m.el.querySelector("#ncSel");
-    if(s) s.innerHTML = "<b>Selected:</b> Class " + cls + " " + esc(bk[2]) + ", Chapter " + ch + (title ? " — " + esc(title) : "") + ". Save the PDF, then choose it here.";
-  }
-  function bind(){
-    var r = m.el;
-    var cs = r.querySelector("#ncCls");
-    if(cs) cs.onchange = function(){ cls = parseInt(this.value, 10); bookIdx = 0; redraw(); };
-    var bs = r.querySelector("#ncBook");
-    if(bs) bs.onchange = function(){ bookIdx = parseInt(this.value, 10) || 0; redraw(); };
-    r.querySelectorAll(".ncCh").forEach(function(a){ a.onclick = function(){ selectChapter(a); }; });
-    var f = r.querySelector("#ncFull");
-    if(f) f.onclick = function(){
-      var bk = currentBook();
-      NCERT_PICK = {cls: cls, name: bk[2], code: bk[3], full: true, at: Date.now()};
-      toast("Unzip the download, then choose the PDF inside.");
-    };
-    var p = r.querySelector("#ncPick");
-    if(p) p.onclick = function(){
-      if(!NCERT_PICK){ toast("Tap a chapter first so I know which chapter it is."); return; }
-      NCERT_PICK.at = Date.now(); m.close();
-      setTimeout(function(){ $("file").click(); }, 60);
-    };
-  }
-  function redraw(){ m.set(fullHtml()); bind(); }
-  redraw();
-}
-
-
-/* ---------- videos (Khan Academy India channel first, then YouTube and other free sites) ---------- */
-var KHAN_CHANNEL = {
-  handle: "KhanAcademyIndiaEnglish",
-  name: "Khan Academy India – English",
-  url: "https://www.youtube.com/@KhanAcademyIndiaEnglish/featured"
-};
-function khanChannelSearch(q){
-  return "https://www.youtube.com/@" + KHAN_CHANNEL.handle + "/search?query=" + encodeURIComponent(q);
-}
-var VIDEO_SITES = [
-  {k:"yt", n:"YouTube", tip:"most-viewed videos first", u:function(q){ return "https://www.youtube.com/results?search_query=" + encodeURIComponent(q) + "&sp=CAM%253D"; }},
-  {k:"ck12", n:"CK-12", tip:"free interactive textbooks", u:function(q){ return "https://www.ck12.org/search/?q=" + encodeURIComponent(q); }},
-  {k:"wiki", n:"Wikipedia", tip:"a quick encyclopedia overview", u:function(q){ return "https://en.wikipedia.org/w/index.php?search=" + encodeURIComponent(q); }},
-  {k:"web", n:"Web search", tip:"every other site", u:function(q){ return "https://www.google.com/search?q=" + encodeURIComponent(q); }}
-];
-function videoSite(k){ return VIDEO_SITES.filter(function(s){ return s.k === k; })[0]; }
 function vidLink(url, label){ return "<p class='vidLink'><a target='_blank' rel='noopener' href='" + esc(url) + "'>▶ " + esc(label) + "</a></p>"; }
+function vidLevelWord(){
+  var p = (DB && DB.profile) || {};
+  if(p.cls && String(p.cls).trim()) return String(p.cls).trim();
+  return ["class 7", "class 9", "class 11", "college"][bandOf(p.cls)] || "class 9";
+}
+function vidSubject(c){
+  var s = subjOf(c);
+  return (s && s !== "General") ? s : "";
+}
 function askVideo(){
   var c = cur(); if(!c) return;
   if(VA[c.id]){ $("vidAsk").innerHTML = "<span class='status'>Want to watch explaining videos? </span><button id='vYes'>Watch videos</button>"; $("vYes").onclick = vids; return; } VA[c.id] = 1;
-  $("vidAsk").innerHTML = "<strong> Want to watch some videos explaining “" + esc(c.name) + "”?</strong><p class='status' style='margin:4px 0 0'>I check the free Khan Academy India YouTube channel first, then show more YouTube and other sites.</p><div class='row' style='margin-top:8px'><button class='primary' id='vYes'>Yes, show me</button><button id='vNo'>Maybe later</button></div>";
+  $("vidAsk").innerHTML = "<strong> Want to watch videos explaining “" + esc(c.name) + "”?</strong><p class='status' style='margin:4px 0 0'>I search YouTube" + (vidSubject(c) ? " in <b>" + esc(vidSubject(c)) + "</b>" : "") + " for “" + esc(c.name) + "” and show the most-viewed matches first.</p><div class='row' style='margin-top:8px'><button class='primary' id='vYes'>Yes, show me</button><button id='vNo'>Maybe later</button></div>";
   $("vNo").onclick = function(){ $("vidAsk").innerHTML = "<span class='status'>No problem! Tap here anytime: </span><button id='vYes'> Videos</button>"; $("vYes").onclick = vids; };
   $("vYes").onclick = vids;
 }
 async function vids(){ RETRY = vids;
-  var c = cur(), m = popup("<h3 style='margin-top:0'> Finding good videos…</h3><p class='status'>One moment </p>");
+  var c = cur(), m = popup("<h3 style='margin-top:0'> Finding good videos...</h3><p class='status'>One moment </p>");
   if(!c){ m.set("<p>Open a chapter first, then I can find videos for it.</p><button data-close class='primary'>Back to class</button>"); return; }
   var d = localVideos(c);
   if(DB.engine === "ai"){
     try {
-      var vd = await runJc("vid|" + c.id, "Suggest 4 different search phrases that will find the best explanatory videos for this chapter, for a " + DB.profile.cls + " student, preferably in " + DB.profile.lang + " (one may be in English). Return ONLY a JSON array [{\"title\": short friendly title, \"search\": search phrase, \"topic\": the plain topic name to search on the Khan Academy India YouTube channel}].");
-      if(Array.isArray(vd) && vd.length) d = vd.map(function(x){ return {title: String(x.title || "Video"), search: String(x.search || c.name), topic: String(x.topic || c.name)}; });
+      var subj0 = vidSubject(c) || "this subject";
+      var vd = await runJc("vid|" + c.id, "Suggest 5 different YouTube search phrases that find the best explanatory videos for this chapter of " + subj0 + ", for " + levelName() + ", preferably in " + DB.profile.lang + " (one may be in English). Include the subject and the exact chapter name so results stay relevant. Return ONLY a JSON array [{\"title\": short friendly title, \"search\": YouTube search phrase}].");
+      if(Array.isArray(vd) && vd.length) d = vd.map(function(x){ return {title: String(x.title || "Video"), search: String(x.search || c.name)}; });
     } catch(e){}
   }
   if(!Array.isArray(d) || !d.length){ m.set("<p>Sorry, I couldn’t find suggestions now.</p><button data-close class='primary'>Back to class</button>"); return; }
-  var topic = String((d[0] && d[0].topic) || c.name).trim();
-  var yt = videoSite("yt");
-  var other = VIDEO_SITES.filter(function(s){ return s.k !== "yt"; });
+  var subj = vidSubject(c);
   var h = "<h3 style='margin-top:0'> Videos for “" + esc(c.name) + "”</h3>";
-  h += "<p class='status' style='margin:2px 0 8px'>First I look inside the free <b>Khan Academy India</b> YouTube channel, then show the best of YouTube and other sites. Each link opens in a new tab.</p>";
-  h += "<div class='vidGroup'><h4>⭐ Khan Academy India — check this channel first</h4>" +
-    vidLink(khanChannelSearch(topic), "“" + topic + "” in the Khan Academy India channel") +
-    vidLink(khanChannelSearch(c.book + " " + c.name), c.book + ": " + c.name) +
-    vidLink(KHAN_CHANNEL.url, "Browse the whole " + KHAN_CHANNEL.name + " channel") + "</div>";
-  h += "<div class='vidGroup'><h4>YouTube — most viewed first</h4>" + d.slice(0, 4).map(function(x){ return vidLink(yt.u(String(x.search)), String(x.title)); }).join("") + "</div>";
-  h += "<div class='vidGroup'><h4>More free sites</h4>" + other.map(function(s){ return vidLink(s.u(topic), s.n + " — " + s.tip); }).join("") + "</div>";
+  h += "<p class='status' style='margin:2px 0 8px'>YouTube only" + (subj ? ", matched to <b>" + esc(subj) + "</b>" : "") + ", with the <b>most-viewed results first</b>. Each link opens in a new tab.</p>";
+  h += "<div class='vidGroup'><h4>YouTube — most viewed first</h4>" + d.slice(0, 6).map(function(x){ return vidLink(ytSearch(String(x.search)), String(x.title)); }).join("") + "</div>";
+  h += "<div class='vidGroup'><h4>Browse more</h4>" + vidLink(ytSearch(c.name), "All YouTube results for “" + c.name + "”") + "</div>";
   if(!navigator.onLine) h += "<p class='status'>You are offline now. These pages will open once you are back online.</p>";
   h += "<button data-close class='primary'>Back to class </button>";
   m.set(h);
   logEv("video", "Looked up explaining videos");
 }
-
 /* ---------- Study: methods ---------- */
 var GROUPS = [["Learn the chapter", ["explain","notes","mindmap","maths","doubt"]], ["Practise and test", ["qa","mcq","exam"]], ["Quick revision", ["cram","flash"]]];
 function renderMethods(){ var nc = cur(), nsx = nc ? nextStep(nc.id) : null, nsK = nsx && !nsx.done ? nsx.k : "";
   if(nsK === "teach") nsK = "qa";
   var all = [].concat.apply([], GROUPS.map(function(g){ return g[1]; }));
-  $("methods").innerHTML = "<div class='grid methodsGrid'>" + all.map(function(k){ var m = METHODS.filter(function(x){return x.k === k})[0]; return "<button class='mth tile' data-m='" + k + "' title='" + esc(m.d) + "'>" + (nsK === k ? "<span class='badge'>Next</span>" : "") + "<span class='ic'>" + svgIc(k) + "</span><b>" + m.n + "</b><small>" + m.d + "</small></button>"; }).join("") + "<button class='mth tile' data-video='1' title='Find explanatory videos for this chapter'><span class='ic'>" + svgIc("play") + "</span><b>Watch videos</b><small>Khan Academy channel, YouTube and more</small></button></div>";
+  $("methods").innerHTML = "<div class='grid methodsGrid'>" + all.map(function(k){ var m = METHODS.filter(function(x){return x.k === k})[0]; return "<button class='mth tile' data-m='" + k + "' title='" + esc(m.d) + "'>" + (nsK === k ? "<span class='badge'>Next</span>" : "") + "<span class='ic'>" + svgIc(k) + "</span><b>" + m.n + "</b><small>" + m.d + "</small></button>"; }).join("") + "<button class='mth tile' data-video='1' title='Find explanatory videos for this chapter'><span class='ic'>" + svgIc("play") + "</span><b>Watch videos</b><small>YouTube · most-viewed first</small></button></div>";
   $("methods").querySelectorAll(".mth").forEach(function(b){ b.onclick = function(){ document.querySelectorAll("#methods .mth").forEach(function(x){ x.classList.toggle("on", x === b); }); openMethod(b.dataset.m); }; });
   $("methods").querySelectorAll("[data-video]").forEach(function(b){ b.onclick = vids; });
 }
@@ -3072,13 +2945,14 @@ function openMethod(k){
   else if(k === "flash"){ flashStart(); }
   else if(k === "cram"){ cramStart(); }
   else if(k === "mcq" || k === "exam"){
+    /* Paywall gate: dormant while DEV_UNLOCKED is true (dev builds), active again for freemium/release builds. */
     if(k === "exam" && !subStatus().pro){
-      mp.innerHTML = "<div class='card hero' style='text-align:center'><span class='proBadge'>Yearly Pro</span><h3 style='margin:8px 0 4px'>Timed Exam Mode</h3><p class='status'>Simulate real timed board exams with answer review. Unlock with Gurukul Yearly Pass.</p><button class='primary' id='upExBtn'>Unlock Yearly Pro (₹" + SUB_PLAN.priceInr + "/yr)</button></div>";
-      if($("upExBtn")) $("upExBtn").onclick = function(){ upgradeModal("Timed Exam Mode"); };
+      mp.innerHTML = "<div class='card hero' style='text-align:center'><span class='proBadge'>Pro</span><h3 style='margin:8px 0 4px'>Fire Drill</h3><p class='status'>A timed mock test that feels like the real thing, with answer review. Unlock with ENGRAMOS Pro.</p><button class='primary' id='upExBtn'>Go Pro (₹" + SUB_PLAN.priceInr + "/yr or ₹" + SUB_PLAN.monthlyInr + "/mo)</button></div>";
+      if($("upExBtn")) $("upExBtn").onclick = function(){ upgradeModal("Fire Drill"); };
       focusRegion(mp, "start"); return;
     }
     var ex = k === "exam";
-    mp.innerHTML = "<h3 style='margin-top:0'>" + (ex ? " Exam mode" : " MCQ practice") + "</h3><p class='status'>" + (ex ? "Timed test, one minute per question. Answers are shown only after you submit, just like the real exam." : "You get feedback after every answer. A wrong answer opens a small window explaining it.") + "</p><div class='row'><select id='qzN'><option value='5'>5 questions</option><option value='10' selected>10 questions</option><option value='15'>15 questions</option>" + (ex ? "<option value='20'>20 questions</option>" : "") + "</select><select id='qzD'><option value='a mix of easy, medium and tricky'>Mixed</option><option value='easy, to build basics'>Easy</option><option value='hard, application-based and exam-tricky'>Hard</option></select></div><button class='primary' id='qzGo'>" + (ex ? "Start exam " : "Start practice ") + "</button><div id='qzScore' class='status' style='margin-top:10px'></div><div id='qzOut'></div><div id='qzRes'></div>";
+    mp.innerHTML = "<h3 style='margin-top:0'>" + (ex ? " Fire Drill" : " Recall Drill") + "</h3><p class='status'>" + (ex ? "Timed test, one minute per question. Answers are shown only after you submit, just like the real thing." : "You get feedback after every answer. A wrong answer opens a small window explaining it.") + "</p><div class='row'><select id='qzN'><option value='5'>5 questions</option><option value='10' selected>10 questions</option><option value='15'>15 questions</option>" + (ex ? "<option value='20'>20 questions</option>" : "") + "</select><select id='qzD'><option value='a mix of easy, medium and tricky'>Mixed</option><option value='easy, to build basics'>Easy</option><option value='hard, application-based and exam-tricky'>Hard</option></select></div><button class='primary' id='qzGo'>" + (ex ? "Start Fire Drill " : "Start recall ") + "</button><div id='qzScore' class='status' style='margin-top:10px'></div><div id='qzOut'></div><div id='qzRes'></div>";
     $("qzGo").onclick = function(){ startTest(k); }; paperUi();
   }
   focusRegion(mp, "start");
@@ -3807,12 +3681,12 @@ function solveTry(q, outEl, mode){
 /* ---------- solve a problem: worked method from the chapter ---------- */
 function solveStart(){
   var mp = $("mp");
-  mp.innerHTML = "<h3 style='margin-top:0'>Solve a problem</h3><p class='status'>Paste a question from your book, homework or a test. I will solve it step by step and explain why each line is true.</p><textarea id='svQ' placeholder='For example: Check injectivity and surjectivity of f : N → N, f(x) = x².' style='margin-top:8px'></textarea><div class='row'><select id='svMode'><option value='steps'>Step-by-step solution</option><option value='answer'>Short answer</option></select><button class='primary' id='svGo'>Solve it</button></div><div id='svOut' class='out'></div>";
+  mp.innerHTML = "<h3 style='margin-top:0'>Solve It</h3><p class='status'>Paste a question from your book, homework or a test. I will solve it step by step and explain why each line is true.</p><textarea id='svQ' placeholder='For example: Check injectivity and surjectivity of f : N → N, f(x) = x².' style='margin-top:8px'></textarea><div class='row'><select id='svMode'><option value='steps'>Step-by-step solution</option><option value='answer'>Short answer</option></select><button class='primary' id='svGo'>Solve it</button></div><div id='svOut' class='out'></div>";
   $("svGo").onclick = async function(){
     var q = $("svQ").value.trim(); if(q.length < 4){ toast("Write the problem first"); return; }
     var mode = $("svMode").value, b = this;
     if(solveTry(q, $("svOut"), mode)){ logEv("solve", "Solved: " + q.slice(0, 70)); revealResult($("svOut")); return; }
-    var prompt = "The student wants help solving this problem:\n\n" + q + "\n\nSolve it " + (mode === "answer" ? "briefly, with the key working" : "step by step") + " at the level of " + DB.profile.cls + ". Rules: use the method taught in this chapter; write each step on its own line with a short reason; show the working, not only the answer; if a value is missing, say what is missing instead of guessing; end with a line starting 'Final answer:'. Keep it short enough to copy into a notebook.";
+    var prompt = "The student wants help solving this problem:\n\n" + q + "\n\nSolve it " + (mode === "answer" ? "briefly, with the key working" : "step by step") + " at the level of " + levelName() + ". Rules: use the method taught in this chapter; write each step on its own line with a short reason; show the working, not only the answer; if a value is missing, say what is missing instead of guessing; end with a line starting 'Final answer:'. Keep it short enough to copy into a notebook.";
     var r = await run(prompt, $("svOut"), b, {ctx: "solve", q: q, key: "sv|" + mode + "|" + normQ(q).slice(0, 80), local: function(){ return localSolve(q, mode); }});
     if(r) logEv("solve", "Solved: " + q.slice(0, 70));
   };
@@ -4419,9 +4293,9 @@ if(typeof module !== "undefined") module.exports = {
 var MWB = null;
 
 function mwClassNum(){
-  var m = String((DB.profile && DB.profile.cls) || "").match(/\d+/);
-  var n = m ? parseInt(m[0], 10) : 6;
-  return (n >= 1 && n <= 12) ? n : 6;
+  var c = String((DB.profile && DB.profile.cls) || ""), m = c.match(/\d+/);
+  if(m){ var n0 = parseInt(m[0], 10); if(n0 >= 1 && n0 <= 12) return n0; }
+  return [6, 9, 11, 11][bandOf(c)] || 6;
 }
 function mathsDefaults(){
   var n = mwClassNum();
@@ -4471,7 +4345,7 @@ function mathsStart(mode){
       var q = $("svQ").value.trim(); if(q.length < 4){ toast("Write the problem first"); return; }
       var sm = $("svMode").value, b = this;
       if(solveTry(q, $("svOut"), sm)){ logEv("solve", "Solved: " + q.slice(0, 70)); revealResult($("svOut")); return; }
-      var prompt = "The student wants help solving this problem:\n\n" + q + "\n\nSolve it " + (sm === "answer" ? "briefly, with the key working" : "step by step") + " at the level of " + DB.profile.cls + ". Rules: use the method taught in this chapter; write each step on its own line with a short reason; show the working, not only the answer; if a value is missing, say what is missing instead of guessing; end with a line starting 'Final answer:'. Keep it short enough to copy into a notebook.";
+      var prompt = "The student wants help solving this problem:\n\n" + q + "\n\nSolve it " + (sm === "answer" ? "briefly, with the key working" : "step by step") + " at the level of " + levelName() + ". Rules: use the method taught in this chapter; write each step on its own line with a short reason; show the working, not only the answer; if a value is missing, say what is missing instead of guessing; end with a line starting 'Final answer:'. Keep it short enough to copy into a notebook.";
       var r = await run(prompt, $("svOut"), b, {ctx: "solve", q: q, key: "sv|" + sm + "|" + normQ(q).slice(0, 80), local: function(){ return localSolve(q, sm); }});
       if(r) logEv("solve", "Solved: " + q.slice(0, 70));
     };
@@ -5076,7 +4950,7 @@ function localSolve(q, mode){
   out.push("**Method — follow these steps:**");
   out.push("1. **Write what is given.** Note the values, units and what the question asks for.");
   out.push("2. **Choose the idea or formula.** Use the definition or rule from the lines above.");
-  out.push("3. **Substitute one value at a time.** Keep each line neat so a mistake is easy to spot.");
+  out.push("3. **Substitute one value at a time.** Keep each line neat so an error is easy to spot.");
   out.push("4. **Solve and check.** Compare your answer with the worked example, then write the final answer with units.");
   if(mode !== "answer") out.push("**Now you try:** Copy the steps above and fill in your own numbers. Say each reason aloud — that is how you remember the method in the exam.");
   else out.push("**Now you try:** Write only the final line, then check it against the method above.");
@@ -7148,14 +7022,15 @@ function localCram(c){
   var mdLines = ["# 5-Min Cram: " + c.name, "", "## Must-Know Concepts"];
   ideas.forEach(function(x){ mdLines.push("- **" + x.t + ":** " + x.d); });
   if(formulas.length){ mdLines.push("", "## Formulas & Rules"); formulas.forEach(function(f){ mdLines.push("- " + f); }); }
-  if(mistakes.length){ mdLines.push("", "## Past Mistakes to Avoid"); mistakes.forEach(function(m){ mdLines.push("- **Q:** " + m.q + " -> **Answer:** " + m.options[m.answer]); }); }
+  if(mistakes.length){ mdLines.push("", "## Past Errors to Avoid"); mistakes.forEach(function(m){ mdLines.push("- **Q:** " + m.q + " -> **Answer:** " + m.options[m.answer]); }); }
   if(checks.length){ mdLines.push("", "## Quick Self-Check"); checks.forEach(function(q, i){ mdLines.push((i + 1) + ". **" + q.q + "** — " + q.a); }); }
   return {ideas: ideas, formulas: formulas, terms: terms, mistakes: mistakes, checks: checks, md: mdLines.join("\n")};
 }
 function cramStart(){
   var c = cur(), mp = $("mp"); if(!c || !mp) return;
+  /* Paywall gate: dormant while DEV_UNLOCKED is true (dev builds), active again for freemium/release builds. */
   if(!subStatus().pro){
-    mp.innerHTML = "<div class='card hero' style='text-align:center'><span class='proBadge'>Yearly Pro</span><h3 style='margin:8px 0 4px'>⚡ 5-Min Cram</h3><p class='status'>Pre-exam 1-page cheat sheets combining key formulas, mistake traps, and rapid self-checks.</p><button class='primary' id='upCrBtn'>Unlock Yearly Pro (₹" + SUB_PLAN.priceInr + "/yr)</button></div>";
+    mp.innerHTML = "<div class='card hero' style='text-align:center'><span class='proBadge'>Pro</span><h3 style='margin:8px 0 4px'>⚡ 5-Min Cram</h3><p class='status'>Pre-exam 1-page cheat sheets combining key formulas, error traps, and rapid self-checks.</p><button class='primary' id='upCrBtn'>Go Pro (₹" + SUB_PLAN.priceInr + "/yr or ₹" + SUB_PLAN.monthlyInr + "/mo)</button></div>";
     if($("upCrBtn")) $("upCrBtn").onclick = function(){ upgradeModal("5-Min Cram pre-exam sheets"); };
     return;
   }
@@ -7169,8 +7044,8 @@ function cramStart(){
   if(d.formulas.length){ h += "<h4>Formulas &amp; rules</h4><ul>" + d.formulas.map(function(f){ return "<li>" + inline(f) + "</li>"; }).join("") + "</ul>"; }
   if(d.terms.length){ h += "<div style='margin-top:6px'>" + d.terms.map(function(t){ return "<span class='tag'>" + esc(t) + "</span>"; }).join(" ") + "</div>"; }
   h += "</div>";
-  h += "<div class='cramSection'><h4>2. Mistakes to avoid from your error book</h4>";
-  h += d.mistakes.length ? "<ul>" + d.mistakes.map(function(m){ return "<li><strong>" + inline(m.q) + "</strong><br><span class='status'>Remember: <strong style='color:var(--ok)'>" + esc(m.options[m.answer]) + "</strong></span></li>"; }).join("") + "</ul>" : "<p class='status'>No unresolved mistakes saved for this chapter — great job!</p>";
+  h += "<div class='cramSection'><h4>2. Errors to avoid from My Error Ledger</h4>";
+  h += d.mistakes.length ? "<ul>" + d.mistakes.map(function(m){ return "<li><strong>" + inline(m.q) + "</strong><br><span class='status'>Remember: <strong style='color:var(--ok)'>" + esc(m.options[m.answer]) + "</strong></span></li>"; }).join("") + "</ul>" : "<p class='status'>No unresolved errors saved for this chapter — great job!</p>";
   h += "</div>";
   h += "<div class='cramSection'><h4>3. 3-Question quick self-check (tap to reveal)</h4>";
   h += d.checks.length ? d.checks.map(function(q, i){ return "<details class='cramCheck'><summary>Q" + (i + 1) + ". " + inline(q.q) + "</summary><div class='status' style='margin-top:6px'><strong>Answer:</strong> " + inline(q.a) + "</div></details>"; }).join("") : "<p class='status'>Add more text to generate quick recall questions.</p>";
@@ -7181,7 +7056,7 @@ function cramStart(){
   $("crSaveFile").onclick = function(){ saveFile(c.name.replace(/[^\w\- ]+/g, "") + "-5min-cram.md", d.md); };
   $("crRead").onclick = function(){ speakText(d.md.replace(/[#*_`]/g, ""), {max: 1200}); };
   if($("crAi")) $("crAi").onclick = function(){
-    run("Prepare a punchy 1-page 5-Minute Cram cheat sheet for this chapter for a student about to walk into an exam: 6 crisp key concepts/formulas, 3 common exam mistakes to avoid, and 3 quick recall Q&As.", $("crAiOut"), $("crAi"), {ctx: "cram", key: "cram|" + c.id, local: function(){ return d.md; }});
+    run("Prepare a punchy 1-page 5-Minute Cram cheat sheet for this chapter for a student about to walk into an exam: 6 crisp key concepts/formulas, 3 common exam errors to avoid, and 3 quick recall Q&As.", $("crAiOut"), $("crAi"), {ctx: "cram", key: "cram|" + c.id, local: function(){ return d.md; }});
   };
   markDone("cram");
   logEv("cram", "5-Min Cram revision");
@@ -7354,33 +7229,42 @@ function localFacts(){
 function localPlan(c){
   var w = weakTopics(c.id), sc = chScore(c.id), P = prep(c), topics = P.secs.filter(function(s){ return !s.skip && s.idx.length; }).map(function(s){ return s.label; }).slice(0, 5);
   return "## 3-day plan for " + c.name + "\n" + (sc !== null ? "Your recent score is " + sc + "%. Aim for 75% or more.\n" : "") +
-    "### Day 1: Understand\n- Read your notes on: " + (w.length ? w.join(", ") : (topics.join(", ") || "the whole chapter")) + ".\n- Use **Explain concepts** for anything unclear.\n- Close the book and write 5 key points from memory.\n" +
-    "### Day 2: Recall\n- Do the **Q&A coach** and **Flashcards**, then check what you missed.\n- Write the key definitions again in your own words.\n" +
-    "### Day 3: Test\n- Take **MCQ practice**, then one **Mock exam**.\n- Revise only the topics you got wrong.\n" +
+    "### Day 1: Understand\n- Read your notes on: " + (w.length ? w.join(", ") : (topics.join(", ") || "the whole chapter")) + ".\n- Use **Explain it** for anything unclear.\n- Close the book and write 5 key points from memory.\n" +
+    "### Day 2: Recall\n- Do **Recall** and **Flashcards**, then check what you missed.\n- Write the key definitions again in your own words.\n" +
+    "### Day 3: Test\n- Take a **Recall Drill**, then one **Fire Drill**.\n- Revise only the topics you got wrong.\n" +
     "### Ready for the exam?\nYou are ready when you score 75% or more twice in a row. Small steps every day, you can do this.";
 }
 function localWeekPlan(){
   var cs = DB.chapters.slice().sort(function(a, b){ var x = chScore(a.id), y = chScore(b.id); return (x === null ? -1 : x) - (y === null ? -1 : y); });
   if(!cs.length) return "## Your weekly plan\n- Upload your book first, then I will build a plan around your chapters.";
-  var acts = ["Understand + short notes", "Q&A coach", "Flashcards", "MCQ practice", "Weak topics practice", "Mock exam", "Light revision and rest"], days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], out = ["## Your weekly plan", "Study 45 minutes, then take a 10-minute break. Sleep well, your brain stores what you learn while you sleep."];
+  var acts = ["Understand + Quick Notes", "Recall", "Flashcards", "Recall Drill", "Weak topics practice", "Fire Drill", "Light revision and rest"], days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], out = ["## Your weekly plan", "Study 45 minutes, then take a 10-minute break. Sleep well, your brain stores what you learn while you sleep."];
   days.forEach(function(d, i){ out.push("- **" + d + ":** " + acts[i] + (i < 6 ? " · " + cs[i % cs.length].name : "")); });
   out.push("Small steps daily beat big pushes once in a while.");
   return out.join("\n");
 }
-function localVideos(c){ var p = DB.profile, t = String(c.name || "").trim(); return [
-  {title: "The chapter explained", search: t + " explained " + p.cls, topic: t},
-  {title: "In your language", search: t + " " + p.lang.split(" ")[0] + " " + p.cls, topic: t},
-  {title: "Full lesson", search: c.book + " " + t + " lecture", topic: c.book + " " + t},
-  {title: "Quick revision", search: t + " quick revision", topic: t}
-]; }
+function localVideos(c){ var p = DB.profile || {}, t = String(c.name || "").trim();
+  var subj = vidSubject(c), lvl = vidLevelWord(), bk = bookOf(c);
+  if(bk === "My chapters") bk = "";
+  function ws(x){ return [x, subj].filter(Boolean).join(" "); }
+  var lang = String(p.lang || "").split(/[\s(]/)[0];
+  var out = [
+    {title: "Explained — most viewed first", search: ws(t + " explained")},
+    {title: "Full chapter / one shot", search: ws(t + " full chapter one shot " + lvl)},
+    {title: "Lecture for " + lvl, search: ws(t + " " + lvl + " lecture")}
+  ];
+  if(lang && !/english/i.test(lang)) out.push({title: "In " + lang, search: ws(t + " " + lang)});
+  if(bk) out.push({title: "From your book: " + bk, search: bk + " " + t});
+  out.push({title: "Quick revision", search: ws(t + " revision")});
+  return out;
+}
 
 /* ---------- study loop: next steps, resume, reminders ---------- */
-var LOOP = [["explain","Understand","Understand the concepts"],["notes","Notes","Make your short notes"],["qa","Q&A","Recall with the Q&A coach"],["flash","Cards","Revise with flashcards"],["mcq","MCQs","Practise MCQs"],["exam","Exam","Take a mock exam"]];
+var LOOP = [["explain","Understand","Understand the concepts"],["notes","Notes","Make your quick notes"],["qa","Recall","Recall with a quick round"],["flash","Cards","Revise with flashcards"],["mcq","Recall Drill","Practise recall drills"],["exam","Fire Drill","Take a fire drill"]];
 function nextStep(id){
   var d = (DB.progress[id] || {done: {}}).done || {};
   for(var i = 0; i < LOOP.length; i++){ if(!d[LOOP[i][0]]) return {k: LOOP[i][0], label: LOOP[i][2], why: "Step " + (i + 1) + " of 6 in your path for this chapter."}; }
   var w = weakTopics(id); if(w.length) return {k: "mcq", focus: w.join(", "), label: "Practise your weak topics", why: "Weak topics: " + w.join(", ") + ". Fix these and the chapter is yours."};
-  var sc = chScore(id); if(sc !== null && sc < 75) return {k: sc < 60 ? "qa" : "exam", label: sc < 60 ? "Recall more with the Q&A coach" : "Take another mock exam", why: "Your recent score is " + sc + "%. Aim for 75% or more."};
+  var sc = chScore(id); if(sc !== null && sc < 75) return {k: sc < 60 ? "qa" : "exam", label: sc < 60 ? "Recall more with a quick round" : "Take another fire drill", why: "Your recent score is " + sc + "%. Aim for 75% or more."};
   return {done: true, label: "Chapter complete", why: "Great job! Revise again after 3 days to lock it in."};
 }
 function ago(t){ if(!t) return "never"; var d = Math.floor((Date.now() - t) / 864e5); return d <= 0 ? "today" : d === 1 ? "yesterday" : d + " days ago"; }
@@ -7475,7 +7359,7 @@ function persist(){ if(!T || T.over) return; var an = T.items.filter(function(x)
 function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
 async function countdown(sec){
   var el = $("busy"); if(!el){ el = document.createElement("div"); el.id = "busy"; el.className = "toast"; el.style.bottom = "80px"; document.body.appendChild(el); }
-  for(var i = sec; i > 0; i--){ el.textContent = "Mitra is a little busy. Trying again in " + i + " s…"; await sleep(1000); }
+  for(var i = sec; i > 0; i--){ el.textContent = "One sec — thinking. Retrying in " + i + " s…"; await sleep(1000); }
   el.remove();
 }
 var aiQ = Promise.resolve();
@@ -7635,7 +7519,7 @@ function buildTest(kind, items, left){
         $("qzScore").textContent = "Answered " + T.done + " / " + items.length + " · Correct " + T.right; persist();
         var last = T.done === items.length;
         if(ok) toast(PRAISE[Math.floor(Math.random() * PRAISE.length)]);
-        else popup("<h3 style='margin-top:0'>No worries, let’s learn this</h3><p>Your answer: <strong>" + esc(it.options[k]) + "</strong></p><p>Correct answer: <strong>" + esc(it.options[it.answer]) + "</strong></p><p>" + inline(it.why) + "</p><p class='status'>Mistakes are how we learn. The next one will be better!</p><button class='primary' data-close>Got it</button>", last ? showCard : null);
+        else popup("<h3 style='margin-top:0'>No worries, let’s learn this</h3><p>Your answer: <strong>" + esc(it.options[k]) + "</strong></p><p>Correct answer: <strong>" + esc(it.options[it.answer]) + "</strong></p><p>" + inline(it.why) + "</p><p class='status'>Errors are how we learn. The next one will be better!</p><button class='primary' data-close>Got it</button>", last ? showCard : null);
         if(last) finishTest(!ok);
       };
       d.appendChild(b);
@@ -7656,7 +7540,7 @@ function finishTest(defer){
   DB.mist = DB.mist || {}; items.forEach(function(it){ if(it.m){ var h = hash(it.q); DB.mist[h] = it.pick === it.answer ? (DB.mist[h] || 0) + 1 : 0; } }); if(pa.length > 30) pa.shift(); markDone(T.kind); var gr = recordPrac(T.kind, p); addDailyXp(p >= 75 ? 15 : 10);
   logEv(T.kind, (T.kind === "exam" ? "Exam" : "MCQ practice") + ": " + right + "/" + n + " (" + p + "%), grade " + g[0]);
   var wk = Object.keys(topics).filter(function(k){return topics[k].c < topics[k].t}), cmp = prev === null ? "This is your first " + (T.kind === "exam" ? "exam" : "practice") + " on this chapter. Take more to see your improvement." : p > prev ? "Up by " + (p - prev) + " points from last time (" + prev + "%). Great work!" : p < prev ? "Down by " + (prev - p) + " points from last time (" + prev + "%). Revise the weak topics and try again." : "Same as last time (" + prev + "%).";
-  var rev = T.kind === "exam" ? "<h3>Review of your mistakes</h3>" + items.filter(function(i){return i.pick !== i.answer}).map(function(i){ return "<div class='q'><div>" + inline(i.q) + "</div><div class='exp'>Your answer: " + esc(i.pick === null ? "(not answered)" : i.options[i.pick]) + "<br>Correct: " + esc(i.options[i.answer]) + "<br>" + inline(i.why) + "</div></div>"; }).join("") : "";
+  var rev = T.kind === "exam" ? "<h3>Review of your errors</h3>" + items.filter(function(i){return i.pick !== i.answer}).map(function(i){ return "<div class='q'><div>" + inline(i.q) + "</div><div class='exp'>Your answer: " + esc(i.pick === null ? "(not answered)" : i.options[i.pick]) + "<br>Correct: " + esc(i.options[i.answer]) + "<br>" + inline(i.why) + "</div></div>"; }).join("") : "";
   var nsx = nextStep(DB.cur);
   var card = "<div style='text-align:center'><h3 style='margin-top:0'>" + (T.kind === "exam" ? "Exam" : "Practice") + " score card</h3>" + ringSvg(p) + "<h2 style='margin:6px 0'>Grade " + g[0] + "</h2><p><strong>" + appreciation(p) + "</strong></p><p>" + right + " of " + n + " correct</p><p class='status'>" + cmp + "</p>" + (wk.length ? "<p><strong>Revise:</strong> " + wk.map(esc).join(", ") + "</p>" : "<p>Full marks on every topic!</p>") + growthHtml(gr) + "</div>";
   T.card = card + "<div class='row' style='justify-content:center;margin-top:12px'>" + (nsx.done ? "" : "<button class='primary' id='scNext'>Next: " + esc(nsx.label) + "</button>") + "<button id='scPrg'>See my progress</button><button data-close>Review answers</button></div>";
@@ -7667,7 +7551,7 @@ function finishTest(defer){
 }
 
 
-/* ---------- extra tools: mistakes, backup, report, class view, read aloud ---------- */
+/* ---------- extra tools: errors, backup, report, group view, read aloud ---------- */
 function revGap(id){ var s = chScore(id); return s === null ? 1 : s < 60 ? 1 : s < 80 ? 3 : 7; }
 function mistakeItems(scope){
   var seen = {}, out = []; DB.mist = DB.mist || {};
@@ -7677,16 +7561,16 @@ function mistakeItems(scope){
 }
 function mistakePractice(scope){
   var it = mistakeItems(scope || "*").slice(0, 10);
-  if(!it.length){ toast("No saved mistakes to retry yet. Take an MCQ practice or an exam first."); return; }
+  if(!it.length){ toast("No saved errors to retry yet. Take an MCQ practice or an exam first."); return; }
   var cid = (it[0] && it[0].cid) || DB.cur;
   if(!cid){ toast("Add a chapter first"); return; }
   goMethod("mcq", "", cid); buildTest("mcq", it, null);
 }
 RENDER.mist = function(){
   var el = $("miIn"), items = mistakeItems("*");
-  var h = "<h1>My error book</h1><p class='sub'>Every wrong answer is a clue about what to practise next. Fix it here, then say “I know this now”.</p>";
+  var h = "<h1>My Error Ledger</h1><p class='sub'>Every wrong answer is a clue about what to practise next. Fix it here, then say “I know this now”.</p>";
   if(!items.length){
-    h += "<div class='card hero' style='text-align:center'>" + plantSvg(1, 64) + "<p>No mistakes saved yet. Take an MCQ practice or an exam and every wrong answer will land here.</p><div class='row' style='justify-content:center'><button class='primary' id='miGo'>Go to Study</button></div></div>";
+    h += "<div class='card hero' style='text-align:center'>" + plantSvg(1, 64) + "<p>No errors saved yet. Take an MCQ practice or an exam and every wrong answer will land here.</p><div class='row' style='justify-content:center'><button class='primary' id='miGo'>Go to Study</button></div></div>";
     el.innerHTML = h; $("miGo").onclick = function(){ show("study"); }; return;
   }
   h += "<div class='card'><div class='row'><button class='primary' id='miPrac'>Practise these (" + Math.min(items.length, 10) + ")</button></div><p class='status' style='margin:8px 0 0'>These were answered wrongly and are not yet marked as learnt. Practise, then tick them off.</p></div>";
@@ -7708,7 +7592,7 @@ RENDER.mist = function(){
   el.innerHTML = h;
   $("miPrac").onclick = function(){ mistakePractice("*"); };
   el.querySelectorAll("[data-know]").forEach(function(b){
-    b.onclick = function(){ DB.mist = DB.mist || {}; var k = b.getAttribute("data-know"); DB.mist[k] = Math.max(2, (DB.mist[k] || 0) + 1); addDailyXp(4); save(); RENDER.mist(); toast("Removed from your error book (+4 XP)"); };
+    b.onclick = function(){ DB.mist = DB.mist || {}; var k = b.getAttribute("data-know"); DB.mist[k] = Math.max(2, (DB.mist[k] || 0) + 1); addDailyXp(4); save(); RENDER.mist(); toast("Removed from your Error Ledger (+4 XP)"); };
   });
 };
 RENDER.tools = function(){
@@ -7724,14 +7608,17 @@ RENDER.tools = function(){
   h += "<div class='card'><strong>Print report</strong><p class='status'>A tidy progress report for a parent or teacher.</p><button data-act='pr'>Print report</button></div>";
   h += "<div class='card'><strong>Back up my data</strong><p class='status'>Save a copy of your progress to a file.</p><button data-act='bk'>Back up now</button>" + (needBk ? "<p class='status'>It has been a while since your last backup.</p>" : "") + "</div>";
   h += "<div class='card'><strong>Restore backup</strong><p class='status'>Bring back progress from a backup file.</p><button data-act='rs'>Choose backup file</button></div>";
-  h += "<div class='card'><strong>My details</strong><p class='status'>Name, class, password and clearing data.</p><button data-act='prof'>Open my details</button></div>";
+  h += "<div class='card'><strong>My study playbook</strong><p class='status'>Optional: pick your level so tips, examples and difficulty fit you. Default is general.</p><select id='lvSel'>" + LEVELS.map(function(l, i){ return "<option value='" + i + "'" + (lvIndex() === i ? " selected" : "") + ">" + l[0] + "</option>"; }).join("") + "</select><p class='status' style='margin-bottom:0'>Your books and chapters are always yours to create for any subject or semester.</p></div>";
+  h += "<div class='card'><strong>My details</strong><p class='status'>Name, city, password and clearing data.</p><button data-act='prof'>Open my details</button></div>";
   h += "</div>";
-  h += "<details class='card' style='margin-top:8px'><summary style='cursor:pointer;font-weight:700'>Organiser &amp; teacher tools</summary><div style='margin-top:10px'><strong>Class view</strong><p class='status'>For teachers &amp; organisers: combine multiple students’ JSON backup files on this device.</p><button data-act='cls'>Choose backup files</button></div></details>";
+  h += "<details class='card' style='margin-top:8px'><summary style='cursor:pointer;font-weight:700'>Organiser &amp; teacher tools</summary><div style='margin-top:10px'><strong>Group view</strong><p class='status'>For teachers &amp; organisers: combine multiple students’ JSON backup files on this device.</p><button data-act='cls'>Choose backup files</button></div></details>";
   $("tlIn").innerHTML = h;
   $("tlIn").querySelectorAll("[data-v]").forEach(function(n){ n.onclick = function(){ var v = n.dataset.v; if(v === "mindmap") openMindmap(); else show(v); }; });
+  var lv = $("lvSel");
+  if(lv) lv.onchange = function(){ DB.profile = DB.profile || {}; DB.profile.level = parseInt(this.value, 10) || 0; DB.profile.band = LEVELS[DB.profile.level][1]; save(); toast("Got it — I'll pitch things your way."); };
 };
 
-/* ---------- Let's Play: games built from the uploaded chapter ---------- */
+/* ---------- Play: games built from the uploaded chapter ---------- */
 var playTimer = null, PS = null;
 function playDB(){ DB.play = DB.play || {best: {}}; DB.play.best = DB.play.best || {}; return DB.play; }
 function clearPlayTimer(){ clearInterval(playTimer); playTimer = null; }
@@ -7750,7 +7637,7 @@ function playConcepts(){
 RENDER.play = function(){
   clearPlayTimer();
   var el = $("plIn"), c = cur(), best = playDB().best || {};
-  var h = "<h1>Let's Play</h1><p class='sub'>Play with the words and ideas of <strong>" + esc(c ? c.name : "your chapter") + "</strong>. Every game is built from your own book, so playing is also revising.</p>";
+  var h = "<h1>Play</h1><p class='sub'>Play with the words and ideas of <strong>" + esc(c ? c.name : "your chapter") + "</strong>. Every game is built from your own book, so playing is also revising.</p>";
   if(!c){
     h += "<div class='card hero' style='text-align:center'>" + plantSvg(1, 64) + "<p>Add a book or chapter first, then come back to play.</p><div class='row' style='justify-content:center'><button class='primary' id='plGo'>Go to Study</button></div></div>";
     el.innerHTML = h; $("plGo").onclick = function(){ show("study"); }; return;
@@ -7944,7 +7831,7 @@ function scrambleEnd(box){
   $("plBack").onclick = function(){ RENDER.play(); };
 }
 
-/* ---------- Tricks & Tips: proven methods, memory tricks, chapter help ---------- */
+/* ---------- Hacks & Tips: proven methods, memory tricks, chapter help ---------- */
 var TIPS = [
  {n: "Proven study methods", items: [
   {t: "Active recall", b: "Close the book and test yourself from memory. Pulling an answer out builds far stronger memory than reading it again and again.", by: "Cognitive science — the single most effective method"},
@@ -7992,7 +7879,7 @@ function tipsMnemonic(){
 }
 RENDER.tips = function(){
   var el = $("tpIn"), c = cur();
-  var h = "<h1>Tricks &amp; Tips</h1><p class='sub'>Proven ways to remember what you study, quick memory tricks, and wisdom from the Upanishads, the Gita, Chanakya, Kautilya and the Panchatantra.</p>";
+  var h = "<h1>Hacks &amp; Tips</h1><p class='sub'>Proven ways to remember what you study, quick memory tricks, and wisdom from the Upanishads, the Gita, Chanakya, Kautilya and the Panchatantra.</p>";
   if(c){
     var mm = tipsMnemonic();
     h += "<div class='card'><strong>For this chapter: " + esc(c.name) + "</strong>";
@@ -8032,7 +7919,7 @@ function restoreData(f){
       if(AUTH.session) sdbPut(AUTH.session, studySnapshot(DB)).then(function(){ location.reload(); }, function(){ location.reload(); });
       else location.reload();
     });
-  }).catch(function(){ toast("That is not a Gurukul backup file"); });
+  }).catch(function(){ toast("That is not a ENGRAMOS backup file"); });
 }
 /* ---------- save folder: keep a live copy in a chosen folder ----------
    Uses the File System Access API. The directory handle is stored in
@@ -8092,14 +7979,14 @@ function folderFileName(){
   if(DB.save && DB.save.file) return DB.save.file;
   var n = (DB.profile && DB.profile.name) || "student";
   n = String(n).replace(/[\\/:*?"<>|]+/g, " ").replace(/\s+/g, " ").trim().slice(0, 48) || "student";
-  var f = "Gurukul - " + n + ".json";
+  var f = "ENGRAMOS - " + n + ".json";
   if(DB.save) DB.save.file = f;
   return f;
 }
 function folderSnapshot(){
   var d = studySnapshot(DB);
   if(d.save) d.save = {asked: !!d.save.asked, enabled: !!d.save.enabled, name: d.save.name || "", file: d.save.file || "", at: Date.now()};
-  d.app = "Gurukul"; d.kind = "data"; d.at = Date.now();
+  d.app = "ENGRAMOS"; d.kind = "data"; d.at = Date.now();
   return d;
 }
 function scheduleFolderSave(){
@@ -8231,7 +8118,7 @@ function folderWelcomeModal(){
   DB.save = DB.save || {asked: false, enabled: false, name: "", file: "", at: 0};
   var ok = folderSupported();
   var h = "<h3 style='margin-top:0'>Where should I save your work?</h3>" +
-    "<p>Choose a folder for <b>" + esc((DB.profile && DB.profile.name) || "your") + "\u2019s Gurukul data. I will keep a copy there and update it automatically every time something changes, so your progress is safe even if this browser is cleared.</p>" +
+    "<p>Choose a folder for <b>" + esc((DB.profile && DB.profile.name) || "your") + "\u2019s ENGRAMOS data. I will keep a copy there and update it automatically every time something changes, so your progress is safe even if this browser is cleared.</p>" +
     "<p class='status'>You can choose a <b>cloud folder</b> \u2014 iCloud Drive, OneDrive, Google Drive or Dropbox \u2014 if its desktop app is installed on this computer. It then syncs just like any other folder.</p>";
   if(ok) h += "<p class='status'>The app keeps one file there: <b>" + esc(folderFileName()) + "</b>.</p>";
   else h += "<p class='status' style='color:var(--bad)'>This browser cannot write to a folder directly. Try Chrome or Edge, or open the app from its local server. Your work will stay in this browser; use <b>Back up my data</b> in Settings to download a copy you can keep anywhere.</p>";
@@ -8258,8 +8145,8 @@ try {
   document.addEventListener("visibilitychange", function(){ if(document.visibilityState === "hidden" && typeof DB !== "undefined" && DB && DB.save && DB.save.enabled) writeFolderNow(); });
   window.addEventListener("pagehide", function(){ if(typeof DB !== "undefined" && DB && DB.save && DB.save.enabled) writeFolderNow(); });
 } catch(e){}
-/* ---------- Gurukul Pilot: invite codes, validity, consent, usage reports ----------
-   One code per student. The code carries its own end date (GURU-YYMMDD-XXXX), so
+/* ---------- ENGRAMOS Pilot: invite codes, validity, consent, usage reports ----------
+   One code per student. The code carries its own end date (ENGM-YYMMDD-XXXX), so
    validity works offline. Usage is counted only while the screen is visible and
    the student is active; it is stored per student in localStorage and sent in the
    background to the organiser's Google Sheet. No chapter text, notes or photos
@@ -8277,7 +8164,7 @@ function codeTag(date6, r2){
 }
 function parseInvite(raw){
   var s = String(raw || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
-  if(s.indexOf("GURU") === 0) s = s.slice(4);
+  if(s.indexOf("ENGM") === 0) s = s.slice(4);
   if(s.length !== 10) return null;
   var yy = parseInt(s.slice(0, 2), 10), mm = parseInt(s.slice(2, 4), 10), dd = parseInt(s.slice(4, 6), 10), rnd = s.slice(6), i;
   if(!(yy >= 0 && mm >= 1 && mm <= 12 && dd >= 1 && dd <= 31)) return null;
@@ -8285,7 +8172,7 @@ function parseInvite(raw){
   if(isNaN(d.getTime()) || d.getFullYear() !== 2000 + yy || d.getMonth() !== mm - 1 || d.getDate() !== dd) return null;
   for(i = 0; i < rnd.length; i++){ if(B32.indexOf(rnd.charAt(i)) < 0) return null; }
   if(rnd.slice(2) !== codeTag(s.slice(0, 6), rnd.slice(0, 2))) return null;
-  return { code: "GURU-" + s.slice(0, 6) + "-" + rnd, until: d.getTime() };
+  return { code: "ENGM-" + s.slice(0, 6) + "-" + rnd, until: d.getTime() };
 }
 function pilotDaysLeft(){ var p = DB.pilot || {}; if(!p.validUntil) return null; return Math.ceil((p.validUntil - Date.now()) / 86400000); }
 function pilotExpired(){ var p = DB.pilot || {}; return !!(p.registered && (p.revoked || (p.validUntil && Date.now() > p.validUntil))); }
@@ -8305,7 +8192,7 @@ function pilotRequestMailto(req){
   if(!req) return;
   var g = req.guardian || {};
   var lines = [
-    "Gurukul access request",
+    "ENGRAMOS access request",
     "Request ID: " + req.requestId,
     "Student: " + req.name,
     "Email: " + req.email,
@@ -8319,7 +8206,7 @@ function pilotRequestMailto(req){
     "Consent: yes",
     req.note ? "Note: " + req.note : ""
   ].filter(function(x){ return x; }).join("\n");
-  location.href = "mailto:" + PILOT.organiser + "?subject=" + encodeURIComponent("Gurukul access request — " + req.name) + "&body=" + encodeURIComponent(lines);
+  location.href = "mailto:" + PILOT.organiser + "?subject=" + encodeURIComponent("ENGRAMOS access request — " + req.name) + "&body=" + encodeURIComponent(lines);
 }
 function pilotSendRequest(req){
   if(!PILOT.uploadUrl || !PILOT.uploadToken) return Promise.resolve({ok: false, reason: "unconfigured"});
@@ -8395,7 +8282,7 @@ function showPilotLock(){
 }
 function pilotRenewPrompt(){
   var m = popup("<h3 style='margin-top:0'>Enter a new invite code</h3><p class='status'>Your organiser can give you a new code to continue.</p>" +
-    "<input id='plCode' autocapitalize='characters' spellcheck='false' placeholder='GURU-260207-7F3K'>" +
+    "<input id='plCode' autocapitalize='characters' spellcheck='false' placeholder='ENGM-260207-7F3K'>" +
     "<div class='row' style='margin-top:12px'><button class='primary' id='plGo2'>Continue</button><button data-close>Cancel</button></div><p id='plMsg' class='status'></p>");
   m.el.querySelector("#plGo2").onclick = function(){
     var c = parseInvite(m.el.querySelector("#plCode").value);
@@ -8420,7 +8307,7 @@ function pilotCardHtml(){
   var repBtn = OWNER_COPY ? "<button data-act='plexp'>Download my report</button>" : "";
   if(!PILOT_GATE){
     if(PAYWALL_ACTIVE){
-      var hasLic = !!(p.code && p.code !== "DEV-LOCAL" && p.code.indexOf("GURU-") === 0);
+      var hasLic = !!(p.code && p.code !== "DEV-LOCAL" && p.code.indexOf("ENGM-") === 0);
       h += "<p class='status'>" + (hasLic ? ("License key <b>" + esc(p.code) + "</b>" + (p.validUntil ? " · valid until <b>" + fmtD(p.validUntil) + "</b>" : "") + ".") : ("Account ID: <code>" + esc(p.code || "FREEMIUM") + "</code>. Upgrade above or enter a school license key.")) + "</p>";
       h += "<div class='row' style='margin:8px 0 0'><button data-act='subcode'>Enter license key</button>" + repBtn + "<button data-act='plmail'>Email organiser</button></div>";
     } else {
@@ -8437,8 +8324,8 @@ function pilotCardHtml(){
   return h;
 }
 function mailOrganiser(){
-  var p = DB.pilot || {}, sub = "Gurukul pilot — " + ((DB.profile && DB.profile.name) || "student") + (p.code ? " (" + p.code + ")" : "");
-  location.href = "mailto:" + PILOT.organiser + "?subject=" + encodeURIComponent(sub) + "&body=" + encodeURIComponent("Hello, I need help with my Gurukul access." + (p.code ? "\nMy code: " + p.code : ""));
+  var p = DB.pilot || {}, sub = "ENGRAMOS pilot — " + ((DB.profile && DB.profile.name) || "student") + (p.code ? " (" + p.code + ")" : "");
+  location.href = "mailto:" + PILOT.organiser + "?subject=" + encodeURIComponent(sub) + "&body=" + encodeURIComponent("Hello, I need help with my ENGRAMOS access." + (p.code ? "\nMy code: " + p.code : ""));
 }
 /* ---- usage analytics: local first, sent in the background ---- */
 function anaKey(){ return PILOT.anaPrefix + (AUTH.session || "anon"); }
@@ -8501,7 +8388,7 @@ function anaStop(){ if(ANA){ anaFlush(true); anaBeacon(); anaPersist(); } ANA = 
 function anaView(v){ if(ANA){ ANA.lastView = v; } }
 function anaBuildBundle(all){
   if(!ANA) ANA = anaLoad();
-  var base = {app: "Gurukul", schema: PILOT.schema, v: PILOT.appVersion, code: (DB.pilot && DB.pilot.code) || "", at: Date.now(), device: ANA.device || anaDevice(), profile: {name: (DB.profile && DB.profile.name) || "", cls: (DB.profile && DB.profile.cls) || ""}};
+  var base = {app: "ENGRAMOS", schema: PILOT.schema, v: PILOT.appVersion, code: (DB.pilot && DB.pilot.code) || "", at: Date.now(), device: ANA.device || anaDevice(), profile: {name: (DB.profile && DB.profile.name) || "", cls: (DB.profile && DB.profile.cls) || ""}};
   if(all){ base.kind = "usage-all"; base.days = ANA.days || {}; base.validUntil = (DB.pilot && DB.pilot.validUntil) || 0; return base; }
   var d = anaDay();
   base.kind = "usage"; base.day = pilotToday(); base.activeSec = d.activeSec || 0; base.sessions = d.sessions || 0;
@@ -8549,7 +8436,7 @@ function anaFeature(type, text){
 function pilotSendRegistration(){
   if(!DB.pilot || !DB.pilot.registered) return;
   if(!ANA) ANA = anaLoad();
-  var rec = {app: "Gurukul", schema: PILOT.schema, v: PILOT.appVersion, kind: "registration", code: DB.pilot.code, at: Date.now(),
+  var rec = {app: "ENGRAMOS", schema: PILOT.schema, v: PILOT.appVersion, kind: "registration", code: DB.pilot.code, at: Date.now(),
     profile: {name: (DB.profile && DB.profile.name) || "", cls: (DB.profile && DB.profile.cls) || "", board: DB.pilot.board || "", age: (DB.profile && DB.profile.age) || "", lang: (DB.profile && DB.profile.lang) || "", school: (DB.profile && DB.profile.school) || "", city: (DB.profile && DB.profile.from) || ""},
     guardian: DB.pilot.guardian || {}, consent: !!DB.pilot.consent, consentAt: DB.pilot.consentAt || 0,
     issuedAt: DB.pilot.issuedAt || 0, validUntil: DB.pilot.validUntil || 0, device: ANA.device || anaDevice()};
@@ -8561,7 +8448,7 @@ function pilotSendRegistration(){
 function exportPilotReport(){
   var b = anaBuildBundle(true);
   var nm = ((DB.profile && DB.profile.name) || "student").replace(/\W+/g, "_");
-  saveFile("Gurukul report - " + nm + " - " + pilotToday() + ".json", JSON.stringify(b, null, 1));
+  saveFile("ENGRAMOS report - " + nm + " - " + pilotToday() + ".json", JSON.stringify(b, null, 1));
   toast("Report downloaded");
 }
 if($("oBoard")) $("oBoard").innerHTML = BOARDS.map(function(b){ return "<option>" + b + "</option>"; }).join("");
@@ -8719,6 +8606,11 @@ function qrSvg(text){
   for(r = 0; r < size; r++) for(col = 0; col < size; col++) if(best[r][col]) d += "M" + (col + qz) + " " + (r + qz) + "h1v1h-1z";
   return "<svg viewBox='0 0 " + dim + " " + dim + "' width='156' height='156' role='img' aria-label='Scan to pay via UPI' style='display:block;border:1px solid var(--line);border-radius:6px;background:#fff'><rect width='" + dim + "' height='" + dim + "' fill='#fff'/><path d='" + d + "' fill='#111'/></svg>";
 }
+var UP_PLAN = "yearly";
+function planAmount(pl){ return (pl === "monthly") ? SUB_PLAN.monthlyInr : SUB_PLAN.priceInr; }
+function planDays(pl){ return (pl === "monthly") ? SUB_PLAN.monthDays : SUB_PLAN.days; }
+function planName(pl){ return (pl === "monthly") ? "ENGRAMOS Pro · Monthly" : "ENGRAMOS Pro · Yearly"; }
+function planPeriod(pl){ return (pl === "monthly") ? "month" : "year"; }
 function subStatus(){
   var sub = (DB && DB.sub) || {}, p = (DB && DB.pilot) || {};
   var now = Date.now(), chCount = (DB && DB.chapters ? DB.chapters.length : 0);
@@ -8728,13 +8620,16 @@ function subStatus(){
   var until = subActive ? sub.validUntil : (pilotActive ? p.validUntil : 0);
   var daysLeft = until ? Math.max(0, Math.ceil((until - now) / 86400000)) : null;
   var previewFree = !!sub.devPreviewFree;
-  var pro = paidActive || pilotActive || (!PAYWALL_ACTIVE && !previewFree);
+  var pro = DEV_UNLOCKED || paidActive || pilotActive || (!PAYWALL_ACTIVE && !previewFree);
   var devBypass = !paidActive && !pilotActive && !PAYWALL_ACTIVE && !previewFree;
+  var unlocked = DEV_UNLOCKED || devBypass;
   return {
     pro: pro,
+    plan: sub.plan || (paidActive ? "yearly" : "free"),
     paidActive: paidActive,
     pilotActive: pilotActive,
     devBypass: devBypass,
+    unlocked: unlocked,
     previewFree: previewFree,
     daysLeft: daysLeft,
     validUntil: until,
@@ -8746,6 +8641,7 @@ function subStatus(){
   };
 }
 function requirePro(featureName, cb){
+  /* Gate helper. While DEV_UNLOCKED is true, subStatus().pro is always true so this never blocks (dev builds). */
   if(subStatus().pro){ if(cb) cb(); return true; }
   upgradeModal(featureName);
   return false;
@@ -8807,7 +8703,7 @@ function recordPayment(rec){
 }
 function subVerifyCode(code){
   if(!PILOT.uploadUrl || !PILOT.uploadToken) return Promise.resolve({ok: true, offline: true});
-  if(!navigator.onLine) return Promise.resolve({ok: false, offline: true, error: "Connect to the internet so Gurukul can verify this license key."});
+  if(!navigator.onLine) return Promise.resolve({ok: false, offline: true, error: "Connect to the internet so ENGRAMOS can verify this license key."});
   return fetch(PILOT.uploadUrl, {method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify({token: PILOT.uploadToken, action: "verifyCode", code: code})})
     .then(function(r){ if(!r.ok) throw new Error("http " + r.status); return r.json(); })
     .catch(function(){ return {ok: false, offline: true, error: "Could not reach server to verify license key. Try again online."}; });
@@ -8853,7 +8749,7 @@ function subCheckStatus(silent){
           status: "paid",
           skipUpload: true
         });
-        toast("Yearly Pro confirmed and unlocked!");
+        toast("ENGRAMOS Pro confirmed and unlocked!");
       } else if(!silent){
         toast(res.paymentStatus ? ("Payment status: " + res.paymentStatus) : "Still awaiting organiser confirmation.");
       }
@@ -8866,14 +8762,16 @@ function subCheckStatus(silent){
 function activateProPass(opts){
   opts = opts || {};
   var now = Date.now();
+  var plan = opts.plan || "yearly";
+  var span = opts.days || planDays(plan);
   var base = (DB.sub && DB.sub.validUntil && DB.sub.validUntil > now) ? DB.sub.validUntil : now;
-  var until = opts.validUntil || (base + SUB_PLAN.days * 86400000);
+  var until = opts.validUntil || (base + span * 86400000);
   DB.sub = DB.sub || blankDB().sub;
   DB.sub.tier = "pro";
-  DB.sub.plan = "yearly";
+  DB.sub.plan = plan;
   DB.sub.paidAt = now;
   DB.sub.validUntil = until;
-  DB.sub.amountInr = opts.amountInr != null ? opts.amountInr : SUB_PLAN.priceInr;
+  DB.sub.amountInr = opts.amountInr != null ? opts.amountInr : planAmount(plan);
   DB.sub.paymentId = opts.paymentId || ("PASS-" + now.toString(36).toUpperCase());
   DB.sub.orderId = opts.orderId || "";
   DB.sub.method = opts.method || "license";
@@ -8884,7 +8782,7 @@ function activateProPass(opts){
   if(!DB.pilot.validUntil || until > DB.pilot.validUntil) DB.pilot.validUntil = until;
   if(opts.code) DB.pilot.code = opts.code;
   LOCKED = false;
-  logEv("sub", "Activated " + SUB_PLAN.name + " (" + DB.sub.method + ")");
+  logEv("sub", "Activated " + planName(plan) + " (" + DB.sub.method + ")");
   save();
   refreshPilotBar();
   if(!opts.skipUpload){
@@ -8901,8 +8799,8 @@ function activateProPass(opts){
       school: p.school || "",
       method: DB.sub.method,
       amountInr: DB.sub.amountInr,
-      plan: SUB_PLAN.name,
-      days: SUB_PLAN.days,
+      plan: planName(plan),
+      days: span,
       code: DB.pilot.code || DB.sub.paymentId,
       status: opts.status || "paid",
       validUntil: until,
@@ -8914,71 +8812,81 @@ function activateProPass(opts){
   else if(curView === "study") RENDER.study();
 }
 function downloadSubReceipt(){
-  if(!subStatus().paidActive){ toast("Receipt is available after activating a Yearly Pass."); return; }
+  if(!subStatus().paidActive){ toast("Receipt is available after activating ENGRAMOS Pro."); return; }
   var s = subStatus(), sub = DB.sub || {}, p = DB.profile || {};
-  var id = sub.paymentId || (DB.pilot && DB.pilot.code) || "GURUKUL-PASS";
+  var id = sub.paymentId || (DB.pilot && DB.pilot.code) || "ENGRAMOS-PASS";
   var paidDt = sub.paidAt ? fmtD(sub.paidAt) : fmtD(Date.now());
   var expDt = s.validUntil ? fmtD(s.validUntil) : "—";
-  var html = "<!doctype html><html><head><meta charset='utf-8'><title>Gurukul Receipt - " + esc(id) + "</title>" +
+  var html = "<!doctype html><html><head><meta charset='utf-8'><title>ENGRAMOS Receipt - " + esc(id) + "</title>" +
     "<style>body{font:15px/1.55 system-ui,sans-serif;max-width:620px;margin:28px auto;padding:0 18px;color:#172033}" +
     ".box{border:1px solid #d5dce9;border-radius:14px;padding:22px}.h{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid #d5dce9;padding-bottom:12px;margin-bottom:14px}" +
     "table{width:100%;border-collapse:collapse}td{padding:7px 0;border-bottom:1px solid #eef2f8}td:last-child{text-align:right;font-weight:600}" +
     ".tot td{font-size:1.1rem;border-top:2px solid #172033;border-bottom:none;padding-top:12px}</style></head><body>" +
-    "<div class='box'><div class='h'><div><h2 style='margin:0'>Gurukul</h2><small>Digital Learning Companion</small></div><div style='text-align:right'><b>Payment Receipt</b><br><small>" + esc(paidDt) + "</small></div></div>" +
+    "<div class='box'><div class='h'><div><h2 style='margin:0'>ENGRAMOS</h2><small>Digital Learning Companion</small></div><div style='text-align:right'><b>Payment Receipt</b><br><small>" + esc(paidDt) + "</small></div></div>" +
     "<table><tr><td>Student Name</td><td>" + esc(p.name || "Student") + "</td></tr>" +
-    "<tr><td>Class / Grade</td><td>" + esc(p.cls || "—") + "</td></tr>" +
+    "<tr><td>City</td><td>" + esc(p.from || "—") + "</td></tr>" +
     (p.school ? "<tr><td>School</td><td>" + esc(p.school) + "</td></tr>" : "") +
-    "<tr><td>Plan</td><td>" + esc(SUB_PLAN.name) + " (365 days)</td></tr>" +
-    "<tr><td>Payment Method</td><td>" + esc(String(sub.method || "Yearly License").toUpperCase()) + "</td></tr>" +
+    "<tr><td>Plan</td><td>" + esc(planName(sub.plan || "yearly")) + "</td></tr>" +
+    "<tr><td>Payment Method</td><td>" + esc(String(sub.method || "License").toUpperCase()) + "</td></tr>" +
     "<tr><td>Reference / Code</td><td>" + esc(id) + "</td></tr>" +
     "<tr><td>Valid Until</td><td>" + esc(expDt) + "</td></tr>" +
-    "<tr class='tot'><td>Total Paid</td><td>INR ₹" + esc(String(sub.amountInr || SUB_PLAN.priceInr)) + ".00</td></tr></table>" +
-    "<p style='color:#5b6478;font-size:.86rem;margin:16px 0 0'>All study material and progress stay stored offline on this device. Thank you for learning with Gurukul.</p></div></body></html>";
-  saveFile("Gurukul-Receipt-" + ((p.name || "Student").replace(/\W+/g, "_")) + "-" + pilotToday() + ".html", html);
+    "<tr class='tot'><td>Total Paid</td><td>INR ₹" + esc(String(sub.amountInr || planAmount(sub.plan || "yearly"))) + ".00</td></tr></table>" +
+    "<p style='color:#5b6478;font-size:.86rem;margin:16px 0 0'>All study material and progress stay stored offline on this device. Thank you for learning with ENGRAMOS.</p></div></body></html>";
+  saveFile("ENGRAMOS-Receipt-" + ((p.name || "Student").replace(/\W+/g, "_")) + "-" + pilotToday() + ".html", html);
   toast("Receipt downloaded");
 }
 function subCardHtml(){
-  var s = subStatus(), h = "<div class='card'><strong>Subscription &amp; Yearly Pass</strong>";
+  var s = subStatus(), h = "<div class='card'><strong>Subscription &amp; Pro</strong>";
   if(s.paidActive){
-    h += "<p style='margin:6px 0'><span class='proBadge'>✓ Yearly Pro Active</span></p>" +
-      "<p class='status'>Plan: <b>" + esc(SUB_PLAN.name) + "</b>" +
+    h += "<p style='margin:6px 0'><span class='proBadge'>✓ Pro active</span></p>" +
+      "<p class='status'>Plan: <b>" + esc(planName(s.plan)) + "</b>" +
       (s.validUntil ? " · valid until <b>" + fmtD(s.validUntil) + "</b> (" + s.daysLeft + " days left)" : "") +
       (s.paymentId ? "<br>Ref: <code>" + esc(s.paymentId) + "</code>" : "") + ".</p>" +
       "<div class='row' style='margin:8px 0 0'><button data-act='subrec'>⬇ Parent receipt</button><button data-act='subup'>Extend 1 year</button></div>";
+  } else if(s.unlocked){
+    h += "<p style='margin:6px 0'><span class='proBadge free'>Development build · every feature unlocked</span></p>" +
+      "<p class='status'>This developer version keeps the paywall off (<code>DEV_UNLOCKED = true</code>, <code>PAYWALL_ACTIVE = false</code>), so nothing is locked: unlimited books &amp; chapters, 5-Min Cram, Fire Drill, AI Smart Packs and the bulk tools are all open on every screen." +
+      (s.previewFree ? " Free-limit preview is currently toggled on, but it will not lock anything while the developer build is on." : "") + "</p>" +
+      "<div class='row' style='margin:8px 0 0'><button data-act='subprev'>" + (s.previewFree ? "Exit Free preview" : "Preview Free limits") + "</button></div>";
   } else {
-    h += "<p style='margin:6px 0'><span class='proBadge free'>" + (s.devBypass ? "Development Pro Preview" : (s.pilotActive ? "Pilot Pass · " + s.daysLeft + "d left" : "Free Plan · " + s.chaptersUsed + "/" + FREE_CHAPTER_LIMIT + " chapters")) + "</span></p>" +
-      "<p class='status'>" + (s.devBypass
-        ? "Paywall is held in development mode (<code>PAYWALL_ACTIVE = false</code>). All Pro features are unlocked for local testing."
-        : "Upgrade to <b>" + esc(SUB_PLAN.name) + "</b> (₹" + SUB_PLAN.priceInr + "/yr) for unlimited chapters, 5-Min Cram, Exam Mode &amp; AI Smart Packs.") + "</p>";
+    h += "<p style='margin:6px 0'><span class='proBadge free'>" + (s.pilotActive ? "Pilot Pass · " + s.daysLeft + "d left" : "Free Plan · " + s.chaptersUsed + "/" + FREE_CHAPTER_LIMIT + " chapters") + "</span></p>" +
+      "<p class='status'>Go <b>Pro</b> (₹" + SUB_PLAN.priceInr + "/yr or ₹" + SUB_PLAN.monthlyInr + "/mo) for unlimited books &amp; chapters, 5-Min Cram, Exam Mode &amp; AI Smart Packs.</p>";
     if(s.pendingPayment){
       h += "<p class='status' style='margin:6px 0;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:rgba(82,101,218,.08)'><b>UTR submitted:</b> <code>" + esc(s.pendingPayment.paymentId) + "</code> — awaiting organiser confirmation. Pro unlocks automatically once verified.</p>";
     }
-    h += "<div class='row' style='margin:8px 0 0'><button class='primary' data-act='subup'>Upgrade (₹" + SUB_PLAN.priceInr + "/yr)</button><button data-act='subcode'>Enter license key</button>" +
+    h += "<div class='row' style='margin:8px 0 0'><button class='primary' data-act='subup'>Go Pro (₹" + SUB_PLAN.priceInr + "/yr or ₹" + SUB_PLAN.monthlyInr + "/mo)</button><button data-act='subcode'>Enter license key</button>" +
       (s.pendingPayment ? "<button data-act='subchk'>Check payment status</button>" : "") +
       (!PAYWALL_ACTIVE ? "<button data-act='subprev'>" + (s.previewFree ? "Exit Free preview" : "Preview Free limits") + "</button>" : "") + "</div>";
   }
   return h + "</div>";
 }
-function upgradeModal(reason, startTab){
+function upgradeModal(reason, startTab, plan){
   var p = DB.profile || {}, ss = subStatus();
+  plan = plan || UP_PLAN; UP_PLAN = plan;
+  var amt = planAmount(plan), per = planPeriod(plan);
   var tab = startTab || (SUB_PLAN.razorpayKey ? "rzp" : (!PAYWALL_ACTIVE ? "rzp" : "upi"));
-  var refNote = "Gurukul-" + ((p.name || "Student").replace(/\W+/g, "").slice(0, 12)) + "-" + pilotToday();
-  var upiHref = SUB_PLAN.upiId ? ("upi://pay?pa=" + encodeURIComponent(SUB_PLAN.upiId) + "&pn=" + encodeURIComponent(SUB_PLAN.upiName) + "&am=" + SUB_PLAN.priceInr + "&cu=INR&tn=" + encodeURIComponent(refNote)) : "";
+  var refNote = "ENGRAMOS-" + ((p.name || "Student").replace(/\W+/g, "").slice(0, 12)) + "-" + pilotToday();
+  var upiHref = SUB_PLAN.upiId ? ("upi://pay?pa=" + encodeURIComponent(SUB_PLAN.upiId) + "&pn=" + encodeURIComponent(SUB_PLAN.upiName) + "&am=" + amt + "&cu=INR&tn=" + encodeURIComponent(refNote)) : "";
+  var priceBlock = (plan === "monthly")
+    ? "<div class='subPrice'><b>₹" + SUB_PLAN.monthlyInr + "</b><span class='status'>/ month · cancel anytime</span></div>"
+    : "<div class='subPrice'><b>₹" + SUB_PLAN.priceInr + "</b><s>₹" + SUB_PLAN.mrpInr + "</s><span class='status'>/ year · ~₹" + Math.max(1, Math.round(SUB_PLAN.priceInr / 12)) + "/mo · one-time payment</span></div>";
   var m = popup("<div style='max-width:520px'>" +
-    "<span class='proBadge'>Gurukul Yearly Pass</span>" +
-    "<h3 style='margin:8px 0 4px'>" + (reason ? "Unlock: " + esc(reason) : "Go Unlimited for Your Whole Academic Year") + "</h3>" +
-    "<div class='subPrice'><b>₹" + SUB_PLAN.priceInr + "</b><s>₹" + SUB_PLAN.mrpInr + "</s><span class='status'>/ year · ~₹" + Math.max(1, Math.round(SUB_PLAN.priceInr / 12)) + "/mo · one-time payment</span></div>" +
+    "<span class='proBadge'>ENGRAMOS Pro</span>" +
+    "<h3 style='margin:8px 0 4px'>" + (reason ? "Unlock: " + esc(reason) : "Go Pro. Study smarter, remember longer.") + "</h3>" +
+    "<div class='subTabs' id='upPlanTabs'><button data-uplan='yearly' class='" + (plan === "yearly" ? "primary" : "") + "'>Yearly · ₹" + SUB_PLAN.priceInr + "</button><button data-uplan='monthly' class='" + (plan === "monthly" ? "primary" : "") + "'>Monthly · ₹" + SUB_PLAN.monthlyInr + "</button></div>" +
+    priceBlock +
     (ss.pendingPayment ? "<div class='card' style='margin:6px 0;padding:10px;border-color:var(--acc);background:var(--accbg)'><p class='status' style='margin:0 0 6px'><b>UTR awaiting check:</b> <code>" + esc(ss.pendingPayment.paymentId) + "</code></p><button type='button' id='upPendChk'>Check payment status</button></div>" : "") +
     "<ul class='subPerk'>" +
-    "<li><b>Unlimited chapters</b> across all subjects, classes &amp; semesters</li>" +
-    "<li><b>⚡ 5-Min Cram</b> 1-page pre-exam sheets + mistake trap review</li>" +
-    "<li><b>Timed Exam Mode</b> + board-paper pattern matching</li>" +
+    "<li><b>Unlimited books &amp; chapters</b> across every subject and semester</li>" +
+    "<li><b>⚡ 5-Min Cram</b> 1-page pre-exam sheets + error trap review</li>" +
+    "<li><b>Fire Drill</b> timed tests that feel like the real thing</li>" +
     "<li><b>AI Smart Packs &amp; Syllabus Planner</b> (connect your own optional free Gemini / Groq / Puter key)</li></ul>" +
     "<div class='subTabs'><button data-stab='rzp'>UPI / Card (Razorpay)</button><button data-stab='upi'>Direct UPI / UTR</button><button data-stab='code'>License Key</button></div>" +
     "<div id='subTabBody'></div><div id='subMsg' class='status' style='min-height:1.2em;margin-top:6px'></div>" +
     "<div class='row' style='margin-top:10px;justify-content:flex-end'><button data-close>Maybe later</button></div></div>");
 
   if(m.el.querySelector("#upPendChk")) m.el.querySelector("#upPendChk").onclick = function(){ subCheckStatus(false).then(function(res){ if(res && res.paymentStatus === "paid" && m.el && m.el.parentNode) m.close(); }); };
+  m.el.querySelectorAll("[data-uplan]").forEach(function(b){ b.onclick = function(){ var pl = b.getAttribute("data-uplan"); if(pl !== plan){ m.close(); upgradeModal(reason, tab, pl); } }; });
   function setMsgSub(txt, isErr){ var el = m.el.querySelector("#subMsg"); if(el) el.innerHTML = txt ? ("<span class='" + (isErr ? "err" : "") + "'>" + esc(txt) + "</span>") : ""; }
   function drawTab(){
     m.el.querySelectorAll("[data-stab]").forEach(function(b){ b.classList.toggle("primary", b.getAttribute("data-stab") === tab); });
@@ -8987,18 +8895,18 @@ function upgradeModal(reason, startTab){
       var hasKey = !!SUB_PLAN.razorpayKey;
       box.innerHTML = "<div class='card' style='margin:6px 0'>" +
         (hasKey
-          ? "<p class='status' style='margin:0 0 10px'>Instant activation via Razorpay — accepts Google Pay, PhonePe, Paytm, UPI, Debit/Credit Card &amp; Netbanking.</p><button class='primary' id='rzpPayBtn' style='width:100%'>Pay ₹" + SUB_PLAN.priceInr + " securely now</button>"
+          ? "<p class='status' style='margin:0 0 10px'>Instant activation via Razorpay — accepts Google Pay, PhonePe, Paytm, UPI, Debit/Credit Card &amp; Netbanking.</p><button class='primary' id='rzpPayBtn' style='width:100%'>Pay ₹" + amt + " securely now</button>"
           : (!PAYWALL_ACTIVE
               ? "<p class='status' style='margin:0 0 8px'><b>Online card checkout not configured</b> (development mode).</p>" +
-                "<p class='status' style='margin:0 0 10px'>Simulate a local test payment to preview the Yearly Pass and parent receipt:</p>" +
-                "<button class='primary' id='rzpTestBtn' style='width:100%'>Simulate ₹" + SUB_PLAN.priceInr + " Test Payment &amp; Unlock</button>"
+                "<p class='status' style='margin:0 0 10px'>Simulate a local test payment to preview ENGRAMOS Pro and the receipt:</p>" +
+                "<button class='primary' id='rzpTestBtn' style='width:100%'>Simulate ₹" + amt + " Test Payment &amp; Unlock</button>"
               : "<p class='status' style='margin:0'>Card/UPI gateway checkout is currently offline. Please use <b>Direct UPI / UTR</b> or enter a <b>License Key</b> from your school/organiser.</p>")) +
         "</div>";
-      if(m.el.querySelector("#rzpPayBtn")) m.el.querySelector("#rzpPayBtn").onclick = function(){ startRazorpayCheckout(m, setMsgSub); };
+      if(m.el.querySelector("#rzpPayBtn")) m.el.querySelector("#rzpPayBtn").onclick = function(){ startRazorpayCheckout(m, setMsgSub, plan); };
       if(!PAYWALL_ACTIVE && m.el.querySelector("#rzpTestBtn")) m.el.querySelector("#rzpTestBtn").onclick = function(){
         var pid = "pay_test_" + Date.now().toString(36).toUpperCase();
-        activateProPass({method: "razorpay-test", paymentId: pid, amountInr: SUB_PLAN.priceInr, status: "paid", note: "Local test checkout"});
-        m.close(); toast("Yearly Pro activated (Test Mode)!");
+        activateProPass({method: "razorpay-test", paymentId: pid, amountInr: amt, plan: plan, days: planDays(plan), status: "paid", note: "Local test checkout"});
+        m.close(); toast("ENGRAMOS Pro activated (Test Mode)!");
       };
     } else if(tab === "upi"){
       var qrHtml = upiHref ? qrSvg(upiHref) : "";
@@ -9006,9 +8914,9 @@ function upgradeModal(reason, startTab){
         (SUB_PLAN.upiId
           ? "<div style='display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:10px'>" +
             (qrHtml ? "<div style='flex:0 0 auto'>" + qrHtml + "</div>" : "<p class='status' style='margin:0;flex-basis:100%'>UPI link is too long for a QR code — tap <b>Open UPI app</b> or <b>Copy UPI ID</b> below.</p>") +
-            "<div style='flex:1;min-width:190px'><p class='status' style='margin:0 0 8px'>Scan QR or send <b>₹" + SUB_PLAN.priceInr + "</b> via GPay / PhonePe / Paytm to <code>" + esc(SUB_PLAN.upiId) + "</code></p>" +
-            "<div class='row' style='margin:0'><a href='" + esc(upiHref) + "' style='text-decoration:none'><button type='button' class='primary'>Open UPI app (₹" + SUB_PLAN.priceInr + ")</button></a><button type='button' id='upiCopyId'>Copy UPI ID</button></div></div></div>"
-          : "<p class='status' style='margin:0 0 8px'>Enter the 12-digit UTR / UPI Transaction ID after paying <b>₹" + SUB_PLAN.priceInr + "</b> to your organiser's UPI ID. Your Yearly Pass unlocks as soon as the organiser confirms the payment.</p>") +
+            "<div style='flex:1;min-width:190px'><p class='status' style='margin:0 0 8px'>Scan QR or send <b>₹" + amt + "</b> via GPay / PhonePe / Paytm to <code>" + esc(SUB_PLAN.upiId) + "</code></p>" +
+            "<div class='row' style='margin:0'><a href='" + esc(upiHref) + "' style='text-decoration:none'><button type='button' class='primary'>Open UPI app (₹" + amt + ")</button></a><button type='button' id='upiCopyId'>Copy UPI ID</button></div></div></div>"
+          : "<p class='status' style='margin:0 0 8px'>Enter the 12-digit UTR / UPI Transaction ID after paying <b>₹" + amt + "</b> to your organiser's UPI ID. Your ENGRAMOS Pro access unlocks as soon as the organiser confirms the payment.</p>") +
         "<label style='margin-top:4px'>12-digit UTR / Transaction ID</label><input id='upiUtr' placeholder='e.g. 431612345678'>" +
         "<label style='margin-top:6px'>Parent email (for receipt &amp; license key)</label><input id='upiMail' type='email' placeholder='parent@example.com' value='" + esc((DB.pilot && DB.pilot.guardian && DB.pilot.guardian.email) || "") + "'>" +
         "<div class='row' style='margin-top:10px'><button class='primary' id='upiSubBtn'>Submit UTR for verification</button></div></div>";
@@ -9024,7 +8932,7 @@ function upgradeModal(reason, startTab){
         var btnU = m.el.querySelector("#upiSubBtn");
         btnU.disabled = true; btnU.textContent = "Submitting…";
         DB.sub = DB.sub || blankDB().sub;
-        DB.sub.pendingPayment = {paymentId: pid, amountInr: SUB_PLAN.priceInr, at: Date.now(), email: em};
+        DB.sub.pendingPayment = {paymentId: pid, amountInr: amt, at: Date.now(), email: em};
         save();
         recordPayment({
           kind: "payment",
@@ -9037,9 +8945,9 @@ function upgradeModal(reason, startTab){
           cls: pr.cls || "",
           school: pr.school || "",
           method: "upi",
-          amountInr: SUB_PLAN.priceInr,
-          plan: SUB_PLAN.name,
-          days: SUB_PLAN.days,
+          amountInr: amt,
+          plan: planName(plan),
+          days: planDays(plan),
           code: (DB.pilot && DB.pilot.code) || pid,
           status: "pending-review",
           validUntil: 0,
@@ -9060,8 +8968,8 @@ function upgradeModal(reason, startTab){
         });
       };
     } else {
-      box.innerHTML = "<div class='card' style='margin:6px 0'><p class='status' style='margin:0 0 8px'>Already paid or received an annual key from Gurukul / your school?</p>" +
-        "<input id='subKeyIn' autocapitalize='characters' spellcheck='false' placeholder='GURU-271231-7F2B'>" +
+      box.innerHTML = "<div class='card' style='margin:6px 0'><p class='status' style='margin:0 0 8px'>Already paid, or received a license key from ENGRAMOS / your school or organiser?</p>" +
+        "<input id='subKeyIn' autocapitalize='characters' spellcheck='false' placeholder='ENGM-271231-7F2B'>" +
         "<div class='row' style='margin-top:10px'><button class='primary' id='subKeyGo'>Activate license key</button></div></div>";
       m.el.querySelector("#subKeyGo").onclick = function(){
         var btn = m.el.querySelector("#subKeyGo");
@@ -9073,8 +8981,8 @@ function upgradeModal(reason, startTab){
           btn.disabled = false; btn.textContent = "Activate license key";
           if(!res || res.ok === false){ setMsgSub((res && res.error) || "This license key is invalid or revoked.", true); return; }
           var validUntil = (res && res.validUntil) ? res.validUntil : c.until;
-          activateProPass({method: "license", code: c.code, paymentId: c.code, validUntil: validUntil, amountInr: SUB_PLAN.priceInr, status: "paid", note: "Activated via license key"});
-          m.close(); toast("Gurukul Yearly Pro activated!");
+          activateProPass({method: "license", code: c.code, paymentId: c.code, validUntil: validUntil, plan: plan, days: planDays(plan), status: "paid", note: "Activated via license key"});
+          m.close(); toast("ENGRAMOS Pro activated!");
         });
       };
     }
@@ -9082,50 +8990,52 @@ function upgradeModal(reason, startTab){
   m.el.querySelectorAll("[data-stab]").forEach(function(b){ b.onclick = function(){ tab = b.getAttribute("data-stab"); drawTab(); }; });
   drawTab();
 }
-function startRazorpayCheckout(m, setMsgSub){
+function startRazorpayCheckout(m, setMsgSub, plan){
+  plan = plan || UP_PLAN;
+  var amt = planAmount(plan);
   if(!navigator.onLine){ setMsgSub("Go online to open Razorpay checkout, or activate an offline license key.", true); return; }
   var btn = m.el.querySelector("#rzpPayBtn"); if(btn){ btn.disabled = true; btn.textContent = "Opening Razorpay…"; }
   loadRazorpay().then(function(Rzp){
     var p = DB.profile || {}, g = (DB.pilot && DB.pilot.guardian) || {};
     var opts = {
       key: SUB_PLAN.razorpayKey,
-      amount: SUB_PLAN.priceInr * 100,
+      amount: amt * 100,
       currency: "INR",
-      name: "Gurukul",
-      description: SUB_PLAN.name + " (365 Days)",
+      name: "ENGRAMOS",
+      description: planName(plan) + " (" + planDays(plan) + " days)",
       prefill: { name: p.name || "", email: g.email || "", contact: g.phone || "" },
-      notes: { student: p.name || "", cls: p.cls || "", school: p.school || "" },
+      notes: { student: p.name || "", city: p.from || "" },
       theme: { color: "#5265da" },
       handler: function(resp){
         var pid = (resp && resp.razorpay_payment_id) || ("RZP-" + Date.now());
         var oid = (resp && resp.razorpay_order_id) || "";
         if(!PILOT.uploadUrl || !PILOT.uploadToken){
-          activateProPass({ method: "razorpay", paymentId: pid, orderId: oid, amountInr: SUB_PLAN.priceInr, status: "paid", note: "Razorpay checkout (local)", skipUpload: true });
+          activateProPass({ method: "razorpay", paymentId: pid, orderId: oid, amountInr: amt, plan: plan, days: planDays(plan), status: "paid", note: "Razorpay checkout (local)", skipUpload: true });
           if(m && m.el && m.el.parentNode) m.close();
-          toast("Payment successful — Gurukul Yearly Pro activated!");
+          toast("Payment successful — ENGRAMOS Pro activated!");
           return;
         }
         setMsgSub("Verifying payment with server…");
         var rec = {
           kind: "payment", studentId: AUTH.session || "", paymentId: pid, orderId: oid, at: Date.now(),
           name: p.name || "Student", email: g.email || "", cls: p.cls || "", school: p.school || "",
-          method: "razorpay", amountInr: SUB_PLAN.priceInr, plan: SUB_PLAN.name, days: SUB_PLAN.days,
+          method: "razorpay", amountInr: amt, plan: planName(plan), days: planDays(plan),
           code: (DB.pilot && DB.pilot.code) || pid, status: "paid", validUntil: 0, note: "Razorpay checkout"
         };
         recordPayment(rec).then(function(r){
           var prInfo = r && r.res && Array.isArray(r.res.payments) ? r.res.payments.filter(function(x){ return x && x.paymentId === pid; })[0] : null;
           if(prInfo && prInfo.status === "rejected"){
             setMsgSub("Payment " + pid + " could not be verified with Razorpay.", true);
-            if(btn){ btn.disabled = false; btn.textContent = "Pay ₹" + SUB_PLAN.priceInr + " securely now"; }
+            if(btn){ btn.disabled = false; btn.textContent = "Pay ₹" + amt + " securely now"; }
             return;
           }
           if(r && r.ok && prInfo && prInfo.status === "paid"){
-            activateProPass({ method: "razorpay", paymentId: pid, orderId: oid, code: prInfo.code || "", validUntil: prInfo.validUntil || 0, amountInr: SUB_PLAN.priceInr, status: "paid", note: "Razorpay verified", skipUpload: true });
+            activateProPass({ method: "razorpay", paymentId: pid, orderId: oid, code: prInfo.code || "", validUntil: prInfo.validUntil || 0, amountInr: amt, plan: plan, days: planDays(plan), status: "paid", note: "Razorpay verified", skipUpload: true });
             if(m && m.el && m.el.parentNode) m.close();
-            toast("Payment verified — Gurukul Yearly Pro activated!");
+            toast("Payment verified — ENGRAMOS Pro activated!");
           } else {
             DB.sub = DB.sub || blankDB().sub;
-            DB.sub.pendingPayment = {paymentId: pid, amountInr: SUB_PLAN.priceInr, at: Date.now(), email: g.email || ""};
+            DB.sub.pendingPayment = {paymentId: pid, amountInr: amt, at: Date.now(), email: g.email || ""};
             save();
             if(curView === "tools") RENDER.tools(); else if(curView === "home") RENDER.home();
             if(m && m.el && m.el.parentNode) m.close();
@@ -9133,17 +9043,17 @@ function startRazorpayCheckout(m, setMsgSub){
           }
         });
       },
-      modal: { ondismiss: function(){ if(btn){ btn.disabled = false; btn.textContent = "Pay ₹" + SUB_PLAN.priceInr + " securely now"; } } }
+      modal: { ondismiss: function(){ if(btn){ btn.disabled = false; btn.textContent = "Pay ₹" + amt + " securely now"; } } }
     };
     var rzp = new Rzp(opts);
     rzp.on("payment.failed", function(r){
       setMsgSub((r && r.error && r.error.description) || "Payment failed. Please try again.", true);
-      if(btn){ btn.disabled = false; btn.textContent = "Pay ₹" + SUB_PLAN.priceInr + " securely now"; }
+      if(btn){ btn.disabled = false; btn.textContent = "Pay ₹" + amt + " securely now"; }
     });
     rzp.open();
   }).catch(function(e){
     setMsgSub(e.message || "Could not open Razorpay.", true);
-    if(btn){ btn.disabled = false; btn.textContent = "Pay ₹" + SUB_PLAN.priceInr + " securely now"; }
+    if(btn){ btn.disabled = false; btn.textContent = "Pay ₹" + amt + " securely now"; }
   });
 }
 
@@ -9189,7 +9099,7 @@ RENDER.note = function(){
   $("nbFind").oninput = draw; $("nbCh").onchange = draw; draw();
   $("nbAdd").onclick = function(){ if(saveNote($("nbText").value, "My note")) RENDER.note(); };
   if($("nbExport")) $("nbExport").onclick = function(){
-    var t = "# My Gurukul notebook\n\n" + list.map(function(x){ return "## " + (x.ch || "General") + " · " + fmtD(x.t) + "\n\n" + x.text; }).join("\n\n---\n\n");
+    var t = "# My ENGRAMOS notebook\n\n" + list.map(function(x){ return "## " + (x.ch || "General") + " · " + fmtD(x.t) + "\n\n" + x.text; }).join("\n\n---\n\n");
     saveFile("StudyBuddy-notebook.md", t);
   };
 };
@@ -9332,7 +9242,7 @@ function audioOverview(){
 function printReport(){
   var p = DB.profile || {name: "Student", cls: "", school: ""}, w = window.open("", "_blank"); if(!w){ toast("Please allow pop-ups, then try again"); return; }
   var rows = DB.chapters.map(function(c){ var sc = chScore(c.id), wk = weakTopics(c.id); return "<tr><td>" + esc(c.name) + "</td><td>" + (sc === null ? "–" : sc + "%") + "</td><td>" + allAttempts(c.id).length + "</td><td>" + (wk.length ? esc(wk.join(", ")) : "–") + "</td></tr>"; }).join("");
-  w.document.write("<title>Gurukul report</title><style>body{font:15px/1.5 system-ui,sans-serif;padding:24px;color:#222}table{border-collapse:collapse;width:100%}td,th{border:1px solid #bbb;padding:6px 9px;text-align:left}</style><h1>Progress report</h1><p><b>" + esc(p.name) + "</b> · " + esc(p.cls) + " · " + esc(p.school || "") + "<br>Date: " + fmtD(Date.now()) + " · Growth points: " + totalXp() + "</p><table><tr><th>Chapter</th><th>Recent score</th><th>Tests taken</th><th>Topics to revise</th></tr>" + rows + "</table><p style='color:#666'>Choose Save as PDF in the print window to keep a copy.</p>");
+  w.document.write("<title>ENGRAMOS report</title><style>body{font:15px/1.5 system-ui,sans-serif;padding:24px;color:#222}table{border-collapse:collapse;width:100%}td,th{border:1px solid #bbb;padding:6px 9px;text-align:left}</style><h1>Progress report</h1><p><b>" + esc(p.name) + "</b>" + (p.from ? " · " + esc(p.from) : "") + "<br>Date: " + fmtD(Date.now()) + " · Growth points: " + totalXp() + "</p><table><tr><th>Chapter</th><th>Recent score</th><th>Tests taken</th><th>Topics to revise</th></tr>" + rows + "</table><p style='color:#666'>Choose Save as PDF in the print window to keep a copy.</p>");
   w.document.close(); w.focus(); setTimeout(function(){ w.print(); }, 300);
 }
 function classView(files){
@@ -9346,9 +9256,9 @@ function classView(files){
         Object.keys(TP).forEach(function(k){ if(TP[k].c / TP[k].t < 0.6){ wk.push(k); common[k] = (common[k] || 0) + 1; } });
       });
       (d.history || []).forEach(function(e){ if(e.t > last) last = e.t; });
-      return "<tr><td>" + esc(d.profile.name) + "</td><td>" + esc(d.profile.cls) + "</td><td>" + (sc.length ? Math.round(sc.reduce(function(a, b){ return a + b; }, 0) / sc.length) + "%" : "–") + "</td><td>" + esc(wk.slice(0, 4).join(", ") || "–") + "</td><td>" + (last ? ago(last) : "never") + "</td></tr>";
+      return "<tr><td>" + esc(d.profile.name) + "</td><td>" + esc(d.profile.from || "—") + "</td><td>" + (sc.length ? Math.round(sc.reduce(function(a, b){ return a + b; }, 0) / sc.length) + "%" : "–") + "</td><td>" + esc(wk.slice(0, 4).join(", ") || "–") + "</td><td>" + (last ? ago(last) : "never") + "</td></tr>";
     }), hard = Object.keys(common).filter(function(k){ return common[k] > 1; });
-    popup("<h3 style='margin-top:0'>Class view (" + L.length + " students)</h3><div style='overflow-x:auto'><table style='border-collapse:collapse;width:100%'><tr><th>Student</th><th>Class</th><th>Avg score</th><th>Weak topics</th><th>Last active</th></tr>" + rows.join("") + "</table></div>" + (hard.length ? "<p><strong>Hard for several students:</strong> " + hard.map(esc).join(", ") + "</p>" : "") + "<p class='status'>Files are read on this device only and are not uploaded.</p><button class='primary' data-close>Close</button>");
+    popup("<h3 style='margin-top:0'>Group view (" + L.length + " students)</h3><div style='overflow-x:auto'><table style='border-collapse:collapse;width:100%'><tr><th>Student</th><th>City</th><th>Avg score</th><th>Weak topics</th><th>Last active</th></tr>" + rows.join("") + "</table></div>" + (hard.length ? "<p><strong>Hard for several students:</strong> " + hard.map(esc).join(", ") + "</p>" : "") + "<p class='status'>Files are read on this device only and are not uploaded.</p><button class='primary' data-close>Close</button>");
   });
 }
 var VL = {Hindi: "hi-IN", Marathi: "mr-IN", Malayalam: "ml-IN", Tamil: "ta-IN", Telugu: "te-IN", Kannada: "kn-IN", Gujarati: "gu-IN"};
@@ -9763,7 +9673,7 @@ RENDER.plan = function(){
   var el = $("spIn"); if(!el) return;
   DB.ttDone = DB.ttDone || {}; DB.tt = DB.tt || [];
   var tab = PLN_TAB === "today" ? "today" : "syllabus";
-  var h = "<h1>Plan &amp; Schedule</h1><p class='sub'>Your daily focus, weekly timetable, syllabus and exam countdown in one place.</p>" +
+  var h = "<h1>Plan &amp; Timetable</h1><p class='sub'>Your daily focus, weekly timetable, syllabus and exam countdown in one place.</p>" +
     "<div class='subTabs' style='margin:0 0 12px'>" +
     "<button data-ptab='today'" + (tab === "today" ? " class='primary'" : "") + ">📅 Today &amp; Weekly</button>" +
     "<button data-ptab='syllabus'" + (tab === "syllabus" ? " class='primary'" : "") + ">📚 Syllabus &amp; Timetable</button>" +
@@ -9837,12 +9747,12 @@ RENDER.plan = function(){
 RENDER.progress = function(){
   var el = $("pgIn"); if(!el) return;
   var tab = ["overview","perf","hist","rep"].indexOf(PRG_TAB) >= 0 ? PRG_TAB : "overview";
-  var h = "<h1>Progress &amp; Reports</h1><p class='sub'>Track your growth, test scores, history and chapter reports in one view.</p>" +
+  var h = "<h1>Neural Map</h1><p class='sub'>Track your growth, test scores, history and chapter reports in one view.</p>" +
     "<div class='subTabs' style='margin:0 0 12px'>" +
     "<button data-gtab='overview'" + (tab === "overview" ? " class='primary'" : "") + ">🌱 Overview</button>" +
-    "<button data-gtab='perf'" + (tab === "perf" ? " class='primary'" : "") + ">📊 Performance</button>" +
-    "<button data-gtab='hist'" + (tab === "hist" ? " class='primary'" : "") + ">🕒 History</button>" +
-    "<button data-gtab='rep'" + (tab === "rep" ? " class='primary'" : "") + ">📄 Reports</button>" +
+    "<button data-gtab='perf'" + (tab === "perf" ? " class='primary'" : "") + ">📊 Engram Score</button>" +
+    "<button data-gtab='hist'" + (tab === "hist" ? " class='primary'" : "") + ">🕒 Trace History</button>" +
+    "<button data-gtab='rep'" + (tab === "rep" ? " class='primary'" : "") + ">📄 Debrief</button>" +
     "</div><div id='pgTabBody'></div>";
   el.innerHTML = h;
   el.querySelectorAll("[data-gtab]").forEach(function(b){ b.onclick = function(){ PRG_TAB = b.getAttribute("data-gtab"); RENDER.progress(); }; });
@@ -9895,7 +9805,7 @@ function perfHtml(c){
 }
 function weakTopics(id){ var TP = {}; allAttempts(id).slice(-3).forEach(function(a){ Object.keys(a.topics).forEach(function(k){ var t = TP[k] || (TP[k] = {c: 0, t: 0}); t.c += a.topics[k].c; t.t += a.topics[k].t; }); }); return Object.keys(TP).filter(function(k){ return TP[k].c / TP[k].t < 0.6; }); }
 RENDER.perf = function(host){
-  var el = host || $("pfIn"), h = host ? "" : "<h1> Performance</h1>";
+  var el = host || $("pfIn"), h = host ? "" : "<h1>Engram Score</h1>";
   if(!DB.chapters.length){ el.innerHTML = h + noData("Your marks and strengths will appear here after your first test."); bindNo(); return; }
   el.innerHTML = h + pickHtml("pfSel") + "<div class='card' id='pfBody'></div>";
   var go = function(){ DB.cur = $("pfSel").value; save(); $("pfBody").innerHTML = perfHtml(cur()); }; $("pfSel").onchange = go; go();
@@ -9903,7 +9813,7 @@ RENDER.perf = function(host){
 
 /* ---------- History ---------- */
 RENDER.hist = function(host){
-  var el = host || $("hsIn"), h = (host ? "" : "<h1> History</h1>") + "<p class='sub'>A complete record of everything you have done.</p>";
+  var el = host || $("hsIn"), h = (host ? "" : "<h1>Trace History</h1>") + "<p class='sub'>A complete record of everything you have done.</p>";
   if(!DB.history.length){ el.innerHTML = h + noData("Nothing here yet. Your journey starts with the first step!"); bindNo(); return; }
   var types = {}; DB.history.forEach(function(e){ types[e.type] = 1; });
   el.innerHTML = h + "<div class='row'><select id='hsF'><option value=''>All activities</option>" + Object.keys(types).map(function(t){ return "<option value='" + esc(t) + "'>" + esc(t) + "</option>"; }).join("") + "</select></div><div id='hsL'></div>";
@@ -9913,12 +9823,12 @@ RENDER.hist = function(host){
 
 /* ---------- Reports ---------- */
 RENDER.rep = function(host){
-  var el = host || $("rpIn"), h = host ? "" : "<h1> Reports</h1>";
+  var el = host || $("rpIn"), h = host ? "" : "<h1>Debrief</h1>";
   if(!DB.chapters.length){ el.innerHTML = h + noData("Your chapter reports will be ready after you start studying."); bindNo(); return; }
   el.innerHTML = h + pickHtml("rpSel") + "<div class='card' id='rpBody'></div>";
   var go = function(){
     DB.cur = $("rpSel").value; save(); var c = cur(), A = allAttempts(c.id), d = prog().done, p = DB.profile;
-    var x = "<h2 style='margin-top:0'>" + esc(c.name) + "</h2><p class='status'>" + esc(p.name) + " · " + esc(p.cls) + (p.school ? " · " + esc(p.school) : "") + " · " + esc(subjOf(c)) + (semOf(c) !== "No semester" ? " · " + esc(semOf(c)) : "") + " · " + esc(bookOf(c)) + "</p><h3>Activities done</h3><div>" + METHODS.map(function(m){ return "<span class='chip" + (d[m.k] ? " on" : "") + "'>" + mEmoji(m.k) + " " + esc(m.n) + " ×" + (d[m.k] || 0) + "</span>"; }).join("") + "</div>";
+    var x = "<h2 style='margin-top:0'>" + esc(c.name) + "</h2><p class='status'>" + esc(p.name) + " · " + esc(levelName()) + " · " + esc(subjOf(c)) + (semOf(c) !== "No semester" ? " · " + esc(semOf(c)) : "") + " · " + esc(bookOf(c)) + "</p><h3>Activities done</h3><div>" + METHODS.map(function(m){ return "<span class='chip" + (d[m.k] ? " on" : "") + "'>" + mEmoji(m.k) + " " + esc(m.n) + " ×" + (d[m.k] || 0) + "</span>"; }).join("") + "</div>";
     if(A.length){ x += "<h3>All tests</h3><div style='overflow-x:auto'><table style='border-collapse:collapse;width:100%'><tr><th>Date</th><th>Type</th><th>Score</th><th>Grade</th></tr>" + A.map(function(a){ var q = Math.round(a.score * 100 / a.total); return "<tr><td>" + fmtD(a.d) + "</td><td>" + esc(a.kind) + "</td><td>" + a.score + "/" + a.total + " (" + q + "%)</td><td>" + gradeOf(q)[0] + "</td></tr>"; }).join("") + "</table></div>";
       var miss = [], seen = {}; A.slice().reverse().forEach(function(a){ (a.qs || []).forEach(function(q){ if(!q.ok && !seen[q.q] && miss.length < 12){ seen[q.q] = 1; miss.push(q); } }); });
       if(miss.length) x += "<h3>Questions to revise</h3>" + miss.map(function(q){ return "<div class='q'><div class='status'>" + esc(q.topic) + "</div><div>" + inline(q.q) + "</div><div class='exp'> " + esc(q.mine || "-") + "<br> " + esc(q.ans) + "<br>" + inline(q.why) + "</div></div>"; }).join("");
@@ -9933,39 +9843,56 @@ RENDER.rep = function(host){
 };
 
 /* ---------- Recommendations ---------- */
-function bandOf(cls){ var m = cls.match(/\d+/); var n = m && cls.indexOf("College") < 0 ? +m[0] : 0; return n && n <= 7 ? 0 : n && n <= 10 ? 1 : n ? 2 : 3; }
+function bandOf(cls){
+  var p = DB.profile || {};
+  if(typeof p.level === "number" && LEVELS[p.level]) return LEVELS[p.level][1];
+  if(typeof p.band === "number" && p.band >= 0 && p.band <= 3) return p.band;
+  var c = String(cls == null ? (p.cls || "") : cls), m = c.match(/\d+/), n = (m && !/college|university/i.test(c)) ? +m[0] : 0;
+  if(n && n <= 7) return 0;
+  if(n && n <= 10) return 1;
+  if(n) return 2;
+  if(/college|university|degree|semester/i.test(c)) return 3;
+  return 1;
+}
+function lvIndex(){
+  var p = DB.profile || {};
+  if(typeof p.level === "number" && p.level >= 0 && p.level < LEVELS.length) return p.level;
+  var b = bandOf(p.cls);
+  for(var i = 0; i < LEVELS.length; i++){ if(LEVELS[i][1] === b) return i; }
+  return 0;
+}
 var BAND = [
  [["","Story + picture method","Turn each lesson into a small story or drawing. What you can picture, you remember."],["","20-minute bursts","Study 20 minutes, rest 5. Little and often works best at this age."],["","Tell it to someone","Explain today’s lesson to a family member in your own words."]],
  [["","Active recall","Close the book and write everything you remember. Then check what you missed."],["","Spaced revision","Revise on day 1, 3, 7 and 21. This is the proven way to remember for exams."],["","Pomodoro","25 minutes of focus, 5 minutes break. Four rounds, then a long break."],["","Previous year papers","Solve earlier papers in time. You will learn the pattern of questions."]],
- [["","SQ3R","Survey, Question, Read, Recite, Review. A topper’s favourite for long chapters."],["","Past papers under time","Do full papers in exam time and check with the marking scheme, point by point."],["","Mark-wise answers","1 mark = one line, 3 marks = 3 points, 5 marks = intro, points, example, conclusion."],["","Mind maps","One page per chapter with keywords and arrows. Great for last-week revision."],["","Mistake notebook","Write every mistake and its correct answer. Revise it every weekend."]],
+ [["","SQ3R","Survey, Question, Read, Recite, Review. A topper’s favourite for long chapters."],["","Past papers under time","Do full papers in exam time and check with the marking scheme, point by point."],["","Mark-wise answers","1 mark = one line, 3 marks = 3 points, 5 marks = intro, points, example, conclusion."],["","Mind maps","One page per chapter with keywords and arrows. Great for last-week revision."],["","Error notebook","Write every error and its correct answer. Revise it every weekend."]],
  [["","Cornell notes","Notes on the right, keywords on the left, summary at the bottom."],["","Spaced repetition","Revisit topics over growing gaps instead of cramming."],["","Study group","Teach each other. Explaining is the fastest way to learn."],["","Past papers","Solve earlier university papers and note repeated questions."]]
 ];
 RENDER.rec = function(host){
   var p = DB.profile, el = host || $("rcIn"), c = cur(), tasks = [];
   var dayName = new Date().toLocaleDateString("en-IN", {weekday: "long", day: "numeric", month: "short"});
-  var h = (host ? "<h2 style='margin-top:0'>Today · " + dayName + "</h2>" : "<h1>Today's plan</h1><p class='sub'>" + dayName + " · made for " + esc(p.cls) + (p.age ? " · age " + p.age : "") + ".</p>");
+  var h = (host ? "<h2 style='margin-top:0'>Today · " + dayName + "</h2>" : "<h1>Today's One More</h1><p class='sub'>" + dayName + " · made for you.</p>");
   if(c){
     var ns = nextStep(c.id);
     if(ns.done){
       var nc = nextChapterAfter(c.id);
-      tasks.push({t: nc ? "Start " + nc.name : "Revise " + c.name, w: ns.why, b: nc ? "Open chapter" : "Mock exam", a: nc ? "data-go='path' data-chap='" + nc.id + "'" : "data-go='exam' data-chap='" + c.id + "'"});
+      tasks.push({t: nc ? "Start " + nc.name : "Revise " + c.name, w: ns.why, b: nc ? "Open chapter" : "Fire Drill", a: nc ? "data-go='path' data-chap='" + nc.id + "'" : "data-go='exam' data-chap='" + c.id + "'"});
     } else {
       tasks.push({t: ns.label, w: ns.why, b: "Start now", a: "data-go='" + ns.k + "' data-chap='" + c.id + "' data-focus='" + esc(ns.focus || "").replace(/'/g, "&#39;") + "'"});
     }
     var w = weakTopics(c.id);
     if(w.length) tasks.push({t: "Fix weak topics", w: w.slice(0, 4).join(", "), b: "Practise", a: "data-go='mcq' data-chap='" + c.id + "' data-focus='" + esc(w.join(", ")).replace(/'/g, "&#39;") + "'"});
-    else tasks.push({t: "Check what you remember", w: "A quick recall round shows what to fix today.", b: "Q&A coach", a: "data-go='qa' data-chap='" + c.id + "'"});
+    else tasks.push({t: "Check what you remember", w: "A quick recall round shows what to fix today.", b: "Recall", a: "data-go='qa' data-chap='" + c.id + "'"});
     var due = dueReviews().filter(function(x){ return x.c.id !== c.id; })[0];
     if(due) tasks.push({t: "Revise " + due.c.name, w: "Last studied " + due.days + " day" + (due.days === 1 ? "" : "s") + " ago. A short review locks it in.", b: "Review", a: "data-review='" + due.c.id + "'"});
-    else tasks.push({t: "Take a quick test", w: "A short test shows whether today's study worked.", b: "MCQ practice", a: "data-go='mcq' data-chap='" + c.id + "'"});
+    else tasks.push({t: "Take a quick test", w: "A short test shows whether today's study worked.", b: "Recall Drill", a: "data-go='mcq' data-chap='" + c.id + "'"});
   } else {
-    tasks.push({t: "Add your first chapter", w: "Upload a book or choose an NCERT chapter. Then I can build your daily plan.", b: "Upload a book", a: "data-view='study'"});
+    tasks.push({t: "Add your first chapter", w: "Upload a book or paste chapter text. Then I can build your daily plan.", b: "Upload a book", a: "data-view='study'"});
   }
   var mins = [15, 25, 40, 45][bandOf(p.cls)];
   h += "<div class='card hero'><div class='row' style='justify-content:space-between;margin:0 0 2px'><strong>About " + mins + " minutes today</strong><span class='chip'>" + streak() + "-day streak</span></div>";
   h += tasks.slice(0, 3).map(function(t, i){ return "<div class='planRow'><span class='planNo'>" + (i + 1) + "</span><div style='flex:1;min-width:0'><strong>" + esc(t.t) + "</strong><div class='status'>" + esc(t.w) + "</div></div><button " + t.a + ">" + t.b + "</button></div>"; }).join("");
   h += "</div>";
-  h += "<details class='planTipsWrap'><summary>Study methods for " + esc(p.cls) + "</summary><div class='planTips'>" + BAND[bandOf(p.cls)].map(function(m){ return "<div class='planTip'><strong>" + esc(m[1]) + "</strong> " + esc(m[2]) + "</div>"; }).join("") + "</div></details>";
+  h += "<details class='planTipsWrap'><summary>My study playbook</summary><div class='planTips'>" + BAND[bandOf(p.cls)].map(function(m){ return "<div class='planTip'><strong>" + esc(m[1]) + "</strong> " + esc(m[2]) + "</div>"; }).join("") + "</div></details>";
   var ts = ttToday(), tk = dayKey(Date.now());
   var planDue = todayPlan().filter(function(it){ return it.date <= tk && !DB.ttDone[planDoneKey(it)]; }).slice(0, 5);
   if(ts.length || planDue.length || todayPlan().length){
@@ -9980,7 +9907,7 @@ RENDER.rec = function(host){
   if($("rcOpenSyl")) $("rcOpenSyl").onclick = function(){ PLN_TAB = "syllabus"; show("plan"); };
   el.querySelectorAll("[data-rctt]").forEach(function(b){ b.onclick = function(){ var k = b.getAttribute("data-rctt"); if(DB.ttDone[k]) delete DB.ttDone[k]; else DB.ttDone[k] = 1; save(); RENDER.rec(host); }; });
   el.querySelectorAll("[data-rcpl]").forEach(function(b){ b.onclick = function(){ var it = planItemById(b.getAttribute("data-rcpl")); if(!it) return; if(it.chId && DB.chapters.some(function(c){ return c.id === it.chId; })){ DB.cur = it.chId; save(); show("study"); } else { var k = planDoneKey(it); if(DB.ttDone[k]) delete DB.ttDone[k]; else DB.ttDone[k] = 1; save(); RENDER.rec(host); } }; });
-  $("rcAi").onclick = function(){ var perf = DB.chapters.map(function(ch){ var m = mastery(ch.id); return ch.name + ": " + (m === null ? "not tested" : m + "%"); }).join("; "); run("The student is in " + p.cls + (p.age ? ", age " + p.age : "") + ". Chapter mastery: " + (perf || "no chapters yet") + ". Streak: " + streak() + " days. Suggest a simple weekly study plan with the most successful methods for this class (active recall, spaced revision, past papers, etc.), daily time slots, and a motivating closing line. Keep it short.", $("rcOut"), $("rcAi"), {general: true, ctx: "plan", local: function(){ return localWeekPlan(); }}); };
+  $("rcAi").onclick = function(){ var perf = DB.chapters.map(function(ch){ var m = mastery(ch.id); return ch.name + ": " + (m === null ? "not tested" : m + "%"); }).join("; "); run("The student is " + levelName() + (p.age ? ", age " + p.age : "") + ". Chapter mastery: " + (perf || "no chapters yet") + ". Streak: " + streak() + " days. Suggest a simple weekly study plan with the most successful methods for this level (active recall, spaced revision, past papers, etc.), daily time slots, and a motivating closing line. Keep it short.", $("rcOut"), $("rcAi"), {general: true, ctx: "plan", local: function(){ return localWeekPlan(); }}); };
 };
 
 /* ---------- Fun facts ---------- */
